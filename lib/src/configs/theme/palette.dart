@@ -58,7 +58,7 @@ class FluLightColors extends FluColorPalette{
     primaryText: primaryText,
     secondary: secondary,
     background: background ?? const Color(0xffffffff),
-    accentBackground: accentBackground ?? const Color(0xFFF5F5F5),
+    accentBackground: accentBackground ?? const Color(0xFFF8F8F8),
     text: text ?? const Color(0xFF6980A3),
     accentText: accentText ?? const Color(0xff20334f),
     shadow:  shadow ?? const Color(0xff222222)

@@ -10,5 +10,6 @@ export './line.dart';
 export './list.dart';
 export './outline.dart';
 export './glass.dart';
+export './modals.dart';
 export './snackbar.dart';
 export './skeleton.dart';

@@ -15,6 +15,7 @@ import 'package:dio/dio.dart' as dio;
 import '../configs/theme/tweaks.dart';
 import '../controllers/flu_controllers.dart';
 import '../widgets/countrySelector.dart';
+import '../widgets/flu_widgets.dart';
 
 part './extensions/get.dart';
 

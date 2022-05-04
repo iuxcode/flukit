@@ -133,7 +133,7 @@ extension FlukitUI on FlukitInterface {
     );
   }
 
-  /// Display a modal with countries list to select country.
+  /// Display a modal bottom sheet with countries list to select country.
   void showCountrySelectionBottomSheet({
     required BuildContext context,
     required void Function(FluCountryModel) onCountrySelected,
@@ -150,6 +150,21 @@ extension FlukitUI on FlukitInterface {
     ).then((_) {
       if(onClose != null) onClose();
     });
+  }
+
+  /// show modal bottom sheet
+  void showFluModalBottomSheet({
+    required Widget child,
+    BuildContext? context,
+  }) {
+    context = context ?? Flukit.context;
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => FluModalBottomSheet(child: child)
+    );
   }
 }
 

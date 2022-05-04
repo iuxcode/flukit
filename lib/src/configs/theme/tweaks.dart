@@ -6,8 +6,8 @@ abstract class FluConstsInterface {
   FluConstsInterface();
 
   /// Font sizes
-  double get verySmallFs => 10;
-  double get smallFs => 12;
+  double get verySmallFs => 12;
+  double get smallFs => 13;
   double get bodyFs => 14;
   double get subtitleFs => 16;
   double get titleFs => 18;
