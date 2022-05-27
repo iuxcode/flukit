@@ -11,6 +11,6 @@ class FluGetPage extends GetPage {
     page: page,
     binding: binding,
     transitionDuration: FluConsts.defaultPageAnimationDuration,
-    curve: FluConsts.defaultPageAnimationCurve
+    curve: FluConsts.defaultPageAnimationCurve,
   );
 }

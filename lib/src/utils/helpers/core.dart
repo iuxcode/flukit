@@ -31,11 +31,13 @@ extension FlukitCore on FlukitInterface {
 
   /// Verify if the [value] is a correct phone number based on the selected region.
   Future<bool> validatePhoneNumber(String value, String countryCode) async {
-    try {
-      return await phoneNumber.validate(value, countryCode);
-    } catch (e) {
-      return false;
-    }
+    return await phoneNumber.validate(value, countryCode);
+    // .catchError((error, stackTrace) => Future.error('Invalid phone number'));
+  }
+
+  /// Verify if the [email] is correct.
+  Future<bool> validateEmail(String email) async {
+    return false;
   }
 
   /// format seconds to time

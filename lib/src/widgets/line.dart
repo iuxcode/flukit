@@ -5,6 +5,8 @@ class FluLine extends StatelessWidget {
   final double height, width, radius;
   final Color? color;
   final EdgeInsets? margin;
+  final Duration animationDuration;
+  final Curve animationCurve;
 
   const FluLine({
     Key? key,
@@ -12,14 +14,18 @@ class FluLine extends StatelessWidget {
     this.width = 45,
     this.radius = 0,
     this.margin = EdgeInsets.zero,
-    this.color
+    this.color,
+    this.animationDuration = const Duration(milliseconds: 300),
+    this.animationCurve = Curves.linear
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Container(
+  Widget build(BuildContext context) => AnimatedContainer(
     height: height,
     width: width,
     margin: margin,
+    duration: animationDuration,
+    curve: animationCurve,
     decoration: BoxDecoration(
       color: color ?? Flukit.theme.primaryColor,
       borderRadius: BorderRadius.circular(radius)

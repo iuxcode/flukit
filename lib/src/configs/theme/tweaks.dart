@@ -52,9 +52,9 @@ abstract class FluConstsInterface {
   double get bottomNavBarNotchMargin => 10;
   double get bottomNavBarGapWidth => 45;
 
-  int get httpConnectTimeout => 5000;
-  int get httpReceiveTimeout => 5000;
-  int get httpSendTimeout => 5000;
+  int get httpConnectTimeout => 35000;
+  int get httpReceiveTimeout => 35000;
+  int get httpSendTimeout => 35000;
 }
 class _FluConstsImpl extends FluConstsInterface {}
 

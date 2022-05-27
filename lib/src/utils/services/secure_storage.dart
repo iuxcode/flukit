@@ -1,12 +1,13 @@
 part of '../flu_utils.dart';
 
 extension FlukitSecureStorageService on FlukitInterface {
-  _FluStorageService get secureStorage => _FluStorageService();
+  FluStorageService get secureStorage => FluStorageService();
+  FluSecureStorageKeys get secureStorageKeys => FluSecureStorageKeys();
 }
 
 // store user credentials, API tokens, secret API keys in local storage
 // using flutter_secure_storage
-class _FluStorageService  {
+class FluStorageService  {
   final _secureStorage = const FlutterSecureStorage();
   
   AndroidOptions getAndroidOptions() => const AndroidOptions(
@@ -39,8 +40,8 @@ class _FluStorageService  {
   }
 
   /// delete a key-value pair
-  Future<void> delete(FluSecureStorageItem item) async {
-    await _secureStorage.delete(key: item.key, aOptions: getAndroidOptions());
+  Future<void> delete(String key) async {
+    await _secureStorage.delete(key: key, aOptions: getAndroidOptions());
   }
 
   /// delete all the secured data
@@ -54,4 +55,18 @@ class FluSecureStorageItem {
   final String value;
 
   FluSecureStorageItem(this.key, this.value);
+}
+
+class FluSecureStorageKeys {
+  static String firstTimeOpening = 'firstTimeOpening';
+  static String authorizationState = 'authorizationState';
+  static String authenticationData = 'authenticationData';
+  static String apiRefreshToken = 'apiRefreshToken';
+}
+
+enum FluAuthorizationStates {
+  waitPhoneNumber,
+  waitCode,
+  waitTerms,
+  ready
 }

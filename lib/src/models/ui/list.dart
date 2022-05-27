@@ -1,19 +1,25 @@
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/widgets.dart';
 
-class FluScreenOptionModel {
+import '../../widgets/flu_widgets.dart';
+
+class FluScreenOption {
   final String title;
-  final String? description;
+  final String? description, image;
+  final FluImageType? imageType;
   final FluIconModel? icon;
   final Widget? suffixWidget;
   final void Function()? onPressed;
   final Color? color, backgroundColor, iconBackgroundColor, outlineColor;
   final bool hasSuffix;
+  final String? label;
 
-  FluScreenOptionModel({
+  FluScreenOption({
     required this.title,
     this.description,
     this.icon,
+    this.image,
+    this.imageType = FluImageType.asset,
     this.suffixWidget,
     this.hasSuffix = true,
     this.onPressed,
@@ -21,5 +27,6 @@ class FluScreenOptionModel {
     this.backgroundColor,
     this.iconBackgroundColor,
     this.outlineColor,
+    this.label
   });
 }

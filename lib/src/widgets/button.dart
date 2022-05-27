@@ -157,6 +157,7 @@ class _FluButtonState extends State<FluButton> {
     margin: widget.margin,
     duration: widget.animationDuration ?? const Duration(milliseconds: 300),
     curve: widget.animationCurve ?? Curves.linear,
+    // alignment: Alignment.centerLeft,
     decoration: BoxDecoration(
       border: widget.border,
       borderRadius: widget.borderRadius ?? BorderRadius.circular(widget.radius ?? FluConsts.defaultElSize),

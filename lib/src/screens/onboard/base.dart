@@ -1,15 +1,11 @@
 import 'dart:math' as math;
 
 import 'package:flukit/flukit.dart';
-import 'package:flukit/src/models/flu_models.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../configs/theme/tweaks.dart';
-import '../../controllers/flu_controllers.dart';
 
 class FluOnboardingScreen extends StatefulWidget {
   final List<FluOnboardingScreenPageModel> pages;
@@ -75,7 +71,7 @@ class _OnboardingScreenState extends State<FluOnboardingScreen> {
           children: [
             Expanded(
               child: PageView.builder(
-                controller: pageController..addListener(() => controller.pageOffset = pageController.page!),
+                controller: pageController,
                 onPageChanged: (v) => controller.currentIndex = v,
                 itemCount: widget.pages.length,
                 itemBuilder: (context, index) {

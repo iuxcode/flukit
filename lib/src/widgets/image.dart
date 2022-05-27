@@ -13,6 +13,7 @@ class FluImage extends StatelessWidget {
   final String? image;
   final BoxFit? fit;
   final double? height, width;
+  final EdgeInsets? margin;
 
   const FluImage({
     Key? key,
@@ -21,43 +22,47 @@ class FluImage extends StatelessWidget {
     this.type,
     this.provider,
     this.image,
-    this.fit
+    this.fit,
+    this.margin = EdgeInsets.zero
   }): assert(provider != null || image != null), super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ImageProvider<Object>? imgProvider;
+  
     if(provider != null) {
-      return Image(
-        image: provider!,
-        height: height,
-        width: width,
-        fit: fit ?? BoxFit.cover,
-      );
+      imgProvider = provider!;
     } else {
       switch(type) {
         case FluImageType.svg:
-          return SvgPicture.asset(
-            image!,
-            height: height,
-            width: width,
-            fit: fit ?? BoxFit.cover,
-          );
+          imgProvider = null;
+          break;
         case FluImageType.network:
-          return Image.network(
-            image!,
-            height: height,
-            width: width,
-            fit: fit ?? BoxFit.cover,
-          );
+          imgProvider = NetworkImage(image!);
+          break;
         case FluImageType.asset:
         default:
-          return Image.asset(
-            image!,
-            height: height,
-            width: width,
-            fit: fit ?? BoxFit.cover,
-          );
+          imgProvider = AssetImage(image!);
+          break;
       }
     }
+
+    return Container(
+      height: height,
+      width: width,
+      margin: margin,
+      decoration: BoxDecoration(
+        image: (imgProvider != null) ? DecorationImage(
+          image: imgProvider,
+          fit: fit,
+        ) : null,
+      ),
+      child: (type == FluImageType.svg) ? SvgPicture.asset(
+        image!,
+        height: height,
+        width: width,
+        fit: fit ?? BoxFit.cover,
+      ) : null
+    );
   }
 }

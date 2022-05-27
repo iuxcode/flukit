@@ -3,6 +3,8 @@ description: A new Flutter package project.
 version: 0.0.1
 homepage: https://github.com/charles9904/flukit.git
 
+publish_to: none
+
 environment:
   sdk: ">=2.16.2 <3.0.0"
   flutter: ">=1.17.0"
@@ -19,7 +21,7 @@ dependencies:
     # git:
     #   url: https://github.com/Focus-git/icons_lib.git
     #   path: packages/flukit_icons
-    path: ../icons_lib/packages/flukit_icons
+    path: ../../focus/ui_kits/icons_lib/packages/flukit_icons
   geolocator: ^8.2.0
   get: ^4.6.1
   google_fonts: ^2.3.1

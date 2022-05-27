@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:phone_number/phone_number.dart';
 
 class FluAuthScreenController extends GetxController {
+  final List<FluAuthScreenStep> initialSteps;
+
   /// current step
   final RxInt _stepIndex = 0.obs;
 
@@ -30,6 +32,13 @@ class FluAuthScreenController extends GetxController {
   /// previous input value
   final RxString _previousInputValue = ''.obs;
 
+  /// screen steps
+  final RxList<FluAuthScreenStep> _steps = <FluAuthScreenStep>[].obs;
+
+  FluAuthScreenController({
+    required this.initialSteps,
+  });
+
   /// Getters
   int get stepIndex => _stepIndex.value;
   bool get hasError => _hasError.value;
@@ -40,6 +49,7 @@ class FluAuthScreenController extends GetxController {
   String get countryCode => _countryCode.value.toUpperCase();
   RegionInfo? get region => _region.value;
   String get previousInputValue => _previousInputValue.value;
+  List<FluAuthScreenStep> get steps => _steps.value;
 
   /// Setters
   set stepIndex(int value) => _stepIndex.value = value;
@@ -49,6 +59,7 @@ class FluAuthScreenController extends GetxController {
   set loading(bool state) => _loading.value = state;
   set countriesLoading(bool state) => _countriesLoading.value = state;
   set previousInputValue(String value) => _previousInputValue.value = value;
+  set steps(List<FluAuthScreenStep> value) => _steps.value = value;
 
   /// setRegion
   /// ** Reveive a coode as parameter and find the correct region.
@@ -65,10 +76,11 @@ class FluAuthScreenController extends GetxController {
   /// **Get the correct carrier country code.
   void getCountryCode() async => _countryCode.value = await Flukit.phoneNumber.carrierRegionCode();
 
-  /* @override
+  @override
   void onInit() {
+    steps = initialSteps;
     super.onInit();
-  } */
+  }
 
   @override
   void onReady() async {

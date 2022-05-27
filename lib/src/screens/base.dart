@@ -7,7 +7,7 @@ class FluScreen extends StatelessWidget {
   final Widget body;
   final SystemUiOverlayStyle? systemUiOverlayStyle;
   final bool extendBody;
-  final Widget? bottomNavigationBar;
+  final Widget? floatingActionButton, bottomNavigationBar;
 
   const FluScreen({
     Key? key,
@@ -15,6 +15,7 @@ class FluScreen extends StatelessWidget {
     this.appBar,
     this.systemUiOverlayStyle,
     this.bottomNavigationBar,
+    this.floatingActionButton,
     this.extendBody = false,
   }) : super(key: key);
 
@@ -28,6 +29,7 @@ class FluScreen extends StatelessWidget {
       appBar: appBar,
       body: body,
       bottomNavigationBar: bottomNavigationBar,
+      floatingActionButton: floatingActionButton,
     )
   );
 }

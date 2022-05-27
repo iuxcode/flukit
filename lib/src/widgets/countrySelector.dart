@@ -15,7 +15,7 @@ class FluCountrySelect extends StatefulWidget {
 class FluCountrySelectState extends State<FluCountrySelect> {
   late List<FluCountryModel> foundCountries;
 
-  final double height = Flukit.screenSize.height * .85, radius = Flukit.screenSize.width * .08, flagRadius = 20, flagSize = 50;
+  final double height = Flukit.screenSize.height * .85, radius = Flukit.screenSize.width * .08, flagRadius = 18, flagSize = 50;
 
   BorderRadius get borderRadius => BorderRadius.only(
     topLeft: Radius.circular(radius),
@@ -88,22 +88,33 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                           'Quaerat repellendus qui. Inventore praesentium assumenda vero soluta sit.',
                           style: Flukit.textTheme.bodyText1
                         ),
-                        FluTextInput(
-                          height: FluConsts.defaultElSize,
-                          margin: const EdgeInsets.only(bottom: 25, top: 25),
-                          textAlign: TextAlign.left,
-                          hintText: 'Search',
-                          prefixIcon: FluTwotoneIcons.search_searchNormal,
-                          iconSize: 18,
-                          iconStrokeWidth: 2,
-                          borderWidth: 1.2,
-                          /* boxShadow: [Flukit.boxShadow(
+                        FluOutline(
+                          radius: FluConsts.defaultElRadius + 2,
+                          margin: const EdgeInsets.only(bottom: 15, top: 25),
+                          boxShadow: Flukit.boxShadow(
                             blurRadius: 30,
-                            opacity: .085,
-                            offset: const Offset(0,5),
-                            color: Flukit.theme.primaryColor
-                          )], */
-                          onChanged: (value) => filter(value),
+                            opacity: .045,
+                            offset: const Offset(10, 10),
+                            color: Flukit.theme.shadowColor
+                          ),
+                          child: FluTextInput(
+                            height: FluConsts.defaultElSize - 2,
+                            fillColor: Flukit.theme.backgroundColor,
+                            textAlign: TextAlign.left,
+                            hintText: 'Search',
+                            prefixIcon: FluTwotoneIcons.search_searchNormal,
+                            iconSize: 18,
+                            iconStrokeWidth: 2,
+                            iconColor: Flukit.theme.textColor,
+                            borderWidth: 1.2,
+                            boxShadow: [Flukit.boxShadow(
+                              blurRadius: 30,
+                              opacity: .035,
+                              offset: const Offset(0,5),
+                              color: Flukit.theme.primaryColor
+                            )],
+                            onChanged: (value) => filter(value),
+                          ),
                         ),
                       ] + (foundCountries.isNotEmpty ? foundCountries.map((FluCountryModel country) {
                         return FluButton(
@@ -119,12 +130,13 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                           child: Row(
                             children: [
                               FluOutline(
-                                spacing: 3,
+                                spacing: 2,
                                 margin: const EdgeInsets.only(right: 10),
                                 radius: flagRadius + 2,
+                                strokeWidth: 1.5,
                                 boxShadow: Flukit.boxShadow(
                                   offset: const Offset(0, 0),
-                                  opacity: .2,
+                                  opacity: .15,
                                   color: Flukit.theme.primaryColor
                                 ),
                                 child: Container(

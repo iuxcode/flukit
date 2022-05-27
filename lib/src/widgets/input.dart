@@ -8,8 +8,8 @@ class FluTextInput extends StatefulWidget {
   final FluIconModel? prefixIcon, suffixIcon;
   final List<BoxShadow>? boxShadow;
   final Color? borderColor, color, hintColor, fillColor, iconColor;
-  final double? height;
-  final double borderWidth, radius, iconSize, iconStrokeWidth;
+  final double? height, radius;
+  final double borderWidth, iconSize, iconStrokeWidth;
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final TextAlign textAlign;
@@ -34,7 +34,7 @@ class FluTextInput extends StatefulWidget {
     this.iconStrokeWidth = 1.5,
     this.iconSize = 20,
     this.borderWidth = .8,
-    this.radius = 20,
+    this.radius,
     this.controller,
     this.focusNode,
     this.textAlign = TextAlign.center,
@@ -73,7 +73,7 @@ class _FluTextInputState extends State<FluTextInput> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: widget.height ?? 55,
+      height: widget.height ?? FluConsts.defaultElSize,
       margin: widget.margin,
       padding: widget.padding,
       clipBehavior: Clip.hardEdge,
@@ -84,7 +84,7 @@ class _FluTextInputState extends State<FluTextInput> {
           color: widget.borderColor ?? themeData.backgroundColor.withOpacity(.05),
           width: widget.borderWidth
         ),
-        borderRadius: BorderRadius.circular(widget.radius),
+        borderRadius: BorderRadius.circular(widget.radius ?? FluConsts.defaultElRadius),
       ),
       child: Row(
         children: [

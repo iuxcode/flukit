@@ -123,13 +123,13 @@ extension FlukitUI on FlukitInterface {
   /// Show error snackbar
   void throwError(String? message) {
     Flukit.showSnackbar(
-      (message ?? 'Something went wrong , please retry !').replaceAll('_', ' ').capitalizeFirst!,
+      (message ?? 'Something went wrong , please retry !').replaceAll('_', ' '),
       type: FluSnackbarType.danger,
       position: SnackPosition.TOP,
       textColor: Flukit.theme.palette.danger,
       opacity: .065,
-      blur: 15,
-      duration: 5
+      blur: 45,
+      duration: 10
     );
   }
 
@@ -156,14 +156,21 @@ extension FlukitUI on FlukitInterface {
   void showFluModalBottomSheet({
     required Widget child,
     BuildContext? context,
+    EdgeInsets? padding,
+    double? radius
   }) {
     context = context ?? Flukit.context;
 
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      isDismissible: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => FluModalBottomSheet(child: child)
+      builder: (context) => FluModalBottomSheet(
+        radius: radius,
+        padding: padding,
+        child: child
+      )
     );
   }
 }

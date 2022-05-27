@@ -14,7 +14,7 @@ class FluOptionsList extends StatelessWidget {
   final BoxShadow? itemBoxshadow;
   final Color? outlineColor, iconBackgroundColor, textColor, iconColor;
   final Widget? suffixWidget;
-  final List<FluScreenOptionModel> options;
+  final List<FluScreenOption> options;
 
   const FluOptionsList({
     Key? key,
@@ -49,13 +49,13 @@ class FluOptionsList extends StatelessWidget {
     padding: padding,
     itemCount: options.length,
     itemBuilder: (BuildContext context, int index) {
-      FluScreenOptionModel option = options[index];
+      FluScreenOption option = options[index];
 
       double size = itemHeight ?? FluConsts.minElSize, radius = itemRadius ?? FluConsts.minElRadius + 5;
       Color color = option.color ?? textColor ?? Flukit.theme.textColor;
       Color backgroundColor = option.backgroundColor ?? Flukit.theme.backgroundColor;
 
-      Widget icon(FluIconModel _icon) => Container(
+      Widget icon(FluIconModel? _icon, String? label) => Container(
         height: size,
         width: size,
         margin: EdgeInsets.only(right: itemIconMarginSize),
@@ -63,12 +63,16 @@ class FluOptionsList extends StatelessWidget {
           color: option.iconBackgroundColor ?? iconBackgroundColor ?? Flukit.theme.accentBackgroundColor,
           borderRadius: BorderRadius.circular(radius)
         ),
-        child: FluIcon(
+        child: _icon != null ? FluIcon(
           icon: _icon,
           color: option.color ?? iconColor ?? color,
           size: iconSize ?? 24,
           strokeWidth: iconStrokewidth ?? 1.5,
-        )
+        ) : label != null ? Center(
+            child: Text(label, style: Flukit.textTheme.bodyText1!.copyWith(
+              fontSize: iconSize ?? 24,
+          )),
+        ) : null,
       );
 
       Widget titleText = Text(option.title, overflow: TextOverflow.ellipsis, style: Flukit.textTheme.bodyText1?.copyWith(
@@ -90,7 +94,14 @@ class FluOptionsList extends StatelessWidget {
         ),
         child: Row(
           children: <Widget>[
-            if(option.icon != null) icon(option.icon!),
+            if(option.icon != null || option.label != null) icon(option.icon, option.label)
+            else if(option.image != null) FluImage(
+              image: option.image,
+              type: option.imageType,
+              height: size,
+              width: size,
+              margin: EdgeInsets.only(right: itemIconMarginSize),
+            ),
             if(option.description != null) Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -12,7 +12,7 @@ typedef OnAuthGoingBackFunction = void Function(
   bool onFirstPage,
   bool onLastPage
 );
-typedef OnAuthGoingForwardFunction = void Function(
+typedef OnAuthGoingForwardFunction = Future<bool> Function(
   FluAuthScreenController controller,
   PageController pageController,
   TextEditingController inputController,
@@ -27,17 +27,21 @@ class FluAuthScreenParameters {
 }
 
 class FluSteppedAuthScreen extends StatefulWidget {
+  final Widget? headerAction;
   final FluAuthScreenController? controller;
-  final List<FluAuthScreenStepModel> steps;
   final OnAuthGoingBackFunction? onGoingBack;
   final OnAuthGoingForwardFunction? onGoingForward;
+  final Duration? animationDuration;
+  final Curve? animationCurve;
 
   const FluSteppedAuthScreen({
     Key? key,
-    required this.steps,
     this.controller,
     this.onGoingBack,
     this.onGoingForward,
+    this.headerAction,
+    this.animationDuration,
+    this.animationCurve
   }) : super(key: key);
 
   @override
@@ -51,11 +55,11 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController inputController = TextEditingController();
   final PageController pageController = PageController();
-  final Duration animationDuration = const Duration(milliseconds: 300), buttonSwitchAnimationDuration = const Duration(milliseconds: 200);
+  final Duration animationDuration = const Duration(milliseconds: 300);
   final Curve animationCurve = Curves.fastOutSlowIn;
 
   bool get onFirstPage => controller.stepIndex == 0; 
-  bool get onLastPage => controller.stepIndex == widget.steps.length - 1;
+  bool get onLastPage => controller.stepIndex == controller.steps.length - 1;
 
 
   /// check if input value is empty or not.
@@ -82,8 +86,16 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
 
   ///handle back button "onPressed" event.
   void onBack() {
+    if(controller.steps.length == 1) {
+      widget.onGoingBack?.call(
+        controller,
+        inputController,
+        onFirstPage,
+        onLastPage
+      );
+    }
     /// if we are not on first page, we call the "onGoingBack" action.
-    if(!onFirstPage) {
+    else if(!onFirstPage) {
       widget.onGoingBack?.call(
         controller,
         inputController,
@@ -91,9 +103,18 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
         onLastPage
       );
 
-      inputController.text = controller.previousInputValue;
+      if(controller.previousInputValue.isNotEmpty) {
+        inputController.text = controller.previousInputValue;
+        controller.canSubmit = true;
+        controller.previousInputValue = "";
+      }
+      else {
+        inputController.text = "";
+        controller.canSubmit = false;
+      }
+
       controller.hasError = false;
-      pageController.previousPage(duration: animationDuration, curve: animationCurve);
+      pageController.previousPage(duration: widget.animationDuration ?? animationDuration, curve: widget.animationCurve ?? animationCurve);
     }
     /// else just navigate to previous page.
     else {
@@ -103,29 +124,50 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
 
   ///handle next button "onPressed" event.
   Future onSubmit(BuildContext context) async {
+    FluAuthScreenStep step =  controller.steps[controller.stepIndex];
+
     /// if keyboard is visible, let's hide it.
     FocusScope.of(Flukit.context).unfocus();
 
     /// ensure that another action is not ongoing.
     if(!controller.loading) {
-      if(_formKey.currentState!.validate()) {
-        widget.onGoingForward?.call(
-          controller,
-          pageController,
-          inputController,
-          onFirstPage,
-          onLastPage
-        );
+      bool v = false;
 
-        if(!onLastPage) {
-          controller.previousInputValue = inputController.text;
-          inputController.text = '';
-          pageController.nextPage(duration: animationDuration, curve: animationCurve);
+      if(step is FluAuthScreenCustomStep) {
+        if(step.onButtonPressed != null && step.onButtonPressed!(controller)) {
+          if(widget.onGoingForward != null) {
+            v = await widget.onGoingForward!(
+              controller,
+              pageController,
+              inputController,
+              onFirstPage,
+              onLastPage
+            );
+          }
         }
       }
-      else {
-        controller.hasError = true;
-        Flukit.throwError(widget.steps[controller.stepIndex].onError?.call(controller));
+      else if(step is FluAuthScreenInputStep) {
+        if(_formKey.currentState!.validate()) {
+          v = widget.onGoingForward != null && await widget.onGoingForward!(
+            controller,
+            pageController,
+            inputController,
+            onFirstPage,
+            onLastPage
+          );
+        }
+        else {
+          controller.hasError = true;
+          Flukit.throwError(step.onError?.call(controller));
+        }
+      }
+
+      if(!onLastPage && v) {
+        controller.previousInputValue = inputController.text;
+        inputController.text = '';
+
+        controller.canSubmit = false;
+        pageController.nextPage(duration: widget.animationDuration ?? animationDuration, curve: widget.animationCurve ?? animationCurve);
       }
     }
   }
@@ -134,7 +176,9 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
   void initState() {
     /// initialize controller
     controller = Get.put(
-      widget.controller ?? FluAuthScreenController(),
+      widget.controller ?? FluAuthScreenController(
+        initialSteps: <FluAuthScreenStep>[]
+      ),
       tag: 'AuthScreenController_' + math.Random().nextInt(99999).toString()
     );
 
@@ -158,70 +202,96 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                   child: PageView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     controller: pageController,
-                    onPageChanged: (v) => {
-                      controller.canSubmit = !(v == 0 && v == 1),
-                      controller.stepIndex = v
+                    onPageChanged: (v) {
+                      controller.stepIndex = v;
+                      controller.canGetBack = onFirstPage ? args.canGetBack : true;
                     },
-                    itemCount: widget.steps.length,
-                    itemBuilder: (context, index) => Column(
-                      children: [
-                        Expanded(child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(colors: [
-                              Flukit.theme.secondaryColor,
-                              Flukit.theme.backgroundColor
-                            ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
+                    itemCount: controller.steps.length,
+                    itemBuilder: (context, index) {
+                      FluAuthScreenStep step = controller.steps[index];
+                    
+                      return Column(
+                        children: [
+                          Expanded(child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(colors: [
+                                Flukit.theme.secondaryColor,
+                                Flukit.theme.backgroundColor
+                              ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
+                            ),
+                            ///! TODO: add an images for each page
+                            child: controller.steps[index].image.isNotEmpty ? FluImage(
+                              image: controller.steps[index].image,
+                              type: controller.steps[index].imageType,
+                            ) : null
+                          )),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: FluConsts.defaultPaddingSize
+                            ).copyWith(top: 15),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Hero(
+                                  tag: '< title_text >',
+                                  child: text(controller.steps[index].title, isTitle: true),
+                                ),
+                                const SizedBox(height: 3),
+                                Hero(tag: '< desc_text >', child: text(controller.steps[index].desc)),
+                                GetBuilder<FluAuthScreenController>(
+                                  init: controller,
+                                  initState: (_) {},
+                                  builder: (_) {
+                                    if(step is FluAuthScreenCustomStep) {
+                                      return  Container(
+                                        margin: const EdgeInsets.only(top: 35, bottom: 8),
+                                        child: step.builder(context, controller, inputController)
+                                      );
+                                    }
+                                    else if(step is FluAuthScreenInputStep) {
+                                      return FluOutline(
+                                        strokeWidth: .85,
+                                        radius: FluConsts.defaultElRadius + 2,
+                                        margin: const EdgeInsets.only(top: 35, bottom: 8),
+                                        boxShadow: Flukit.boxShadow(
+                                          blurRadius: 30,
+                                          opacity: .075,
+                                          offset: const Offset(5, 5),
+                                          color: Flukit.theme.shadowColor
+                                        ),
+                                        child: FluTextInput(
+                                          controller: inputController,
+                                          height: step.inputHeight ?? FluConsts.defaultElSize - 2,
+                                          hintText: step.inputHint,
+                                          hintColor: controller.hasError ? Flukit.theme.palette.danger : Flukit.theme.palette.text,
+                                          color: controller.hasError ? Flukit.theme.palette.danger : Flukit.theme.palette.accentText,
+                                          fillColor: Flukit.theme.backgroundColor,
+                                          borderColor: (controller.hasError ? Flukit.theme.palette.danger : Flukit.theme.backgroundColor).withOpacity(.015),
+                                          borderWidth: 1.5,
+                                          keyboardType: TextInputType.text,
+                                          textInputAction: TextInputAction.done,
+                                          inputFormatters: null,
+                                          validator: (value) => inputValidator(value, step.inputValidator),
+                                          onChanged: (value) => onInputValueChanged(value,  step.onInputValueChanged),
+                                        ),
+                                      );
+                                    }
+                                    else {
+                                      return Container();
+                                    }
+                                  }
+                                )
+                              ],
+                            ),
                           ),
-                          ///! TODO: add an images for each page
-                          child: widget.steps[index].image.isNotEmpty ? FluImage(
-                            image: widget.steps[index].image,
-                            type: widget.steps[index].imageType,
-                          ) : null
-                        )),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: FluConsts.defaultPaddingSize
-                          ).copyWith(top: 15),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Hero(
-                                tag: '< title_text >',
-                                child: text(widget.steps[index].title, isTitle: true),
-                              ),
-                              const SizedBox(height: 3),
-                              Hero(tag: '< desc_text >', child: text(widget.steps[index].desc)),
-                              Obx(() => FluTextInput(
-                                controller: inputController,
-                                height: FluConsts.defaultElSize,
-                                hintText: widget.steps[index].inputHint,
-                                hintColor: controller.hasError ? Flukit.theme.palette.danger : Flukit.theme.palette.text,
-                                color: controller.hasError ? Flukit.theme.palette.danger : Flukit.theme.palette.accentText,
-                                borderColor: (controller.hasError ? Flukit.theme.palette.danger : Flukit.theme.backgroundColor).withOpacity(.015),
-                                borderWidth: 1.5,
-                                margin: const EdgeInsets.only(top: 35, bottom: 8),
-                                keyboardType: TextInputType.text,
-                                textInputAction: TextInputAction.done,
-                                boxShadow: [Flukit.boxShadow(
-                                  blurRadius: 30,
-                                  opacity: .025,
-                                  offset: const Offset(0,0),
-                                  color: Flukit.theme.shadowColor
-                                )],
-                                inputFormatters: [LengthLimitingTextInputFormatter(15)],
-                                validator: (value) => inputValidator(value, widget.steps[index].inputValidator),
-                                onChanged: (value) => onInputValueChanged(value,  widget.steps[index].onInputValueChanged),
-                              ))
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      );
+                    }
                   ),
                 ),
                 AnimatedSwitcher(
-                  duration: buttonSwitchAnimationDuration,
+                  duration: widget.animationDuration ?? animationDuration,
                   child: !Flukit.isKeyboardHidden(context) ? GetX<FluAuthScreenController>(
                     init: controller,
                     initState: (_) {},
@@ -234,17 +304,17 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                           width: double.infinity,
                           padding: EdgeInsets.zero,
                           margin: EdgeInsets.symmetric(horizontal: FluConsts.defaultPaddingSize).copyWith(bottom: 25),
-                          /* boxShadow: Flukit.boxShadow(
+                          boxShadow: Flukit.boxShadow(
                             color: Flukit.theme.shadowColor,
-                            opacity: controller.canSubmit ? .085 : .05,
+                            opacity: controller.canSubmit ? .085 : .045,
                             blurRadius: 30,
                             offset: const Offset(0, 0)
-                          ), */
-                          text: widget.steps[controller.stepIndex].buttonLabel,
-                          prefixIcon: widget.steps[controller.stepIndex].buttonIcon,
+                          ),
+                          text: controller.steps[controller.stepIndex].buttonLabel,
+                          prefixIcon: controller.steps[controller.stepIndex].buttonIcon,
                           iconSize: 24,
                           iconStrokeWidth: 1.8,
-                          spacing: 8,
+                          spacing: 2,
                           color: controller.canSubmit ? Flukit.theme.primaryTextColor : Flukit.theme.palette.accentText,
                           backgroundColor: controller.canSubmit ? Flukit.theme.primaryColor : Flukit.theme.secondaryColor,
                           textStyle: TextStyle(
@@ -278,7 +348,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                           size: FluConsts.minElSize,
                           icon: FluTwotoneIcons.arrow_arrowLeft,
                           iconSize: 24,
-                          backgroundColor: Flukit.theme.secondaryColor,
+                          backgroundColor: Flukit.theme.backgroundColor.withOpacity(.25),
                           color: Flukit.theme.palette.accentText,
                           boxShadow: Flukit.boxShadow(
                             color: Flukit.theme.palette.shadow,
@@ -288,7 +358,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                         ),
                       ),
                     ),
-                    AnimatedOpacity(
+                    widget.headerAction ?? AnimatedOpacity(
                       opacity: onFirstPage ? 1 : 0,
                       duration: const Duration(milliseconds: 300),
                       child: FluButton(
@@ -298,13 +368,14 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                             controller.setRegion(country.isoCode);
                           }
                         ) : null,
-                        height: FluConsts.minElSize + 2,
+                        height: FluConsts.minElSize + 5,
+                        radius: FluConsts.defaultElRadius - 2,
                         padding: const EdgeInsets.symmetric(horizontal: 15),
-                        backgroundColor: Flukit.theme.secondaryColor,
+                        backgroundColor: Flukit.theme.backgroundColor.withOpacity(.25),
                         boxShadow: Flukit.boxShadow(
-                          color: Flukit.theme.palette.shadow,
-                          offset: const Offset(10, 15),
-                          opacity: .06
+                          color: Flukit.theme.palette.primary,
+                          offset: const Offset(15, 15),
+                          opacity: .1
                         ),
                         child: AnimatedSwitcher(
                           duration: const Duration(milliseconds: 300),
