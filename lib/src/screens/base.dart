@@ -8,6 +8,7 @@ class FluScreen extends StatelessWidget {
   final SystemUiOverlayStyle? systemUiOverlayStyle;
   final bool extendBody;
   final Widget? floatingActionButton, bottomNavigationBar;
+  final Color? backgroundColor;
 
   const FluScreen({
     Key? key,
@@ -17,6 +18,7 @@ class FluScreen extends StatelessWidget {
     this.bottomNavigationBar,
     this.floatingActionButton,
     this.extendBody = false,
+    this.backgroundColor
   }) : super(key: key);
 
   @override
@@ -25,6 +27,7 @@ class FluScreen extends StatelessWidget {
       statusBarColor: Colors.transparent
     ),
     child: Scaffold(
+      backgroundColor: backgroundColor ?? Flukit.theme.backgroundColor,
       extendBody: extendBody,
       appBar: appBar,
       body: body,

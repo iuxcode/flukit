@@ -16,7 +16,7 @@ class FluBasicOtpScreen extends StatefulWidget {
   final FluIconModel? buttonIcon;
   final OnAuthGoingBackFunction onGoingBack;
   final OnAuthGoingForwardFunction onGoingForward;
-  final Future<int> Function(FluOtpScreenController controller) onAskCode;
+  final Future<int> Function(FluOtpScreenController controller, TextEditingController inputController) onAskCode;
 
   const FluBasicOtpScreen({
     Key? key,
@@ -101,7 +101,7 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
         ),
         child: Obx(() => controller.canAsk ? FluButton.text(
           onPressed: () async {
-            int waitingTime = await widget.onAskCode(controller);
+            int waitingTime = await widget.onAskCode(controller, inputController);
             if(waitingTime > 0) startTimer(waitingTime);
           },
           loading: controller.askLoading,

@@ -16,3 +16,4 @@ export './payments.dart';
 export './snackbar.dart';
 export './skeleton.dart';
 export './tabs.dart';
+export './texts.dart';

@@ -104,7 +104,7 @@ extension ExtensionSnackbar on GetInterface {
       controller.show();
     } else {
       // routing.isSnackbar = true;
-      SchedulerBinding.instance!.addPostFrameCallback((_) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
         controller.show();
       });
     }

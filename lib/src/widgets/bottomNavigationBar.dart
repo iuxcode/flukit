@@ -17,6 +17,7 @@ class FluBottomNavBar extends StatefulWidget {
   final Curve curve;
   final Function(int) onTap;
   final List<FluBottomNavBarItemData> items;
+  final bool showItemLabelOnSelected;
 
   const FluBottomNavBar({
     Key? key,
@@ -27,7 +28,8 @@ class FluBottomNavBar extends StatefulWidget {
     required this.curve,
     required this.onTap,
     required this.items,
-    this.selectedIndex = 0
+    this.selectedIndex = 0,
+    this.showItemLabelOnSelected = false
   }) : super(key: key);
 
   @override
@@ -46,7 +48,7 @@ class _BottomNavBarState extends State<FluBottomNavBar> {
 
   @override
   void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) => getItemWidth());
+    WidgetsBinding.instance.addPostFrameCallback((_) => getItemWidth());
     super.initState();
   }
 
@@ -72,9 +74,14 @@ class _BottomNavBarState extends State<FluBottomNavBar> {
 
               return _BottomNavBarItem(
                 key: index == 0 ? itemKey : null,
+                isSelected: widget.selectedIndex.round() == index,
                 onTap: () => widget.onTap(index),
                 data: item,
-                color: widget.selectedIndex.round() == index ? widget.activeColor : widget.color,
+                color: widget.color,
+                activeColor: widget.activeColor,
+                animationDuration: widget.duration,
+                animationCurve: widget.curve,
+                showLabel: widget.showItemLabelOnSelected,
               );
             }).toList()
           ),
@@ -94,33 +101,48 @@ class _BottomNavBarState extends State<FluBottomNavBar> {
 
 class _BottomNavBarItem extends StatelessWidget {
   final FluBottomNavBarItemData data;
-  final Color color;
+  final Color color, activeColor;
   final void Function() onTap;
+  final bool isSelected, showLabel;
+  final Duration animationDuration;
+  final Curve animationCurve;
 
   const _BottomNavBarItem({
     Key? key,
     required this.data,
     required this.color,
+    required this.activeColor,
     required this.onTap,
+    required this.animationDuration,
+    required this.animationCurve,
+    this.isSelected = false,
+    this.showLabel = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: FluButton(
-        onPressed: () => {
-          onTap()
-        },
+        onPressed: () => onTap(),
         height: double.infinity,
         width: double.infinity,
         backgroundColor: Colors.transparent,
         radius: 0,
         padding: const EdgeInsets.symmetric(horizontal: 30),
         child: Center(
-          child: FluIcon(
-            icon: data.icon,
-            color: color,
-            strokeWidth: 2,
+          child: AnimatedSwitcher(
+            duration: animationDuration,
+            switchInCurve: animationCurve,
+            switchOutCurve: animationCurve,
+            child: isSelected && showLabel ? Text(
+              data.label,
+              maxLines: 1,
+              textAlign: TextAlign.center,
+            ) : FluIcon(
+              icon: data.icon,
+              color: isSelected ? activeColor : color,
+              strokeWidth: 2,
+            ),
           ),
         ),
       ),

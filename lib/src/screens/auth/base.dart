@@ -256,8 +256,8 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                         margin: const EdgeInsets.only(top: 35, bottom: 8),
                                         boxShadow: Flukit.boxShadow(
                                           blurRadius: 30,
-                                          opacity: .075,
-                                          offset: const Offset(5, 5),
+                                          opacity: .05,
+                                          offset: const Offset(0, 0),
                                           color: Flukit.theme.shadowColor
                                         ),
                                         child: FluTextInput(
@@ -300,7 +300,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                         tag: '< main_button >',
                         child: FluButton.text(
                           onPressed: controller.canSubmit ? () => onSubmit(context) : null,
-                          height: FluConsts.defaultElSize,
+                          height: FluConsts.defaultElSize + 2,
                           width: double.infinity,
                           padding: EdgeInsets.zero,
                           margin: EdgeInsets.symmetric(horizontal: FluConsts.defaultPaddingSize).copyWith(bottom: 25),

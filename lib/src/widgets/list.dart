@@ -11,8 +11,8 @@ class FluOptionsList extends StatelessWidget {
   final EdgeInsets padding, itemPadding;
   final ScrollPhysics? physics;
   final TextStyle? titleTextStyle, descTextStyle;
-  final BoxShadow? itemBoxshadow;
-  final Color? outlineColor, iconBackgroundColor, textColor, iconColor;
+  final BoxShadow? itemBoxShadow, iconBoxShadow;
+  final Color? outlineColor, iconBackgroundColor, textColor, iconColor, itemBackgroundColor;
   final Widget? suffixWidget;
   final List<FluScreenOption> options;
 
@@ -31,7 +31,8 @@ class FluOptionsList extends StatelessWidget {
     this.physics = const NeverScrollableScrollPhysics(),
     this.titleTextStyle,
     this.descTextStyle,
-    this.itemBoxshadow,
+    this.itemBoxShadow,
+    this.iconBoxShadow,
     this.outlineColor,
     this.iconBackgroundColor,
     this.textColor,
@@ -39,7 +40,8 @@ class FluOptionsList extends StatelessWidget {
     this.iconSize,
     this.iconStrokewidth,
     this.outlineStrokewidth = 1,
-    this.outlineSpacing = 3
+    this.outlineSpacing = 3,
+    this.itemBackgroundColor
   }): assert(options.length > 0), super(key: key);
 
   @override
@@ -61,7 +63,8 @@ class FluOptionsList extends StatelessWidget {
         margin: EdgeInsets.only(right: itemIconMarginSize),
         decoration: BoxDecoration(
           color: option.iconBackgroundColor ?? iconBackgroundColor ?? Flukit.theme.accentBackgroundColor,
-          borderRadius: BorderRadius.circular(radius)
+          borderRadius: BorderRadius.circular(radius),
+          boxShadow: [if(iconBoxShadow != null) iconBoxShadow!]
         ),
         child: _icon != null ? FluIcon(
           icon: _icon,
@@ -86,10 +89,10 @@ class FluOptionsList extends StatelessWidget {
         width: double.infinity,
         padding: itemPadding,
         decoration: BoxDecoration(
-          color: backgroundColor,
+          color: itemBackgroundColor ?? backgroundColor,
           borderRadius: BorderRadius.circular(radius),
           boxShadow: [
-            if(!itemOutlined && itemBoxshadow != null) itemBoxshadow!
+            if(!itemOutlined && itemBoxShadow != null) itemBoxShadow!
           ]
         ),
         child: Row(
@@ -131,7 +134,7 @@ class FluOptionsList extends StatelessWidget {
           spacing: outlineSpacing,
           strokeColor: option.outlineColor ?? outlineColor ?? backgroundColor,
           strokeWidth: outlineStrokewidth,
-          boxShadow: itemBoxshadow ?? Flukit.boxShadow(
+          boxShadow: itemBoxShadow ?? Flukit.boxShadow(
             opacity: .065,
             offset: const Offset(0, 0)
           ),

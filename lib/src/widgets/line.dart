@@ -7,6 +7,7 @@ class FluLine extends StatelessWidget {
   final EdgeInsets? margin;
   final Duration animationDuration;
   final Curve animationCurve;
+  final BoxShadow? boxShadow;
 
   const FluLine({
     Key? key,
@@ -16,7 +17,8 @@ class FluLine extends StatelessWidget {
     this.margin = EdgeInsets.zero,
     this.color,
     this.animationDuration = const Duration(milliseconds: 300),
-    this.animationCurve = Curves.linear
+    this.animationCurve = Curves.linear,
+    this.boxShadow
   }) : super(key: key);
 
   @override
@@ -28,7 +30,8 @@ class FluLine extends StatelessWidget {
     curve: animationCurve,
     decoration: BoxDecoration(
       color: color ?? Flukit.theme.primaryColor,
-      borderRadius: BorderRadius.circular(radius)
+      borderRadius: BorderRadius.circular(radius),
+      boxShadow: [if(boxShadow != null) boxShadow!]
     )
   );
 }

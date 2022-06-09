@@ -58,7 +58,7 @@ class FluPaymentMethodSelector extends StatelessWidget {
     itemIconMarginSize: 12,
     itemOutlined: true,
     itemPadding: const EdgeInsets.all(5),
-    itemBoxshadow: Flukit.boxShadow(
+    itemBoxShadow: Flukit.boxShadow(
       opacity: .035,
       offset: const Offset(-25, 20),
     ),

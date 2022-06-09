@@ -2,6 +2,7 @@ import 'package:flukit/flukit.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class FluTextInput extends StatefulWidget {
   final String hintText;
@@ -13,12 +14,14 @@ class FluTextInput extends StatefulWidget {
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final TextAlign textAlign;
+  final TextAlignVertical textAlignVertical;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
   final EdgeInsets margin, padding;
+  final CrossAxisAlignment alignment;
 
   const FluTextInput({
     Key? key,
@@ -38,6 +41,7 @@ class FluTextInput extends StatefulWidget {
     this.controller,
     this.focusNode,
     this.textAlign = TextAlign.center,
+    this.textAlignVertical = TextAlignVertical.center,
     this.textInputAction = TextInputAction.done,
     this.keyboardType = TextInputType.text,
     this.inputFormatters,
@@ -45,7 +49,8 @@ class FluTextInput extends StatefulWidget {
     this.onChanged,
     this.margin = EdgeInsets.zero,
     this.padding = const EdgeInsets.symmetric(horizontal: 15),
-    this.height
+    this.height,
+    this.alignment = CrossAxisAlignment.center,
   }) : super(key: key);
 
   @override
@@ -87,6 +92,7 @@ class _FluTextInputState extends State<FluTextInput> {
         borderRadius: BorderRadius.circular(widget.radius ?? FluConsts.defaultElRadius),
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if(widget.prefixIcon != null) icon(widget.prefixIcon),
           Expanded(
@@ -96,7 +102,7 @@ class _FluTextInputState extends State<FluTextInput> {
               expands: true,
               maxLines: null,
               textAlign: widget.textAlign,
-              textAlignVertical: TextAlignVertical.center,
+              textAlignVertical: widget.textAlignVertical,
               keyboardType: widget.keyboardType,
               textInputAction: widget.textInputAction,
               inputFormatters: widget.inputFormatters,
@@ -139,6 +145,66 @@ class _FluTextInputState extends State<FluTextInput> {
         size: widget.iconSize,
         color: widget.iconColor ?? widget.color,
       ) : null,
+    ),
+  );
+}
+
+class FluTextInputWithLabel extends StatelessWidget {
+  final TextEditingController inputController;
+  final String label, inputHint;
+  final FluIconModel? inputIcon;
+  final double? inputHeight;
+  final bool required;
+
+  const FluTextInputWithLabel({
+    Key? key,
+    required this.label,
+    required this.inputHint,
+    this.inputIcon,
+    this.required = true,
+    this.inputHeight,
+    required this.inputController
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => Container(
+    margin: const EdgeInsets.only(bottom: 15),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        RichText(text: TextSpan(
+          children: <TextSpan>[
+            TextSpan(text: label.capitalize!),
+            if(required) TextSpan(text: ' *', style: TextStyle(
+              color: Flukit.themePalette.danger,
+              fontWeight: FluConsts.textBold
+            ))
+          ],
+          style: Flukit.textTheme.bodyText1!.copyWith(
+            // fontSize: FluConsts.subtitleFs,
+            fontWeight: FluConsts.textSemibold,
+            color: Flukit.theme.textColor
+          )
+        )),
+        FluOutline(
+          strokeWidth: .5,
+          radius: FluConsts.defaultElRadius + 2,
+          margin: const EdgeInsets.only(top: 10),
+          boxShadow: Flukit.boxShadow(
+            offset: const Offset(0, 0),
+            opacity: .05
+          ),
+          child: FluTextInput(
+            controller: inputController,
+            height: inputHeight,
+            hintText: inputHint,
+            prefixIcon: inputIcon,
+            textAlign: TextAlign.start,
+            fillColor: Flukit.theme.backgroundColor,
+            validator: (value) => (value == null || value.isEmpty) ? 'This field is required.' : null,
+          ),
+        )
+      ]
     ),
   );
 }

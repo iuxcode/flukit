@@ -1,5 +1,4 @@
 import 'package:flukit/src/configs/theme/index.dart';
-import 'package:flukit/src/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -8,9 +7,10 @@ import 'package:get/get.dart';
 import 'package:flukit/src/controllers/appController.dart';
 import 'package:intl/intl.dart';
 import 'package:phone_number/phone_number.dart';
-import 'package:timeago/timeago.dart' as _timeago;
+import 'package:timeago/timeago.dart' as tmago;
 import 'package:geolocator/geolocator.dart';
 import 'package:dio/dio.dart' as dio;
+import 'package:emojis/emojis.dart';
 
 import '../configs/theme/tweaks.dart';
 import '../controllers/flu_controllers.dart';
