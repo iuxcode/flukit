@@ -53,6 +53,8 @@ flutter: null
 #
 # An image asset can refer to one or more resolution-specific "variants", see
 # https://flutter.dev/assets-and-images/#resolution-aware.
+assets:
+  - assets/fonts/
 # To add custom fonts to your package, add a fonts section here,
 # in this "flutter" section. Each entry in this list should have a
 # "family" key with the font family name, and a "fonts" key with a
@@ -72,3 +74,7 @@ flutter: null
 #
 # For details regarding fonts in packages, see
 # https://flutter.dev/custom-fonts/#from-packages
+fonts:
+  - family: Neptune
+    fonts:
+      - asset: assets/fonts/Neptune.otf

@@ -1,4 +1,6 @@
+import 'package:flukit/flukit.dart';
 import 'package:flukit/src/controllers/appController.dart';
+import 'package:flukit/src/screens/default.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,7 +23,7 @@ class FluMaterialApp extends StatefulWidget {
     Key? key,
     this.controller,
     this.initialBinding,
-    this.title = '',
+    this.title = 'Flukit',
     this.home,
     this.routes,
     this.initialRoute,
@@ -64,9 +66,14 @@ class _FluMaterialAppState extends State<FluMaterialApp> {
         theme: controller.theme.data,
         initialBinding: widget.initialBinding,
         home: widget.home,
-        initialRoute: widget.initialRoute,
+        initialRoute: widget.initialRoute ?? '/splash',
         routes: widget.routes ?? <String, WidgetBuilder> {},
-        getPages: widget.pages,
+        getPages: widget.pages ?? [
+          FluGetPage(
+            name: '/splash',
+            page: () => const FluDefaultScreen()
+          )
+        ],
       );
     }
   );
