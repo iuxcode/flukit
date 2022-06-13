@@ -61,7 +61,6 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
   bool get onFirstPage => controller.stepIndex == 0; 
   bool get onLastPage => controller.stepIndex == controller.steps.length - 1;
 
-
   /// check if input value is empty or not.
   /// or if the custom validator test is passed.
   String? inputValidator(String? value, bool Function(String value, FluAuthScreenController controller)? customValidator) {
@@ -172,6 +171,10 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
     }
   }
 
+  void onInit() async {
+    await Flukit.appController.setAuthorizationState(FluAuthorizationStates.waitAuth).onError((error, stackTrace) => throw {"Error while setting authorizationState parameter in secure storage.", error, stackTrace});
+  }
+
   @override
   void initState() {
     /// initialize controller
@@ -186,6 +189,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
     args = (Get.arguments != null && Get.arguments is FluAuthScreenParameters) ? Get.arguments as FluAuthScreenParameters : FluAuthScreenParameters();
     controller.canGetBack = args.canGetBack;
 
+    onInit();
     super.initState();
   }
 

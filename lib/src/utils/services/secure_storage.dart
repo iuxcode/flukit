@@ -65,7 +65,7 @@ class FluSecureStorageKeys {
 }
 
 enum FluAuthorizationStates {
-  waitPhoneNumber,
+  waitAuth,
   waitCode,
   waitTerms,
   ready

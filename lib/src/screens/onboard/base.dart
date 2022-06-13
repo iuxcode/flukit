@@ -8,7 +8,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 
 class FluOnboardingScreen extends StatefulWidget {
-  final List<FluOnboardingScreenPageModel> pages;
+  final List<FluOnboardingScreenPage> pages;
   final Duration animationDuration;
   final Curve animationCurve;
   final String mainButtonText, prevButtonText, nextButtonText, skipButtonText;
@@ -33,11 +33,18 @@ class FluOnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<FluOnboardingScreen> {
-  final FluOnboardingScreenController controller = Get.put(FluOnboardingScreenController(), tag: 'FluOnboardingScreenController' + math.Random().nextInt(99999).toString());
+  final FluOnboardingScreenController controller = Get.put(
+    FluOnboardingScreenController(),
+    tag: 'FluOnboardingScreenController#${math.Random().nextInt(99999)}'
+  );
   final PageController pageController = PageController();
 
   bool onFirstPage = false, onLastPage = false;
 
+  void onInit() async {
+    await Flukit.appController.setFirstTimeOpeningState(false)
+      .onError((error, stackTrace) => throw {"Error while setting firstTimeOpening parameter in secure storage.", error, stackTrace});
+  }
   void onBack(BuildContext context) {
     if(!onFirstPage) {
       pageController.previousPage(duration: widget.animationDuration, curve: widget.animationCurve);
@@ -55,6 +62,7 @@ class _OnboardingScreenState extends State<FluOnboardingScreen> {
 
   @override
   void initState() {
+    onInit();
     super.initState();
   }
   
@@ -75,7 +83,7 @@ class _OnboardingScreenState extends State<FluOnboardingScreen> {
                 onPageChanged: (v) => controller.currentIndex = v,
                 itemCount: widget.pages.length,
                 itemBuilder: (context, index) {
-                  FluOnboardingScreenPageModel page = widget.pages[index];
+                  FluOnboardingScreenPage page = widget.pages[index];
                   bool isCurrent = controller.currentIndex == index;
 
                   return Column(

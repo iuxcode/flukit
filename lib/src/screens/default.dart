@@ -17,7 +17,10 @@ class FluDefaultScreen extends StatelessWidget {
                 fontFamily: 'Neptune',
                 fontSize: FluConsts.subHeadlineFs
               )),
-              const Text('Voluptates ut earum voluptatum dolore sed. Perferendis qui enim aut labore eos. Deleniti quasi possimus molestiae eligendi est et porro et voluptatem. Libero et sunt modi aut quas accusamus fuga excepturi.')
+              const Text(
+                'Voluptates ut earum voluptatum dolore sed. Perferendis qui enim aut labore eos. Deleniti quasi possimus molestiae eligendi est et porro et voluptatem. Libero et sunt modi aut quas accusamus fuga excepturi.',
+                textAlign: TextAlign.center,
+              )
             ],
           ),
         ),

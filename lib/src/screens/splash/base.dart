@@ -13,6 +13,11 @@ class FluSplashScreen extends StatefulWidget {
   final FontWeight? titleFontWeight;
   final Color? titleColor;
   final TextStyle? titleTextstyle;
+  final VoidCallback? onWaitCode;
+  final VoidCallback? onWaitAuth;
+  final VoidCallback? onWaitTerms;
+  final VoidCallback? onReady;
+  final VoidCallback? defaultAction;
 
   const FluSplashScreen({
     Key? key,
@@ -24,7 +29,12 @@ class FluSplashScreen extends StatefulWidget {
     this.titleFontSize,
     this.titleFontWeight,
     this.titleColor,
-    this.titleTextstyle
+    this.titleTextstyle,
+    this.onWaitAuth,
+    this.onWaitCode,
+    this.onWaitTerms,
+    this.onReady,
+    this.defaultAction
   }): assert(
     (builder != null && (child == null && title == null)) ||
     ((child != null && title != null) && builder == null)
@@ -37,9 +47,46 @@ class FluSplashScreen extends StatefulWidget {
 class _FluSplashScreenState extends State<FluSplashScreen> {
   late FluSplashScreenController controller;
 
+  final FluStorageService storageService = Flukit.secureStorage;
+  final FluAppController appController = Flukit.appController;
+  
+  void onInitialized() async {
+    /// TODO check if phone is connected to internet
+    /// if not redirect to errors page or get cached data
+    if(await storageService.containsKey(FluSecureStorageKeys.firstTimeOpening)) {
+      String? state = await storageService.read(FluSecureStorageKeys.firstTimeOpening);
+
+      if(state != null && state.toLowerCase() == 'false') {
+        switch (await Flukit.appController.getAuthorizationState()) {
+          case FluAuthorizationStates.waitCode:
+            widget.onWaitCode?.call();
+            break;
+          case FluAuthorizationStates.waitTerms:
+            widget.onWaitTerms?.call();
+            break;
+          case FluAuthorizationStates.ready:
+            widget.onReady?.call();
+            break;
+          case FluAuthorizationStates.waitAuth:
+          default:
+            widget.onWaitAuth?.call();
+            break;
+        }
+      }
+      else {
+        widget.defaultAction?.call();
+      }
+    }
+    else {
+      widget.defaultAction?.call();
+    }
+  }
+
   @override
   void initState() {
-    controller = Get.put<FluSplashScreenController>(widget.controller ?? FluSplashScreenController(widget.onInitialized));
+    controller = Get.put<FluSplashScreenController>(
+      widget.controller ?? FluSplashScreenController(widget.onInitialized ?? onInitialized)
+    );
     super.initState();
   }
 

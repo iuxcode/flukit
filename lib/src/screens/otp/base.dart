@@ -74,6 +74,10 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
     });
   }
 
+  void onInit() async {
+    await Flukit.appController.setAuthorizationState(FluAuthorizationStates.waitCode).onError((error, stackTrace) => throw {"Error while setting authorizationState parameter in secure storage.", error, stackTrace});
+  }
+
   @override
   void initState() {
     /// initialize controller
@@ -83,6 +87,8 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
       ),
       tag: 'AuthScreenController_' + math.Random().nextInt(99999).toString()
     );
+
+    onInit();
     startTimer(widget.waitingTime);
     super.initState();
   }

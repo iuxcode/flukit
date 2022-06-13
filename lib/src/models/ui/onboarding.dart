@@ -1,11 +1,11 @@
 import '../../widgets/image.dart';
 
-class FluOnboardingScreenPageModel {
+class FluOnboardingScreenPage {
   final String image;
   final FluImageType? imageType;
   final String title, desc;
 
-  FluOnboardingScreenPageModel({
+  FluOnboardingScreenPage({
     this.imageType,
     required this.image,
     required this.title,

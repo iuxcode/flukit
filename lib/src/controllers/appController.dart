@@ -66,7 +66,7 @@ class FluAppController extends GetxController {
               break;
             case 'FluAuthorizationStates.waitPhoneNumber':
             default:
-              newState = FluAuthorizationStates.waitPhoneNumber;
+              newState = FluAuthorizationStates.waitAuth;
               break;
           }
 
