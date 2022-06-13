@@ -4,6 +4,7 @@ export './button.dart';
 export './bottomNavigationBar.dart';
 export './collapsible.dart';
 export './dashed_circle.dart';
+export './icons.dart';
 export './input.dart';
 export './image.dart';
 export './line.dart';

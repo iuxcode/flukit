@@ -7,13 +7,15 @@ import 'line.dart';
 class FluTextWithLine extends StatelessWidget {
   final String text1, text2;
   final double lineHeight, lineWidth;
+  final double? fontsize;
 
   const FluTextWithLine({
     Key? key,
     required this.text1,
     required this.text2,
     this.lineHeight = 2,
-    this.lineWidth = 50
+    this.lineWidth = 50,
+    this.fontsize,
   }) : super(key: key);
 
   @override
@@ -24,7 +26,7 @@ class FluTextWithLine extends StatelessWidget {
         Hero(
           tag: '<title>',
           child: Text(text1, style: Flukit.textTheme.bodyText1!.copyWith(
-            fontSize: FluConsts.headlineFs,
+            fontSize: fontsize ?? FluConsts.headlineFs,
             fontWeight: FluConsts.textSemibold,
             color: Flukit.theme.accentTextColor
           )),
@@ -34,7 +36,7 @@ class FluTextWithLine extends StatelessWidget {
             Hero(
               tag: '<title2>',
               child: Text(text2, maxLines: 1, overflow: TextOverflow.ellipsis, style: Flukit.textTheme.bodyText1!.copyWith(
-                fontSize: FluConsts.headlineFs,
+                fontSize: fontsize ?? FluConsts.headlineFs,
                 fontWeight: FluConsts.textSemibold,
                 color: Flukit.theme.accentTextColor
               )),

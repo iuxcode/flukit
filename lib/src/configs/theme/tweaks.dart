@@ -43,8 +43,8 @@ abstract class FluConstsInterface {
   Curve get defaultPageAnimationCurve => Curves.fastOutSlowIn;
 
   /// Bottom navigation
-  double get bottomNavBarHeight => 85;
-  double get bottomNavBarRadius => 30;
+  double get bottomNavBarHeight => 80;
+  double get bottomNavBarRadius => 25;
   double get bottomNavBarHMarginSize => 15;
   double get bottomNavBarBMarginSize => 0;
   double get bottomNavBarIndicatorHeight => 100;

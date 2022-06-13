@@ -19,5 +19,5 @@ extension FlukitText on FlukitInterface {
 
   /// Emojis
   /// Todo add type
-  get emojis => Emojis;
+  dynamic get emojis => Emojis;
 }

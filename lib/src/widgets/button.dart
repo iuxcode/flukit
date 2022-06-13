@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../configs/theme/tweaks.dart';
 import '../utils/flu_utils.dart';
 
+import './line.dart';
+
 class FluButton extends StatefulWidget {
   final void Function()? onPressed;
   final void Function()? onLongPress;
