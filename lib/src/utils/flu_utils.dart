@@ -14,6 +14,7 @@ import 'package:emojis/emojis.dart';
 
 import '../configs/theme/tweaks.dart';
 import '../controllers/flu_controllers.dart';
+import '../models/app.dart';
 import '../widgets/countrySelector.dart';
 import '../widgets/flu_widgets.dart';
 

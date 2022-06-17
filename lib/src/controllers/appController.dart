@@ -1,3 +1,5 @@
+import 'package:flukit/src/configs/theme/tweaks.dart';
+import 'package:flukit/src/models/app.dart';
 import 'package:get/get.dart';
 import 'package:flukit/src/configs/theme/index.dart';
 
@@ -6,7 +8,9 @@ import '../utils/flu_utils.dart';
 class FluAppController extends GetxController {
   final FluTheme? defaultTheme;
   final FluApiSettings? baseApiSettings;
-  final storageService = Flukit.secureStorage; 
+  final FluAppInformations? appInformations;
+  final FluConstsInterface? appConstants;
+  final FluStorageService storageService = Flukit.secureStorage;
 
   final RxBool _isDark = false.obs;
   final Rx<FluTheme> _theme = FluTheme().obs;
@@ -14,12 +18,16 @@ class FluAppController extends GetxController {
 
   FluAppController({
     this.defaultTheme,
-    this.baseApiSettings
+    this.baseApiSettings,
+    this.appInformations,
+    this.appConstants,
   });
 
   bool get isDark => _isDark.value;
   FluTheme get theme => _theme.value;
   FluApiSettings get apiSettings => _apiSettings.value;
+  FluAppInformations get appInfos => appInformations ?? FluAppInformations();
+  FluConstsInterface get appConsts => appConstants ?? FluConsts;
 
   set isDark(bool value) => _isDark.value = value;
   set theme(FluTheme newTheme) => _theme.value = newTheme;

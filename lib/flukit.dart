@@ -1,6 +1,6 @@
 library flukit;
 
-export './src/configs/theme/tweaks.dart';
+// export './src/configs/theme/tweaks.dart';
 export './src/configs/routes/index.dart';
 
 export 'src/models/flu_models.dart';

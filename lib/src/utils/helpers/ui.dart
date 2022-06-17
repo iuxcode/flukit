@@ -7,6 +7,12 @@ extension FlukitUI on FlukitInterface {
   /// Find and return app controller
   FluAppController get appController => Get.find<FluAppController>();
 
+  /// Find and return app informations
+  FluAppInformations get appInfos => appController.appInfos;
+
+  /// Find and return app constants
+  FluConstsInterface get appConsts => appController.appConsts;
+
   /// return the current theme
   FluTheme get theme => appController.theme;
 
