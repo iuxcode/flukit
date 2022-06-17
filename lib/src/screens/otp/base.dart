@@ -112,13 +112,13 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
             if(waitingTime > 0) startTimer(waitingTime);
           },
           loading: controller.askLoading,
-          height: FluConsts.minElSize,
+          height: Flukit.appConsts.minElSize,
           padding: EdgeInsets.zero,
           suffixIcon: FluTwotoneIcons.arrow_refresh,
           iconSize: 20,
           iconStrokeWidth: 1.8,
           text: widget.codeAskButtonText ?? 'Resend the code.',
-          textStyle: TextStyle(fontWeight: FluConsts.textSemibold),
+          textStyle: TextStyle(fontWeight: Flukit.appConsts.textSemibold),
           spacing: 10,
           backgroundColor: Colors.transparent,
           color: Flukit.themePalette.accentText,
@@ -126,8 +126,8 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
           children: [
             Text(Flukit.timeLeft(controller.waitingTime), style: Flukit.textTheme.bodyText1!.copyWith(
               color: Flukit.themePalette.accentText,
-              fontSize: FluConsts.bodyFs + 1,
-              fontWeight: FluConsts.textBold
+              fontSize: Flukit.appConsts.bodyFs + 1,
+              fontWeight: Flukit.appConsts.textBold
             )),
             const SizedBox(width: 10),
             FluIcon(

@@ -45,38 +45,38 @@ class FluTheme {
     ),
     textTheme: TextTheme(
       headlineLarge: GoogleFonts.poppins(
-        fontWeight: FluConsts.textBold,
-        fontSize: FluConsts.headlineFs,
+        fontWeight: Flukit.appConsts.textBold,
+        fontSize: Flukit.appConsts.headlineFs,
         color: palette.accentText
       ),
       headline1:  GoogleFonts.poppins(
-        fontSize: FluConsts.titleFs,
-        fontWeight: FluConsts.textBold,
+        fontSize: Flukit.appConsts.titleFs,
+        fontWeight: Flukit.appConsts.textBold,
         color: palette.accentText
       ),
       headline2: GoogleFonts.poppins(
-        fontSize: FluConsts.titleFs,
-        fontWeight: FluConsts.textSemibold,
+        fontSize: Flukit.appConsts.titleFs,
+        fontWeight: Flukit.appConsts.textSemibold,
         color: palette.accentText
       ),
       subtitle1: GoogleFonts.poppins(
-        fontSize: FluConsts.subtitleFs,
-        fontWeight: FluConsts.textSemibold,
+        fontSize: Flukit.appConsts.subtitleFs,
+        fontWeight: Flukit.appConsts.textSemibold,
         color: palette.accentText
       ),
       subtitle2: GoogleFonts.poppins(
-        fontSize: FluConsts.subtitleFs,
-        fontWeight: FluConsts.textSemibold,
+        fontSize: Flukit.appConsts.subtitleFs,
+        fontWeight: Flukit.appConsts.textSemibold,
         color: palette.accentText
       ),
       bodyText1: GoogleFonts.poppins(
-        fontSize: FluConsts.bodyFs,
-        fontWeight: FluConsts.textNormal,
+        fontSize: Flukit.appConsts.bodyFs,
+        fontWeight: Flukit.appConsts.textNormal,
         color: palette.text
       ),
       bodyText2: GoogleFonts.poppins(
-        fontSize: FluConsts.bodyFs,
-        fontWeight: FluConsts.textNormal,
+        fontSize: Flukit.appConsts.bodyFs,
+        fontWeight: Flukit.appConsts.textNormal,
         color: palette.text
       ),
     )

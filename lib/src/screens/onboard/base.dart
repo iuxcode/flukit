@@ -111,7 +111,7 @@ class _OnboardingScreenState extends State<FluOnboardingScreen> {
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: FluConsts.defaultPaddingSize
+                          horizontal: Flukit.appConsts.defaultPaddingSize
                         ).copyWith(bottom: Flukit.screenSize.height * .075, top: 15),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -119,7 +119,7 @@ class _OnboardingScreenState extends State<FluOnboardingScreen> {
                             Hero(
                               tag: '<title_text>',
                               child: Text(page.title, textAlign: TextAlign.center, style: Flukit.textTheme.headline1?.copyWith(
-                                fontSize: FluConsts.headlineFs
+                                fontSize: Flukit.appConsts.headlineFs
                               )),
                             ),
                             const SizedBox(height: 5),
@@ -134,7 +134,7 @@ class _OnboardingScreenState extends State<FluOnboardingScreen> {
             ),
             Container(
               padding: EdgeInsets.symmetric(
-                horizontal: FluConsts.defaultPaddingSize
+                horizontal: Flukit.appConsts.defaultPaddingSize
               ).copyWith(bottom: 15),
               child: AnimatedSwitcher(
                 duration: widget.animationDuration,
@@ -150,7 +150,7 @@ class _OnboardingScreenState extends State<FluOnboardingScreen> {
                     color: Flukit.themePalette.accentText,
                     text: onFirstPage ? widget.skipButtonText : widget.prevButtonText,
                     textStyle: TextStyle(
-                      fontWeight: FluConsts.textSemibold
+                      fontWeight: Flukit.appConsts.textSemibold
                     ),
                   ),
                   SmoothPageIndicator(
@@ -166,20 +166,20 @@ class _OnboardingScreenState extends State<FluOnboardingScreen> {
                   ),
                   FluButton.text(
                     onPressed: () => onForward(context),
-                    height: FluConsts.defaultElSize,
+                    height: Flukit.appConsts.defaultElSize,
                     padding: EdgeInsets.zero,
                     backgroundColor: Colors.transparent,
                     color: Flukit.themePalette.accentText,
                     text: onLastPage ? widget.mainButtonText : widget.nextButtonText,
                     textStyle: TextStyle(
-                      fontWeight: FluConsts.textSemibold
+                      fontWeight: Flukit.appConsts.textSemibold
                     ),
                   )
                 ]) : Hero(
                   tag: '<main_button>',
                   child: FluButton.text(
                     onPressed: () => onForward(context),
-                    height: FluConsts.defaultElSize,
+                    height: Flukit.appConsts.defaultElSize,
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     text: widget.mainButtonText,
@@ -189,7 +189,7 @@ class _OnboardingScreenState extends State<FluOnboardingScreen> {
                     color: Flukit.themePalette.primaryText,
                     backgroundColor: Flukit.themeData.primaryColor,
                     textStyle: TextStyle(
-                      fontWeight: FluConsts.textBold
+                      fontWeight: Flukit.appConsts.textBold
                     ),
                   ),
                 ),

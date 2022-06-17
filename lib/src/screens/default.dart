@@ -9,15 +9,15 @@ class FluDefaultScreen extends StatelessWidget {
     body: SafeArea(
       child: Center(
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(FluConsts.defaultPaddingSize),
+          padding: EdgeInsets.all(Flukit.appConsts.defaultPaddingSize),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('Flukit.', style: TextStyle(
                 fontFamily: 'Neptune',
                 package: 'flukit',
-                fontWeight: FluConsts.textBold,
-                fontSize: FluConsts.subHeadlineFs,
+                fontWeight: Flukit.appConsts.textBold,
+                fontSize: Flukit.appConsts.subHeadlineFs,
                 color: Flukit.theme.primaryColor
               )),
               const SizedBox(height: 5),

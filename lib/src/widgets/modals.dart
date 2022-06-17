@@ -56,7 +56,7 @@ class FluModalBottomSheet extends StatelessWidget {
               ),
               child: SingleChildScrollView(
                 controller: scrollController,
-                padding: padding ?? EdgeInsets.all(FluConsts.defaultPaddingSize),
+                padding: padding ?? EdgeInsets.all(Flukit.appConsts.defaultPaddingSize),
                 child: child
               ),
             ),

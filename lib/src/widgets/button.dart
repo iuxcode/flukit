@@ -62,11 +62,11 @@ class FluButton extends StatefulWidget {
   }) => FluButton(
     onPressed: onPressed,
     onLongPress: onLongPress,
-    height: size ?? FluConsts.minElSize,
-    width: size ?? FluConsts.minElSize,
+    height: size ?? Flukit.appConsts.minElSize,
+    width: size ?? Flukit.appConsts.minElSize,
     boxShadow: boxShadow,
     backgroundColor: backgroundColor ?? Flukit.theme.data.backgroundColor,
-    radius: radius ?? FluConsts.minElRadius,
+    radius: radius ?? Flukit.appConsts.minElRadius,
     animationDuration: animationDuration,
     animationCurve: animationCurve,
     margin: margin,
@@ -162,7 +162,7 @@ class _FluButtonState extends State<FluButton> {
     // alignment: Alignment.centerLeft,
     decoration: BoxDecoration(
       border: widget.border,
-      borderRadius: widget.borderRadius ?? BorderRadius.circular(widget.radius ?? FluConsts.defaultElSize),
+      borderRadius: widget.borderRadius ?? BorderRadius.circular(widget.radius ?? Flukit.appConsts.defaultElSize),
       boxShadow: [if(widget.boxShadow != null) widget.boxShadow!]
     ),
     child: TextButton(
@@ -177,7 +177,7 @@ class _FluButtonState extends State<FluButton> {
         fixedSize: const Size(double.infinity, double.infinity),
         primary: widget.color,
         backgroundColor: widget.backgroundColor ?? Flukit.theme.data.primaryColor,
-        shape: RoundedRectangleBorder(borderRadius: widget.borderRadius ?? BorderRadius.circular(widget.radius ?? FluConsts.defaultElRadius)),
+        shape: RoundedRectangleBorder(borderRadius: widget.borderRadius ?? BorderRadius.circular(widget.radius ?? Flukit.appConsts.defaultElRadius)),
         padding: widget.padding ?? const EdgeInsets.symmetric(horizontal: 15)
       ),
       child: !widget.loading ? widget.child : Center(

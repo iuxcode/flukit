@@ -78,7 +78,7 @@ class _FluTextInputState extends State<FluTextInput> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: widget.height ?? FluConsts.defaultElSize,
+      height: widget.height ?? Flukit.appConsts.defaultElSize,
       margin: widget.margin,
       padding: widget.padding,
       clipBehavior: Clip.hardEdge,
@@ -89,7 +89,7 @@ class _FluTextInputState extends State<FluTextInput> {
           color: widget.borderColor ?? themeData.backgroundColor.withOpacity(.05),
           width: widget.borderWidth
         ),
-        borderRadius: BorderRadius.circular(widget.radius ?? FluConsts.defaultElRadius),
+        borderRadius: BorderRadius.circular(widget.radius ?? Flukit.appConsts.defaultElRadius),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +108,7 @@ class _FluTextInputState extends State<FluTextInput> {
               inputFormatters: widget.inputFormatters,
               style: themeData.textTheme.bodyText1!.copyWith(
                 color: widget.color ?? theme.palette.accentText,
-                fontWeight: FluConsts.textSemibold,
+                fontWeight: Flukit.appConsts.textSemibold,
               ),
               decoration: InputDecoration(
                 filled: true,
@@ -177,18 +177,18 @@ class FluTextInputWithLabel extends StatelessWidget {
             TextSpan(text: label.capitalize!),
             if(required) TextSpan(text: ' *', style: TextStyle(
               color: Flukit.themePalette.danger,
-              fontWeight: FluConsts.textBold
+              fontWeight: Flukit.appConsts.textBold
             ))
           ],
           style: Flukit.textTheme.bodyText1!.copyWith(
-            // fontSize: FluConsts.subtitleFs,
-            fontWeight: FluConsts.textSemibold,
+            // fontSize: Flukit.appConsts.subtitleFs,
+            fontWeight: Flukit.appConsts.textSemibold,
             color: Flukit.theme.textColor
           )
         )),
         FluOutline(
           strokeWidth: .5,
-          radius: FluConsts.defaultElRadius + 2,
+          radius: Flukit.appConsts.defaultElRadius + 2,
           margin: const EdgeInsets.only(top: 10),
           boxShadow: Flukit.boxShadow(
             offset: const Offset(0, 0),

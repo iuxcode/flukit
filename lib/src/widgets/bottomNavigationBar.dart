@@ -55,14 +55,14 @@ class _BottomNavBarState extends State<FluBottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: FluConsts.bottomNavBarHeight,
+      height: Flukit.appConsts.bottomNavBarHeight,
       clipBehavior: Clip.hardEdge,
       margin: EdgeInsets.symmetric(
-        horizontal: FluConsts.bottomNavBarHMarginSize
-      ).copyWith(bottom: FluConsts.bottomNavBarBMarginSize),
+        horizontal: Flukit.appConsts.bottomNavBarHMarginSize
+      ).copyWith(bottom: Flukit.appConsts.bottomNavBarBMarginSize),
       decoration: BoxDecoration(
         color: widget.background,
-        borderRadius: BorderRadius.circular(FluConsts.bottomNavBarRadius)
+        borderRadius: BorderRadius.circular(Flukit.appConsts.bottomNavBarRadius)
       ),
       child: Stack(
         children: [

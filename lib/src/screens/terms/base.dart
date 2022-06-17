@@ -30,13 +30,13 @@ class _FluTermsScreenState extends State<FluTermsScreen> {
           children: [
             Expanded(child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(
-                horizontal: FluConsts.defaultPaddingSize,
+                horizontal: Flukit.appConsts.defaultPaddingSize,
                 vertical: 20
               ),
               child: Column(
                 children: [
                   Text('sunt in culpa qui officia deserunt mollit anim id est laborum.', style: Flukit.textTheme.headline1!.copyWith(
-                    fontSize: FluConsts.headlineFs + 2
+                    fontSize: Flukit.appConsts.headlineFs + 2
                   )),
                   const SizedBox(height: 10),
                   const Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
@@ -47,7 +47,7 @@ class _FluTermsScreenState extends State<FluTermsScreen> {
               )),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: FluConsts.defaultPaddingSize).copyWith(top: 15, bottom: 25),
+              padding: EdgeInsets.symmetric(horizontal: Flukit.appConsts.defaultPaddingSize).copyWith(top: 15, bottom: 25),
               child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 FluButton.text(
                   onPressed: () => widget.onDecline(),
@@ -55,21 +55,21 @@ class _FluTermsScreenState extends State<FluTermsScreen> {
                   color: Flukit.themePalette.danger,
                   text: 'Decline.',
                   textStyle: TextStyle(
-                    fontWeight: FluConsts.textSemibold
+                    fontWeight: Flukit.appConsts.textSemibold
                   ),
                 ),
                 Hero(
                   tag: '<main_button>',
                   child: FluButton.text(
                     onPressed: () => widget.onAgree(),
-                    height: FluConsts.minElSize + 5,
-                    radius: FluConsts.defaultElRadius,
+                    height: Flukit.appConsts.minElSize + 5,
+                    radius: Flukit.appConsts.defaultElRadius,
                     padding: const EdgeInsets.symmetric(horizontal: 18),
                     backgroundColor: Flukit.theme.secondaryColor,
                     color: Flukit.theme.accentTextColor,
                     text: 'I agree. 😊',
                     textStyle: TextStyle(
-                      fontWeight: FluConsts.textSemibold
+                      fontWeight: Flukit.appConsts.textSemibold
                     ),
                   ),
                 ),

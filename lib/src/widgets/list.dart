@@ -53,7 +53,7 @@ class FluOptionsList extends StatelessWidget {
     itemBuilder: (BuildContext context, int index) {
       FluScreenOption option = options[index];
 
-      double size = itemHeight ?? FluConsts.minElSize, radius = itemRadius ?? FluConsts.minElRadius + 5;
+      double size = itemHeight ?? Flukit.appConsts.minElSize, radius = itemRadius ?? Flukit.appConsts.minElRadius + 5;
       Color color = option.color ?? textColor ?? Flukit.theme.textColor;
       Color backgroundColor = option.backgroundColor ?? Flukit.theme.backgroundColor;
 
@@ -80,7 +80,7 @@ class FluOptionsList extends StatelessWidget {
 
       Widget titleText = Text(option.title, overflow: TextOverflow.ellipsis, style: Flukit.textTheme.bodyText1?.copyWith(
         color: color,
-        fontWeight: FluConsts.textSemibold
+        fontWeight: Flukit.appConsts.textSemibold
       ).merge(titleTextStyle?.copyWith(
         color: option.color
       )));

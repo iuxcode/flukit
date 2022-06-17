@@ -108,8 +108,8 @@ class _FluSplashScreenState extends State<FluSplashScreen> {
                 style: widget.titleTextstyle ?? TextStyle(
                   fontFamily: 'Neptune',
                   package: 'flukit',
-                  fontSize: widget.titleFontSize ?? FluConsts.subHeadlineFs,
-                  fontWeight: widget.titleFontWeight ?? FluConsts.textBold,
+                  fontSize: widget.titleFontSize ?? Flukit.appConsts.subHeadlineFs,
+                  fontWeight: widget.titleFontWeight ?? Flukit.appConsts.textBold,
                   color: widget.titleColor ?? Flukit.theme.accentTextColor,
                 ),
               ),

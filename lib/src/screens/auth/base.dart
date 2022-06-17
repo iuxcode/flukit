@@ -239,7 +239,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                           )),
                           Padding(
                             padding: EdgeInsets.symmetric(
-                              horizontal: FluConsts.defaultPaddingSize
+                              horizontal: Flukit.appConsts.defaultPaddingSize
                             ).copyWith(top: 15),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -263,7 +263,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                     else if(step is FluAuthScreenInputStep) {
                                       return FluOutline(
                                         strokeWidth: .85,
-                                        radius: FluConsts.defaultElRadius + 2,
+                                        radius: Flukit.appConsts.defaultElRadius + 2,
                                         margin: const EdgeInsets.only(top: 35, bottom: 8),
                                         boxShadow: Flukit.boxShadow(
                                           blurRadius: 30,
@@ -273,7 +273,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                         ),
                                         child: FluTextInput(
                                           controller: inputController,
-                                          height: step.inputHeight ?? FluConsts.defaultElSize - 2,
+                                          height: step.inputHeight ?? Flukit.appConsts.defaultElSize - 2,
                                           hintText: step.inputHint,
                                           hintColor: controller.hasError ? Flukit.theme.palette.danger : Flukit.theme.palette.text,
                                           color: controller.hasError ? Flukit.theme.palette.danger : Flukit.theme.palette.accentText,
@@ -311,10 +311,10 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                         tag: '<main_button>',
                         child: FluButton.text(
                           onPressed: controller.canSubmit ? () => onSubmit(context) : null,
-                          height: FluConsts.defaultElSize + 2,
+                          height: Flukit.appConsts.defaultElSize + 2,
                           width: double.infinity,
                           padding: EdgeInsets.zero,
-                          margin: EdgeInsets.symmetric(horizontal: FluConsts.defaultPaddingSize).copyWith(bottom: 25),
+                          margin: EdgeInsets.symmetric(horizontal: Flukit.appConsts.defaultPaddingSize).copyWith(bottom: 25),
                           boxShadow: Flukit.boxShadow(
                             color: Flukit.theme.shadowColor,
                             opacity: controller.canSubmit ? .085 : .045,
@@ -329,7 +329,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                           color: controller.canSubmit ? Flukit.theme.primaryTextColor : Flukit.theme.palette.accentText,
                           backgroundColor: controller.canSubmit ? Flukit.theme.primaryColor : Flukit.theme.secondaryColor,
                           textStyle: TextStyle(
-                            fontWeight: FluConsts.textBold
+                            fontWeight: Flukit.appConsts.textBold
                           ),
                           loading: controller.loading,
                         ),
@@ -344,7 +344,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
               child: Container(
                 width: Flukit.screenSize.width,
                 padding: EdgeInsets.symmetric(
-                  horizontal: FluConsts.defaultPaddingSize
+                  horizontal: Flukit.appConsts.defaultPaddingSize
                 ).copyWith(top: 8),
                 child: Obx(() => Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -356,7 +356,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                         tag: '<back_button>',
                         child: FluButton.icon(
                           onPressed: controller.canGetBack ? () => onBack() : null,
-                          size: FluConsts.minElSize,
+                          size: Flukit.appConsts.minElSize,
                           icon: FluTwotoneIcons.arrow_arrowLeft,
                           iconSize: 24,
                           backgroundColor: Flukit.theme.backgroundColor.withOpacity(.25),
@@ -379,8 +379,8 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                             controller.setRegion(country.isoCode);
                           }
                         ) : null,
-                        height: FluConsts.minElSize + 5,
-                        radius: FluConsts.defaultElRadius - 2,
+                        height: Flukit.appConsts.minElSize + 5,
+                        radius: Flukit.appConsts.defaultElRadius - 2,
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         backgroundColor: Flukit.theme.backgroundColor.withOpacity(.25),
                         boxShadow: Flukit.boxShadow(
@@ -400,7 +400,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                           ) : Row(children: [
                             Text(controller.region == null ? 'Togo' : controller.region!.name, style: Flukit.textTheme.bodyText1!.copyWith(
                               color: Flukit.theme.palette.accentText,
-                              fontWeight: FluConsts.textSemibold
+                              fontWeight: Flukit.appConsts.textSemibold
                             )),
                             Container(
                               height: 20,
@@ -433,7 +433,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
     text,
     textAlign: TextAlign.center,
     style: isTitle ? Flukit.textTheme.headline1?.copyWith(
-      fontSize: FluConsts.subHeadlineFs
+      fontSize: Flukit.appConsts.subHeadlineFs
     ) : Flukit.textTheme.bodyText1
   );
 }

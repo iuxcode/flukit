@@ -81,7 +81,7 @@ class _FluStaggeredGridViewBuilderState extends State<FluStaggeredGridViewBuilde
                 ),
               ),
               Text(widget.title!, style: Flukit.textTheme.bodyText1!.copyWith(
-                fontWeight: FluConsts.textLight
+                fontWeight: Flukit.appConsts.textLight
               )),
             ],
           )

@@ -74,12 +74,12 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                     child: ListView(
                       controller: scrollController,
                       physics: const BouncingScrollPhysics(),
-                      padding: EdgeInsets.all(FluConsts.defaultPaddingSize),
+                      padding: EdgeInsets.all(Flukit.appConsts.defaultPaddingSize),
                       children: <Widget>[
                         Text(
                           'Select your country. 🧭',
                           style: Flukit.textTheme.headline1!.copyWith(
-                            fontSize: FluConsts.subHeadlineFs,
+                            fontSize: Flukit.appConsts.subHeadlineFs,
                             color: Flukit.theme.palette.accentText
                           )
                         ),
@@ -89,7 +89,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                           style: Flukit.textTheme.bodyText1
                         ),
                         FluOutline(
-                          radius: FluConsts.defaultElRadius + 2,
+                          radius: Flukit.appConsts.defaultElRadius + 2,
                           margin: const EdgeInsets.only(bottom: 15, top: 25),
                           boxShadow: Flukit.boxShadow(
                             blurRadius: 30,
@@ -98,7 +98,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                             color: Flukit.theme.shadowColor
                           ),
                           child: FluTextInput(
-                            height: FluConsts.defaultElSize - 2,
+                            height: Flukit.appConsts.defaultElSize - 2,
                             fillColor: Flukit.theme.backgroundColor,
                             textAlign: TextAlign.left,
                             hintText: 'Search',
@@ -156,11 +156,11 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                 ),
                               ),
                               Expanded(child: Text(country.name, overflow: TextOverflow.ellipsis, style: Flukit.textTheme.bodyText1!.copyWith(
-                                fontWeight: FluConsts.textSemibold
+                                fontWeight: Flukit.appConsts.textSemibold
                               ))),
                               const SizedBox(width: 5),
                               Text('+${country.phoneCode}', textAlign: TextAlign.right, style: Flukit.textTheme.bodyText1!.copyWith(
-                                fontWeight: FluConsts.textLight,
+                                fontWeight: Flukit.appConsts.textLight,
                                 color: Flukit.theme.palette.accentText
                               ))
                             ]

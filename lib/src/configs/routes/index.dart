@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import '../theme/tweaks.dart';
+import '../../../flukit.dart';
 
 class FluGetPage extends GetPage {
   FluGetPage({
@@ -12,7 +12,7 @@ class FluGetPage extends GetPage {
     page: page,
     binding: binding,
     transition: transition ?? Transition.rightToLeft,
-    transitionDuration: FluConsts.defaultPageAnimationDuration,
-    curve: FluConsts.defaultPageAnimationCurve,
+    transitionDuration: Flukit.appConsts.defaultPageAnimationDuration,
+    curve: Flukit.appConsts.defaultPageAnimationCurve,
   );
 }

@@ -66,7 +66,7 @@ class FluPaymentMethodSelector extends StatelessWidget {
     outlineColor: Flukit.theme.backgroundColor.withOpacity(.85),
     titleTextStyle: TextStyle(
       color: Flukit.theme.accentTextColor,
-      fontSize: FluConsts.bodyFs + 1
+      fontSize: Flukit.appConsts.bodyFs + 1
     ),
     descTextStyle: const TextStyle(
       fontSize: 13

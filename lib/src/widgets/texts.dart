@@ -26,8 +26,8 @@ class FluTextWithLine extends StatelessWidget {
         Hero(
           tag: '<title_text>',
           child: Text(text1, style: Flukit.textTheme.bodyText1!.copyWith(
-            fontSize: fontsize ?? FluConsts.headlineFs,
-            fontWeight: FluConsts.textSemibold,
+            fontSize: fontsize ?? Flukit.appConsts.headlineFs,
+            fontWeight: Flukit.appConsts.textSemibold,
             color: Flukit.theme.accentTextColor
           )),
         ),
@@ -36,8 +36,8 @@ class FluTextWithLine extends StatelessWidget {
             Hero(
               tag: '<title2_text>',
               child: Text(text2, maxLines: 1, overflow: TextOverflow.ellipsis, style: Flukit.textTheme.bodyText1!.copyWith(
-                fontSize: fontsize ?? FluConsts.headlineFs,
-                fontWeight: FluConsts.textSemibold,
+                fontSize: fontsize ?? Flukit.appConsts.headlineFs,
+                fontWeight: Flukit.appConsts.textSemibold,
                 color: Flukit.theme.accentTextColor
               )),
             ),
