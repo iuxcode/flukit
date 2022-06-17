@@ -24,7 +24,7 @@ class FluTextWithLine extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Hero(
-          tag: '<title>',
+          tag: '<title_text>',
           child: Text(text1, style: Flukit.textTheme.bodyText1!.copyWith(
             fontSize: fontsize ?? FluConsts.headlineFs,
             fontWeight: FluConsts.textSemibold,
@@ -34,7 +34,7 @@ class FluTextWithLine extends StatelessWidget {
         Row(
           children: [
             Hero(
-              tag: '<title2>',
+              tag: '<title2_text>',
               child: Text(text2, maxLines: 1, overflow: TextOverflow.ellipsis, style: Flukit.textTheme.bodyText1!.copyWith(
                 fontSize: fontsize ?? FluConsts.headlineFs,
                 fontWeight: FluConsts.textSemibold,

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-typedef OnAuthGoingBackFunction = void Function(
+typedef OnAuthGoingBackFunction = String Function(
   FluAuthScreenController controller,
   TextEditingController inputController,
   bool onFirstPage,
@@ -85,16 +85,16 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
 
   ///handle back button "onPressed" event.
   void onBack() {
-    if(controller.steps.length == 1) {
+    /* if(controller.steps.length == 1) {
       widget.onGoingBack?.call(
         controller,
         inputController,
         onFirstPage,
         onLastPage
       );
-    }
+    } */
     /// if we are not on first page, we call the "onGoingBack" action.
-    else if(!onFirstPage) {
+    if(!onFirstPage) {
       widget.onGoingBack?.call(
         controller,
         inputController,
@@ -117,7 +117,13 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
     }
     /// else just navigate to previous page.
     else {
-      Get.back();
+      String? route = widget.onGoingBack?.call(
+        controller,
+        inputController,
+        onFirstPage,
+        onLastPage
+      );
+      if(route != null) Get.offAllNamed(route);
     }
   }
 
@@ -172,7 +178,8 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
   }
 
   void onInit() async {
-    await Flukit.appController.setAuthorizationState(FluAuthorizationStates.waitAuth).onError((error, stackTrace) => throw {"Error while setting authorizationState parameter in secure storage.", error, stackTrace});
+    await Flukit.appController.setAuthorizationState(FluAuthorizationStates.waitAuth)
+      .onError((error, stackTrace) => throw {"Error while setting authorizationState parameter in secure storage.", error, stackTrace});
   }
 
   @override
@@ -238,11 +245,11 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Hero(
-                                  tag: '< title_text >',
+                                  tag: '<title_text>',
                                   child: text(controller.steps[index].title, isTitle: true),
                                 ),
                                 const SizedBox(height: 3),
-                                Hero(tag: '< desc_text >', child: text(controller.steps[index].desc)),
+                                Hero(tag: '<desc_text>', child: text(controller.steps[index].desc)),
                                 GetBuilder<FluAuthScreenController>(
                                   init: controller,
                                   initState: (_) {},
@@ -301,7 +308,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                     initState: (_) {},
                     builder: (_) {
                       return Hero(
-                        tag: '< main_button >',
+                        tag: '<main_button>',
                         child: FluButton.text(
                           onPressed: controller.canSubmit ? () => onSubmit(context) : null,
                           height: FluConsts.defaultElSize + 2,
@@ -316,7 +323,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                           ),
                           text: controller.steps[controller.stepIndex].buttonLabel,
                           prefixIcon: controller.steps[controller.stepIndex].buttonIcon,
-                          iconSize: 24,
+                          iconSize: 20,
                           iconStrokeWidth: 1.8,
                           spacing: 2,
                           color: controller.canSubmit ? Flukit.theme.primaryTextColor : Flukit.theme.palette.accentText,
@@ -346,7 +353,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                       opacity: controller.canGetBack ? 1 : 0,
                       duration: const Duration(milliseconds: 300),
                       child: Hero(
-                        tag: '< back_button >',
+                        tag: '<back_button>',
                         child: FluButton.icon(
                           onPressed: controller.canGetBack ? () => onBack() : null,
                           size: FluConsts.minElSize,

@@ -26,9 +26,9 @@ abstract class FluConstsInterface {
   /// base
   double get defaultPaddingSize => 30;
   double get defaultPageMaxWidthFactor => .85;
-  double get defaultElSize => 65;
-  double get minElSize => 45;
-  double get defaultElRadius => 20;
+  double get defaultElSize => 68;
+  double get defaultElRadius => 22;
+  double get minElSize => 50;
   double get minElRadius => 16;
   double get defaultAppBarSize => defaultElSize;
   double get defaultAvatarSize => 57;
@@ -43,8 +43,8 @@ abstract class FluConstsInterface {
   Curve get defaultPageAnimationCurve => Curves.fastOutSlowIn;
 
   /// Bottom navigation
-  double get bottomNavBarHeight => 80;
-  double get bottomNavBarRadius => 25;
+  double get bottomNavBarHeight => 85;
+  double get bottomNavBarRadius => 28;
   double get bottomNavBarHMarginSize => 15;
   double get bottomNavBarBMarginSize => 0;
   double get bottomNavBarIndicatorHeight => 100;

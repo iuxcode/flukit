@@ -17,7 +17,7 @@ class FluImage extends StatelessWidget {
   final ImageProvider<Object>? provider;
   final String? image;
   final BoxFit? fit;
-  final double? height, width;
+  final double? height, width, radius;
   final double overlayOpacity;
   final EdgeInsets? margin;
 
@@ -25,10 +25,11 @@ class FluImage extends StatelessWidget {
     Key? key,
     this.height,
     this.width,
+    this.radius,
     this.type,
     this.provider,
     this.image,
-    this.fit,
+    this.fit = BoxFit.cover,
     this.margin = EdgeInsets.zero,
     this.overlayOpacity = .05
   }): assert(provider != null || image != null), super(key: key);
@@ -63,7 +64,9 @@ class FluImage extends StatelessWidget {
       height: height,
       width: width,
       margin: margin,
+      clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(radius ?? 0),
         image: (imgProvider != null) ? DecorationImage(
           image: imgProvider,
           fit: fit,

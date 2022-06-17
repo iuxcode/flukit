@@ -11,7 +11,7 @@ class FluTabScreen extends StatefulWidget {
   final List<Widget> Function(FluTabScreenController controller, PageController pageController) pages;
   final List<FluBottomNavBarItemData> bottomNavBarItems;
   final FluTabScreenController? controller;
-  final Color? bottomNavBarColor;
+  final Color? bottomNavBarBackgroundColor, bottomNavBarColor, bottomNavBarActiveColor;
   final Duration animationDuration;
   final Curve animationCurve;
   final ScrollPhysics? physics;
@@ -26,6 +26,8 @@ class FluTabScreen extends StatefulWidget {
     this.animationDuration = const Duration(milliseconds: 300),
     this.animationCurve = Curves.decelerate,
     this.bottomNavBarColor,
+    this.bottomNavBarBackgroundColor,
+    this.bottomNavBarActiveColor,
     this.physics,
     this.onPageChange
   }): super(key: key);
@@ -82,9 +84,9 @@ class _FluTabScreenState extends State<FluTabScreen> {
     bottomNavigationBar: Obx(() => FluBottomNavBar(
       selectedIndex: controller.currentIndex,
       onTap: onPageChange,
-      background: widget.bottomNavBarColor ?? Flukit.themePalette.dark,
-      color: Flukit.themePalette.light,
-      activeColor: Flukit.theme.primaryColor,
+      background: widget.bottomNavBarBackgroundColor ?? Flukit.themePalette.dark,
+      color: widget.bottomNavBarColor ?? Flukit.themePalette.light,
+      activeColor: widget.bottomNavBarActiveColor ?? Flukit.theme.primaryColor,
       duration: widget.animationDuration,
       curve: widget.animationCurve,
       items: widget.bottomNavBarItems,

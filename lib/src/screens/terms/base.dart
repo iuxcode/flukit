@@ -59,7 +59,7 @@ class _FluTermsScreenState extends State<FluTermsScreen> {
                   ),
                 ),
                 Hero(
-                  tag: '< main_button >',
+                  tag: '<main_button>',
                   child: FluButton.text(
                     onPressed: () => widget.onAgree(),
                     height: FluConsts.minElSize + 5,

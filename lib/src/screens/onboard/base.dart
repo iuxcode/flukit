@@ -112,18 +112,18 @@ class _OnboardingScreenState extends State<FluOnboardingScreen> {
                       Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: FluConsts.defaultPaddingSize
-                        ).copyWith(bottom: Flukit.screenSize.height * .065, top: 15),
+                        ).copyWith(bottom: Flukit.screenSize.height * .075, top: 15),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Hero(
-                              tag: '< title_text >',
+                              tag: '<title_text>',
                               child: Text(page.title, textAlign: TextAlign.center, style: Flukit.textTheme.headline1?.copyWith(
                                 fontSize: FluConsts.headlineFs
                               )),
                             ),
                             const SizedBox(height: 5),
-                            Hero(tag: '< desc_text >', child: Text(page.desc, textAlign: TextAlign.center, style: Flukit.textTheme.bodyText1)),
+                            Hero(tag: '<desc_text>', child: Text(page.desc, textAlign: TextAlign.center, style: Flukit.textTheme.bodyText1)),
                           ],
                         ),
                       ),
@@ -176,7 +176,7 @@ class _OnboardingScreenState extends State<FluOnboardingScreen> {
                     ),
                   )
                 ]) : Hero(
-                  tag: '< main_button >',
+                  tag: '<main_button>',
                   child: FluButton.text(
                     onPressed: () => onForward(context),
                     height: FluConsts.defaultElSize,

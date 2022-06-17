@@ -14,13 +14,13 @@ class FluBasicOtpScreen extends StatefulWidget {
   final FluImageType? imageType;
   final String? title, desc, buttonText, codeAskButtonText, inputHint, inputErrorText;
   final FluIconModel? buttonIcon;
-  final OnAuthGoingBackFunction onGoingBack;
+  final String authRoute;
   final OnAuthGoingForwardFunction onGoingForward;
   final Future<int> Function(FluOtpScreenController controller, TextEditingController inputController) onAskCode;
 
   const FluBasicOtpScreen({
     Key? key,
-    required this.onGoingBack,
+    required this.authRoute,
     required this.onGoingForward,
     required this.onAskCode,
     this.controller,
@@ -75,7 +75,8 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
   }
 
   void onInit() async {
-    await Flukit.appController.setAuthorizationState(FluAuthorizationStates.waitCode).onError((error, stackTrace) => throw {"Error while setting authorizationState parameter in secure storage.", error, stackTrace});
+    await Flukit.appController.setAuthorizationState(FluAuthorizationStates.waitCode)
+      .onError((error, stackTrace) => throw {"Error while setting authorizationState parameter in secure storage.", error, stackTrace});
   }
 
   @override
@@ -97,7 +98,7 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
   Widget build(BuildContext context) {
     return FluSteppedAuthScreen(
       controller: controller,
-      onGoingBack: widget.onGoingBack,
+      onGoingBack: (FluAuthScreenController controller, TextEditingController inputController, bool onFirstPage, bool onLastPage) => widget.authRoute,
       onGoingForward: widget.onGoingForward,
       headerAction: AnimatedSwitcher(
         duration: const Duration(milliseconds: 250),
