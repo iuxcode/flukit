@@ -1,6 +1,6 @@
 export 'base.dart';
 
-export 'splash/base.dart';
+export 'splash.dart';
 
 export 'onboard/base.dart';
 export 'onboard/model1.dart';

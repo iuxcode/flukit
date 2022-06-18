@@ -20,4 +20,11 @@ extension FlukitText on FlukitInterface {
   /// Emojis
   /// Todo add type
   dynamic get emojis => Emojis;
+
+  /// Return fonts interface
+  FluFonts get textFonts => FluFonts();
+}
+
+class FluFonts {
+  String get neptune => 'Neptune';
 }

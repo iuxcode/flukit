@@ -8,11 +8,7 @@ class FluSplashScreen extends StatefulWidget {
   final FluSplashScreenController? controller;
   final Widget Function(FluSplashScreenController)? builder;
   final Widget? child;
-  final String? title;
-  final double? titleFontSize;
-  final FontWeight? titleFontWeight;
-  final Color? titleColor;
-  final TextStyle? titleTextstyle;
+  final TextStyle? textStyle;
   final VoidCallback? onWaitCode;
   final VoidCallback? onWaitAuth;
   final VoidCallback? onWaitTerms;
@@ -25,20 +21,13 @@ class FluSplashScreen extends StatefulWidget {
     this.controller,
     this.builder,
     this.child,
-    this.title,
-    this.titleFontSize,
-    this.titleFontWeight,
-    this.titleColor,
-    this.titleTextstyle,
+    this.textStyle,
     this.onWaitAuth,
     this.onWaitCode,
     this.onWaitTerms,
     this.onReady,
     this.defaultAction
-  }): assert(
-    (builder != null && (child == null && title == null)) ||
-    ((child != null && title != null) && builder == null)
-  ), super(key: key);
+  }): assert(builder != null || child == null), super(key: key);
 
   @override
   State<FluSplashScreen> createState() => _FluSplashScreenState();
@@ -104,14 +93,14 @@ class _FluSplashScreenState extends State<FluSplashScreen> {
             Padding(
               padding: EdgeInsets.only(bottom: Flukit.screenSize.height * .15),
               child: Text(
-                widget.title!,
-                style: widget.titleTextstyle ?? TextStyle(
-                  fontFamily: 'Neptune',
+                Flukit.appInfos.name,
+                style: TextStyle(
+                  fontFamily: Flukit.textFonts.neptune,
                   package: 'flukit',
-                  fontSize: widget.titleFontSize ?? Flukit.appConsts.subHeadlineFs,
-                  fontWeight: widget.titleFontWeight ?? Flukit.appConsts.textBold,
-                  color: widget.titleColor ?? Flukit.theme.accentTextColor,
-                ),
+                  fontSize: Flukit.appConsts.subHeadlineFs,
+                  fontWeight: Flukit.appConsts.textBold,
+                  color: Flukit.theme.accentTextColor,
+                ).merge(widget.textStyle),
               ),
             ),
           ])

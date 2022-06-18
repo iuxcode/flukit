@@ -28,25 +28,25 @@ class FluAppAuthor {
 /// [AppVersion] is the version of the app.
 class FluAppInformations {
   /// Application name.
-  String? name;
+  String name;
   /// Application version.
-  String? version;
+  String version;
   /// Application authors.
-  List<FluAppAuthor>? authors;
+  List<FluAppAuthor> authors;
 
   FluAppInformations({
     this.name = 'Flukit',
     this.version = '0.0.1',
-    this.authors
+    this.authors = const []
   }) {
-    authors ??= [
-      FluAppAuthor(
+    if (authors.isEmpty) {
+      authors.add(FluAppAuthor(
         firstName: 'charlot',
         lastName: 'tabade',
         email: 'charlottabade.pro@gmail.com',
         websiteUrl: 'https://github.com/charles9904',
         githubUrl: 'https://github.com/charles9904'
-      )
-    ];
+      ));
+    }
   }
 }
