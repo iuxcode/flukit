@@ -1,5 +1,6 @@
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../utils/flu_utils.dart';
 
 class FluButton extends StatefulWidget {
@@ -92,6 +93,28 @@ class FluButton extends StatefulWidget {
       )
     );
   }
+
+  factory FluButton.back({
+    required String text,
+    VoidCallback? onGoingBack,
+    VoidCallback? onLongPress,
+    Color? color,
+    BoxShadow? boxShadow,
+  }) => FluButton.icon(
+    onPressed: () {
+      onGoingBack?.call();
+      Get.back();
+    },
+    onLongPress: onLongPress,
+    icon: FluTwotoneIcons.arrow_arrowLeft,
+    style: FluButtonStyle(
+      color: color ?? Flukit.theme.textColor,
+      backgroundColor: Flukit.theme.backgroundColor,
+      boxShadow: boxShadow ?? Flukit.boxShadow(
+        offset: const Offset(15, 15),
+      )
+    ),
+  );
 
   @override
   State<FluButton> createState() => _FluButtonState();
