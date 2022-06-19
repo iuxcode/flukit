@@ -1,7 +1,4 @@
-import 'package:flukit/src/controllers/flu_controllers.dart';
-import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../flukit.dart';

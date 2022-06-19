@@ -77,8 +77,10 @@ class FluPaymentMethodSelector extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: FluIcon(
         icon: FluTwotoneIcons.arrow_arrowRight1,
-        size: 15,
-        color: Flukit.theme.textColor,
+        style: FluIconStyle(
+          color: Flukit.theme.textColor,
+          size: 15,
+        ),
       ),
     ),
     options: (paymentMethods ?? _defaultPaymentMethods).map((e) {

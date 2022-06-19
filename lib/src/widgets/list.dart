@@ -68,9 +68,11 @@ class FluOptionsList extends StatelessWidget {
         ),
         child: _icon != null ? FluIcon(
           icon: _icon,
-          color: option.color ?? iconColor ?? color,
-          size: iconSize ?? 24,
-          strokeWidth: iconStrokewidth ?? 1.5,
+          style: FluIconStyle(
+            color: option.color ?? iconColor ?? color,
+            size: iconSize ?? 24,
+            strokeWidth: iconStrokewidth ?? 1.5,
+          ),
         ) : label != null ? Center(
             child: Text(label, style: Flukit.textTheme.bodyText1!.copyWith(
               fontSize: iconSize ?? 24,
@@ -144,9 +146,11 @@ class FluOptionsList extends StatelessWidget {
 
       return FluButton(
         onPressed: option.onPressed,
-        backgroundColor: Colors.transparent,
-        margin: EdgeInsets.only(top: index == 0 ? 0 : itemSpacing),
-        padding: EdgeInsets.zero,
+        style: FluButtonStyle(
+          backgroundColor: Colors.transparent,
+          margin: EdgeInsets.only(top: index == 0 ? 0 : itemSpacing),
+          padding: EdgeInsets.zero,
+        ),
         child: optionWidget
       );
     }

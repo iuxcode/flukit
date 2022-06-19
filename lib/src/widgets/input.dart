@@ -141,9 +141,11 @@ class _FluTextInputState extends State<FluTextInput> {
       width: widget.iconSize,
       child: icon != null ? FluIcon(
         icon: icon,
-        strokeWidth: widget.iconStrokeWidth,
-        size: widget.iconSize,
-        color: widget.iconColor ?? widget.color,
+        style: FluIconStyle(
+          color: widget.iconColor ?? theme.palette.accentText,
+          size: widget.iconSize,
+          strokeWidth: widget.iconStrokeWidth,
+        ),
       ) : null,
     ),
   );

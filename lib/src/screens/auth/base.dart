@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:flukit/flukit.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 typedef OnAuthGoingBackFunction = String Function(
@@ -189,7 +188,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
       widget.controller ?? FluAuthScreenController(
         initialSteps: <FluAuthScreenStep>[]
       ),
-      tag: 'AuthScreenController_' + math.Random().nextInt(99999).toString()
+      tag: 'AuthScreenController#${math.Random().nextInt(99999)}'
     );
 
     /// Get the arguments and set controller values;
@@ -311,27 +310,31 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                         tag: '<main_button>',
                         child: FluButton.text(
                           onPressed: controller.canSubmit ? () => onSubmit(context) : null,
-                          height: Flukit.appConsts.defaultElSize + 2,
-                          width: double.infinity,
-                          padding: EdgeInsets.zero,
-                          margin: EdgeInsets.symmetric(horizontal: Flukit.appConsts.defaultPaddingSize).copyWith(bottom: 25),
-                          boxShadow: Flukit.boxShadow(
-                            color: Flukit.theme.shadowColor,
-                            opacity: controller.canSubmit ? .085 : .045,
-                            blurRadius: 30,
-                            offset: const Offset(0, 0)
+                          style: FluButtonStyle(
+                            height: Flukit.appConsts.defaultElSize + 2,
+                            width: double.infinity,
+                            padding: EdgeInsets.zero,
+                            margin: EdgeInsets.symmetric(horizontal: Flukit.appConsts.defaultPaddingSize).copyWith(bottom: 25),
+                            color: controller.canSubmit ? Flukit.theme.primaryTextColor : Flukit.theme.palette.accentText,
+                            backgroundColor: controller.canSubmit ? Flukit.theme.primaryColor : Flukit.theme.secondaryColor,
+                            boxShadow: Flukit.boxShadow(
+                              color: Flukit.theme.shadowColor,
+                              opacity: controller.canSubmit ? .085 : .045,
+                              blurRadius: 30,
+                              offset: const Offset(0, 0)
+                            ),
+                            iconStyle: FluIconStyle(
+                              size: 20,
+                              strokeWidth: 1.8,
+                            ),
+                            loading: controller.loading,
                           ),
                           text: controller.steps[controller.stepIndex].buttonLabel,
                           prefixIcon: controller.steps[controller.stepIndex].buttonIcon,
-                          iconSize: 20,
-                          iconStrokeWidth: 1.8,
                           spacing: 2,
-                          color: controller.canSubmit ? Flukit.theme.primaryTextColor : Flukit.theme.palette.accentText,
-                          backgroundColor: controller.canSubmit ? Flukit.theme.primaryColor : Flukit.theme.secondaryColor,
                           textStyle: TextStyle(
                             fontWeight: Flukit.appConsts.textBold
                           ),
-                          loading: controller.loading,
                         ),
                       );
                     }
@@ -356,15 +359,20 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                         tag: '<back_button>',
                         child: FluButton.icon(
                           onPressed: controller.canGetBack ? () => onBack() : null,
-                          size: Flukit.appConsts.minElSize,
                           icon: FluTwotoneIcons.arrow_arrowLeft,
-                          iconSize: 24,
-                          backgroundColor: Flukit.theme.backgroundColor.withOpacity(.25),
-                          color: Flukit.theme.palette.accentText,
-                          boxShadow: Flukit.boxShadow(
-                            color: Flukit.theme.palette.shadow,
-                            offset: const Offset(-5, 15),
-                            opacity: .06
+                          style: FluButtonStyle(
+                            height: Flukit.appConsts.minElSize,
+                            width: Flukit.appConsts.minElSize,
+                            backgroundColor: Flukit.theme.backgroundColor.withOpacity(.25),
+                            color: Flukit.theme.palette.accentText,
+                            boxShadow: Flukit.boxShadow(
+                              color: Flukit.theme.palette.shadow,
+                              offset: const Offset(-5, 15),
+                              opacity: .06
+                            ),
+                            iconStyle: FluIconStyle(
+                              size: 24,
+                            ),
                           ),
                         ),
                       ),
@@ -379,14 +387,16 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                             controller.setRegion(country.isoCode);
                           }
                         ) : null,
-                        height: Flukit.appConsts.minElSize + 5,
-                        radius: Flukit.appConsts.defaultElRadius - 2,
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        backgroundColor: Flukit.theme.backgroundColor.withOpacity(.25),
-                        boxShadow: Flukit.boxShadow(
-                          color: Flukit.theme.palette.primary,
-                          offset: const Offset(15, 15),
-                          opacity: .1
+                        style: FluButtonStyle(
+                          height: Flukit.appConsts.minElSize + 5,
+                          radius: Flukit.appConsts.defaultElRadius - 2,
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          backgroundColor: Flukit.theme.backgroundColor.withOpacity(.25),
+                          boxShadow: Flukit.boxShadow(
+                            color: Flukit.theme.palette.primary,
+                            offset: const Offset(15, 15),
+                            opacity: .1
+                          ),
                         ),
                         child: AnimatedSwitcher(
                           duration: const Duration(milliseconds: 300),

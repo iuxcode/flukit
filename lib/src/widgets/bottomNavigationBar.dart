@@ -124,11 +124,13 @@ class _BottomNavBarItem extends StatelessWidget {
     return Expanded(
       child: FluButton(
         onPressed: () => onTap(),
-        height: double.infinity,
-        width: double.infinity,
-        backgroundColor: Colors.transparent,
-        radius: 0,
-        padding: const EdgeInsets.symmetric(horizontal: 30),
+        style: FluButtonStyle(
+          height: double.infinity,
+          width: double.infinity,
+          backgroundColor: Colors.transparent,
+          radius: 0,
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+        ),
         child: Center(
           child: AnimatedSwitcher(
             duration: animationDuration,
@@ -140,8 +142,10 @@ class _BottomNavBarItem extends StatelessWidget {
               textAlign: TextAlign.center,
             ) : FluIcon(
               icon: data.icon,
-              color: isSelected ? activeColor : color,
-              strokeWidth: 2,
+              style: FluIconStyle(
+                color: isSelected ? activeColor : color,
+                strokeWidth: 2,
+              ),
             ),
           ),
         ),

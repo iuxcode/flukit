@@ -3,6 +3,7 @@ part of '../flu_utils.dart';
 extension FlukitAPIService on FlukitInterface {
   FluApiSettings get apiSettings => Flukit.appController.apiSettings;
 
+  // ignore: library_private_types_in_public_api
   _FluConnect get http => _FluConnect(settings: apiSettings);
 }
 

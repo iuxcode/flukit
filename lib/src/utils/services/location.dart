@@ -1,6 +1,7 @@
 part of '../flu_utils.dart';
 
 extension FlukitLocationService on FlukitInterface {
+  // ignore: library_private_types_in_public_api
   _FluLocationService get locationService => _FluLocationService();
 }
 

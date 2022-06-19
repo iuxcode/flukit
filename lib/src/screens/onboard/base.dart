@@ -145,12 +145,14 @@ class _OnboardingScreenState extends State<FluOnboardingScreen> {
                 child: !onLastPage ? Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                   FluButton.text(
                     onPressed: () => onBack(context),
-                    padding: EdgeInsets.zero,
-                    backgroundColor: Colors.transparent,
-                    color: Flukit.themePalette.accentText,
                     text: onFirstPage ? widget.skipButtonText : widget.prevButtonText,
                     textStyle: TextStyle(
                       fontWeight: Flukit.appConsts.textSemibold
+                    ),
+                    style: FluButtonStyle(
+                      padding: EdgeInsets.zero,
+                      backgroundColor: Colors.transparent,
+                      color: Flukit.themePalette.accentText,
                     ),
                   ),
                   SmoothPageIndicator(
@@ -166,30 +168,36 @@ class _OnboardingScreenState extends State<FluOnboardingScreen> {
                   ),
                   FluButton.text(
                     onPressed: () => onForward(context),
-                    height: Flukit.appConsts.defaultElSize,
-                    padding: EdgeInsets.zero,
-                    backgroundColor: Colors.transparent,
-                    color: Flukit.themePalette.accentText,
                     text: onLastPage ? widget.mainButtonText : widget.nextButtonText,
                     textStyle: TextStyle(
                       fontWeight: Flukit.appConsts.textSemibold
+                    ),
+                    style: FluButtonStyle(
+                      height: Flukit.appConsts.defaultElSize,
+                      padding: EdgeInsets.zero,
+                      backgroundColor: Colors.transparent,
+                      color: Flukit.themePalette.accentText,
                     ),
                   )
                 ]) : Hero(
                   tag: '<main_button>',
                   child: FluButton.text(
                     onPressed: () => onForward(context),
-                    height: Flukit.appConsts.defaultElSize,
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
                     text: widget.mainButtonText,
                     prefixIcon: widget.mainButtonIcon ?? FluBulkIcons.essentional_flash,
-                    iconSize: 24,
-                    iconStrokeWidth: 1.8,
-                    color: Flukit.themePalette.primaryText,
-                    backgroundColor: Flukit.themeData.primaryColor,
                     textStyle: TextStyle(
                       fontWeight: Flukit.appConsts.textBold
+                    ),
+                    style: FluButtonStyle(
+                      height: Flukit.appConsts.defaultElSize,
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      color: Flukit.themePalette.primaryText,
+                      backgroundColor: Flukit.themeData.primaryColor,
+                      iconStyle: FluIconStyle(
+                        size: 24,
+                        strokeWidth: 1.8,
+                      )
                     ),
                   ),
                 ),

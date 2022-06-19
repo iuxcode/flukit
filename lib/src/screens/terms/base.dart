@@ -51,25 +51,29 @@ class _FluTermsScreenState extends State<FluTermsScreen> {
               child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 FluButton.text(
                   onPressed: () => widget.onDecline(),
-                  backgroundColor: Colors.transparent,
-                  color: Flukit.themePalette.danger,
                   text: 'Decline.',
                   textStyle: TextStyle(
                     fontWeight: Flukit.appConsts.textSemibold
                   ),
+                  style: FluButtonStyle(
+                    backgroundColor: Colors.transparent,
+                    color: Flukit.themePalette.danger,
+                  )
                 ),
                 Hero(
                   tag: '<main_button>',
                   child: FluButton.text(
                     onPressed: () => widget.onAgree(),
-                    height: Flukit.appConsts.minElSize + 5,
-                    radius: Flukit.appConsts.defaultElRadius,
-                    padding: const EdgeInsets.symmetric(horizontal: 18),
-                    backgroundColor: Flukit.theme.secondaryColor,
-                    color: Flukit.theme.accentTextColor,
                     text: 'I agree. 😊',
                     textStyle: TextStyle(
                       fontWeight: Flukit.appConsts.textSemibold
+                    ),
+                    style: FluButtonStyle(
+                      height: Flukit.appConsts.minElSize + 5,
+                      radius: Flukit.appConsts.defaultElRadius,
+                      padding: const EdgeInsets.symmetric(horizontal: 18),
+                      backgroundColor: Flukit.theme.secondaryColor,
+                      color: Flukit.theme.accentTextColor,
                     ),
                   ),
                 ),

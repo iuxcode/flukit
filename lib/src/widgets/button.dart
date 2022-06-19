@@ -27,7 +27,8 @@ class FluButton extends StatefulWidget {
     FluButtonStyle? style,
   }) {
     style = FluButtonStyle(
-      size: Size(Flukit.appConsts.minElSize, Flukit.appConsts.minElSize),
+      height: Flukit.appConsts.minElSize,
+      width: Flukit.appConsts.minElSize,
       radius: Flukit.appConsts.minElRadius,
       padding: EdgeInsets.zero,
       margin: EdgeInsets.zero,
@@ -101,8 +102,8 @@ class _FluButtonState extends State<FluButton> {
 
   @override
   Widget build(BuildContext context) => AnimatedContainer(
-    height: widget.style?.size?.height ?? Flukit.appConsts.defaultElSize,
-    width: widget.style?.size?.width,
+    height: widget.style?.height ?? Flukit.appConsts.defaultElSize,
+    width: widget.style?.width,
     margin: widget.style?.margin,
     duration: widget.style?.animationDuration ?? const Duration(milliseconds: 300),
     curve: widget.style?.animationCurve ?? Curves.linear,
@@ -142,7 +143,8 @@ class _FluButtonState extends State<FluButton> {
 }
 
 class FluButtonStyle {
-  Size? size;
+  double? height;
+  double? width;
   double? radius;
   EdgeInsets? margin;
   EdgeInsets? padding;
@@ -159,12 +161,13 @@ class FluButtonStyle {
   FluIconStyle? iconStyle;
 
   FluButtonStyle({
-    this.size,
+    this.height,
+    this.width,
+    this.radius,
     this.margin = EdgeInsets.zero,
     this.padding,
     this.boxShadow,
     this.backgroundColor,
-    this.radius,
     this.border,
     this.borderRadius,
     this.color = Colors.white,
@@ -177,6 +180,7 @@ class FluButtonStyle {
   });
 
   FluButtonStyle merge(FluButtonStyle? buttonStyle) => FluButtonStyle(
-    size: buttonStyle?.size ?? size
+    height: buttonStyle?.height ?? height,
+    width: buttonStyle?.width ?? width,
   );
 }

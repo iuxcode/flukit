@@ -122,11 +122,13 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                             widget.onSelect(country);
                             Navigator.pop(context);
                           },
-                          height: null,
-                          padding: const EdgeInsets.all(6).copyWith(right: 10),
-                          margin: const EdgeInsets.only(bottom: 10),
-                          backgroundColor: Flukit.theme.secondaryColor.withOpacity(.45),
-                          radius: flagRadius + 2,
+                          style: FluButtonStyle(
+                            height: null,
+                            padding: const EdgeInsets.all(6).copyWith(right: 10),
+                            margin: const EdgeInsets.only(bottom: 10),
+                            backgroundColor: Flukit.theme.secondaryColor.withOpacity(.45),
+                            radius: flagRadius + 2,
+                          ),
                           child: Row(
                             children: [
                               FluOutline(
