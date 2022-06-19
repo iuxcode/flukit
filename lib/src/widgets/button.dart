@@ -1,43 +1,22 @@
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
-import '../configs/theme/tweaks.dart';
 import '../utils/flu_utils.dart';
 
-import './line.dart';
-
 class FluButton extends StatefulWidget {
+  /// Handle the button press event.
   final void Function()? onPressed;
+  /// Handle the button long press event.
   final void Function()? onLongPress;
-  final double? height, width, radius;
-  final EdgeInsets? margin, padding;
-  final Border? border;
-  final BorderRadius? borderRadius;
-  final Duration? animationDuration;
-  final Curve? animationCurve;
-  final BoxShadow? boxShadow;
-  final Color? color, backgroundColor;
-  final bool loading;
-  final Widget? loadingWidget;
+  /// Button style.
+  final FluButtonStyle? style;
+  /// Button child.
   final Widget child;
 
   const FluButton({
-    Key? key, 
-    this.width,
-    this.margin = EdgeInsets.zero,
-    this.padding,
-    this.boxShadow,
-    this.backgroundColor,
-    this.height,
-    this.radius,
-    this.border,
-    this.borderRadius,
-    this.color = Colors.white,
-    this.animationDuration,
-    this.animationCurve,
+    Key? key,
     this.onLongPress,
-    this.loading = false,
-    this.loadingWidget,
     this.onPressed,
+    this.style,
     required this.child
   }) : super(key: key);
 
@@ -45,43 +24,31 @@ class FluButton extends StatefulWidget {
     required FluIconModel icon,
     void Function()? onPressed,
     void Function()? onLongPress,
-    BoxShadow? boxShadow,
-    Color? backgroundColor,
-    Color? color,
-    Border? border,
-    BorderRadius? borderRadius,
-    EdgeInsets margin = EdgeInsets.zero,
-    EdgeInsets padding = EdgeInsets.zero,
-    Duration? animationDuration,
-    Curve? animationCurve,
-    double? size = 45,
-    double? radius,
-    double iconSize = 20.0,
-    double iconStrokeWidth = 1.5,
-    Alignment alignment = Alignment.center
-  }) => FluButton(
-    onPressed: onPressed,
-    onLongPress: onLongPress,
-    height: size ?? Flukit.appConsts.minElSize,
-    width: size ?? Flukit.appConsts.minElSize,
-    boxShadow: boxShadow,
-    backgroundColor: backgroundColor ?? Flukit.theme.data.backgroundColor,
-    radius: radius ?? Flukit.appConsts.minElRadius,
-    animationDuration: animationDuration,
-    animationCurve: animationCurve,
-    margin: margin,
-    padding: padding,
-    border: border,
-    borderRadius: borderRadius,
-    child: FluIcon(
-      icon: icon,
-      size: iconSize,
-      color: color,
-      strokeWidth: iconStrokeWidth,
-      alignment: alignment,
-    )
-  );
+    FluButtonStyle? style,
+  }) {
+    style = FluButtonStyle(
+      size: Size(Flukit.appConsts.minElSize, Flukit.appConsts.minElSize),
+      radius: Flukit.appConsts.minElRadius,
+      padding: EdgeInsets.zero,
+      margin: EdgeInsets.zero,
+      alignment: Alignment.center,
+      backgroundColor: Flukit.theme.data.backgroundColor
+    ).merge(style);
 
+    return FluButton(
+      onPressed: onPressed,
+      onLongPress: onLongPress,
+      style: style,
+      child: FluIcon(
+        icon: icon,
+        style: FluIconStyle(
+          size: 20,
+          strokeWidth: 1.5,
+          color: style.color
+        ).merge(style.iconStyle)
+      )
+    );
+  }
   
   factory FluButton.text({
     required String text,
@@ -89,56 +56,34 @@ class FluButton extends StatefulWidget {
     final FluIconModel? suffixIcon,
     void Function()? onPressed,
     void Function()? onLongPress,
-    BoxShadow? boxShadow,
-    Color? backgroundColor,
-    Border? border,
-    BorderRadius? borderRadius,
-    Color color = Colors.white,
-    EdgeInsets margin = EdgeInsets.zero, 
-    EdgeInsets? padding,
-    Duration? animationDuration,
-    Curve? animationCurve,
-    double? height,
-    double? width,
-    double? radius,
+    FluButtonStyle? style,
     TextStyle? textStyle,
     double spacing = 4,
-    double iconSize = 20,
-    double iconStrokeWidth = 1.5,
-    bool loading = false,
-    Widget? loadingWidget
   }) {
+    style = FluButtonStyle(
+      margin: EdgeInsets.zero,
+    ).merge(style);
     Widget spacer = SizedBox(width: spacing);
     Widget _icon(FluIconModel? icon, [bool pref = false]) => icon != null ? FluIcon(
       icon: icon,
-      size: iconSize,
-      strokeWidth: iconStrokeWidth,
-      color: color
+      style: FluIconStyle(
+        size: 20,
+        strokeWidth: 1.5,
+        color: style?.color ?? Flukit.themePalette.light
+      ).merge(style?.iconStyle)
     ) : Container();
 
     return FluButton(
       onPressed: onPressed,
       onLongPress: onLongPress,
-      height: height,
-      width: width,
-      boxShadow: boxShadow,
-      backgroundColor: backgroundColor,
-      radius: radius,
-      animationDuration: animationDuration,
-      animationCurve: animationCurve,
-      margin: margin,
-      padding: padding,
-      border: border,
-      borderRadius: borderRadius,
-      loading: loading,
-      loadingWidget: loadingWidget,
+      style: style,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           _icon(prefixIcon, prefixIcon != null),
           if(prefixIcon != null) spacer,
           Text(text, style: Flukit.textTheme.bodyText1?.copyWith(
-            color: color
+            color: style.color,
           ).merge(textStyle)),
           if(suffixIcon != null) spacer,
           _icon(suffixIcon, suffixIcon != null),
@@ -152,22 +97,26 @@ class FluButton extends StatefulWidget {
 }
 
 class _FluButtonState extends State<FluButton> {
+  bool get isLoading => widget.style?.loading ?? false;
+
   @override
   Widget build(BuildContext context) => AnimatedContainer(
-    height: widget.height,
-    width: widget.width,
-    margin: widget.margin,
-    duration: widget.animationDuration ?? const Duration(milliseconds: 300),
-    curve: widget.animationCurve ?? Curves.linear,
-    // alignment: Alignment.centerLeft,
+    height: widget.style?.size?.height ?? Flukit.appConsts.defaultElSize,
+    width: widget.style?.size?.width,
+    margin: widget.style?.margin,
+    duration: widget.style?.animationDuration ?? const Duration(milliseconds: 300),
+    curve: widget.style?.animationCurve ?? Curves.linear,
+    alignment: widget.style?.alignment ?? Alignment.center,
     decoration: BoxDecoration(
-      border: widget.border,
-      borderRadius: widget.borderRadius ?? BorderRadius.circular(widget.radius ?? Flukit.appConsts.defaultElSize),
-      boxShadow: [if(widget.boxShadow != null) widget.boxShadow!]
+      border: widget.style?.border,
+      borderRadius: widget.style?.borderRadius ?? BorderRadius.circular(widget.style?.radius ?? Flukit.appConsts.defaultElRadius),
+      boxShadow: [
+        if(widget.style != null && widget.style?.boxShadow != null) widget.style!.boxShadow!
+      ]
     ),
     child: TextButton(
       onPressed: widget.onPressed != null ? () => {
-        if(!widget.loading) {
+        if(!isLoading) {
           Flukit.selectionClickHaptic(),
           widget.onPressed!()
         }
@@ -175,17 +124,59 @@ class _FluButtonState extends State<FluButton> {
       onLongPress: widget.onLongPress,
       style: TextButton.styleFrom(
         fixedSize: const Size(double.infinity, double.infinity),
-        primary: widget.color,
-        backgroundColor: widget.backgroundColor ?? Flukit.theme.data.primaryColor,
-        shape: RoundedRectangleBorder(borderRadius: widget.borderRadius ?? BorderRadius.circular(widget.radius ?? Flukit.appConsts.defaultElRadius)),
-        padding: widget.padding ?? const EdgeInsets.symmetric(horizontal: 15)
+        primary: widget.style?.color,
+        backgroundColor: widget.style?.backgroundColor ?? Flukit.theme.data.primaryColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: widget.style?.borderRadius ?? BorderRadius.circular(widget.style?.radius ?? Flukit.appConsts.defaultElRadius
+        )),
+        padding: widget.style?.padding ?? const EdgeInsets.symmetric(horizontal: 15)
       ),
-      child: !widget.loading ? widget.child : Center(
-        child: widget.loadingWidget ?? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(widget.color ?? Flukit.themePalette.dark),
+      child: !isLoading ? widget.child : Center(
+        child: widget.style?.loadingWidget ?? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(widget.style?.color ?? Flukit.themePalette.dark),
           strokeWidth: 2
         )),
       )
     )
+  );
+}
+
+class FluButtonStyle {
+  Size? size;
+  double? radius;
+  EdgeInsets? margin;
+  EdgeInsets? padding;
+  Border? border;
+  BorderRadius? borderRadius;
+  Duration? animationDuration;
+  Curve? animationCurve;
+  BoxShadow? boxShadow;
+  Color? color;
+  Color? backgroundColor;
+  bool loading;
+  Widget? loadingWidget;
+  Alignment alignment;
+  FluIconStyle? iconStyle;
+
+  FluButtonStyle({
+    this.size,
+    this.margin = EdgeInsets.zero,
+    this.padding,
+    this.boxShadow,
+    this.backgroundColor,
+    this.radius,
+    this.border,
+    this.borderRadius,
+    this.color = Colors.white,
+    this.animationDuration,
+    this.animationCurve,
+    this.loading = false,
+    this.loadingWidget,
+    this.alignment = Alignment.center,
+    this.iconStyle
+  });
+
+  FluButtonStyle merge(FluButtonStyle? buttonStyle) => FluButtonStyle(
+    size: buttonStyle?.size ?? size
   );
 }

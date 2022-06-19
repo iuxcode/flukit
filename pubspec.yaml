@@ -18,10 +18,8 @@ dependencies:
   flutter_staggered_grid_view: ^0.6.1
   flutter_svg: ^1.0.3
   flukit_icons:
-    # git:
-    #   url: https://github.com/Focus-git/icons_lib.git
-    #   path: packages/flukit_icons
-    path: ../../focus/ui_kits/icons_lib/packages/flukit_icons
+    # TODO switch to github
+    path: ../flukit_icons
   geolocator: ^8.2.0
   get: ^4.6.5
   google_fonts: ^3.0.1
