@@ -33,7 +33,7 @@ class FluButton extends StatefulWidget {
       radius: Flukit.appConsts.minElRadius,
       padding: EdgeInsets.zero,
       margin: EdgeInsets.zero,
-      alignment: Alignment.center,
+      // alignment: Alignment.center,
       backgroundColor: Flukit.theme.data.backgroundColor
     ).merge(style);
 
@@ -62,9 +62,10 @@ class FluButton extends StatefulWidget {
     TextStyle? textStyle,
     double spacing = 4,
   }) {
-    style = FluButtonStyle(
+    style = FluButtonStyle.flat.merge(FluButtonStyle(
       margin: EdgeInsets.zero,
-    ).merge(style);
+      padding: EdgeInsets.zero,
+    ).merge(style));
     Widget spacer = SizedBox(width: spacing);
     Widget _icon(FluIconModel? icon, [bool pref = false]) => icon != null ? FluIcon(
       icon: icon,
@@ -122,20 +123,25 @@ class FluButton extends StatefulWidget {
 
 class _FluButtonState extends State<FluButton> {
   bool get isLoading => widget.style?.loading ?? false;
+  FluButtonStyle get style => FluButtonStyle.main.merge(widget.style);
 
   @override
   Widget build(BuildContext context) => AnimatedContainer(
-    height: widget.style?.height ?? Flukit.appConsts.defaultElSize,
-    width: widget.style?.width,
-    margin: widget.style?.margin,
-    duration: widget.style?.animationDuration ?? const Duration(milliseconds: 300),
-    curve: widget.style?.animationCurve ?? Curves.linear,
-    alignment: widget.style?.alignment ?? Alignment.center,
+    height: style.height ?? Flukit.appConsts.defaultElSize,
+    width: style.width,
+    margin: style.margin,
+    duration: style.animationDuration ?? const Duration(milliseconds: 300),
+    curve: style.animationCurve ?? Curves.linear,
+    // alignment: widget.style?.alignment ?? Alignment.center,
+    constraints: BoxConstraints(
+      minWidth: style.minWidth ?? 0.0,
+      maxWidth: style.maxWidth ?? 0.0,
+    ),
     decoration: BoxDecoration(
-      border: widget.style?.border,
-      borderRadius: widget.style?.borderRadius ?? BorderRadius.circular(widget.style?.radius ?? Flukit.appConsts.defaultElRadius),
+      border: style.border,
+      borderRadius: style.borderRadius ?? BorderRadius.circular(style.radius ?? Flukit.appConsts.defaultElRadius),
       boxShadow: [
-        if(widget.style != null && widget.style?.boxShadow != null) widget.style!.boxShadow!
+        if(style.boxShadow != null) style.boxShadow!
       ]
     ),
     child: TextButton(
@@ -148,16 +154,17 @@ class _FluButtonState extends State<FluButton> {
       onLongPress: widget.onLongPress,
       style: TextButton.styleFrom(
         fixedSize: const Size(double.infinity, double.infinity),
-        primary: widget.style?.color,
-        backgroundColor: widget.style?.backgroundColor ?? Flukit.theme.data.primaryColor,
+        primary: style.color,
+        backgroundColor: style.backgroundColor ?? Flukit.theme.data.primaryColor,
         shape: RoundedRectangleBorder(
-          borderRadius: widget.style?.borderRadius ?? BorderRadius.circular(widget.style?.radius ?? Flukit.appConsts.defaultElRadius
+          borderRadius: style.borderRadius ?? BorderRadius.circular(style.radius ?? Flukit.appConsts.defaultElRadius
         )),
-        padding: widget.style?.padding ?? const EdgeInsets.symmetric(horizontal: 15)
+        padding: style.padding ?? const EdgeInsets.symmetric(horizontal: 15),
+        alignment: widget.style?.alignment ?? Alignment.center
       ),
       child: !isLoading ? widget.child : Center(
-        child: widget.style?.loadingWidget ?? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(widget.style?.color ?? Flukit.themePalette.dark),
+        child: style.loadingWidget ?? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(style.color ?? Flukit.themePalette.dark),
           strokeWidth: 2
         )),
       )
@@ -168,6 +175,8 @@ class _FluButtonState extends State<FluButton> {
 class FluButtonStyle {
   double? height;
   double? width;
+  double? minWidth;
+  double? maxWidth;
   double? radius;
   EdgeInsets? margin;
   EdgeInsets? padding;
@@ -180,12 +189,14 @@ class FluButtonStyle {
   Color? backgroundColor;
   bool loading;
   Widget? loadingWidget;
-  Alignment alignment;
+  Alignment? alignment;
   FluIconStyle? iconStyle;
 
   FluButtonStyle({
     this.height,
     this.width,
+    this.minWidth,
+    this.maxWidth,
     this.radius,
     this.margin = EdgeInsets.zero,
     this.padding,
@@ -198,12 +209,44 @@ class FluButtonStyle {
     this.animationCurve,
     this.loading = false,
     this.loadingWidget,
-    this.alignment = Alignment.center,
+    this.alignment,
     this.iconStyle
   });
 
   FluButtonStyle merge(FluButtonStyle? buttonStyle) => FluButtonStyle(
     height: buttonStyle?.height ?? height,
     width: buttonStyle?.width ?? width,
+    minWidth: buttonStyle?.minWidth ?? minWidth,
+    maxWidth: buttonStyle?.maxWidth ?? maxWidth,
+    radius: buttonStyle?.radius ?? radius,
+    margin: buttonStyle?.margin ?? margin,
+    padding: buttonStyle?.padding ?? padding,
+    boxShadow: buttonStyle?.boxShadow ?? boxShadow,
+    backgroundColor: buttonStyle?.backgroundColor ?? backgroundColor,
+    border: buttonStyle?.border ?? border,
+    borderRadius: buttonStyle?.borderRadius ?? borderRadius,
+    color: buttonStyle?.color ?? color,
+    animationDuration: buttonStyle?.animationDuration ?? animationDuration,
+    animationCurve: buttonStyle?.animationCurve ?? animationCurve,
+    loading: buttonStyle?.loading ?? loading,
+    loadingWidget: buttonStyle?.loadingWidget ?? loadingWidget,
+    alignment: buttonStyle?.alignment ?? alignment,
+    iconStyle: buttonStyle?.iconStyle ?? iconStyle,
+  );
+
+  /// Defining styles
+  static FluButtonStyle flat = FluButtonStyle(
+    backgroundColor: Colors.transparent,
+    color: Flukit.themePalette.accentText,
+  );
+
+  static FluButtonStyle main = FluButtonStyle(
+    height: Flukit.appConsts.defaultElSize,
+    radius: Flukit.appConsts.defaultElRadius,
+    backgroundColor: Flukit.theme.primaryColor,
+    color: Flukit.themePalette.light,
+    padding: const EdgeInsets.symmetric(
+      horizontal: 20
+    )
   );
 }

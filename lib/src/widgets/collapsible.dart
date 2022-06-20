@@ -24,10 +24,10 @@ class FluCollapsible extends StatefulWidget {
   }): super(key: key);
 
   @override
-  _FluCollapsibleState createState() => _FluCollapsibleState();
+  FluCollapsibleState createState() => FluCollapsibleState();
 }
 
-class _FluCollapsibleState extends State<FluCollapsible> with SingleTickerProviderStateMixin {
+class FluCollapsibleState extends State<FluCollapsible> with SingleTickerProviderStateMixin {
   AnimationController? controller;
   Animation<double>? animation;
 

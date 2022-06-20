@@ -15,7 +15,7 @@ enum FluImageType {
 class FluImage extends StatelessWidget {
   final FluImageType? type;
   final ImageProvider<Object>? provider;
-  final String? image;
+  final String? url;
   final BoxFit? fit;
   final double? height, width, radius;
   final double overlayOpacity;
@@ -28,11 +28,11 @@ class FluImage extends StatelessWidget {
     this.radius,
     this.type,
     this.provider,
-    this.image,
+    this.url,
     this.fit = BoxFit.cover,
     this.margin = EdgeInsets.zero,
     this.overlayOpacity = .05
-  }): assert(provider != null || image != null), super(key: key);
+  }): assert(provider != null || url != null), super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class FluImage extends StatelessWidget {
           imgProvider = null;
           break;
         case FluImageType.network:
-          imgProvider = NetworkImage(image!);
+          imgProvider = NetworkImage(url!);
           break;
         case FluImageType.file:
           // imgProvider = FileImage(image)
@@ -55,7 +55,7 @@ class FluImage extends StatelessWidget {
           break;
         case FluImageType.asset:
         default:
-          imgProvider = AssetImage(image!);
+          imgProvider = AssetImage(url!);
           break;
       }
     }
@@ -78,13 +78,13 @@ class FluImage extends StatelessWidget {
       child: Stack(
         children: [
           if(type == FluImageType.svg) SvgPicture.asset(
-            image!,
+            url!,
             height: height,
             width: width,
             fit: fit ?? BoxFit.cover,
           ),
           if(type == FluImageType.file) Image.file(
-            File(image!),
+            File(url!),
             height: height ?? double.infinity,
             width: width ?? double.infinity,
             fit: fit ?? BoxFit.cover,

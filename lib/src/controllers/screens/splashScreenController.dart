@@ -7,7 +7,6 @@ class FluSplashScreenController extends GetxController {
 
   @override
   void onReady() {
-    print('FluSplashScreenController.onReady');
     onInitialized();
     super.onReady();
   }

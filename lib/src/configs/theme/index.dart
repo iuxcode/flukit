@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../utils/flu_utils.dart';
+import 'tweaks.dart';
 
 part 'palette.dart';
 
@@ -45,38 +45,38 @@ class FluTheme {
     ),
     textTheme: TextTheme(
       headlineLarge: GoogleFonts.poppins(
-        fontWeight: Flukit.appConsts.textBold,
-        fontSize: Flukit.appConsts.headlineFs,
+        fontWeight: FluConsts.textBold,
+        fontSize: FluConsts.headlineFs,
         color: palette.accentText
       ),
       headline1:  GoogleFonts.poppins(
-        fontSize: Flukit.appConsts.titleFs,
-        fontWeight: Flukit.appConsts.textBold,
+        fontSize: FluConsts.titleFs,
+        fontWeight: FluConsts.textBold,
         color: palette.accentText
       ),
       headline2: GoogleFonts.poppins(
-        fontSize: Flukit.appConsts.titleFs,
-        fontWeight: Flukit.appConsts.textSemibold,
+        fontSize: FluConsts.titleFs,
+        fontWeight: FluConsts.textSemibold,
         color: palette.accentText
       ),
       subtitle1: GoogleFonts.poppins(
-        fontSize: Flukit.appConsts.subtitleFs,
-        fontWeight: Flukit.appConsts.textSemibold,
+        fontSize: FluConsts.subtitleFs,
+        fontWeight: FluConsts.textSemibold,
         color: palette.accentText
       ),
       subtitle2: GoogleFonts.poppins(
-        fontSize: Flukit.appConsts.subtitleFs,
-        fontWeight: Flukit.appConsts.textSemibold,
+        fontSize: FluConsts.subtitleFs,
+        fontWeight: FluConsts.textSemibold,
         color: palette.accentText
       ),
       bodyText1: GoogleFonts.poppins(
-        fontSize: Flukit.appConsts.bodyFs,
-        fontWeight: Flukit.appConsts.textNormal,
+        fontSize: FluConsts.bodyFs,
+        fontWeight: FluConsts.textNormal,
         color: palette.text
       ),
       bodyText2: GoogleFonts.poppins(
-        fontSize: Flukit.appConsts.bodyFs,
-        fontWeight: Flukit.appConsts.textNormal,
+        fontSize: FluConsts.bodyFs,
+        fontWeight: FluConsts.textNormal,
         color: palette.text
       ),
     )

@@ -17,7 +17,7 @@ class FluDefaultScreen extends StatelessWidget {
                 fontFamily: 'Neptune',
                 package: 'flukit',
                 fontWeight: Flukit.appConsts.textBold,
-                fontSize: Flukit.appConsts.subHeadlineFs,
+                fontSize: Flukit.appConsts.headlineFs + 25,
                 color: Flukit.theme.primaryColor
               )),
               const SizedBox(height: 5),

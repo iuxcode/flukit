@@ -12,7 +12,7 @@ class FluGetPage extends GetPage {
     page: page,
     binding: binding,
     transition: transition ?? Transition.rightToLeft,
-    transitionDuration: Flukit.appConsts.defaultPageAnimationDuration,
-    curve: Flukit.appConsts.defaultPageAnimationCurve,
+    transitionDuration: FluConsts.defaultPageAnimationDuration,
+    curve: FluConsts.defaultPageAnimationCurve,
   );
 }

@@ -14,6 +14,7 @@ export './glass.dart';
 export './grid.dart';
 export './modals.dart';
 export './payments.dart';
+export 'progress_bars.dart';
 export './snackbar.dart';
 export './skeleton.dart';
 export './tabs.dart';

@@ -10,26 +10,25 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  country_icons: ^2.0.2
   dio: ^4.0.4
+  emojis: ^0.9.9
+  flukit_icons:
+    path: ../flukit_icons
   flutter:
     sdk: flutter
   flutter_dotenv: ^5.0.2
   flutter_secure_storage: ^5.0.2
   flutter_staggered_grid_view: ^0.6.1
   flutter_svg: ^1.0.3
-  flukit_icons:
-    # TODO switch to github
-    path: ../flukit_icons
   geolocator: ^8.2.0
   get: ^4.6.5
   google_fonts: ^3.0.1
   intl: ^0.17.0
   phone_number: ^0.12.0+1
   shimmer: ^2.0.0
-  timeago: ^3.2.2
   smooth_page_indicator: ^1.0.0+2
-  country_icons: ^2.0.2
-  emojis: ^0.9.9
+  timeago: ^3.2.2
 
 dev_dependencies:
   flutter_lints: ^2.0.1

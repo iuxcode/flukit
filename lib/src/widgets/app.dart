@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class FluMaterialApp extends StatefulWidget {
-  final String title;
+  final String? title;
   final FluAppController? controller;
   final Bindings? initialBinding;
   final Widget? home;
@@ -22,7 +22,7 @@ class FluMaterialApp extends StatefulWidget {
     Key? key,
     this.controller,
     this.initialBinding,
-    this.title = 'Flukit',
+    this.title,
     this.home,
     this.routes,
     this.initialRoute,
@@ -33,7 +33,7 @@ class FluMaterialApp extends StatefulWidget {
     this.builder,
     this.pages,
     this.showDebugBanner = false,
-  }) : super(key: key);
+  }): super(key: key);
 
   @override
   State<FluMaterialApp> createState() => _FluMaterialAppState();
@@ -44,11 +44,7 @@ class _FluMaterialAppState extends State<FluMaterialApp> {
 
   @override
   void initState() {
-    if(widget.controller != null) {
-      controller = widget.controller!;
-    } else {
-      controller = FluAppController();
-    }
+    controller = widget.controller != null ? widget.controller! : FluAppController();
 
     Get.put(controller, permanent: true);
     super.initState();
@@ -60,7 +56,7 @@ class _FluMaterialAppState extends State<FluMaterialApp> {
     initState: (_) {},
     builder: (_) {
       return GetMaterialApp(
-        title: widget.title,
+        title: widget.title ?? controller.appInfos.name,
         debugShowCheckedModeBanner: widget.showDebugBanner,
         theme: controller.theme.data,
         initialBinding: widget.initialBinding,

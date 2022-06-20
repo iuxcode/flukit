@@ -70,9 +70,9 @@ class FluApiSettings {
   dio.BaseOptions get options => dio.BaseOptions(
     baseUrl: baseUrl,
     responseType: responseType,
-    connectTimeout: connectTimeout ?? Flukit.appConsts.httpConnectTimeout,
-    receiveTimeout: receiveTimeout ?? Flukit.appConsts.httpReceiveTimeout,
-    sendTimeout: sendTimeout ?? Flukit.appConsts.httpSendTimeout,
+    connectTimeout: connectTimeout ?? FluConsts.httpConnectTimeout,
+    receiveTimeout: receiveTimeout ?? FluConsts.httpReceiveTimeout,
+    sendTimeout: sendTimeout ?? FluConsts.httpSendTimeout,
     headers: headers
   );
 }

@@ -1,8 +1,8 @@
-import 'package:flukit/src/configs/theme/tweaks.dart';
 import 'package:flukit/src/models/app.dart';
 import 'package:get/get.dart';
 import 'package:flukit/src/configs/theme/index.dart';
 
+import '../configs/theme/tweaks.dart';
 import '../utils/flu_utils.dart';
 
 class FluAppController extends GetxController {

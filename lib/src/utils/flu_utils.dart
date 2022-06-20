@@ -1,4 +1,5 @@
 import 'package:flukit/src/configs/theme/index.dart';
+import 'package:flukit/src/configs/theme/tweaks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -12,7 +13,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:emojis/emojis.dart';
 
-import '../configs/theme/tweaks.dart';
+import '../configs/theme/index.dart';
 import '../controllers/flu_controllers.dart';
 import '../models/app.dart';
 import '../widgets/countrySelector.dart';

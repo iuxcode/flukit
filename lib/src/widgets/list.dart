@@ -101,7 +101,7 @@ class FluOptionsList extends StatelessWidget {
           children: <Widget>[
             if(option.icon != null || option.label != null) icon(option.icon, option.label)
             else if(option.image != null) FluImage(
-              image: option.image,
+              url: option.image,
               type: option.imageType,
               height: size,
               width: size,

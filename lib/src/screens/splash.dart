@@ -36,8 +36,7 @@ class FluSplashScreen extends StatefulWidget {
 class _FluSplashScreenState extends State<FluSplashScreen> {
   late FluSplashScreenController controller;
 
-  final FluStorageService storageService = Flukit.secureStorage;
-  final FluAppController appController = Flukit.appController;
+  FluStorageService storageService = Flukit.secureStorage;
   
   void onInitialized() async {
     /// TODO check if phone is connected to internet
@@ -73,7 +72,7 @@ class _FluSplashScreenState extends State<FluSplashScreen> {
 
   @override
   void initState() {
-    controller = Get.put<FluSplashScreenController>(
+    controller = Get.put(
       widget.controller ?? FluSplashScreenController(widget.onInitialized ?? onInitialized)
     );
     super.initState();

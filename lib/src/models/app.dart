@@ -34,19 +34,19 @@ class FluAppInformations {
   /// Application authors.
   List<FluAppAuthor> authors;
 
+  final FluAppAuthor defaultAuthor = FluAppAuthor(
+    firstName: 'charlot',
+    lastName: 'tabade',
+    email: 'charlottabade.pro@gmail.com',
+    websiteUrl: 'https://github.com/charles9904',
+    githubUrl: 'https://github.com/charles9904'
+  );
+
   FluAppInformations({
     this.name = 'Flukit',
     this.version = '0.0.1',
     this.authors = const []
   }) {
-    if (authors.isEmpty) {
-      authors.add(FluAppAuthor(
-        firstName: 'charlot',
-        lastName: 'tabade',
-        email: 'charlottabade.pro@gmail.com',
-        websiteUrl: 'https://github.com/charles9904',
-        githubUrl: 'https://github.com/charles9904'
-      ));
-    }
+    authors += [defaultAuthor];
   }
 }
