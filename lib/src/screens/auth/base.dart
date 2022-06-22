@@ -262,7 +262,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                     else if(step is FluAuthScreenInputStep) {
                                       return FluOutline(
                                         strokeWidth: .85,
-                                        radius: Flukit.appConsts.defaultElRadius + 2,
+                                        radius: Flukit.appConsts.maxElRadius + 2,
                                         margin: const EdgeInsets.only(top: 35, bottom: 8),
                                         boxShadow: Flukit.boxShadow(
                                           blurRadius: 30,
@@ -272,7 +272,8 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                         ),
                                         child: FluTextInput(
                                           controller: inputController,
-                                          height: step.inputHeight ?? Flukit.appConsts.defaultElSize - 2,
+                                          height: step.inputHeight ?? Flukit.appConsts.maxElSize - 2,
+                                          radius: step.inputRadius ?? Flukit.appConsts.maxElRadius,
                                           hintText: step.inputHint,
                                           hintColor: controller.hasError ? Flukit.theme.palette.danger : Flukit.theme.palette.text,
                                           color: controller.hasError ? Flukit.theme.palette.danger : Flukit.theme.palette.accentText,
@@ -300,6 +301,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                     }
                   ),
                 ),
+                // FluButton(child: Text('Hello world')),
                 AnimatedSwitcher(
                   duration: widget.animationDuration ?? animationDuration,
                   child: !Flukit.isKeyboardHidden(context) ? GetX<FluAuthScreenController>(
@@ -310,9 +312,16 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                         tag: '<main_button>',
                         child: FluButton.text(
                           onPressed: controller.canSubmit ? () => onSubmit(context) : null,
-                          style: FluButtonStyle(
-                            height: Flukit.appConsts.defaultElSize + 2,
-                            width: double.infinity,
+                          text: controller.steps[controller.stepIndex].buttonLabel,
+                          prefixIcon: controller.steps[controller.stepIndex].buttonIcon,
+                          spacing: 2,
+                          textStyle: TextStyle(
+                            fontWeight: Flukit.appConsts.textBold
+                          ),
+                          style: FluButtonStyle.main.merge(FluButtonStyle(
+                            expand: true,
+                            height: Flukit.appConsts.maxElSize,
+                            radius: Flukit.appConsts.maxElRadius,
                             padding: EdgeInsets.zero,
                             margin: EdgeInsets.symmetric(horizontal: Flukit.appConsts.defaultPaddingSize).copyWith(bottom: 25),
                             color: controller.canSubmit ? Flukit.theme.primaryTextColor : Flukit.theme.palette.accentText,
@@ -328,17 +337,12 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                               strokeWidth: 1.8,
                             ),
                             loading: controller.loading,
-                          ),
-                          text: controller.steps[controller.stepIndex].buttonLabel,
-                          prefixIcon: controller.steps[controller.stepIndex].buttonIcon,
-                          spacing: 2,
-                          textStyle: TextStyle(
-                            fontWeight: Flukit.appConsts.textBold
-                          ),
+                          ))
                         ),
                       );
                     }
-                  ) : Container()
+                  ):
+                  Container()
                 )
               ],
             ),

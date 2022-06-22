@@ -28,8 +28,10 @@ abstract class FluConstsInterface {
   double get defaultPageMaxWidthFactor => .85;
   double get defaultElSize => 60;
   double get defaultElRadius => 20;
-  double get minElSize => 50;
+  double get minElSize => 55;
   double get minElRadius => 16;
+  double get maxElSize => 68;
+  double get maxElRadius => 22;
   double get defaultAppBarSize => defaultElSize;
   double get defaultAvatarSize => 57;
   double get defaultAvatarRadius => 24;

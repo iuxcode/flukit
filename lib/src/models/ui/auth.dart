@@ -20,6 +20,7 @@ class FluAuthScreenStep {
 class FluAuthScreenInputStep extends FluAuthScreenStep {
   final String inputHint;
   final double? inputHeight;
+  final double? inputRadius;
   final bool Function(String value, FluAuthScreenController controller)? inputValidator;
   final void Function(String value, FluAuthScreenController controller)? onInputValueChanged;
   final String Function(FluAuthScreenController controller)? onError;
@@ -35,7 +36,8 @@ class FluAuthScreenInputStep extends FluAuthScreenStep {
     this.inputValidator,
     this.onInputValueChanged,
     this.onError,
-    this.inputHeight
+    this.inputHeight,
+    this.inputRadius,
   }): super(
     title: title,
     desc: desc,

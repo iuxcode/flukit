@@ -128,14 +128,14 @@ class _FluButtonState extends State<FluButton> {
   @override
   Widget build(BuildContext context) => AnimatedContainer(
     height: style.height ?? Flukit.appConsts.defaultElSize,
-    width: style.width,
+    width: style.expand ? double.infinity : style.width,
     margin: style.margin,
     duration: style.animationDuration ?? const Duration(milliseconds: 300),
     curve: style.animationCurve ?? Curves.linear,
     // alignment: widget.style?.alignment ?? Alignment.center,
     constraints: BoxConstraints(
       minWidth: style.minWidth ?? 0.0,
-      maxWidth: style.maxWidth ?? 0.0,
+      maxWidth: style.maxWidth ?? double.infinity,
     ),
     decoration: BoxDecoration(
       border: style.border,
@@ -191,6 +191,8 @@ class FluButtonStyle {
   Widget? loadingWidget;
   Alignment? alignment;
   FluIconStyle? iconStyle;
+  /// make the button expand to the full width of the screen
+  bool expand;
 
   FluButtonStyle({
     this.height,
@@ -210,7 +212,8 @@ class FluButtonStyle {
     this.loading = false,
     this.loadingWidget,
     this.alignment,
-    this.iconStyle
+    this.iconStyle,
+    this.expand = false
   });
 
   FluButtonStyle merge(FluButtonStyle? buttonStyle) => FluButtonStyle(
@@ -232,6 +235,7 @@ class FluButtonStyle {
     loadingWidget: buttonStyle?.loadingWidget ?? loadingWidget,
     alignment: buttonStyle?.alignment ?? alignment,
     iconStyle: buttonStyle?.iconStyle ?? iconStyle,
+    expand: buttonStyle?.expand ?? expand,
   );
 
   /// Defining styles
