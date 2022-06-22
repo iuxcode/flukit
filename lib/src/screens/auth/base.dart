@@ -244,11 +244,11 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Hero(
-                                  tag: '<title_text>',
+                                  tag: Flukit.appConsts.titleTextHeroTag,
                                   child: text(controller.steps[index].title, isTitle: true),
                                 ),
                                 const SizedBox(height: 3),
-                                Hero(tag: '<desc_text>', child: text(controller.steps[index].desc)),
+                                Hero(tag: Flukit.appConsts.descriptionTextHeroTag, child: text(controller.steps[index].desc)),
                                 GetBuilder<FluAuthScreenController>(
                                   init: controller,
                                   initState: (_) {},
@@ -262,18 +262,18 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                     else if(step is FluAuthScreenInputStep) {
                                       return FluOutline(
                                         strokeWidth: .85,
-                                        radius: Flukit.appConsts.maxElRadius + 2,
+                                        radius: Flukit.appConsts.defaultElRadius + 2,
                                         margin: const EdgeInsets.only(top: 35, bottom: 8),
                                         boxShadow: Flukit.boxShadow(
                                           blurRadius: 30,
-                                          opacity: .05,
+                                          opacity: .065,
                                           offset: const Offset(0, 0),
                                           color: Flukit.theme.shadowColor
                                         ),
                                         child: FluTextInput(
                                           controller: inputController,
-                                          height: step.inputHeight ?? Flukit.appConsts.maxElSize - 2,
-                                          radius: step.inputRadius ?? Flukit.appConsts.maxElRadius,
+                                          height: step.inputHeight ?? Flukit.appConsts.defaultElSize - 2,
+                                          radius: step.inputRadius ?? Flukit.appConsts.defaultElRadius,
                                           hintText: step.inputHint,
                                           hintColor: controller.hasError ? Flukit.theme.palette.danger : Flukit.theme.palette.text,
                                           color: controller.hasError ? Flukit.theme.palette.danger : Flukit.theme.palette.accentText,
@@ -309,7 +309,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                     initState: (_) {},
                     builder: (_) {
                       return Hero(
-                        tag: '<main_button>',
+                        tag: Flukit.appConsts.mainButtonHeroTag,
                         child: FluButton.text(
                           onPressed: controller.canSubmit ? () => onSubmit(context) : null,
                           text: controller.steps[controller.stepIndex].buttonLabel,
@@ -320,8 +320,8 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                           ),
                           style: FluButtonStyle.main.merge(FluButtonStyle(
                             expand: true,
-                            height: Flukit.appConsts.maxElSize,
-                            radius: Flukit.appConsts.maxElRadius,
+                            height: Flukit.appConsts.defaultElSize,
+                            radius: Flukit.appConsts.defaultElRadius,
                             padding: EdgeInsets.zero,
                             margin: EdgeInsets.symmetric(horizontal: Flukit.appConsts.defaultPaddingSize).copyWith(bottom: 25),
                             color: controller.canSubmit ? Flukit.theme.primaryTextColor : Flukit.theme.palette.accentText,
@@ -360,22 +360,23 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                       opacity: controller.canGetBack ? 1 : 0,
                       duration: const Duration(milliseconds: 300),
                       child: Hero(
-                        tag: '<back_button>',
+                        tag: Flukit.appConsts.backButtonHeroTag,
                         child: FluButton.icon(
                           onPressed: controller.canGetBack ? () => onBack() : null,
                           icon: FluTwotoneIcons.arrow_arrowLeft,
                           style: FluButtonStyle(
                             height: Flukit.appConsts.minElSize,
                             width: Flukit.appConsts.minElSize,
+                            radius: Flukit.appConsts.minElRadius,
                             backgroundColor: Flukit.theme.backgroundColor.withOpacity(.25),
                             color: Flukit.theme.palette.accentText,
                             boxShadow: Flukit.boxShadow(
-                              color: Flukit.theme.palette.shadow,
-                              offset: const Offset(-5, 15),
-                              opacity: .06
+                              color: Flukit.theme.palette.primary,
+                              offset: const Offset(-15, 15),
+                              opacity: .1
                             ),
                             iconStyle: FluIconStyle(
-                              size: 24,
+                              size: 20,
                             ),
                           ),
                         ),
@@ -392,8 +393,8 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                           }
                         ) : null,
                         style: FluButtonStyle(
-                          height: Flukit.appConsts.minElSize + 5,
-                          radius: Flukit.appConsts.defaultElRadius - 2,
+                          height: Flukit.appConsts.minElSize,
+                          radius: Flukit.appConsts.minElRadius,
                           padding: const EdgeInsets.symmetric(horizontal: 15),
                           backgroundColor: Flukit.theme.backgroundColor.withOpacity(.25),
                           boxShadow: Flukit.boxShadow(

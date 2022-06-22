@@ -26,12 +26,10 @@ abstract class FluConstsInterface {
   /// base
   double get defaultPaddingSize => 30;
   double get defaultPageMaxWidthFactor => .85;
-  double get defaultElSize => 60;
-  double get defaultElRadius => 20;
+  double get defaultElSize => 68;
+  double get defaultElRadius => 22;
   double get minElSize => 55;
-  double get minElRadius => 16;
-  double get maxElSize => 68;
-  double get maxElRadius => 22;
+  double get minElRadius => 18;
   double get defaultAppBarSize => defaultElSize;
   double get defaultAvatarSize => 57;
   double get defaultAvatarRadius => 24;
@@ -53,6 +51,13 @@ abstract class FluConstsInterface {
   double get bottomNavBarElevation => 45;
   double get bottomNavBarNotchMargin => 10;
   double get bottomNavBarGapWidth => 45;
+
+  String get backButtonHeroTag => '<backButton>';
+  String get mainButtonHeroTag => '<mainButton>';
+  String get titleTextHeroTag => '<titleText>';
+  String get title2TextHeroTag => '<title2Text>';
+  String get descriptionTextHeroTag => '<descriptionText>';
+  String get brandTextHeroTag => '<brandText>';
 
   int get httpConnectTimeout => 35000;
   int get httpReceiveTimeout => 35000;

@@ -64,7 +64,7 @@ class _FluStaggeredGridViewBuilderState extends State<FluStaggeredGridViewBuilde
     crossAxisSpacing: widget.spacing,
     children: <Widget>[
       if(widget.title != null) Hero(
-        tag: '<StaggeredGridViewTitle>',
+        tag: Flukit.appConsts.titleTextHeroTag,
         child: FluStaggeredGridViewBuilderBox(
           height: null,
           margin: EdgeInsets.only(bottom: widget.spacing),

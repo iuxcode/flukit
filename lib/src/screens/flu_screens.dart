@@ -1,4 +1,5 @@
 export 'base.dart';
+export 'default.dart';
 
 export 'splash.dart';
 

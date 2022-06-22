@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 
 class FluBasicOtpScreen extends StatefulWidget {
   final FluOtpScreenController? controller;
-  final int waitingTime;
+  final int initialWaitTime;
   final String image;
   final FluImageType? imageType;
   final String? title, desc, buttonText, codeAskButtonText, inputHint, inputErrorText;
@@ -33,7 +33,7 @@ class FluBasicOtpScreen extends StatefulWidget {
     this.inputHint,
     this.buttonIcon,
     this.inputErrorText,
-    this.waitingTime = 500
+    this.initialWaitTime = 120
   }) : super(key: key);
 
   @override
@@ -76,7 +76,8 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
 
   void onInit() async {
     await Flukit.appController.setAuthorizationState(FluAuthorizationStates.waitCode)
-      .onError((error, stackTrace) => throw {"Error while setting authorizationState parameter in secure storage.", error, stackTrace});
+      .onError((error, stackTrace) => throw {"Error while setting authorizationState parameter in secure storage.", error, stackTrace})
+      .whenComplete(() => startTimer(widget.initialWaitTime));
   }
 
   @override
@@ -86,11 +87,10 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
       widget.controller ?? FluOtpScreenController(
         initialSteps: buildSteps(),
       ),
-      tag: 'AuthScreenController_' + math.Random().nextInt(99999).toString()
+      tag: 'AuthScreenController_${math.Random().nextInt(99999)}'
     );
 
     onInit();
-    startTimer(widget.waitingTime);
     super.initState();
   }
 

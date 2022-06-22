@@ -179,7 +179,7 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
                     ),
                   )
                 ]) : Hero(
-                  tag: '<main_button>',
+                  tag: Flukit.appConsts.mainButtonHeroTag,
                   child: FluButton.text(
                     onPressed: () => onForward(context),
                     text: widget.parameters.mainButtonText,
@@ -306,13 +306,13 @@ class FluOnboardingScreenTexts extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Hero(
-          tag: '<title_text>',
+          tag: Flukit.appConsts.titleTextHeroTag,
           child: Text(title, textAlign: TextAlign.center, style: Flukit.textTheme.headline1?.copyWith(
             fontSize: Flukit.appConsts.headlineFs
           )),
         ),
         const SizedBox(height: 5),
-        Hero(tag: '<desc_text>', child: Text(desc, textAlign: TextAlign.center, style: Flukit.textTheme.bodyText1)),
+        Hero(tag: Flukit.appConsts.descriptionTextHeroTag, child: Text(desc, textAlign: TextAlign.center, style: Flukit.textTheme.bodyText1)),
       ],
     ),
   );

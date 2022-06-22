@@ -58,44 +58,48 @@ class FluFluOnboardingScreenModel1 extends StatelessWidget {
                       desc: page.desc,
                       marginBottom: 20,
                     ),
-                    FluButton(
-                      onPressed: builderParameters.onForward,
-                      style: FluButtonStyle.main.merge(FluButtonStyle(
-                        height: Flukit.appConsts.defaultElSize,
-                        maxWidth: maxWidth,
-                      )),
-                      /// TODO Optimize this.
-                      /// add square progress bar with border radius and remove top indicator
-                      child: AnimatedSwitcher(
-                        duration: parameters.animationDuration,
-                        child: mustCollapse ? icon : FluCollapsible(
-                          collapse: mustCollapse,
-                          axis: FluCollapsibleAxis.horizontal,
-                          animDuration: parameters.animationDuration,
-                          /// i use [SingleChildScrollView] to avoid overflow error
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                FluIcon(
-                                  icon: page.buttonIcon ?? parameters.mainButtonIcon ?? FluBulkIcons.essentional_flash,
-                                  style: FluIconStyle(
-                                    color: Flukit.themePalette.light,
-                                    size: 20,
+                    Hero(
+                      tag: Flukit.appConsts.mainButtonHeroTag,
+                      child: FluButton(
+                        onPressed: builderParameters.onForward,
+                        style: FluButtonStyle.main.merge(FluButtonStyle(
+                          height: Flukit.appConsts.minElSize + 5,
+                          radius: Flukit.appConsts.minElRadius + 2,
+                          maxWidth: maxWidth,
+                        )),
+                        /// TODO Optimize this.
+                        /// add square progress bar with border radius and remove top indicator
+                        child: AnimatedSwitcher(
+                          duration: parameters.animationDuration,
+                          child: mustCollapse ? icon : FluCollapsible(
+                            collapse: mustCollapse,
+                            axis: FluCollapsibleAxis.horizontal,
+                            animDuration: parameters.animationDuration,
+                            /// i use [SingleChildScrollView] to avoid overflow error
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  FluIcon(
+                                    icon: page.buttonIcon ?? parameters.mainButtonIcon ?? FluBulkIcons.essentional_flash,
+                                    style: FluIconStyle(
+                                      color: Flukit.themePalette.light,
+                                      size: 20,
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(width: 6),
-                                Text(page.buttonText ?? parameters.mainButtonText, style: Flukit.textTheme.bodyText1!.copyWith(
-                                  fontWeight: Flukit.appConsts.textSemibold,
-                                  color: Flukit.themePalette.light
-                                )),
-                              ],
+                                  const SizedBox(width: 6),
+                                  Text(page.buttonText ?? parameters.mainButtonText, style: Flukit.textTheme.bodyText1!.copyWith(
+                                    fontWeight: Flukit.appConsts.textSemibold,
+                                    color: Flukit.themePalette.light
+                                  )),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      )
+                        )
+                      ),
                     ),
                   ]
                 );
@@ -103,10 +107,13 @@ class FluFluOnboardingScreenModel1 extends StatelessWidget {
             )),
             Padding(
               padding: const EdgeInsets.only(bottom: 20),
-              child: Text(Flukit.appInfos.name, style: Flukit.textTheme.bodyText1!.copyWith(
-                fontFamily: Flukit.textFonts.neptune,
-                package: 'flukit'
-              )),
+              child: Hero(
+                tag: Flukit.appConsts.brandTextHeroTag,
+                child: Text(Flukit.appInfos.name, style: Flukit.textTheme.bodyText1!.copyWith(
+                  fontFamily: Flukit.textFonts.neptune,
+                  package: 'flukit'
+                )),
+              ),
             )
           ],
         ),
