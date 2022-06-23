@@ -1,30 +1,29 @@
+import 'package:flukit/src/models/ui/tab_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../flukit.dart';
 
 class FluTabScreen extends StatefulWidget {
+  final bool isMainScreen;
   final int initialPage;
-  final List<Widget> Function(FluTabScreenController controller, PageController pageController) pages;
-  final List<FluBottomNavBarItemData> bottomNavBarItems;
-  final FluTabScreenController? controller;
-  final Color? bottomNavBarBackgroundColor, bottomNavBarColor, bottomNavBarActiveColor;
   final Duration animationDuration;
   final Curve animationCurve;
   final ScrollPhysics? physics;
+  final FluTabScreenController? controller;
+  final FluBottomNavBarStyle? bottomNavBarStyle;
+  final List<FluTabScreenPage> Function(FluTabScreenController controller, PageController pageController) pages;
   final void Function(FluTabScreenController controller, PageController pageController)? onPageChange;
 
   const FluTabScreen({
     Key? key,
     required this.pages,
-    required this.bottomNavBarItems,
+    this.isMainScreen = true,
     this.initialPage = 0,
     this.controller,
     this.animationDuration = const Duration(milliseconds: 300),
     this.animationCurve = Curves.decelerate,
-    this.bottomNavBarColor,
-    this.bottomNavBarBackgroundColor,
-    this.bottomNavBarActiveColor,
+    this.bottomNavBarStyle,
     this.physics,
     this.onPageChange
   }): super(key: key);
@@ -55,38 +54,45 @@ class _FluTabScreenState extends State<FluTabScreen> {
     widget.onPageChange?.call(controller, pageController);
   }
 
+  void onInit() async {
+    if(widget.isMainScreen) {
+      await Flukit.appController.setAuthorizationState(FluAuthorizationStates.ready)
+        .onError((error, stackTrace) => throw {"Error while setting authorizationState parameter in secure storage.", error, stackTrace});
+    }
+  }
+
   @override
   void initState() {
+    onInit();
+
     controller = Get.put(widget.controller ?? FluTabScreenController());
     pageController = PageController(initialPage: widget.initialPage);
-    
-    assert(
-      widget.pages(controller, pageController).isNotEmpty &&
-      widget.bottomNavBarItems.isNotEmpty &&
-      widget.pages(controller, pageController).length == widget.bottomNavBarItems.length
-    );
 
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) => FluScreen(
-    extendBody: true,
-    body: PageView(
-      controller: pageController,
-      onPageChanged: onPageChange,
-      physics: widget.physics ?? const NeverScrollableScrollPhysics(),
-      children: widget.pages(controller, pageController).map((page) => page).toList()
-    ),
-    bottomNavigationBar: Obx(() => FluBottomNavBar(
-      selectedIndex: controller.currentIndex,
-      onTap: onPageChange,
-      background: widget.bottomNavBarBackgroundColor ?? Flukit.themePalette.dark,
-      color: widget.bottomNavBarColor ?? Flukit.themePalette.light,
-      activeColor: widget.bottomNavBarActiveColor ?? Flukit.theme.primaryColor,
-      duration: widget.animationDuration,
-      curve: widget.animationCurve,
-      items: widget.bottomNavBarItems,
-    ))
-  );
+  Widget build(BuildContext context) {
+    List<FluTabScreenPage> pages = widget.pages(controller, pageController);
+    
+    return FluScreen(
+      extendBody: true,
+      body: PageView(
+        controller: pageController,
+        onPageChanged: onPageChange,
+        physics: widget.physics ?? const NeverScrollableScrollPhysics(),
+        children: pages.map((page) => page.content).toList()
+      ),
+      bottomNavigationBar: Obx(() => FluBottomNavBar(
+        selectedIndex: controller.currentIndex,
+        onItemTap: onPageChange,
+        style: widget.bottomNavBarStyle,
+        items: pages.map((page) => FluBottomNavBarItem(
+          icon: page.icon,
+          filledIcon: page.filledIcon,
+          label: page.name,
+        )).toList()
+      ))
+    );
+  }
 }

@@ -21,6 +21,17 @@ class _FluTermsScreenState extends State<FluTermsScreen> {
   final ScrollController scrollController = ScrollController();
   bool canAgree = false;
 
+  void onInit() async {
+    await Flukit.appController.setAuthorizationState(FluAuthorizationStates.waitTerms)
+      .onError((error, stackTrace) => throw {"Error while setting authorizationState parameter in secure storage.", error, stackTrace});
+  }
+
+  @override
+  void initState() {
+    onInit();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) => FluScreen(
     body: SafeArea(

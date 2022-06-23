@@ -9,6 +9,7 @@ class FluScreen extends StatelessWidget {
   final bool extendBody;
   final Widget? floatingActionButton, bottomNavigationBar;
   final Color? backgroundColor;
+  final FloatingActionButtonLocation floatingActionButtonLocation;
 
   const FluScreen({
     Key? key,
@@ -18,7 +19,8 @@ class FluScreen extends StatelessWidget {
     this.bottomNavigationBar,
     this.floatingActionButton,
     this.extendBody = false,
-    this.backgroundColor
+    this.backgroundColor,
+    this.floatingActionButtonLocation = FloatingActionButtonLocation.centerDocked
   }) : super(key: key);
 
   @override
@@ -32,6 +34,7 @@ class FluScreen extends StatelessWidget {
       appBar: appBar,
       body: body,
       bottomNavigationBar: bottomNavigationBar,
+      floatingActionButtonLocation: floatingActionButtonLocation,
       floatingActionButton: floatingActionButton,
     )
   );

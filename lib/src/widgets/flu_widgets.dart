@@ -1,7 +1,7 @@
 export './app.dart';
 export './avatar.dart';
 export './button.dart';
-export './bottomNavigationBar.dart';
+export 'bottom_navigation_bar.dart';
 export './collapsible.dart';
 export './dashed_circle.dart';
 export './icons.dart';
