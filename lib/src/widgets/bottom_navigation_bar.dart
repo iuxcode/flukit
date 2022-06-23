@@ -40,6 +40,18 @@ class FluBottomNavBarStyle {
     this.animationCurve = Curves.fastOutSlowIn,
   });
 
+  FluBottomNavBarStyle merge(FluBottomNavBarStyle? newStyle) => FluBottomNavBarStyle(
+    background: newStyle?.background ?? background,
+    color: newStyle?.color ?? color,
+    activeColor: newStyle?.activeColor ?? activeColor,
+    indicatorColor: newStyle?.indicatorColor ?? indicatorColor,
+    showItemLabelOnSelected: newStyle?.showItemLabelOnSelected ?? showItemLabelOnSelected,
+    indicatorStyle: newStyle?.indicatorStyle ?? indicatorStyle,
+    indicatorPosition: newStyle?.indicatorPosition ?? indicatorPosition,
+    animationDuration: newStyle?.animationDuration ?? animationDuration,
+    animationCurve: newStyle?.animationCurve ?? animationCurve,
+  );
+
   static FluBottomNavBarStyle defaultt = FluBottomNavBarStyle(
     background: Flukit.themePalette.dark,
     color: Flukit.theme.textColor,
@@ -113,6 +125,7 @@ class BottomNavBarState extends State<FluBottomNavBar> with SingleTickerProvider
         borderRadius: BorderRadius.circular(Flukit.appConsts.bottomNavBarRadius)
       ),
       child: Stack(
+        alignment: style.indicatorPosition == FluBottomNavBarIndicatorPosition.top ? Alignment.topLeft : Alignment.bottomLeft,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -248,47 +261,42 @@ class _Indicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedPositioned(
-      top: position == FluBottomNavBarIndicatorPosition.top ? 0 : null,
-      bottom: position == FluBottomNavBarIndicatorPosition.bottom ? 0 : null,
       left: selectedIndex * maxWidth,
       duration: duration,
       curve: curve,
-      child: style == FluBottomNavBarIndicatorStyle.normal ? Container(
-        height: height,
-        width: maxWidth,
-        alignment: Alignment.bottomCenter,
-        child: Container(
-          height: double.infinity,
-          width: height * 4,
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(radius),
-              topRight: Radius.circular(radius)
-            ),
-            boxShadow: [Flukit.boxShadow(
-              blurRadius: 30,
-              offset: const Offset(0, -4),
-              color: color.withOpacity(.5)
-            )]
-          )
-        )
-      ) :
-      AnimatedBuilder(
-        animation: controller,
-        builder: (_, __) => /* Transform.translate(
-          offset: Tween<Offset>(
-            begin: Offset(previousIndex * maxWidth, 0),
-            end: Offset(selectedIndex * maxWidth, 0)
-          )
-            .animate(
-              CurvedAnimation(
-                parent: controller,
-                curve: const Interval(0.0, 0.35),
+      child: style == FluBottomNavBarIndicatorStyle.normal ? 
+        /// normal indicator
+        Container(
+          height: height,
+          width: maxWidth,
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            height: double.infinity,
+            width: height * 4,
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(position == FluBottomNavBarIndicatorPosition.bottom ? radius : 0),
+                topRight: Radius.circular(position == FluBottomNavBarIndicatorPosition.bottom ? radius : 0),
+                bottomLeft: Radius.circular(position == FluBottomNavBarIndicatorPosition.top ? radius : 0),
+                bottomRight: Radius.circular(position == FluBottomNavBarIndicatorPosition.top ? radius : 0),
               ),
+              boxShadow: [Flukit.boxShadow(
+                blurRadius: 30,
+                offset: const Offset(0, -4),
+                color: color.withOpacity(.5)
+              )]
             )
-            .value,
-          child:  */Stack(
+          )
+        ) :
+        /// Water drop effect indicator
+        /// by [@watery-desert] on Github
+        /// Original code is from him, i just changed it to fit my needs
+        /// Bottom position is not supported yet
+        /// TODO add bottom position
+        AnimatedBuilder(
+          animation: controller,
+          builder: (_, __) => Stack(
             alignment: Alignment.topCenter,
             children: <Widget>[
               Transform.translate(
@@ -317,7 +325,7 @@ class _Indicator extends StatelessWidget {
                 child: _FallingDrop(
                   itemWidth: maxWidth,
                   color: color,
-                  width: Tween<double>(begin: 72, end: 56)
+                  width: Tween<double>(begin: 56, end: 40)
                     .animate(
                       CurvedAnimation(
                         parent: controller,
@@ -338,34 +346,35 @@ class _Indicator extends StatelessWidget {
               Opacity(
                 opacity: controller.value >= 0.45 ? 1.0 : 0.0,
                 child: _FallingDrop(
-                    itemWidth: maxWidth,
-                    color: color,
-                    width: Tween<double>(begin: 56, end: 72)
-                        .animate(
-                          CurvedAnimation(
-                            parent: controller,
-                            curve: const Interval(0.45, 0.60),
-                          ),
-                        )
-                        .value,
-                    height: Tween<double>(begin: 24, end: 16)
-                        .animate(
-                          CurvedAnimation(
-                            parent: controller,
-                            curve: const Interval(0.45, 0.60),
-                          ),
-                        )
-                        .value,
-                  ),
+                  itemWidth: maxWidth,
+                  color: color,
+                  width: Tween<double>(begin: 40, end: 56)
+                    .animate(
+                      CurvedAnimation(
+                        parent: controller,
+                        curve: const Interval(0.45, 0.60),
+                      ),
+                    )
+                    .value,
+                  height: Tween<double>(begin: 24, end: 16)
+                    .animate(
+                      CurvedAnimation(
+                        parent: controller,
+                        curve: const Interval(0.45, 0.60),
+                      ),
+                    )
+                    .value,
+                ),
               ),
             ],
           ),
-        ),
-      /* ) */
+        )
     );
   }
 }
 
+/// Initial code from [@watery-desert] on Github
+/// i just updated it to fit my needs
 class _FallingDrop extends StatelessWidget {
   final double width;
   final double height;
@@ -405,33 +414,32 @@ class _WaterPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    Path path = Path();
-
-    path.cubicTo(
-      size.width * 0.239841,
-      size.height * 0.06489535,
-      size.width * 0.285956,
-      size.height * 0.4886860,
-      size.width * 0.42016,
-      size.height * 0.8271512,
-    );
-    path.cubicTo(
-      size.width * 0.467771,
-      size.height * 0.9466628,
-      size.width * 0.530574,
-      size.height * 0.9472209,
-      size.width * 0.578344,
-      size.height * 0.8285814,
-    );
-    path.cubicTo(
-      size.width * 0.7185669,
-      size.height * 0.4786744,
-      size.width * 0.757325,
-      size.height * 0.06629070,
-      size.width * 0.999682,
-      0
-    );
-    path.lineTo(0, 0);
+    Path path = Path()
+      ..cubicTo(
+        size.width * 0.239841,
+        size.height * 0.06489535,
+        size.width * 0.285956,
+        size.height * 0.4886860,
+        size.width * 0.42016,
+        size.height * 0.8271512,
+      )
+      ..cubicTo(
+        size.width * 0.467771,
+        size.height * 0.9466628,
+        size.width * 0.530574,
+        size.height * 0.9472209,
+        size.width * 0.578344,
+        size.height * 0.8285814,
+      )
+      ..cubicTo(
+        size.width * 0.7185669,
+        size.height * 0.4786744,
+        size.width * 0.757325,
+        size.height * 0.06629070,
+        size.width * 0.999682,
+        0
+      )
+      ..lineTo(0, 0);
     path.close();
 
     Paint fillColor = Paint()..style = PaintingStyle.fill;
