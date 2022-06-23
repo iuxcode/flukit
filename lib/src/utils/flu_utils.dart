@@ -16,7 +16,7 @@ import 'package:emojis/emojis.dart';
 import '../configs/theme/index.dart';
 import '../controllers/flu_controllers.dart';
 import '../models/app.dart';
-import '../widgets/countrySelector.dart';
+import '../widgets/country_selector.dart';
 import '../widgets/flu_widgets.dart';
 
 part './extensions/get.dart';

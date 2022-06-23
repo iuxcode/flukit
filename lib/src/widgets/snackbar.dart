@@ -441,9 +441,9 @@ You need to either use message[String], or messageText[Widget] or define a userI
         padding: const EdgeInsets.only(
             left: 8.0, right: 8.0, bottom: 8.0, top: 16.0),
         child: FocusScope(
-          child: widget.userInputForm!,
           node: _focusNode,
           autofocus: true,
+          child: widget.userInputForm!,
         ),
       ),
     );
@@ -823,15 +823,15 @@ class FluSnackbarController {
       ],
       OverlayEntry(
         builder: (context) => Semantics(
+          focused: false,
+          container: true,
+          explicitChildNodes: true,
           child: AlignTransition(
             alignment: _animation,
             child: snackbar.isDismissible
                 ? _getDismissibleSnack(child)
                 : _getSnackbarContainer(child),
           ),
-          focused: false,
-          container: true,
-          explicitChildNodes: true,
         ),
         maintainState: false,
         opaque: false,
@@ -842,10 +842,10 @@ class FluSnackbarController {
   Widget _getBodyWidget() {
     return Builder(builder: (_) {
       return GestureDetector(
-        child: snackbar,
         onTap: snackbar.onTap != null
             ? () => snackbar.onTap?.call(snackbar)
             : null,
+        child: snackbar,
       );
     });
   }

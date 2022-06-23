@@ -71,7 +71,7 @@ class FluImage extends StatelessWidget {
           image: imgProvider,
           fit: fit,
           onError: (error, stackTrace) {
-            print(error);
+            /// TODO handle image loading error.
           }
         ) : null,
       ),

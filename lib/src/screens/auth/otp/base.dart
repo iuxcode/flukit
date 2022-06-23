@@ -44,7 +44,6 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
   late FluOtpScreenController controller;
   late Timer _timer;
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController inputController = TextEditingController();
   
   List<FluAuthScreenStep> buildSteps() => <FluAuthScreenStep>[

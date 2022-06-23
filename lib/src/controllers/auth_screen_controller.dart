@@ -1,5 +1,4 @@
 import 'package:flukit/flukit.dart';
-import 'package:flukit/src/models/auth.dart';
 import 'package:get/get.dart';
 import 'package:phone_number/phone_number.dart';
 
@@ -50,6 +49,7 @@ class FluAuthScreenController extends GetxController {
   String get countryCode => _countryCode.value.toUpperCase();
   RegionInfo? get region => _region.value;
   String get previousInputValue => _previousInputValue.value;
+  // ignore: invalid_use_of_protected_member
   List<FluAuthScreenStep> get steps => _steps.value;
 
   /// Setters

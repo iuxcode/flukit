@@ -1,4 +1,3 @@
-import 'package:flukit/src/models/flu_models.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
 
@@ -57,7 +56,7 @@ class FluOptionsList extends StatelessWidget {
       Color color = option.color ?? textColor ?? Flukit.theme.textColor;
       Color backgroundColor = option.backgroundColor ?? Flukit.theme.backgroundColor;
 
-      Widget icon(FluIconModel? _icon, String? label) => Container(
+      Widget iconWidget(FluIconModel? icon, String? label) => Container(
         height: size,
         width: size,
         margin: EdgeInsets.only(right: itemIconMarginSize),
@@ -66,8 +65,8 @@ class FluOptionsList extends StatelessWidget {
           borderRadius: BorderRadius.circular(radius),
           boxShadow: [if(iconBoxShadow != null) iconBoxShadow!]
         ),
-        child: _icon != null ? FluIcon(
-          icon: _icon,
+        child: icon != null ? FluIcon(
+          icon: icon,
           style: FluIconStyle(
             color: option.color ?? iconColor ?? color,
             size: iconSize ?? 24,
@@ -99,7 +98,7 @@ class FluOptionsList extends StatelessWidget {
         ),
         child: Row(
           children: <Widget>[
-            if(option.icon != null || option.label != null) icon(option.icon, option.label)
+            if(option.icon != null || option.label != null) iconWidget(option.icon, option.label)
             else if(option.image != null) FluImage(
               url: option.image,
               type: option.imageType,

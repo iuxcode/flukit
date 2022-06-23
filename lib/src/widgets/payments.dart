@@ -83,12 +83,12 @@ class FluPaymentMethodSelector extends StatelessWidget {
       ),
     ),
     options: (paymentMethods ?? _defaultPaymentMethods).map((e) {
-      FluPaymentMethodInfoModel _paymentMethodsInfo = _paymentMethodsInfos[e]!;
+      FluPaymentMethodInfoModel paymentMethodsInfo = _paymentMethodsInfos[e]!;
 
       return FluOption(
-        title: _paymentMethodsInfo.title,
-        description: _paymentMethodsInfo.description,
-        icon: _paymentMethodsInfo.icon,
+        title: paymentMethodsInfo.title,
+        description: paymentMethodsInfo.description,
+        icon: paymentMethodsInfo.icon,
         iconBackgroundColor: Flukit.theme.secondaryColor,
         imageType: FluImageType.network,
         onPressed: () => onSelected(e),
