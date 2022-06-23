@@ -1,5 +1,4 @@
 import 'package:flukit/flukit.dart';
-import 'package:flukit/src/screens/default.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

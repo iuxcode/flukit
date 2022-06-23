@@ -14,7 +14,7 @@ class FluOptionsList extends StatelessWidget {
   final BoxShadow? itemBoxShadow, iconBoxShadow;
   final Color? outlineColor, iconBackgroundColor, textColor, iconColor, itemBackgroundColor;
   final Widget? suffixWidget;
-  final List<FluScreenOption> options;
+  final List<FluOption> options;
 
   const FluOptionsList({
     Key? key,
@@ -51,7 +51,7 @@ class FluOptionsList extends StatelessWidget {
     padding: padding,
     itemCount: options.length,
     itemBuilder: (BuildContext context, int index) {
-      FluScreenOption option = options[index];
+      FluOption option = options[index];
 
       double size = itemHeight ?? Flukit.appConsts.minElSize, radius = itemRadius ?? Flukit.appConsts.minElRadius + 5;
       Color color = option.color ?? textColor ?? Flukit.theme.textColor;

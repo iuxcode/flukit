@@ -85,7 +85,7 @@ class FluPaymentMethodSelector extends StatelessWidget {
     options: (paymentMethods ?? _defaultPaymentMethods).map((e) {
       FluPaymentMethodInfoModel _paymentMethodsInfo = _paymentMethodsInfos[e]!;
 
-      return FluScreenOption(
+      return FluOption(
         title: _paymentMethodsInfo.title,
         description: _paymentMethodsInfo.description,
         icon: _paymentMethodsInfo.icon,

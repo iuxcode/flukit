@@ -3,7 +3,7 @@ import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/widgets.dart';
 
 
-class FluScreenOption {
+class FluOption {
   final String title;
   final String? description, image;
   final FluImageType? imageType;
@@ -14,7 +14,7 @@ class FluScreenOption {
   final bool hasSuffix;
   final String? label;
 
-  FluScreenOption({
+  FluOption({
     required this.title,
     this.description,
     this.icon,
