@@ -5,7 +5,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:flukit/src/controllers/appController.dart';
+import 'package:flukit/src/controllers/app_controller.dart';
 import 'package:intl/intl.dart';
 import 'package:phone_number/phone_number.dart';
 import 'package:timeago/timeago.dart' as tmago;

@@ -1,8 +1,7 @@
 import 'package:flukit/flukit.dart';
+import 'package:flukit/src/models/payment_methods.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
-
-import '../models/ui/paymentMethod.dart';
 
 enum FluPaymentMethods {
   tmoneyOrmoovMoney,

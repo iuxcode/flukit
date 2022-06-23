@@ -1,4 +1,5 @@
 import 'package:flukit/flukit.dart';
+import 'package:flukit/src/models/auth.dart';
 import 'package:get/get.dart';
 import 'package:phone_number/phone_number.dart';
 

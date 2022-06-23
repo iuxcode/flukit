@@ -1,8 +1,10 @@
-import 'package:flukit/src/models/ui/tab_screen.dart';
+import 'package:flukit/src/controllers/tab_screen_controller.dart';
+import 'package:flukit/src/models/tab_screen.dart';
+import 'package:flukit/src/screens/base.dart';
+import 'package:flukit/src/utils/flu_utils.dart';
+import 'package:flukit/src/widgets/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../flukit.dart';
 
 class FluTabScreen extends StatefulWidget {
   final bool isMainScreen;

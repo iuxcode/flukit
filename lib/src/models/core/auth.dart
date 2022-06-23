@@ -1,3 +1,0 @@
-class FluAuthData {
-  FluAuthData();
-}

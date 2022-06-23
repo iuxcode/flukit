@@ -68,3 +68,7 @@ class FluAuthScreenCustomStep extends FluAuthScreenStep {
     image: image,
   );
 }
+
+class FluAuthData {
+  FluAuthData();
+}

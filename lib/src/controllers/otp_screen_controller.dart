@@ -1,6 +1,7 @@
+import 'package:flukit/src/models/auth.dart';
 import 'package:flukit/src/models/flu_models.dart';
 import 'package:get/get.dart';
-import 'authScreenController.dart';
+import 'auth_screen_controller.dart';
 
 class FluOtpScreenController extends FluAuthScreenController {
   /// control if the user can ask for a new code or not

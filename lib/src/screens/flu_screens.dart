@@ -6,10 +6,9 @@ export 'splash.dart';
 export 'onboard/base.dart';
 export 'onboard/model1.dart';
 
-export 'auth/base.dart';
-
-export 'otp/base.dart';
+export 'auth/main/base.dart';
+export 'auth/otp/base.dart';
 
 export 'tabs/base.dart';
 
-export 'terms/base.dart';
+export 'terms.dart';

@@ -1,6 +1,5 @@
+import 'package:flukit/src/widgets/image.dart';
 import 'package:flukit_icons/flukit_icons.dart';
-
-import '../../widgets/image.dart';
 
 class FluOnboardingScreenPage {
   final String? image;

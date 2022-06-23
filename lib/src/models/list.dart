@@ -1,7 +1,7 @@
+import 'package:flukit/src/widgets/image.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../widgets/flu_widgets.dart';
 
 class FluScreenOption {
   final String title;
