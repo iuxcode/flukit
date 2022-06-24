@@ -1,3 +1,4 @@
+import 'package:emojis/emojis.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
 
@@ -83,9 +84,10 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                       padding: EdgeInsets.all(Flukit.appConsts.defaultPaddingSize),
                       children: <Widget>[
                         Text(
-                          widget.title ?? 'From witch country are you from?',
-                          style: Flukit.textTheme.headline1!.copyWith(
-                            fontSize: Flukit.appConsts.subHeadlineFs,
+                          widget.title ?? 'Select your country ${Emojis.compass}',
+                          style: Flukit.textTheme.bodyText1!.copyWith(
+                            fontSize: Flukit.appConsts.headlineFs,
+                            fontWeight: Flukit.appConsts.textBold,
                             color: Flukit.theme.palette.accentText
                           )
                         ),
@@ -104,7 +106,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                             color: Flukit.theme.shadowColor
                           ),
                           child: FluTextInput(
-                            height: Flukit.appConsts.minElSize,
+                            height: Flukit.appConsts.minElSize + 5,
                             radius: Flukit.appConsts.minElRadius,
                             fillColor: Flukit.theme.backgroundColor,
                             textAlign: TextAlign.left,
