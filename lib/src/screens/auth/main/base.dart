@@ -32,6 +32,7 @@ class FluSteppedAuthScreen extends StatefulWidget {
   final OnAuthGoingForwardFunction? onGoingForward;
   final Duration? animationDuration;
   final Curve? animationCurve;
+  final String? countrySelectorTitle, countrySelectorDesc, countrySelectorSearchInputHint;
 
   const FluSteppedAuthScreen({
     Key? key,
@@ -40,7 +41,10 @@ class FluSteppedAuthScreen extends StatefulWidget {
     this.onGoingForward,
     this.headerAction,
     this.animationDuration,
-    this.animationCurve
+    this.animationCurve,
+    this.countrySelectorTitle,
+    this.countrySelectorDesc,
+    this.countrySelectorSearchInputHint,
   }) : super(key: key);
 
   @override
@@ -388,6 +392,9 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                       child: FluButton(
                         onPressed: onFirstPage ? () => Flukit.showCountrySelectionBottomSheet(
                           context: context,
+                          title: widget.countrySelectorTitle,
+                          desc: widget.countrySelectorDesc,
+                          searchInputHint: widget.countrySelectorSearchInputHint,
                           onCountrySelected: (FluCountryModel country) {
                             controller.setRegion(country.isoCode);
                           }

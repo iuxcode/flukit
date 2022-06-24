@@ -4,9 +4,15 @@ import 'package:flutter/material.dart';
 import '../../flukit.dart';
 
 class FluCountrySelect extends StatefulWidget {
+  final String? title, desc, searchInputHint;
   final void Function(FluCountryModel) onSelect;
   
-  const FluCountrySelect(this.onSelect, {Key? key}) : super(key: key);
+  const FluCountrySelect(this.onSelect, {
+    Key? key,
+    this.title,
+    this.desc,
+    this.searchInputHint,
+  }) : super(key: key);
 
   @override
   State<FluCountrySelect> createState() => FluCountrySelectState();
@@ -77,7 +83,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                       padding: EdgeInsets.all(Flukit.appConsts.defaultPaddingSize),
                       children: <Widget>[
                         Text(
-                          'Select your country. 🧭',
+                          widget.title ?? 'From witch country are you from?',
                           style: Flukit.textTheme.headline1!.copyWith(
                             fontSize: Flukit.appConsts.subHeadlineFs,
                             color: Flukit.theme.palette.accentText
@@ -85,11 +91,11 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          'Quaerat repellendus qui. Inventore praesentium assumenda vero soluta sit.',
+                          widget.desc ?? 'Select your country in order to get authentified or to get the best deals in your area.',
                           style: Flukit.textTheme.bodyText1
                         ),
                         FluOutline(
-                          radius: Flukit.appConsts.defaultElRadius + 2,
+                          radius: Flukit.appConsts.minElRadius + 2,
                           margin: const EdgeInsets.only(bottom: 15, top: 25),
                           boxShadow: Flukit.boxShadow(
                             blurRadius: 30,
@@ -98,10 +104,11 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                             color: Flukit.theme.shadowColor
                           ),
                           child: FluTextInput(
-                            height: Flukit.appConsts.defaultElSize - 2,
+                            height: Flukit.appConsts.minElSize,
+                            radius: Flukit.appConsts.minElRadius,
                             fillColor: Flukit.theme.backgroundColor,
                             textAlign: TextAlign.left,
-                            hintText: 'Search',
+                            hintText: widget.searchInputHint ?? 'Search for a country.',
                             prefixIcon: FluTwotoneIcons.search_searchNormal,
                             iconSize: 18,
                             iconStrokeWidth: 2,

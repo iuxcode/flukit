@@ -141,6 +141,7 @@ extension FlukitUI on FlukitInterface {
 
   /// Display a modal bottom sheet with countries list to select country.
   void showCountrySelectionBottomSheet({
+    String? title, desc, searchInputHint,
     required BuildContext context,
     required void Function(FluCountryModel) onCountrySelected,
     void Function()? onOpen,
@@ -152,7 +153,12 @@ extension FlukitUI on FlukitInterface {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => FluCountrySelect(onCountrySelected)
+      builder: (context) => FluCountrySelect(
+        onCountrySelected,
+        title: title,
+        desc: desc,
+        searchInputHint: searchInputHint,
+      )
     ).then((_) {
       if(onClose != null) onClose();
     });
