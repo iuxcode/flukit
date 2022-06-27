@@ -265,7 +265,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                     }
                                     else if(step is FluAuthScreenInputStep) {
                                       return FluOutline(
-                                        strokeWidth: .85,
+                                        thickness: .85,
                                         radius: Flukit.appConsts.defaultElRadius + 2,
                                         margin: const EdgeInsets.only(top: 35, bottom: 8),
                                         boxShadow: Flukit.boxShadow(
