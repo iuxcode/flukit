@@ -60,6 +60,21 @@ class FluText extends StatelessWidget {
     }
   }
 
+  TextStyle? get neptuneStyle {
+    switch (style) {
+      case FluTextStyle.body:
+      case FluTextStyle.small:
+      case FluTextStyle.headline:
+        return null;
+      case FluTextStyle.smallNeptune:
+      case FluTextStyle.bodyNeptune:
+        return TextStyle(
+          fontFamily: Flukit.fonts.neptune,
+          package: 'flukit'
+        );
+    }
+  }
+
   @override
   Widget build(BuildContext context) => Text(
     text,
@@ -67,7 +82,7 @@ class FluText extends StatelessWidget {
       fontSize: fontSize,
       fontWeight: fontWeight,
       color: color,
-    ).merge(customStyle),
+    ).merge(neptuneStyle?.merge(customStyle) ?? customStyle)
   );
 }
 

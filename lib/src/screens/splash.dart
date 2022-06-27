@@ -96,7 +96,7 @@ class _FluSplashScreenState extends State<FluSplashScreen> {
                 child: Text(
                   Flukit.appInfos.name,
                   style: TextStyle(
-                    fontFamily: Flukit.textFonts.neptune,
+                    fontFamily: Flukit.fonts.neptune,
                     package: 'flukit',
                     fontSize: Flukit.appConsts.subHeadlineFs,
                     fontWeight: Flukit.appConsts.textBold,

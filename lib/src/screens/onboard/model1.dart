@@ -109,7 +109,7 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
               child: Hero(
                 tag: Flukit.appConsts.brandTextHeroTag,
                 child: Text(Flukit.appInfos.name, style: Flukit.textTheme.bodyText1!.copyWith(
-                  fontFamily: Flukit.textFonts.neptune,
+                  fontFamily: Flukit.fonts.neptune,
                   package: 'flukit'
                 )),
               ),

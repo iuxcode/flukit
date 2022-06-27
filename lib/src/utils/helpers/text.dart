@@ -22,7 +22,7 @@ extension FlukitText on FlukitInterface {
   dynamic get emojis => Emojis;
 
   /// Return fonts interface
-  FluFonts get textFonts => FluFonts();
+  FluFonts get fonts => FluFonts();
 }
 
 class FluFonts {
