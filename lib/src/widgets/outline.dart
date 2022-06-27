@@ -3,20 +3,20 @@ import 'package:flutter/material.dart';
 import '../utils/flu_utils.dart';
 
 class FluOutline extends StatelessWidget {
-  final double? strokeWidth, radius, spacing;
-  final BorderRadius? strokeBorderRadius;
-  final Color? strokeColor;
+  final double? thickness, radius, spacing;
+  final BorderRadius? borderRadius;
+  final Color? color;
   final BoxShadow? boxShadow;
   final EdgeInsets? margin;
   final Widget child;
 
   const FluOutline({
     Key? key,
-    this.strokeWidth,
+    this.thickness,
     this.radius,
     this.spacing,
-    this.strokeColor,
-    this.strokeBorderRadius,
+    this.color,
+    this.borderRadius,
     this.boxShadow,
     this.margin,
     required this.child
@@ -28,10 +28,10 @@ class FluOutline extends StatelessWidget {
       padding: EdgeInsets.all(spacing ?? 2),
       margin: margin,
       decoration: BoxDecoration(
-        borderRadius: strokeBorderRadius ?? BorderRadius.circular(radius ?? 18),
+        borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 18),
         border: Border.all(
-          color: strokeColor ?? Flukit.theme.data.backgroundColor,
-          width: strokeWidth ?? 1.5
+          color: color ?? Flukit.theme.data.backgroundColor,
+          width: thickness ?? 1.5
         ),
         boxShadow: [boxShadow ?? Flukit.boxShadow()]
       ),

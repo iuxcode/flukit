@@ -125,9 +125,9 @@ class FluAvatar extends StatelessWidget {
     return  outlined ? FluOutline(
       radius: (radius ?? 18) + 2,
       spacing: spacing,
-      strokeWidth: strokeWidth,
-      strokeBorderRadius: borderRadius,
-      strokeColor: strokeColor,
+      thickness: strokeWidth,
+      borderRadius: borderRadius,
+      color: strokeColor,
       boxShadow: strokeShadow,
       margin: margin,
       child: avatar,

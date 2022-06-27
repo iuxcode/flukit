@@ -34,8 +34,8 @@ class FluBottomNavBarStyle {
     this.activeColor,
     this.indicatorColor,
     this.showItemLabelOnSelected = false,
-    this.indicatorStyle = FluBottomNavBarIndicatorStyle.drop,
-    this.indicatorPosition = FluBottomNavBarIndicatorPosition.top,
+    this.indicatorStyle = FluBottomNavBarIndicatorStyle.normal,
+    this.indicatorPosition = FluBottomNavBarIndicatorPosition.bottom,
     this.animationDuration = const Duration(milliseconds: 350),
     this.animationCurve = Curves.fastOutSlowIn,
   });
@@ -69,7 +69,7 @@ class FluBottomNavBar extends StatefulWidget {
   final double selectedIndex;
   final List<FluBottomNavBarItem> items;
   final Function(int) onItemTap;
-  final FluBottomNavBarStyle? style;
+  FluBottomNavBarStyle? style;
 
   FluBottomNavBar({
     Key? key,
@@ -80,8 +80,6 @@ class FluBottomNavBar extends StatefulWidget {
   }): super(key: key) {
     style ??= FluBottomNavBarStyle.defaultt;
   }
-
-  set style(FluBottomNavBarStyle? newStyle) => style = newStyle;
 
   @override
   State<FluBottomNavBar> createState() => BottomNavBarState();
@@ -154,7 +152,7 @@ class BottomNavBarState extends State<FluBottomNavBar> with SingleTickerProvider
             controller: animationController,
             selectedIndex: widget.selectedIndex,
             previousIndex: previousIndex,
-            height: 6.5,
+            height: 8,
             maxWidth: itemWidth,
             duration: style.animationDuration,
             curve: style.animationCurve,
@@ -272,7 +270,7 @@ class _Indicator extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           child: Container(
             height: double.infinity,
-            width: height * 4,
+            width: height * 3,
             decoration: BoxDecoration(
               color: color,
               borderRadius: BorderRadius.only(

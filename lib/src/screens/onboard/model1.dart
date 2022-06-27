@@ -2,10 +2,10 @@ import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
 import '../../../flukit.dart';
 
-class FluFluOnboardingScreenModel1 extends StatelessWidget {
+class FluOnboardingScreenModel1 extends StatelessWidget {
   final FluOnboardingScreenParameters parameters;
 
-  const FluFluOnboardingScreenModel1({
+  const FluOnboardingScreenModel1({
     Key? key,
     required this.parameters,
   }) : super(key: key);

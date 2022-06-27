@@ -142,7 +142,6 @@ class FluAppController extends GetxController {
       return Future.error(e);
     }
   }
-
   Future<void> clearApiRefreshToken() async {
     try {
       await storageService.delete(FluSecureStorageKeys.apiRefreshToken);

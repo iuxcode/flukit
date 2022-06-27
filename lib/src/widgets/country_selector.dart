@@ -144,7 +144,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                 spacing: 2,
                                 margin: const EdgeInsets.only(right: 10),
                                 radius: flagRadius + 2,
-                                strokeWidth: 1.5,
+                                thickness: 1.5,
                                 boxShadow: Flukit.boxShadow(
                                   offset: const Offset(0, 0),
                                   opacity: .15,

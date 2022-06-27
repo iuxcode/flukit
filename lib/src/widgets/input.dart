@@ -189,7 +189,7 @@ class FluTextInputWithLabel extends StatelessWidget {
           )
         )),
         FluOutline(
-          strokeWidth: .5,
+          thickness: .5,
           radius: Flukit.appConsts.defaultElRadius + 2,
           margin: const EdgeInsets.only(top: 10),
           boxShadow: Flukit.boxShadow(

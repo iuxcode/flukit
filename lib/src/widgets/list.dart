@@ -133,8 +133,8 @@ class FluOptionsList extends StatelessWidget {
         optionWidget =  FluOutline(
           radius: radius + 2,
           spacing: outlineSpacing,
-          strokeColor: option.outlineColor ?? outlineColor ?? backgroundColor,
-          strokeWidth: outlineStrokewidth,
+          color: option.outlineColor ?? outlineColor ?? backgroundColor,
+          thickness: outlineStrokewidth,
           boxShadow: itemBoxShadow ?? Flukit.boxShadow(
             opacity: .065,
             offset: const Offset(0, 0)

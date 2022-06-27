@@ -38,7 +38,7 @@ class _FluStaggeredGridViewBuilderState extends State<FluStaggeredGridViewBuilde
       items.add(GestureDetector(
         onTap: () => widget.onItemTap(i),
         child: FluOutline(
-          strokeWidth: widget.itemStrokewidth,
+          thickness: widget.itemStrokewidth,
           radius: widget.itemRadius + 2,
           boxShadow: widget.itemBoxShadow ?? Flukit.boxShadow(
             opacity: .1
