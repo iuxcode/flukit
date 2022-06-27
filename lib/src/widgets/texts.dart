@@ -3,6 +3,74 @@ import 'package:flutter/material.dart';
 import '../utils/flu_utils.dart';
 import 'line.dart';
 
+/// TODO add more styles
+enum FluTextStyle {
+  small,
+  smallNeptune,
+  body,
+  bodyNeptune,
+  headline,
+}
+
+class FluText extends StatelessWidget {
+  final String text;
+  final TextStyle? customStyle;
+  final FluTextStyle style;
+
+  const FluText(this.text, {
+    Key? key,
+    this.customStyle,
+    this.style = FluTextStyle.body,
+  }) : super(key: key);
+
+  double get fontSize {
+    switch (style) {
+      case FluTextStyle.small:
+      case FluTextStyle.smallNeptune:
+        return Flukit.appConsts.smallFs;
+      case FluTextStyle.body:
+      case FluTextStyle.bodyNeptune:
+        return Flukit.appConsts.bodyFs;
+      case FluTextStyle.headline:
+        return Flukit.appConsts.headlineFs;
+    }
+  }
+
+  FontWeight get fontWeight {
+    switch (style) {
+      case FluTextStyle.small:
+      case FluTextStyle.smallNeptune:
+      case FluTextStyle.body:
+      case FluTextStyle.bodyNeptune:
+        return Flukit.appConsts.textNormal;
+      case FluTextStyle.headline:
+        return Flukit.appConsts.textBold;
+    }
+  }
+
+  Color get color {
+    switch (style) {
+      case FluTextStyle.small:
+      case FluTextStyle.smallNeptune:
+      case FluTextStyle.body:
+      case FluTextStyle.bodyNeptune:
+        return Flukit.theme.textColor;
+      case FluTextStyle.headline:
+        return Flukit.theme.accentTextColor;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => Text(
+    text,
+    style: Flukit.textTheme.bodyText1!.copyWith(
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      color: color,
+    ).merge(customStyle),
+  );
+}
+
 class FluTextWithLine extends StatelessWidget {
   final String text1, text2;
   final double lineHeight, lineWidth;
