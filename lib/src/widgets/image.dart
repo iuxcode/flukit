@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -21,6 +22,12 @@ class FluImage extends StatelessWidget {
   final double overlayOpacity;
   final EdgeInsets? margin;
   final BoxShadow? boxShadow;
+  final bool cache;
+  final Map<String, String>? httpHeaders;
+  final Widget Function(BuildContext, Widget, int?, bool)? frameBuilder;
+  final Widget Function(BuildContext, Object, StackTrace?)? errorBuilder;
+  final Widget Function(BuildContext, String)? placeholder;
+  final Widget Function(BuildContext, String, DownloadProgress)? progressIndicatorBuilder;
 
   const FluImage({
     Key? key,
@@ -30,36 +37,20 @@ class FluImage extends StatelessWidget {
     this.source,
     this.boxShadow,
     this.provider,
+    this.frameBuilder,
+    this.errorBuilder,
+    this.placeholder,
+    this.progressIndicatorBuilder,
+    this.httpHeaders,
     required this.image,
     this.fit = BoxFit.cover,
     this.margin = EdgeInsets.zero,
-    this.overlayOpacity = .05
+    this.overlayOpacity = .05,
+    this.cache = true
   }): super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    ImageProvider<Object>? imgProvider;
-  
-    if(provider != null) {
-      imgProvider = provider!;
-    } else {
-      switch(source) {
-        case FluImageType.svg:
-          imgProvider = null;
-          break;
-        case FluImageType.network:
-          imgProvider = NetworkImage(image);
-          break;
-        case FluImageType.file:
-          imgProvider = null;
-          break;
-        case FluImageType.asset:
-        default:
-          imgProvider = AssetImage(image);
-          break;
-      }
-    }
-
     return Container(
       height: height,
       width: width,
@@ -69,14 +60,7 @@ class FluImage extends StatelessWidget {
         borderRadius: BorderRadius.circular(radius ?? 0),
         boxShadow: [
           if(boxShadow != null) boxShadow!
-        ],
-        image: (imgProvider != null) ? DecorationImage(
-          image: imgProvider,
-          fit: fit,
-          onError: (error, stackTrace) {
-            ///!!! TODO handle image loading error ...
-          }
-        ) : null,
+        ]
       ),
       child: Stack(
         children: [
@@ -85,12 +69,34 @@ class FluImage extends StatelessWidget {
             height: height,
             width: width,
             fit: fit ?? BoxFit.cover,
-          ),
-          if(source == FluImageType.file) Image.file(
-            File(image),
-            height: height ?? double.infinity,
-            width: width ?? double.infinity,
+          )
+          else if(source == FluImageType.network) CachedNetworkImage(
+            imageUrl: image,
+            height: height,
+            width: width,
             fit: fit ?? BoxFit.cover,
+            // TODO make caching optional
+            // cacheManager: cache ? BaseCacheManager() : null,
+            errorWidget: errorBuilder != null ? (context, url, error) => errorBuilder!(context, url, error) : null,
+            progressIndicatorBuilder: progressIndicatorBuilder,
+            placeholder: placeholder,
+            httpHeaders: httpHeaders
+          )
+          else if(source == FluImageType.file) Image.file(
+            File(image),
+            height: height,
+            width: width,
+            fit: fit ?? BoxFit.cover,
+            errorBuilder: errorBuilder,
+            frameBuilder: frameBuilder,
+          )
+          else if(source == FluImageType.asset) Image.asset(
+            image,
+            height: height,
+            width: width,
+            fit: fit ?? BoxFit.cover,
+            errorBuilder: errorBuilder,
+            frameBuilder: frameBuilder,
           ),
           Container(
             decoration: BoxDecoration(

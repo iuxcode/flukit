@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,9 @@ class FluAvatar extends StatelessWidget {
   final EdgeInsets? margin;
   final BoxFit? fit;
   final TextStyle? labelStyle;
+  final Widget Function(BuildContext, Object, StackTrace?)? errorBuilder;
+  final Widget Function(BuildContext, String)? placeholder;
+  final Widget Function(BuildContext, String, DownloadProgress)? progressIndicatorBuilder;
 
   const FluAvatar({
     Key? key,
@@ -31,6 +35,9 @@ class FluAvatar extends StatelessWidget {
     this.spacing,
     this.margin,
     this.labelStyle,
+    this.errorBuilder,
+    this.placeholder,
+    this.progressIndicatorBuilder,
     this.useCache = false,
     this.outlined = false,
     this.fit = BoxFit.cover
@@ -68,6 +75,9 @@ class FluAvatar extends StatelessWidget {
         margin: outlined ? null : margin,
         fit: fit,
         boxShadow: outlined ? null : boxShadow,
+        errorBuilder: errorBuilder,
+        progressIndicatorBuilder: progressIndicatorBuilder,
+        placeholder: placeholder,
       );
     } else {
       throw "Avatar must have either label or image";

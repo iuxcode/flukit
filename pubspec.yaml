@@ -10,6 +10,7 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  cached_network_image: ^3.2.1
   country_icons: ^2.0.2
   dio: ^4.0.4
   emojis: ^0.9.9
