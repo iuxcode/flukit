@@ -271,8 +271,8 @@ class FluOnboardingScreenImageViewer extends StatelessWidget {
         duration: animationDuration,
         curve: animationCurve,
         child: imageUrl?.isNotEmpty ?? false ? FluImage(
-          url: imageUrl,
-          type: imageType,
+          image: imageUrl!,
+          source: imageType,
         ) : Container()
       ),
     );

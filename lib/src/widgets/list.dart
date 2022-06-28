@@ -100,8 +100,8 @@ class FluOptionsList extends StatelessWidget {
           children: <Widget>[
             if(option.icon != null || option.label != null) iconWidget(option.icon, option.label)
             else if(option.image != null) FluImage(
-              url: option.image,
-              type: option.imageType,
+              image: option.image!,
+              source: option.imageType,
               height: size,
               width: size,
               margin: EdgeInsets.only(right: itemIconMarginSize),

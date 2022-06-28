@@ -1,134 +1,85 @@
+import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart';
-import 'outline.dart';
 
 class FluAvatar extends StatelessWidget {
-  final double? size, radius;
+  final double size, radius;
   final String? label;
-  final ImageProvider<Object>? image;
+  final String? image;
+  final FluImageType source;
   final BorderRadius? borderRadius;
   final bool useCache;
   final bool outlined;
   final double? strokeWidth, spacing;
-  final Color? strokeColor;
-  final BoxShadow? boxShadow, strokeShadow;
+  final Color? strokeColor, backgroundColor;
+  final BoxShadow? boxShadow;
   final EdgeInsets? margin;
+  final BoxFit? fit;
+  final TextStyle? labelStyle;
 
   const FluAvatar({
     Key? key,
     this.image,
     this.label,
-    this.size,
-    this.radius,
+    this.source = FluImageType.network,
+    this.size = 42,
+    this.radius = 18,
     this.borderRadius,
     this.boxShadow,
     this.strokeWidth,
+    this.backgroundColor,
     this.strokeColor,
     this.spacing,
-    this.strokeShadow,
     this.margin,
+    this.labelStyle,
     this.useCache = false,
-    this.outlined = false
-  }):
-    assert((label != null && label.length >= 1) ||image != null, 'Avatar must have either label or image.'),
-    super(key: key);
-
-  factory FluAvatar.asset({
-    String? assetName,
-    String? label,
-    AssetBundle? bundle,
-    String? package,
-    double? size,
-    double? radius,
-    BorderRadius? borderRadius,
-    double? strokeWidth,
-    double? spacing,
-    Color? strokeColor,
-    BoxShadow? boxShadow,
-    BoxShadow? strokeShadow,
-    EdgeInsets? margin,
-    bool outlined = false
-  }) => FluAvatar(
-    size: size,
-    radius: radius,
-    borderRadius: borderRadius,
-    outlined: outlined,
-    spacing: spacing,
-    strokeWidth: strokeWidth,
-    strokeColor: strokeColor,
-    strokeShadow: strokeShadow,
-    boxShadow: boxShadow,
-    margin: margin,
-    label: label,
-    image: assetName != null ? AssetImage(
-      assetName,
-      bundle: bundle,
-      package: package
-    ) : null
-  );
-
-  factory FluAvatar.network({
-    required String url,
-    String? label,
-    AssetBundle? bundle,
-    String? package,
-    double? size,
-    double? radius,
-    BorderRadius? borderRadius,
-    double? strokeWidth,
-    double? spacing,
-    Color? strokeColor,
-    BoxShadow? boxShadow,
-    BoxShadow? strokeShadow,
-    EdgeInsets? margin,
-    bool outlined = false,
-    double scale = 1.0,
-    Map<String, String>? headers
-  }) => FluAvatar(
-    size: size,
-    radius: radius,
-    borderRadius: borderRadius,
-    outlined: outlined,
-    spacing: spacing,
-    strokeWidth: strokeWidth,
-    strokeColor: strokeColor,
-    strokeShadow: strokeShadow,
-    boxShadow: boxShadow,
-    margin: margin,
-    label: label,
-    image: NetworkImage(
-      url,
-      scale: scale,
-      headers: headers
-    )
-  );
+    this.outlined = false,
+    this.fit = BoxFit.cover
+  }): super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final Widget avatar = Container(
-      height: size ?? 42,
-      width: size ?? 42,
-      alignment: Alignment.center,
-      margin: outlined ? null : margin,
-      decoration: BoxDecoration(
-        borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 18),
-        boxShadow: boxShadow != null ? [boxShadow!] : null,
-        image: image != null ? DecorationImage(
-          image: image!,
-          fit: BoxFit.cover
-        ) : null
-      ),
-      child: image == null && label != null ? Text(
-        label!.trim()[0]
-      ) : null
-    );
+    final Widget avatar;
+
+    if(label != null && label!.isNotEmpty) {
+      avatar = Container(
+        height: size,
+        width: size,
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+          color: backgroundColor ?? Flukit.theme.primaryColor,
+          borderRadius: BorderRadius.circular(radius),
+          boxShadow: [
+            if(boxShadow != null && !outlined) boxShadow!
+          ],
+        ),
+        child: FluText(
+          label![0],
+          style: FluTextStyle.bodyNeptune,
+          customStyle: labelStyle,
+        )
+      );
+    } else if(image != null && image!.isNotEmpty) {
+      avatar = FluImage(
+        height: size,
+        width: size,
+        radius: radius,
+        image: image!,
+        source: source,
+        margin: outlined ? null : margin,
+        fit: fit,
+        boxShadow: outlined ? null : boxShadow,
+      );
+    } else {
+      throw "Avatar must have either label or image";
+    }
 
     return  outlined ? FluOutline(
-      radius: (radius ?? 18) + 2,
+      radius: radius + 2,
       spacing: spacing,
       thickness: strokeWidth,
       borderRadius: borderRadius,
       color: strokeColor,
-      boxShadow: strokeShadow,
+      boxShadow: boxShadow,
       margin: margin,
       child: avatar,
     ) : avatar;

@@ -123,11 +123,11 @@ class FluButton extends StatefulWidget {
 
 class _FluButtonState extends State<FluButton> {
   bool get isLoading => widget.style?.loading ?? false;
-  FluButtonStyle get style => FluButtonStyle.main.merge(widget.style);
+  FluButtonStyle get style => widget.style ?? FluButtonStyle.main;
 
   @override
   Widget build(BuildContext context) => AnimatedContainer(
-    height: style.height ?? Flukit.appConsts.defaultElSize,
+    height: style.height,
     width: style.expand ? double.infinity : style.width,
     margin: style.margin,
     duration: style.animationDuration ?? const Duration(milliseconds: 300),
@@ -153,7 +153,7 @@ class _FluButtonState extends State<FluButton> {
       } : null,
       onLongPress: widget.onLongPress,
       style: TextButton.styleFrom(
-        fixedSize: const Size(double.infinity, double.infinity),
+        fixedSize: style.height != null ? const Size(double.infinity, double.infinity) : null,
         primary: style.color,
         backgroundColor: style.backgroundColor ?? Flukit.theme.data.primaryColor,
         shape: RoundedRectangleBorder(

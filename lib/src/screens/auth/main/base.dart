@@ -236,8 +236,8 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                             ),
                             ///! TODO: add an images for each page
                             child: controller.steps[index].image.isNotEmpty ? FluImage(
-                              url: controller.steps[index].image,
-                              type: controller.steps[index].imageType,
+                              image: controller.steps[index].image,
+                              source: controller.steps[index].imageType,
                             ) : null
                           )),
                           Padding(
