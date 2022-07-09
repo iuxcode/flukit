@@ -85,6 +85,7 @@ class FluTheme {
   Color get primaryColor => palette.primary;
   Color get primaryTextColor => palette.primaryText;
   Color get secondaryColor => palette.secondary;
+  Color get tertiaryColor => palette.tertiary ?? secondaryColor;
   Color get backgroundColor => palette.background;
   Color get accentBackgroundColor => palette.accentBackground;
   Color get textColor => palette.text;

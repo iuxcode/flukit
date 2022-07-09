@@ -2,6 +2,7 @@ part of './index.dart';
 
 class FluColorPalette {
   final Color background, accentBackground, primary, primaryText, secondary, text, accentText, shadow;
+  final Color? tertiary;
 
   FluColorPalette({
     required this.background,
@@ -11,7 +12,8 @@ class FluColorPalette {
     required this.secondary,
     required this.text,
     required this.accentText,
-    required this.shadow
+    required this.shadow,
+    this.tertiary
   });
 
   
@@ -30,7 +32,8 @@ class FluColorPalette {
     Color? secondaryText,
     Color? text,
     Color? accentText,
-    Color? shadow
+    Color? shadow,
+    Color? tertiary,
   }) => FluColorPalette(
     background: background ?? this.background,
     accentBackground: accentBackground ?? this.accentBackground,
@@ -39,7 +42,8 @@ class FluColorPalette {
     secondary: secondary ?? this.secondary,
     text: text ?? this.text,
     accentText: accentText ?? this.accentText,
-    shadow: shadow ?? this.shadow
+    shadow: shadow ?? this.shadow,
+    tertiary: tertiary ?? this.tertiary
   );
 }
 
@@ -53,10 +57,12 @@ class FluLightColors extends FluColorPalette{
     Color? text,
     Color? accentText,
     Color? shadow,
+    Color? tertiary
   }): super(
     primary: primary,
     primaryText: primaryText,
     secondary: secondary,
+    tertiary: tertiary ?? secondary,
     background: background ?? const Color(0xffffffff),
     accentBackground: accentBackground ?? const Color(0xFFF8F8F8),
     text: text ?? const Color(0xFF6980A3),
@@ -75,10 +81,12 @@ class FluDarkColors extends FluColorPalette{
     Color? text,
     Color? accentText,
     Color? shadow,
+    Color? tertiary
   }): super(
     primary: primary ?? Colors.blue,
     primaryText: primaryText ?? Colors.white,
     secondary: secondary ?? Colors.blueAccent,
+    tertiary: tertiary ?? secondary,
     background: background ?? const Color(0xff000000),
     accentBackground: accentBackground ?? const Color(0xff000000),
     text: text ?? const Color(0xffeeeeee),

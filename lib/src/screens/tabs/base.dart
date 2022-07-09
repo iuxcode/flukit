@@ -50,10 +50,6 @@ class _FluTabScreenState extends State<FluTabScreen> {
         curve: widget.animationCurve
       );
     }
-
-    controller.currentIndex = index.toDouble();
-    Flukit.selectionClickHaptic();
-    widget.onPageChange?.call(controller, pageController);
   }
 
   void onInit() async {
@@ -87,7 +83,12 @@ class _FluTabScreenState extends State<FluTabScreen> {
       ),
       bottomNavigationBar: Obx(() => FluBottomNavBar(
         selectedIndex: controller.currentIndex,
-        onItemTap: onPageChange,
+        onItemTap: (index) {
+          onPageChange(index);
+          controller.currentIndex = index.toDouble();
+          Flukit.selectionClickHaptic();
+          widget.onPageChange?.call(controller, pageController);
+        },
         style: widget.bottomNavBarStyle,
         items: pages.map((page) => FluBottomNavBarItem(
           icon: page.icon,

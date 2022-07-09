@@ -16,11 +16,17 @@ class FluText extends StatelessWidget {
   final String text;
   final TextStyle? customStyle;
   final FluTextStyle style;
+  final int? maxLines;
+  final TextOverflow? overflow;
+  final TextAlign? textAlign;
 
   const FluText(this.text, {
     Key? key,
     this.customStyle,
     this.style = FluTextStyle.body,
+    this.maxLines = 1,
+    this.overflow = TextOverflow.ellipsis,
+    this.textAlign
   }) : super(key: key);
 
   double get fontSize {
@@ -78,6 +84,9 @@ class FluText extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Text(
     text,
+    maxLines: maxLines,
+    overflow: overflow,
+    textAlign: textAlign,
     style: Flukit.textTheme.bodyText1!.copyWith(
       fontSize: fontSize,
       fontWeight: fontWeight,
