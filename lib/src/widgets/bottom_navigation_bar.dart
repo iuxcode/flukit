@@ -237,10 +237,19 @@ class BottomNavBarState extends State<FluBottomNavBar>
 
     return Container(
       margin: style.floating ? style.margin : EdgeInsets.zero,
+      decoration: BoxDecoration(
+        color: style.background ?? Flukit.theme.backgroundColor,
+        borderRadius:
+            (style.borderRadius ?? BorderRadius.circular(style.radius))
+                .copyWith(
+          bottomLeft: const Radius.circular(0),
+          bottomRight: const Radius.circular(0),
+        ),
+      ),
       child: style.type == FluBottomNavBarType.curved
           ? PhysicalShape(
               clipBehavior: Clip.antiAlias,
-              color: Flukit.theme.backgroundColor,
+              color: Colors.transparent,
               clipper: CircularNotchedAndCorneredRectangleClipper(
                   notchMargin: style.notchMargin,
                   geometry: Scaffold.geometryOf(context),

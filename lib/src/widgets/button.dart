@@ -152,20 +152,42 @@ class _FluButtonState extends State<FluButton> {
                   }
               : null,
           onLongPress: widget.onLongPress,
-          style: TextButton.styleFrom(
-              fixedSize: style.height != null
+          /* style: TextButton.styleFrom(
+            fixedSize: style.height != null
+                ? const Size(double.infinity, double.infinity)
+                : null,
+            primary: style.color,
+            backgroundColor:
+                style.backgroundColor ?? Flukit.theme.data.primaryColor,
+            shape: RoundedRectangleBorder(
+                borderRadius: style.borderRadius ??
+                    BorderRadius.circular(
+                        style.radius ?? Flukit.appConsts.defaultElRadius)),
+            padding:
+                style.padding ?? const EdgeInsets.symmetric(horizontal: 15),
+            alignment: style.alignment ?? Alignment.center,
+          ), */
+          style: ButtonStyle(
+            overlayColor: MaterialStateProperty.all(Colors.transparent),
+            fixedSize: MaterialStateProperty.all(
+              style.height != null
                   ? const Size(double.infinity, double.infinity)
                   : null,
-              primary: style.color,
-              backgroundColor:
-                  style.backgroundColor ?? Flukit.theme.data.primaryColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius: style.borderRadius ??
-                      BorderRadius.circular(
-                          style.radius ?? Flukit.appConsts.defaultElRadius)),
-              padding:
-                  style.padding ?? const EdgeInsets.symmetric(horizontal: 15),
-              alignment: style.alignment ?? Alignment.center),
+            ),
+            // primary: MaterialStateProperty.all(style.color),
+            backgroundColor: MaterialStateProperty.all(
+                style.backgroundColor ?? Flukit.theme.data.primaryColor),
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: style.borderRadius ??
+                    BorderRadius.circular(
+                        style.radius ?? Flukit.appConsts.defaultElRadius),
+              ),
+            ),
+            padding: MaterialStateProperty.all(
+                style.padding ?? const EdgeInsets.symmetric(horizontal: 15)),
+            alignment: style.alignment ?? Alignment.center,
+          ),
           child: !isLoading
               ? widget.child
               : Center(
