@@ -33,8 +33,8 @@ extension on NotchSmoothness? {
     NotchSmoothness.sharpEdge: 0.1,
     NotchSmoothness.defaultEdge: 1.0,
     NotchSmoothness.softEdge: 5.0,
-    NotchSmoothness.smoothEdge: 15.0,
-    NotchSmoothness.verySmoothEdge: 25.0,
+    NotchSmoothness.smoothEdge: 10.0,
+    NotchSmoothness.verySmoothEdge: 20.0,
   };
 
   double get s1 => curveS1[this] ?? 15.0;
@@ -66,6 +66,7 @@ class FluBottomNavBarStyle {
   final NotchSmoothness notchSmoothness;
   final GapLocation gapLocation;
   final FluBottomNavBarType type;
+  final BorderRadius? borderRadius;
 
   FluBottomNavBarStyle(
       {this.background,
@@ -76,7 +77,7 @@ class FluBottomNavBarStyle {
       this.radius = 25.0,
       this.notchMargin = 8.0,
       this.gapWidth = 45,
-      this.margin = const EdgeInsets.only(left: 15, right: 15, bottom: 5),
+      this.margin = const EdgeInsets.symmetric(horizontal: 15),
       this.showItemLabelOnSelected = false,
       this.indicatorStyle = FluBottomNavBarIndicatorStyle.normal,
       this.indicatorPosition = FluBottomNavBarIndicatorPosition.bottom,
@@ -85,7 +86,8 @@ class FluBottomNavBarStyle {
       this.notchSmoothness = NotchSmoothness.smoothEdge,
       this.gapLocation = GapLocation.center,
       this.floating = true,
-      this.type = FluBottomNavBarType.normal});
+      this.type = FluBottomNavBarType.normal,
+      this.borderRadius});
 
   FluBottomNavBarStyle merge(FluBottomNavBarStyle? newStyle) =>
       FluBottomNavBarStyle(
@@ -106,7 +108,8 @@ class FluBottomNavBarStyle {
           notchSmoothness: newStyle?.notchSmoothness ?? notchSmoothness,
           gapLocation: newStyle?.gapLocation ?? gapLocation,
           floating: newStyle?.floating ?? floating,
-          type: newStyle?.type ?? type);
+          type: newStyle?.type ?? type,
+          borderRadius: newStyle?.borderRadius ?? borderRadius);
 
   static FluBottomNavBarStyle defaultt = FluBottomNavBarStyle(
       background: Flukit.themePalette.dark,
@@ -172,7 +175,8 @@ class BottomNavBarState extends State<FluBottomNavBar>
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
             color: style.background ?? Flukit.themePalette.dark,
-            borderRadius: BorderRadius.circular(style.radius)),
+            borderRadius:
+                style.borderRadius ?? BorderRadius.circular(style.radius)),
         child: Stack(
           alignment:
               style.indicatorPosition == FluBottomNavBarIndicatorPosition.top
@@ -244,6 +248,7 @@ class BottomNavBarState extends State<FluBottomNavBar>
                       gapLocation: style.gapLocation,
                       notchSmoothness: style.notchSmoothness,
                       radius: style.radius,
+                      borderRadius: style.borderRadius,
                       margin: style.floating ? style.margin.left : 0)),
               child: navbar)
           : navbar,
@@ -585,12 +590,14 @@ class CircularNotchedAndCorneredRectangle extends NotchedShape {
   final NotchSmoothness notchSmoothness;
   final GapLocation gapLocation;
   final double radius;
+  final BorderRadius? borderRadius;
   final double margin;
 
   CircularNotchedAndCorneredRectangle(
       {required this.notchSmoothness,
       required this.gapLocation,
       required this.radius,
+      this.borderRadius,
       this.margin = 0});
 
   @override
@@ -638,7 +645,7 @@ class CircularNotchedAndCorneredRectangle extends NotchedShape {
       ..lineTo(host.left, host.top)
       ..arcToPoint(
         Offset(host.left, host.top),
-        radius: Radius.circular(radius),
+        radius: borderRadius?.topLeft ?? Radius.circular(radius),
         clockwise: true,
       )
       ..lineTo(p[0].dx, p[0].dy)
@@ -652,11 +659,21 @@ class CircularNotchedAndCorneredRectangle extends NotchedShape {
       ..lineTo(host.right, host.top)
       ..arcToPoint(
         Offset(host.right, host.top),
-        radius: Radius.circular(radius),
+        radius: borderRadius?.topRight ?? Radius.circular(radius),
         clockwise: true,
       )
-      ..lineTo(host.right, host.bottom)
-      ..lineTo(host.left, host.bottom)
+      // ..lineTo(host.right, host.bottom)
+      ..arcToPoint(
+        Offset(host.right, host.bottom),
+        radius: borderRadius?.bottomRight ?? Radius.circular(radius),
+        clockwise: true,
+      )
+      // ..lineTo(host.left, host.bottom)
+      ..arcToPoint(
+        Offset(host.left, host.bottom),
+        radius: borderRadius?.bottomLeft ?? Radius.circular(radius),
+        clockwise: true,
+      )
       ..close();
   }
 }

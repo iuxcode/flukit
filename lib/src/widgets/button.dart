@@ -165,7 +165,7 @@ class _FluButtonState extends State<FluButton> {
                           style.radius ?? Flukit.appConsts.defaultElRadius)),
               padding:
                   style.padding ?? const EdgeInsets.symmetric(horizontal: 15),
-              alignment: widget.style?.alignment ?? Alignment.center),
+              alignment: style.alignment ?? Alignment.center),
           child: !isLoading
               ? widget.child
               : Center(
