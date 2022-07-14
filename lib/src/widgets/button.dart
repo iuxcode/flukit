@@ -133,17 +133,18 @@ class _FluButtonState extends State<FluButton> {
       margin: style.margin,
       duration: style.animationDuration ?? const Duration(milliseconds: 300),
       curve: style.animationCurve ?? Curves.linear,
-      // alignment: widget.style?.alignment ?? Alignment.center,
+      alignment: style.alignment ?? Alignment.centerLeft,
       constraints: BoxConstraints(
         minWidth: style.minWidth ?? 0.0,
         maxWidth: style.maxWidth ?? double.infinity,
       ),
       decoration: BoxDecoration(
-          border: style.border,
-          borderRadius: style.borderRadius ??
-              BorderRadius.circular(
-                  style.radius ?? Flukit.appConsts.defaultElRadius),
-          boxShadow: [if (style.boxShadow != null) style.boxShadow!]),
+        border: style.border,
+        borderRadius: style.borderRadius ??
+            BorderRadius.circular(
+                style.radius ?? Flukit.appConsts.defaultElRadius),
+        boxShadow: [if (style.boxShadow != null) style.boxShadow!],
+      ),
       child: TextButton(
           onPressed: widget.onPressed != null
               ? () => {
@@ -169,11 +170,11 @@ class _FluButtonState extends State<FluButton> {
           ), */
           style: ButtonStyle(
             overlayColor: MaterialStateProperty.all(Colors.transparent),
-            fixedSize: MaterialStateProperty.all(
+            /* fixedSize: MaterialStateProperty.all(
               style.height != null
                   ? const Size(double.infinity, double.infinity)
                   : null,
-            ),
+            ), */
             // primary: MaterialStateProperty.all(style.color),
             backgroundColor: MaterialStateProperty.all(
                 style.backgroundColor ?? Flukit.theme.data.primaryColor),
@@ -186,7 +187,7 @@ class _FluButtonState extends State<FluButton> {
             ),
             padding: MaterialStateProperty.all(
                 style.padding ?? const EdgeInsets.symmetric(horizontal: 15)),
-            alignment: style.alignment ?? Alignment.center,
+            alignment: style.alignment ?? Alignment.centerLeft,
           ),
           child: !isLoading
               ? widget.child

@@ -104,7 +104,7 @@ class FluAvatar extends StatelessWidget {
     int random = math.Random().nextInt(35);
 
     return buildImage(
-      'assets/memojis/with_bg/avatar-${random == 0 ? '' : random.toString()}',
+      'assets/memojis/with_bg/avatar${random == 0 ? '' : '-$random'}.png',
       FluImageSource.asset,
       package: 'flukit',
     );
