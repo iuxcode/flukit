@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flukit/src/configs/theme/index.dart';
 import 'package:flukit/src/configs/theme/tweaks.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +36,7 @@ part './services/secure_storage.dart';
 /// FlukitInterface allows any auxiliary package to be merged into the "Flukit"
 /// class through extensions
 abstract class FlukitInterface {}
+
 class _FlukitImpl extends FlukitInterface {}
 
 // ignore: non_constant_identifier_names

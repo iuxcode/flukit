@@ -54,4 +54,6 @@ extension FlukitCore on FlukitInterface {
 
     return "$hourLeft : $minuteLeft : $secondsLeft";
   }
+
+  Uint8List dataFromBase64String(String base64String) => base64Decode(base64String);
 }
