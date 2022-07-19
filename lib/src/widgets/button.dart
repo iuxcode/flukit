@@ -133,7 +133,7 @@ class _FluButtonState extends State<FluButton> {
       margin: style.margin,
       duration: style.animationDuration ?? const Duration(milliseconds: 300),
       curve: style.animationCurve ?? Curves.linear,
-      alignment: style.alignment ?? Alignment.centerLeft,
+      // alignment: style.alignment ?? Alignment.centerLeft,
       constraints: BoxConstraints(
         minWidth: style.minWidth ?? 0.0,
         maxWidth: style.maxWidth ?? double.infinity,
@@ -170,11 +170,12 @@ class _FluButtonState extends State<FluButton> {
           ), */
           style: ButtonStyle(
             overlayColor: MaterialStateProperty.all(Colors.transparent),
-            /* fixedSize: MaterialStateProperty.all(
-              style.height != null
-                  ? const Size(double.infinity, double.infinity)
-                  : null,
-            ), */
+            fixedSize: MaterialStateProperty.all(
+                /* style.height != null
+                  ?  */
+                const Size(double.infinity, double.infinity)
+                // : null,
+                ),
             // primary: MaterialStateProperty.all(style.color),
             backgroundColor: MaterialStateProperty.all(
                 style.backgroundColor ?? Flukit.theme.data.primaryColor),
@@ -187,7 +188,7 @@ class _FluButtonState extends State<FluButton> {
             ),
             padding: MaterialStateProperty.all(
                 style.padding ?? const EdgeInsets.symmetric(horizontal: 15)),
-            alignment: style.alignment ?? Alignment.centerLeft,
+            // alignment: style.alignment ?? Alignment.centerLeft,
           ),
           child: !isLoading
               ? widget.child

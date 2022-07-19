@@ -109,7 +109,9 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
 
   @override
   Widget build(BuildContext context) => FluScreen(
-          body: GetX<FluOnboardingScreenController>(
+      systemUiOverlayStyle:
+          Flukit.theme.systemStyle.copyWith(statusBarColor: Colors.transparent),
+      body: GetX<FluOnboardingScreenController>(
         init: controller,
         initState: (_) {},
         builder: (_) {
