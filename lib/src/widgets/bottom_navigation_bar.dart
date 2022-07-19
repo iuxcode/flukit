@@ -52,7 +52,7 @@ class FluBottomNavBarItem {
 }
 
 class FluBottomNavBarStyle {
-  final double height;
+  final double height, indicatorHeight;
   final double radius;
   final double notchMargin;
   final double gapWidth;
@@ -75,6 +75,7 @@ class FluBottomNavBarStyle {
       this.indicatorColor,
       this.height = 85.0,
       this.radius = 25.0,
+      this.indicatorHeight = 8,
       this.notchMargin = 8.0,
       this.gapWidth = 45,
       this.margin = const EdgeInsets.symmetric(horizontal: 15),
@@ -109,7 +110,8 @@ class FluBottomNavBarStyle {
           gapLocation: newStyle?.gapLocation ?? gapLocation,
           floating: newStyle?.floating ?? floating,
           type: newStyle?.type ?? type,
-          borderRadius: newStyle?.borderRadius ?? borderRadius);
+          borderRadius: newStyle?.borderRadius ?? borderRadius,
+          indicatorHeight: newStyle?.indicatorHeight ?? indicatorHeight);
 
   static FluBottomNavBarStyle defaultt = FluBottomNavBarStyle(
       background: Flukit.themePalette.dark,
@@ -220,7 +222,7 @@ class BottomNavBarState extends State<FluBottomNavBar>
               controller: animationController,
               selectedIndex: widget.selectedIndex,
               previousIndex: previousIndex,
-              height: 8,
+              height: style.indicatorHeight,
               maxWidth: itemWidth,
               duration: style.animationDuration,
               curve: style.animationCurve,
@@ -231,6 +233,7 @@ class BottomNavBarState extends State<FluBottomNavBar>
               style: style.indicatorStyle,
               position: style.indicatorPosition,
               gapWidth: style.gapWidth,
+              bottomNavBarType: style.type,
             )
           ],
         ));
@@ -339,6 +342,7 @@ class _Indicator extends StatelessWidget {
   final Curve curve;
   final FluBottomNavBarIndicatorStyle? style;
   final FluBottomNavBarIndicatorPosition position;
+  final FluBottomNavBarType bottomNavBarType;
 
   const _Indicator({
     Key? key,
@@ -351,6 +355,7 @@ class _Indicator extends StatelessWidget {
     required this.activeColor,
     required this.duration,
     required this.curve,
+    required this.bottomNavBarType,
     // ignore: unused_element
     this.radius = 8,
     this.style = FluBottomNavBarIndicatorStyle.drop,
@@ -361,7 +366,11 @@ class _Indicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedPositioned(
-        left: (selectedIndex * maxWidth) + (selectedIndex > 1 ? gapWidth : 0),
+        left: (selectedIndex * maxWidth) +
+            (selectedIndex > 1 &&
+                    (bottomNavBarType == FluBottomNavBarType.curved)
+                ? gapWidth
+                : 0),
         duration: duration,
         curve: curve,
         child: style == FluBottomNavBarIndicatorStyle.normal
