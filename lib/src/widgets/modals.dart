@@ -29,12 +29,13 @@ class FluModalBottomSheet extends StatelessWidget {
             maxChildSize: maxChildSize,
             builder: (BuildContext context, ScrollController scrollController) {
               return Column(
-                // mainAxisSize: MainAxisSize.min,
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  /* Expanded(child: GestureDetector(
-              onTap: () => Navigator.pop(context),
-            )), */
+                  /* Flexible(
+                      child: GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                  )), */
                   AnimatedContainer(
                     height: 4,
                     width: Flukit.screenSize.width * .20,
@@ -45,7 +46,9 @@ class FluModalBottomSheet extends StatelessWidget {
                         color: Flukit.theme.backgroundColor.withOpacity(.9),
                         borderRadius: BorderRadius.circular(10)),
                   ),
-                  Expanded(
+                  Flexible(
+                    flex: 1,
+                    fit: FlexFit.loose,
                     child: AnimatedContainer(
                       width: double.infinity,
                       duration: animationDuration,
