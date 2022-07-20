@@ -5,18 +5,20 @@ class FluModalBottomSheet extends StatelessWidget {
   final Widget child;
   final EdgeInsets? padding;
   final double? radius;
+  final double maxChildSize;
   final Duration animationDuration;
   final Curve animationCurve;
   final double defaultRadius = Flukit.screenSize.width * .085;
 
-  FluModalBottomSheet(
-      {Key? key,
-      required this.child,
-      this.padding,
-      this.radius,
-      this.animationDuration = const Duration(milliseconds: 300),
-      this.animationCurve = Curves.easeInOut})
-      : super(key: key);
+  FluModalBottomSheet({
+    Key? key,
+    required this.child,
+    this.padding,
+    this.radius,
+    this.maxChildSize = .85,
+    this.animationDuration = const Duration(milliseconds: 300),
+    this.animationCurve = Curves.easeInOut,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -24,7 +26,7 @@ class FluModalBottomSheet extends StatelessWidget {
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: DraggableScrollableSheet(
             expand: false,
-            maxChildSize: .9,
+            maxChildSize: maxChildSize,
             builder: (BuildContext context, ScrollController scrollController) {
               return Column(
                 // mainAxisSize: MainAxisSize.min,
