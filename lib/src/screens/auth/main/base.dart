@@ -294,37 +294,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                                       Flukit.theme.shadowColor),
                                               child: FluTextInput(
                                                 controller: inputController,
-                                                height: step.inputHeight ??
-                                                    Flukit.appConsts
-                                                            .defaultElSize -
-                                                        2,
-                                                radius: step.inputRadius ??
-                                                    Flukit.appConsts
-                                                        .defaultElRadius,
                                                 hintText: step.inputHint,
-                                                hintColor: controller.hasError
-                                                    ? Flukit
-                                                        .theme.palette.danger
-                                                    : Flukit.theme.palette.text,
-                                                color: controller.hasError
-                                                    ? Flukit
-                                                        .theme.palette.danger
-                                                    : Flukit.theme.palette
-                                                        .accentText,
-                                                fillColor: Flukit
-                                                    .theme.backgroundColor,
-                                                borderColor: (controller
-                                                            .hasError
-                                                        ? Flukit.theme.palette
-                                                            .danger
-                                                        : Flukit.theme
-                                                            .backgroundColor)
-                                                    .withOpacity(.015),
-                                                borderWidth: 1.5,
-                                                keyboardType:
-                                                    TextInputType.text,
-                                                textInputAction:
-                                                    TextInputAction.done,
                                                 inputFormatters: null,
                                                 validator: (value) =>
                                                     inputValidator(value,
@@ -332,6 +302,39 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                                 onChanged: (value) =>
                                                     onInputValueChanged(value,
                                                         step.onInputValueChanged),
+                                                style: FluTextInputStyle(
+                                                  borderWidth: 1.5,
+                                                  keyboardType:
+                                                      TextInputType.text,
+                                                  textInputAction:
+                                                      TextInputAction.done,
+                                                  fillColor: Flukit
+                                                      .theme.backgroundColor,
+                                                  borderColor: (controller
+                                                              .hasError
+                                                          ? Flukit.theme.palette
+                                                              .danger
+                                                          : Flukit.theme
+                                                              .backgroundColor)
+                                                      .withOpacity(.015),
+                                                  hintColor: controller.hasError
+                                                      ? Flukit
+                                                          .theme.palette.danger
+                                                      : Flukit
+                                                          .theme.palette.text,
+                                                  color: controller.hasError
+                                                      ? Flukit
+                                                          .theme.palette.danger
+                                                      : Flukit.theme.palette
+                                                          .accentText,
+                                                  height: step.inputHeight ??
+                                                      Flukit.appConsts
+                                                              .defaultElSize -
+                                                          2,
+                                                  radius: step.inputRadius ??
+                                                      Flukit.appConsts
+                                                          .defaultElRadius,
+                                                ),
                                               ),
                                             );
                                           } else {
