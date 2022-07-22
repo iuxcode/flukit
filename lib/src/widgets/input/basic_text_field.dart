@@ -149,8 +149,8 @@ class _FluBasicTextFieldState extends State<FluBasicTextField> {
         onHorizontalDragUpdate: (dragUpdateDetails) =>
             _onDragUpdate(dragUpdateDetails),
         child: SizedBox(
-          height: widget.style.height ?? Flukit.appConsts.defaultElSize,
-          width: MediaQuery.of(context).size.width,
+          // height: widget.style.height,
+          // width: MediaQuery.of(context).size.width,
           child: FluBasicTextInputClient(
             key: textInputClientKey,
             controller: widget.controller,
