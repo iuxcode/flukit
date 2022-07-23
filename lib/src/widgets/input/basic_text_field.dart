@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import '../../utils/flu_utils.dart';
 import 'input.dart';
 
 /// A basic text field. Defines the appearance of a basic text input client.
@@ -15,7 +14,7 @@ class FluBasicTextField extends StatefulWidget {
   const FluBasicTextField({
     super.key,
     required this.controller,
-    required this.style,
+    this.style = const FluTextInputStyle(),
     required this.textStyle,
     required this.focusNode,
   });

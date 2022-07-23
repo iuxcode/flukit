@@ -1,10 +1,6 @@
+import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'basic_text_field.dart';
-import 'replacements.dart';
-import 'text_editing_delta_history_manager.dart';
-import 'toggle_buttons_state_manager.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,8 +33,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final ReplacementTextEditingController _replacementTextEditingController =
-      ReplacementTextEditingController(
+  final FluReplacementTextEditingController _replacementTextEditingController =
+      FluReplacementTextEditingController(
     text: 'The quick brown fox jumps over the lazy dog.',
   );
   final FocusNode _focusNode = FocusNode();
@@ -192,7 +188,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     if (_isSelected.contains(targetToggleButtonState)) {
       _replacementTextEditingController.applyReplacement(
-        TextEditingInlineSpanReplacement(
+        FluTextEditingInlineSpanReplacement(
           replacementRange,
           (string, range) => TextSpan(text: string, style: attributeMap[index]),
           true,
@@ -297,7 +293,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
-          child: ToggleButtonsStateManager(
+          child: FluToggleButtonsStateManager(
             isToggleButtonsSelected: _isSelected,
             updateToggleButtonsStateOnButtonPressed:
                 _updateToggleButtonsStateOnButtonPressed,
@@ -314,8 +310,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Builder(builder: (innerContext) {
-                          final ToggleButtonsStateManager manager =
-                              ToggleButtonsStateManager.of(innerContext);
+                          final FluToggleButtonsStateManager manager =
+                              FluToggleButtonsStateManager.of(innerContext);
 
                           return ToggleButtons(
                             borderRadius:
@@ -343,9 +339,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 35.0),
-                      child: BasicTextField(
+                      child: FluBasicTextField(
                         controller: _replacementTextEditingController,
-                        style: const TextStyle(
+                        textStyle: const TextStyle(
                             fontSize: 18.0, color: Colors.black),
                         focusNode: _focusNode,
                       ),
