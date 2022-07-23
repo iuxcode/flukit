@@ -93,6 +93,7 @@ class _FluTextInputState extends State<FluTextInput> {
                   color: widget.style.color ?? theme.palette.accentText,
                   fontWeight: Flukit.appConsts.textSemibold,
                 ),
+                cursorColor: widget.style.cursorColor ?? theme.primaryColor,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor:
@@ -310,9 +311,19 @@ class _FluRichTextInputState extends State<FluRichTextInput> {
 class FluTextInputStyle {
   final FluIconModel? prefixIcon, suffixIcon;
   final List<BoxShadow>? boxShadow;
-  final Color? borderColor, color, hintColor, fillColor, iconColor;
-  final double? height, radius;
-  final double? borderWidth, iconSize, iconStrokeWidth;
+  final Color? borderColor,
+      color,
+      hintColor,
+      fillColor,
+      iconColor,
+      cursorColor,
+      selectionColor;
+  final double? height,
+      radius,
+      borderWidth,
+      iconSize,
+      iconStrokeWidth,
+      cursorHeight;
   final TextAlign? textAlign;
   final TextAlignVertical? textAlignVertical;
   final TextInputType? keyboardType;
@@ -320,7 +331,10 @@ class FluTextInputStyle {
   final List<TextInputFormatter>? inputFormatters;
   final EdgeInsets? margin, padding;
   final CrossAxisAlignment? alignment;
-  final bool expand;
+  final bool expand, obscureText, readOnly;
+  final String obscuringCharacter;
+  final double cursorWidth;
+  final Radius cursorRadius;
 
   const FluTextInputStyle({
     Key? key,
@@ -332,6 +346,8 @@ class FluTextInputStyle {
     this.color,
     this.hintColor,
     this.fillColor,
+    this.cursorColor,
+    this.selectionColor,
     this.iconStrokeWidth = 1.5,
     this.iconSize = 20,
     this.borderWidth = .8,
@@ -346,6 +362,13 @@ class FluTextInputStyle {
     this.height,
     this.alignment = CrossAxisAlignment.center,
     this.expand = false,
+    // By default, This is a non-private text field that does not require obfuscation
+    this.obscureText = false,
+    this.obscuringCharacter = '•',
+    this.cursorWidth = 2,
+    this.cursorHeight,
+    this.cursorRadius = const Radius.circular(2),
+    this.readOnly = false,
   });
 
   FluTextInputStyle copyWith({
@@ -357,6 +380,8 @@ class FluTextInputStyle {
     Color? hintColor,
     Color? fillColor,
     Color? iconColor,
+    Color? cursorColor,
+    Color? selectionColor,
     double? height,
     double? radius,
     double? borderWidth,
@@ -371,6 +396,12 @@ class FluTextInputStyle {
     EdgeInsets? padding,
     CrossAxisAlignment? alignment,
     bool? expand,
+    bool? obscureText,
+    String? obscuringCharacter,
+    double? cursorWidth,
+    double? cursorHeight,
+    Radius cursorRadius = const Radius.circular(2),
+    bool readOnly = false,
   }) =>
       FluTextInputStyle(
         prefixIcon: prefixIcon,
@@ -379,6 +410,8 @@ class FluTextInputStyle {
         boxShadow: boxShadow,
         borderColor: borderColor,
         color: color,
+        cursorColor: cursorColor,
+        selectionColor: selectionColor,
         hintColor: hintColor,
         fillColor: fillColor,
         iconStrokeWidth: iconStrokeWidth,
@@ -395,5 +428,11 @@ class FluTextInputStyle {
         height: height,
         alignment: alignment,
         expand: expand ?? false,
+        obscureText: obscureText ?? false,
+        obscuringCharacter: obscuringCharacter ?? '•',
+        cursorWidth: cursorWidth ?? 2,
+        cursorHeight: cursorHeight,
+        cursorRadius: cursorRadius,
+        readOnly: readOnly,
       );
 }

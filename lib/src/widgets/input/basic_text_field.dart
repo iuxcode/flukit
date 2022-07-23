@@ -147,18 +147,15 @@ class _FluBasicTextFieldState extends State<FluBasicTextField> {
             _onDragStart(dragStartDetails),
         onHorizontalDragUpdate: (dragUpdateDetails) =>
             _onDragUpdate(dragUpdateDetails),
-        child: SizedBox(
-          // height: widget.style.height,
-          // width: MediaQuery.of(context).size.width,
-          child: FluBasicTextInputClient(
-            key: textInputClientKey,
-            controller: widget.controller,
-            style: widget.textStyle,
-            focusNode: widget.focusNode,
-            selectionControls: _textSelectionControls,
-            onSelectionChanged: _handleSelectionChanged,
-            showSelectionHandles: _showSelectionHandles,
-          ),
+        child: FluBasicTextInputClient(
+          key: textInputClientKey,
+          controller: widget.controller,
+          textStyle: widget.textStyle,
+          style: widget.style,
+          focusNode: widget.focusNode,
+          selectionControls: _textSelectionControls,
+          onSelectionChanged: _handleSelectionChanged,
+          showSelectionHandles: _showSelectionHandles,
         ),
       ),
     );
