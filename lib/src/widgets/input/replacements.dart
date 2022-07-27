@@ -599,10 +599,11 @@ class FluReplacementTextEditingController extends TextEditingController {
   }
 
   static void _addToMappingWithOverlaps(
-      InlineSpanGenerator generator,
-      TextRange matchedRange,
-      Map<TextRange, InlineSpan> rangeSpanMapping,
-      String text) {
+    InlineSpanGenerator generator,
+    TextRange matchedRange,
+    Map<TextRange, InlineSpan> rangeSpanMapping,
+    String text,
+  ) {
     // In some cases we should allow for overlap.
     // For example in the case of two TextSpans matching the same range for replacement,
     // we should try to merge the styles into one TextStyle and build a new TextSpan.

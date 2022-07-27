@@ -2,21 +2,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import '../../configs/theme/index.dart';
+import '../../utils/flu_utils.dart';
 import 'input.dart';
 
 /// A basic text field. Defines the appearance of a basic text input client.
 class FluBasicTextField extends StatefulWidget {
   final TextEditingController controller;
+  final String? hintText;
   final TextStyle textStyle;
   final FluTextInputStyle style;
   final FocusNode focusNode;
+  final ValueChanged<String>? onChanged;
 
   const FluBasicTextField({
     super.key,
     required this.controller,
+    this.hintText,
     this.style = const FluTextInputStyle(),
     required this.textStyle,
     required this.focusNode,
+    this.onChanged,
   });
 
   @override
@@ -38,6 +44,9 @@ class _FluBasicTextFieldState extends State<FluBasicTextField> {
   // For text selection.
   TextSelectionControls? _textSelectionControls;
   bool _showSelectionHandles = false;
+
+  FluTheme get theme => Flukit.theme;
+  ThemeData get themeData => Flukit.theme.data;
 
   bool _shouldShowSelectionHandles(SelectionChangedCause? cause) {
     // When the text field is activated by something that doesn't trigger the
@@ -85,6 +94,23 @@ class _FluBasicTextFieldState extends State<FluBasicTextField> {
     _dragStartViewportOffset = _renderEditable.offset.pixels;
   }
 
+  InputDecoration _getEffectiveDecoration() {
+    final ThemeData themeData = Theme.of(context);
+    final InputDecoration effectiveDecoration = InputDecoration(
+      hintText: widget.hintText,
+      hintStyle: theme.data.textTheme.bodyText1!.copyWith(
+        fontWeight: FontWeight.w400,
+        color: widget.style.hintColor ?? theme.palette.text,
+      ),
+      contentPadding: widget.style.contentPadding,
+      border: InputBorder.none,
+      filled: true,
+      fillColor: widget.style.fillColor ?? theme.palette.accentBackground,
+    ).applyDefaults(themeData.inputDecorationTheme);
+
+    return effectiveDecoration;
+  }
+
   @override
   Widget build(BuildContext context) {
     switch (Theme.of(this.context).platform) {
@@ -105,6 +131,34 @@ class _FluBasicTextFieldState extends State<FluBasicTextField> {
         _textSelectionControls = desktopTextSelectionControls;
         break;
     }
+
+    Widget child = AnimatedBuilder(
+      animation:
+          Listenable.merge(<Listenable>[widget.focusNode, widget.controller]),
+      builder: (BuildContext context, Widget? child) {
+        return InputDecorator(
+          decoration: _getEffectiveDecoration(),
+          baseStyle: widget.textStyle,
+          textAlign: widget.style.textAlign,
+          textAlignVertical: widget.style.textAlignVertical,
+          // isHovering: _isHovering,
+          isFocused: widget.focusNode.hasFocus,
+          isEmpty: widget.controller.value.text.isEmpty,
+          expands: widget.style.expand,
+          child: FluBasicTextInputClient(
+            key: textInputClientKey,
+            controller: widget.controller,
+            textStyle: widget.textStyle,
+            style: widget.style,
+            focusNode: widget.focusNode,
+            selectionControls: _textSelectionControls,
+            onSelectionChanged: _handleSelectionChanged,
+            showSelectionHandles: _showSelectionHandles,
+            onChanged: widget.onChanged,
+          ),
+        );
+      },
+    );
 
     return FocusTrapArea(
       focusNode: widget.focusNode,
@@ -147,16 +201,7 @@ class _FluBasicTextFieldState extends State<FluBasicTextField> {
             _onDragStart(dragStartDetails),
         onHorizontalDragUpdate: (dragUpdateDetails) =>
             _onDragUpdate(dragUpdateDetails),
-        child: FluBasicTextInputClient(
-          key: textInputClientKey,
-          controller: widget.controller,
-          textStyle: widget.textStyle,
-          style: widget.style,
-          focusNode: widget.focusNode,
-          selectionControls: _textSelectionControls,
-          onSelectionChanged: _handleSelectionChanged,
-          showSelectionHandles: _showSelectionHandles,
-        ),
+        child: child,
       ),
     );
   }

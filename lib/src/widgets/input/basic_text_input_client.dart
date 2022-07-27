@@ -8,9 +8,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
 import 'input.dart';
-import 'replacements.dart';
-import 'text_editing_delta_history_manager.dart';
-import 'toggle_buttons_state_manager.dart';
 
 /// Signature for the callback that reports when the user changes the selection
 /// (including the cursor location).
@@ -28,6 +25,7 @@ class FluBasicTextInputClient extends StatefulWidget {
   final TextSelectionControls? selectionControls;
   final bool showSelectionHandles;
   final SelectionChangedCallback onSelectionChanged;
+  final ValueChanged<String>? onChanged;
 
   const FluBasicTextInputClient({
     super.key,
@@ -38,6 +36,7 @@ class FluBasicTextInputClient extends StatefulWidget {
     this.selectionControls,
     required this.onSelectionChanged,
     required this.showSelectionHandles,
+    this.onChanged,
   });
 
   @override
@@ -45,6 +44,7 @@ class FluBasicTextInputClient extends StatefulWidget {
       FluBasicTextInputClientState();
 }
 
+/// TODO add AutofillClient
 class FluBasicTextInputClientState extends State<FluBasicTextInputClient>
     with TextSelectionDelegate
     implements DeltaTextInputClient {
@@ -134,7 +134,9 @@ class FluBasicTextInputClientState extends State<FluBasicTextInputClient>
   }
 
   @override
-  void updateEditingValue(TextEditingValue value) {/* Not using */}
+  void updateEditingValue(TextEditingValue value) {
+    widget.onChanged?.call(value.text);
+  }
 
   @override
   void updateEditingValueWithDeltas(List<TextEditingDelta> textEditingDeltas) {

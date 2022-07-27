@@ -10,6 +10,8 @@ export 'replacements.dart';
 export './text_editing_delta_history_manager.dart';
 export './toggle_buttons_state_manager.dart';
 
+/// TODO Optimize fields & their styles
+
 /// Basic input field
 class FluTextInput extends StatefulWidget {
   final String hintText;
@@ -211,6 +213,7 @@ class FluRichTextInput extends StatefulWidget {
   final TextStyle textStyle;
   final FluTextInputStyle? style;
   final FocusNode focusNode;
+  final ValueChanged<String>? onChanged;
   final void Function(List<TextEditingDelta> deltas)? onDeltasHistoryUpdate;
 
   const FluRichTextInput({
@@ -219,6 +222,7 @@ class FluRichTextInput extends StatefulWidget {
     this.style,
     required this.textStyle,
     required this.focusNode,
+    this.onChanged,
     this.onDeltasHistoryUpdate,
   }) : super(key: key);
 
@@ -300,15 +304,18 @@ class _FluRichTextInputState extends State<FluRichTextInput> {
         updateHistoryOnInput: _updateTextEditingDeltaHistory,
         child: FluBasicTextField(
           controller: widget.controller,
+          hintText: widget.style?.hintText,
           style: widget.style ?? const FluTextInputStyle(),
           textStyle: widget.textStyle,
           focusNode: widget.focusNode,
+          onChanged: widget.onChanged,
         ),
       );
 }
 
 /// Input style
 class FluTextInputStyle {
+  final String? hintText;
   final FluIconModel? prefixIcon, suffixIcon;
   final List<BoxShadow>? boxShadow;
   final Color? borderColor,
@@ -329,15 +336,16 @@ class FluTextInputStyle {
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
   final List<TextInputFormatter>? inputFormatters;
-  final EdgeInsets? margin, padding;
+  final EdgeInsets? margin, padding, contentPadding;
   final CrossAxisAlignment? alignment;
-  final bool expand, obscureText, readOnly;
+  final bool expand, obscureText, readOnly, enabled;
   final String obscuringCharacter;
   final double cursorWidth;
   final Radius cursorRadius;
 
   const FluTextInputStyle({
     Key? key,
+    this.hintText,
     this.prefixIcon,
     this.suffixIcon,
     this.iconColor,
@@ -359,9 +367,11 @@ class FluTextInputStyle {
     this.inputFormatters,
     this.margin = EdgeInsets.zero,
     this.padding = const EdgeInsets.symmetric(horizontal: 15),
+    this.contentPadding,
     this.height,
     this.alignment = CrossAxisAlignment.center,
     this.expand = false,
+    this.enabled = true,
     // By default, This is a non-private text field that does not require obfuscation
     this.obscureText = false,
     this.obscuringCharacter = '•',
@@ -371,6 +381,7 @@ class FluTextInputStyle {
     this.readOnly = false,
   });
 
+  // TODO update !
   FluTextInputStyle copyWith({
     FluIconModel? prefixIcon,
     suffixIcon,
@@ -394,8 +405,10 @@ class FluTextInputStyle {
     List<TextInputFormatter>? inputFormatters,
     EdgeInsets? margin,
     EdgeInsets? padding,
+    EdgeInsets? contentPadding,
     CrossAxisAlignment? alignment,
     bool? expand,
+    bool? enabled,
     bool? obscureText,
     String? obscuringCharacter,
     double? cursorWidth,
@@ -425,9 +438,11 @@ class FluTextInputStyle {
         inputFormatters: inputFormatters,
         margin: margin,
         padding: padding,
+        contentPadding: contentPadding,
         height: height,
         alignment: alignment,
         expand: expand ?? false,
+        enabled: enabled ?? true,
         obscureText: obscureText ?? false,
         obscuringCharacter: obscuringCharacter ?? '•',
         cursorWidth: cursorWidth ?? 2,
