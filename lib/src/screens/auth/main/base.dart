@@ -292,9 +292,9 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                                   offset: const Offset(0, 0),
                                                   color:
                                                       Flukit.theme.shadowColor),
-                                              child: FluTextInput(
-                                                controller: inputController,
-                                                hintText: step.inputHint,
+                                              child: FluTextField(
+                                                inputController:
+                                                    inputController,
                                                 inputFormatters: null,
                                                 validator: (value) =>
                                                     inputValidator(value,
@@ -302,7 +302,8 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                                 onChanged: (value) =>
                                                     onInputValueChanged(value,
                                                         step.onInputValueChanged),
-                                                style: FluTextInputStyle(
+                                                style: FluTextFieldStyle(
+                                                  hintText: step.inputHint,
                                                   borderWidth: 1.5,
                                                   keyboardType:
                                                       TextInputType.text,

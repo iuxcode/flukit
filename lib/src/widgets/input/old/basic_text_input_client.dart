@@ -135,7 +135,8 @@ class FluBasicTextInputClientState extends State<FluBasicTextInputClient>
 
   @override
   void updateEditingValue(TextEditingValue value) {
-    widget.onChanged?.call(value.text);
+    // widget.onChanged?.call(value.text);
+    /* Not used */
   }
 
   @override

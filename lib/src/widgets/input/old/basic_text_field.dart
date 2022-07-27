@@ -1,9 +1,9 @@
+import 'package:flukit/src/configs/theme/index.dart';
+import 'package:flukit/src/utils/flu_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import '../../configs/theme/index.dart';
-import '../../utils/flu_utils.dart';
 import 'input.dart';
 
 /// A basic text field. Defines the appearance of a basic text input client.

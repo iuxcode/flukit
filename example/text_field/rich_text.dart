@@ -1,4 +1,5 @@
-import 'package:flukit/flukit.dart';
+/* import 'package:flukit/flukit.dart';
+import 'package:flukit/src/widgets/input/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -38,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
     text: 'The quick brown fox jumps over the lazy dog.',
   );
   final FocusNode _focusNode = FocusNode();
-  final Set<FluToggleButtonsState> _isSelected = {};
+  final Set<FluInputStyleToggleButtons> _isSelected = {};
   final List<TextEditingDelta> _textEditingDeltaHistory = [];
 
   void _updateTextEditingDeltaHistory(
@@ -111,13 +112,13 @@ class _MyHomePageState extends State<MyHomePage> {
     // at the new selection.
     final List<TextStyle> replacementStyles =
         _replacementTextEditingController.getReplacementsAtSelection(selection);
-    final Set<FluToggleButtonsState> hasChanged = {};
+    final Set<FluInputStyleToggleButtons> hasChanged = {};
 
     if (replacementStyles.isEmpty) {
       _isSelected.removeAll({
-        FluToggleButtonsState.bold,
-        FluToggleButtonsState.italic,
-        FluToggleButtonsState.underline
+        FluInputStyleToggleButtons.bold,
+        FluInputStyleToggleButtons.italic,
+        FluInputStyleToggleButtons.underline
       });
     }
 
@@ -125,41 +126,41 @@ class _MyHomePageState extends State<MyHomePage> {
       // See [_updateToggleButtonsStateOnButtonPressed] for how
       // Bold, Italic and Underline are encoded into [style]
       if (style.fontWeight != null &&
-          !hasChanged.contains(FluToggleButtonsState.bold)) {
-        _isSelected.add(FluToggleButtonsState.bold);
-        hasChanged.add(FluToggleButtonsState.bold);
+          !hasChanged.contains(FluInputStyleToggleButtons.bold)) {
+        _isSelected.add(FluInputStyleToggleButtons.bold);
+        hasChanged.add(FluInputStyleToggleButtons.bold);
       }
 
       if (style.fontStyle != null &&
-          !hasChanged.contains(FluToggleButtonsState.italic)) {
-        _isSelected.add(FluToggleButtonsState.italic);
-        hasChanged.add(FluToggleButtonsState.italic);
+          !hasChanged.contains(FluInputStyleToggleButtons.italic)) {
+        _isSelected.add(FluInputStyleToggleButtons.italic);
+        hasChanged.add(FluInputStyleToggleButtons.italic);
       }
 
       if (style.decoration != null &&
-          !hasChanged.contains(FluToggleButtonsState.underline)) {
-        _isSelected.add(FluToggleButtonsState.underline);
-        hasChanged.add(FluToggleButtonsState.underline);
+          !hasChanged.contains(FluInputStyleToggleButtons.underline)) {
+        _isSelected.add(FluInputStyleToggleButtons.underline);
+        hasChanged.add(FluInputStyleToggleButtons.underline);
       }
     }
 
     for (final TextStyle style in replacementStyles) {
       if (style.fontWeight == null &&
-          !hasChanged.contains(FluToggleButtonsState.bold)) {
-        _isSelected.remove(FluToggleButtonsState.bold);
-        hasChanged.add(FluToggleButtonsState.bold);
+          !hasChanged.contains(FluInputStyleToggleButtons.bold)) {
+        _isSelected.remove(FluInputStyleToggleButtons.bold);
+        hasChanged.add(FluInputStyleToggleButtons.bold);
       }
 
       if (style.fontStyle == null &&
-          !hasChanged.contains(FluToggleButtonsState.italic)) {
-        _isSelected.remove(FluToggleButtonsState.italic);
-        hasChanged.add(FluToggleButtonsState.italic);
+          !hasChanged.contains(FluInputStyleToggleButtons.italic)) {
+        _isSelected.remove(FluInputStyleToggleButtons.italic);
+        hasChanged.add(FluInputStyleToggleButtons.italic);
       }
 
       if (style.decoration == null &&
-          !hasChanged.contains(FluToggleButtonsState.underline)) {
-        _isSelected.remove(FluToggleButtonsState.underline);
-        hasChanged.add(FluToggleButtonsState.underline);
+          !hasChanged.contains(FluInputStyleToggleButtons.underline)) {
+        _isSelected.remove(FluInputStyleToggleButtons.underline);
+        hasChanged.add(FluInputStyleToggleButtons.underline);
       }
     }
 
@@ -178,7 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
       end: _replacementTextEditingController.selection.end,
     );
 
-    final targetToggleButtonState = FluToggleButtonsState.values[index];
+    final targetToggleButtonState = FluInputStyleToggleButtons.values[index];
 
     if (_isSelected.contains(targetToggleButtonState)) {
       _isSelected.remove(targetToggleButtonState);
@@ -318,11 +319,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                 const BorderRadius.all(Radius.circular(4.0)),
                             isSelected: [
                               manager.toggleButtonsState
-                                  .contains(FluToggleButtonsState.bold),
+                                  .contains(FluInputStyleToggleButtons.bold),
                               manager.toggleButtonsState
-                                  .contains(FluToggleButtonsState.italic),
+                                  .contains(FluInputStyleToggleButtons.italic),
                               manager.toggleButtonsState
-                                  .contains(FluToggleButtonsState.underline),
+                                  .contains(FluInputStyleToggleButtons.underline),
                             ],
                             onPressed: (index) => manager
                                 .updateToggleButtonsOnButtonPressed(index),
@@ -441,3 +442,4 @@ class TextEditingDeltaView extends StatelessWidget {
     );
   }
 }
+ */

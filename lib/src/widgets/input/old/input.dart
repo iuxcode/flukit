@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import 'input.dart';
+
 export 'basic_text_field.dart';
 export './basic_text_input_client.dart';
-export 'replacements.dart';
+export '../replacements.dart';
 export './text_editing_delta_history_manager.dart';
 export './toggle_buttons_state_manager.dart';
 
