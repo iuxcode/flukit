@@ -35,7 +35,7 @@ extension FlukitText on FlukitInterface {
       int h = hours.toInt();
       int? m = int.tryParse(hours.toString().split('.')[1]);
 
-      text = '${h}m ${m != null ? m.toString() + 's' : ''}';
+      text = '${h}m ${m != null ? '${m}s' : ''}';
     } else if (seconds > secondsInOneMinute) {
       double minutes = (seconds / secondsInOneHour) * secondsInOneMinute;
       int m = minutes.toInt();

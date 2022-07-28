@@ -143,27 +143,30 @@ class FluRichTextField extends FluTextField {
   });
 
   @override
-  Widget build(BuildContext context) => Obx(() => FluBaseTextField(
-        controller: controller.inputController,
-        focusNode: focusNode,
-        onDeltasHistoryUpdate: (textEditingDeltas) {
-          onDeltasHistoryUpdate?.call(textEditingDeltas);
-        },
-        onDeltaStyleStateChange: controller.updateStyleButtonsState,
-        textAlign: style.textAlign ?? TextAlign.center,
-        textAlignVertical: style.textAlignVertical,
-        keyboardType: style.keyboardType,
-        textInputAction: style.textInputAction,
-        inputFormatters: inputFormatters,
-        style: _themeData.textTheme.bodyText1!.copyWith(
-          color: style.color ?? _theme.palette.accentText,
-          fontWeight: Flukit.appConsts.textSemibold,
-        ),
-        cursorColor: style.cursorColor ?? _theme.primaryColor,
-        cursorHeight: style.cursorHeight,
-        cursorWidth: style.cursorWidth,
-        decoration: inputDecoration,
-      ));
+  Widget build(BuildContext context) => GetBuilder(
+      init: controller,
+      builder: (context) => FluBaseTextField(
+            controller: controller.inputController,
+            focusNode: focusNode,
+            onChanged: onChanged,
+            onDeltasHistoryUpdate: (textEditingDeltas) {
+              onDeltasHistoryUpdate?.call(textEditingDeltas);
+            },
+            onDeltaStyleStateChange: controller.updateStyleButtonsState,
+            textAlign: style.textAlign ?? TextAlign.center,
+            textAlignVertical: style.textAlignVertical,
+            keyboardType: style.keyboardType,
+            textInputAction: style.textInputAction,
+            inputFormatters: inputFormatters,
+            style: _themeData.textTheme.bodyText1!.copyWith(
+              color: style.color ?? _theme.palette.accentText,
+              // fontWeight: Flukit.appConsts.textSemibold,
+            ),
+            cursorColor: style.cursorColor ?? _theme.primaryColor,
+            cursorHeight: style.cursorHeight,
+            cursorWidth: style.cursorWidth,
+            decoration: inputDecoration,
+          ));
 }
 
 class FluTextFieldStyle extends InputDecoration {

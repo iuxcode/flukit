@@ -6,8 +6,6 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' as ui hide TextStyle;
 
-import 'package:characters/characters.dart'
-    show CharacterRange, StringCharacters;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
@@ -18,164 +16,11 @@ import 'package:flutter/services.dart';
 import 'controller.dart';
 import 'replacements.dart';
 
-// The time it takes for the cursor to fade from fully opaque to fully
-// transparent and vice versa. A full cursor blink, from transparent to opaque
-// to transparent, is twice this duration.
 const Duration _kCursorBlinkHalfPeriod = Duration(milliseconds: 500);
-
-// The time the cursor is static in opacity before animating to become
-// transparent.
 const Duration _kCursorBlinkWaitForStart = Duration(milliseconds: 150);
-
-// Number of cursor ticks during which the most recently entered character
-// is shown in an obscured text field.
 const int _kObscureShowLatestCharCursorTicks = 3;
-
-// The minimum width of an iPad screen. The smallest iPad is currently the
-// iPad Mini 6th Gen according to ios-resolution.com.
 const double _kIPadWidth = 1488.0;
 
-/// A basic text input field.
-///
-/// This widget interacts with the [TextInput] service to let the user edit the
-/// text it contains. It also provides scrolling, selection, and cursor
-/// movement. This widget does not provide any focus management (e.g.,
-/// tap-to-focus).
-///
-/// ## Handling User Input
-///
-/// Currently the user may change the text this widget contains via keyboard or
-/// the text selection menu. When the user inserted or deleted text, you will be
-/// notified of the change and get a chance to modify the new text value:
-///
-/// * The [inputFormatters] will be first applied to the user input.
-///
-/// * The [controller]'s [TextEditingController.value] will be updated with the
-///   formatted result, and the [controller]'s listeners will be notified.
-///
-/// * The [onChanged] callback, if specified, will be called last.
-///
-/// ## Input Actions
-///
-/// A [TextInputAction] can be provided to customize the appearance of the
-/// action button on the soft keyboard for Android and iOS. The default action
-/// is [TextInputAction.done].
-///
-/// Many [TextInputAction]s are common between Android and iOS. However, if a
-/// [textInputAction] is provided that is not supported by the current
-/// platform in debug mode, an error will be thrown when the corresponding
-/// FluEditableText receives focus. For example, providing iOS's "emergencyCall"
-/// action when running on an Android device will result in an error when in
-/// debug mode. In release mode, incompatible [TextInputAction]s are replaced
-/// either with "unspecified" on Android, or "default" on iOS. Appropriate
-/// [textInputAction]s can be chosen by checking the current platform and then
-/// selecting the appropriate action.
-///
-/// {@template flutter.widgets.FluEditableText.lifeCycle}
-/// ## Lifecycle
-///
-/// Upon completion of editing, like pressing the "done" button on the keyboard,
-/// two actions take place:
-///
-///   1st: Editing is finalized. The default behavior of this step includes
-///   an invocation of [onChanged]. That default behavior can be overridden.
-///   See [onEditingComplete] for details.
-///
-///   2nd: [onSubmitted] is invoked with the user's input value.
-///
-/// [onSubmitted] can be used to manually move focus to another input widget
-/// when a user finishes with the currently focused input widget.
-///
-/// When the widget has focus, it will prevent itself from disposing via
-/// [AutomaticKeepAliveClientMixin.wantKeepAlive] in order to avoid losing the
-/// selection. Removing the focus will allow it to be disposed.
-/// {@endtemplate}
-///
-/// Rather than using this widget directly, consider using [TextField], which
-/// is a full-featured, material-design text input field with placeholder text,
-/// labels, and [Form] integration.
-///
-/// ## Text Editing [Intent]s and Their Default [Action]s
-///
-/// This widget provides default [Action]s for handling common text editing
-/// [Intent]s such as deleting, copying and pasting in the text field. These
-/// [Action]s can be directly invoked using [Actions.invoke] or the
-/// [Actions.maybeInvoke] method. The default text editing keyboard [Shortcuts]
-/// also use these [Intent]s and [Action]s to perform the text editing
-/// operations they are bound to.
-///
-/// The default handling of a specific [Intent] can be overridden by placing an
-/// [Actions] widget above this widget. See the [Action] class and the
-/// [Action.overridable] constructor for more information on how a pre-defined
-/// overridable [Action] can be overridden.
-///
-/// ### Intents for Deleting Text and Their Default Behavior
-///
-/// | **Intent Class**                 | **Default Behavior when there's selected text**      | **Default Behavior when there is a [caret](https://en.wikipedia.org/wiki/Caret_navigation) (The selection is [TextSelection.collapsed])**  |
-/// | :------------------------------- | :--------------------------------------------------- | :----------------------------------------------------------------------- |
-/// | [DeleteCharacterIntent]          | Deletes the selected text                            | Deletes the user-perceived character before or after the caret location. |
-/// | [DeleteToNextWordBoundaryIntent] | Deletes the selected text and the word before/after the selection's [TextSelection.extent] position | Deletes from the caret location to the previous or the next word boundary |
-/// | [DeleteToLineBreakIntent]        | Deletes the selected text, and deletes to the start/end of the line from the selection's [TextSelection.extent] position | Deletes from the caret location to the logical start or end of the current line |
-///
-/// ### Intents for Moving the [Caret](https://en.wikipedia.org/wiki/Caret_navigation)
-///
-/// | **Intent Class**                                                                     | **Default Behavior when there's selected text**                  | **Default Behavior when there is a caret ([TextSelection.collapsed])**  |
-/// | :----------------------------------------------------------------------------------- | :--------------------------------------------------------------- | :---------------------------------------------------------------------- |
-/// | [ExtendSelectionByCharacterIntent](`collapseSelection: true`)                       | Collapses the selection to the logical start/end of the selection | Moves the caret past the user-perceived character before or after the current caret location.  |
-/// | [ExtendSelectionToNextWordBoundaryIntent](`collapseSelection: true`)                | Collapses the selection to the word boundary before/after the selection's [TextSelection.extent] position | Moves the caret to the previous/next word boundary.  |
-/// | [ExtendSelectionToNextWordBoundaryOrCaretLocationIntent](`collapseSelection: true`) | Collapses the selection to the word boundary before/after the selection's [TextSelection.extent] position, or [TextSelection.base], whichever is closest in the given direction | Moves the caret to the previous/next word boundary.  |
-/// | [ExtendSelectionToLineBreakIntent](`collapseSelection: true`)                       | Collapses the selection to the start/end of the line at the selection's [TextSelection.extent] position | Moves the caret to the start/end of the current line .|
-/// | [ExtendSelectionVerticallyToAdjacentLineIntent](`collapseSelection: true`)          | Collapses the selection to the position closest to the selection's [TextSelection.extent], on the previous/next adjacent line | Moves the caret to the closest position on the previous/next adjacent line. |
-/// | [ExtendSelectionToDocumentBoundaryIntent](`collapseSelection: true`)                | Collapses the selection to the start/end of the document | Moves the caret to the start/end of the document. |
-///
-/// #### Intents for Extending the Selection
-///
-/// | **Intent Class**                                                                     | **Default Behavior when there's selected text**                  | **Default Behavior when there is a caret ([TextSelection.collapsed])**  |
-/// | :----------------------------------------------------------------------------------- | :--------------------------------------------------------------- | :---------------------------------------------------------------------- |
-/// | [ExtendSelectionByCharacterIntent](`collapseSelection: false`)                       | Moves the selection's [TextSelection.extent] past the user-perceived character before/after it |
-/// | [ExtendSelectionToNextWordBoundaryIntent](`collapseSelection: false`)                | Moves the selection's [TextSelection.extent] to the previous/next word boundary |
-/// | [ExtendSelectionToNextWordBoundaryOrCaretLocationIntent](`collapseSelection: false`) | Moves the selection's [TextSelection.extent] to the previous/next word boundary, or [TextSelection.base] whichever is closest in the given direction | Moves the selection's [TextSelection.extent] to the previous/next word boundary. |
-/// | [ExtendSelectionToLineBreakIntent](`collapseSelection: false`)                       | Moves the selection's [TextSelection.extent] to the start/end of the line |
-/// | [ExtendSelectionVerticallyToAdjacentLineIntent](`collapseSelection: false`)          | Moves the selection's [TextSelection.extent] to the closest position on the previous/next adjacent line |
-/// | [ExtendSelectionToDocumentBoundaryIntent](`collapseSelection: false`)                | Moves the selection's [TextSelection.extent] to the start/end of the document |
-/// | [SelectAllTextIntent]  | Selects the entire document |
-///
-/// ### Other Intents
-///
-/// | **Intent Class**                        | **Default Behavior**                                 |
-/// | :-------------------------------------- | :--------------------------------------------------- |
-/// | [DoNothingAndStopPropagationTextIntent] | Does nothing in the input field, and prevents the key event from further propagating in the widget tree. |
-/// | [ReplaceTextIntent]                     | Replaces the current [TextEditingValue] in the input field's [TextEditingController], and triggers all related user callbacks and [TextInputFormatter]s. |
-/// | [UpdateSelectionIntent]                 | Updates the current selection in the input field's [TextEditingController], and triggers the [onSelectionChanged] callback. |
-/// | [CopySelectionTextIntent]               | Copies or cuts the selected text into the clipboard |
-/// | [PasteTextIntent]                       | Inserts the current text in the clipboard after the caret location, or replaces the selected text if the selection is not collapsed. |
-///
-/// ## Gesture Events Handling
-///
-/// This widget provides rudimentary, platform-agnostic gesture handling for
-/// user actions such as tapping, long-pressing and scrolling when
-/// [rendererIgnoresPointer] is false (false by default). To tightly conform
-/// to the platform behavior with respect to input gestures in text fields, use
-/// [TextField] or [CupertinoTextField]. For custom selection behavior, call
-/// methods such as [RenderEditable.selectPosition],
-/// [RenderEditable.selectWord], etc. programmatically.
-///
-/// {@template flutter.widgets.FlueditableText.showCaretOnScreen}
-/// ## Keep the caret visible when focused
-///
-/// When focused, this widget will make attempts to keep the text area and its
-/// caret (even when [showCursor] is `false`) visible, on these occasions:
-///
-///  * When the user focuses this text field and it is not [readOnly].
-///  * When the user changes the selection of the text field, or changes the
-///    text when the text field is not [readOnly].
-///  * When the virtual keyboard pops up.
-/// {@endtemplate}
-///
-/// See also:
-///
-///  * [TextField], which is a full-featured, material-design text input field
-///    with placeholder text, labels, and [Form] integration.
 class FluEditableText extends StatefulWidget {
   /// Creates a basic text input control.
   ///
@@ -685,7 +530,7 @@ class FluEditableText extends StatefulWidget {
   ///
   /// For [CupertinoTextField]s, the value is set to the ambient
   /// [CupertinoThemeData.primaryColor] with 20% opacity. For [TextField]s, the
-  /// value is set to the ambient [ThemeData.textSelectionColor].
+  /// value is set to the ambient [TextSelectionThemeData.selectionColor].
   final Color? selectionColor;
 
   /// {@template flutter.widgets.FlueditableText.selectionControls}
@@ -1336,14 +1181,14 @@ class FluEditableText extends StatefulWidget {
   }
 }
 
-/// State for a [FluEditableText].
 class FluEditableTextState extends State<FluEditableText>
     with
         AutomaticKeepAliveClientMixin<FluEditableText>,
         WidgetsBindingObserver,
         TickerProviderStateMixin<FluEditableText>,
         TextSelectionDelegate
-    implements TextInputClient, DeltaTextInputClient, AutofillClient {
+    implements DeltaTextInputClient, AutofillClient {
+  // TextInputClient
   Timer? _cursorTimer;
   bool _targetCursorVisibility = false;
   final ValueNotifier<bool> _cursorVisibilityNotifier =
@@ -1886,11 +1731,11 @@ class FluEditableTextState extends State<FluEditableText>
     if (_floatingCursorResetController!.isCompleted) {
       renderEditable.setFloatingCursor(
           FloatingCursorDragState.End, finalPosition, _lastTextPosition!);
-      if (_lastTextPosition!.offset != renderEditable.selection!.baseOffset)
-        // The cause is technically the force cursor, but the cause is listed as tap as the desired functionality is the same.
+      if (_lastTextPosition!.offset != renderEditable.selection!.baseOffset) {
         _handleSelectionChanged(
             TextSelection.collapsed(offset: _lastTextPosition!.offset),
             SelectionChangedCause.forcePress);
+      }
       _startCaretRect = null;
       _lastTextPosition = null;
       _pointOffsetOrigin = null;
@@ -2037,8 +1882,9 @@ class FluEditableTextState extends State<FluEditableText>
   // `renderEditable.preferredLineHeight`, before the target scroll offset is
   // calculated.
   RevealedOffset _getOffsetToRevealCaret(Rect rect) {
-    if (!_scrollController.position.allowImplicitScrolling)
+    if (!_scrollController.position.allowImplicitScrolling) {
       return RevealedOffset(offset: _scrollController.offset, rect: rect);
+    }
 
     final Size editableSize = renderEditable.size;
     final double additionalOffset;
@@ -2566,10 +2412,11 @@ class FluEditableTextState extends State<FluEditableText>
   }
 
   void _startOrStopCursorTimerIfNeeded() {
-    if (_cursorTimer == null && _hasFocus && _value.selection.isCollapsed)
+    if (_cursorTimer == null && _hasFocus && _value.selection.isCollapsed) {
       _startCursorTimer();
-    else if (_cursorActive && (!_hasFocus || !_value.selection.isCollapsed))
+    } else if (_cursorActive && (!_hasFocus || !_value.selection.isCollapsed)) {
       _stopCursorTimer();
+    }
   }
 
   void _didChangeTextEditingValue() {
@@ -2622,8 +2469,10 @@ class FluEditableTextState extends State<FluEditableText>
     if (!widget.scribbleEnabled) return;
     if (defaultTargetPlatform != TargetPlatform.iOS) return;
     // This is to avoid sending selection rects on non-iPad devices.
-    if (WidgetsBinding.instance.window.physicalSize.shortestSide < _kIPadWidth)
+    if (WidgetsBinding.instance.window.physicalSize.shortestSide <
+        _kIPadWidth) {
       return;
+    }
 
     final String text =
         renderEditable.text?.toPlainText(includeSemanticsLabels: false) ?? '';
@@ -2680,11 +2529,13 @@ class FluEditableTextState extends State<FluEditableText>
           .where((SelectionRect? selectionRect) {
             if (selectionRect == null) return false;
             if (renderEditable.paintBounds.right < selectionRect.bounds.left ||
-                selectionRect.bounds.right < renderEditable.paintBounds.left)
+                selectionRect.bounds.right < renderEditable.paintBounds.left) {
               return false;
+            }
             if (renderEditable.paintBounds.bottom < selectionRect.bounds.top ||
-                selectionRect.bounds.bottom < renderEditable.paintBounds.top)
+                selectionRect.bounds.bottom < renderEditable.paintBounds.top) {
               return false;
+            }
             return true;
           })
           .map<SelectionRect>((SelectionRect? selectionRect) => selectionRect!)
@@ -2775,6 +2626,43 @@ class FluEditableTextState extends State<FluEditableText>
       _scheduleShowCaretOnScreen(withAnimation: true);
     }
     _formatAndSetValue(value, cause, userInteraction: true);
+  }
+
+  @override
+  void updateEditingValueWithDeltas(List<TextEditingDelta> textEditingDeltas) {
+    /// TODO Implement.
+    TextEditingValue value = _value;
+
+    for (final TextEditingDelta delta in textEditingDeltas) {
+      value = delta.apply(value);
+    }
+
+    _lastKnownRemoteTextEditingValue = value;
+
+    if (value == _value) {
+      // This is possible, for example, when the numeric keyboard is input,
+      // the engine will notify twice for the same value.
+      // Track at https://github.com/flutter/flutter/issues/65811
+      return;
+    }
+
+    final bool selectionChanged =
+        _value.selection.start != value.selection.start ||
+            _value.selection.end != value.selection.end;
+    widget.onDeltasHistoryUpdate?.call(textEditingDeltas);
+
+    _value = value;
+
+    if (widget.controller is FluReplacementTextEditingController) {
+      for (final TextEditingDelta delta in textEditingDeltas) {
+        (widget.controller as FluReplacementTextEditingController)
+            .syncReplacementRanges(delta);
+      }
+    }
+
+    if (selectionChanged) {
+      widget.onDeltaStyleStateChange?.call(value.selection);
+    }
   }
 
   @override
@@ -2889,6 +2777,7 @@ class FluEditableTextState extends State<FluEditableText>
       keyboardAppearance: widget.keyboardAppearance,
       autofillConfiguration: autofillConfiguration,
       enableIMEPersonalizedLearning: widget.enableIMEPersonalizedLearning,
+      enableDeltaModel: true,
     );
   }
 
@@ -2903,43 +2792,6 @@ class FluEditableTextState extends State<FluEditableText>
     setState(() {
       _currentPromptRectRange = TextRange(start: start, end: end);
     });
-  }
-
-  @override
-  void updateEditingValueWithDeltas(List<TextEditingDelta> textEditingDeltas) {
-    /// TODO Implement.
-    TextEditingValue value = _value;
-
-    for (final TextEditingDelta delta in textEditingDeltas) {
-      value = delta.apply(value);
-    }
-
-    _lastKnownRemoteTextEditingValue = value;
-
-    if (value == _value) {
-      // This is possible, for example, when the numeric keyboard is input,
-      // the engine will notify twice for the same value.
-      // Track at https://github.com/flutter/flutter/issues/65811
-      return;
-    }
-
-    final bool selectionChanged =
-        _value.selection.start != value.selection.start ||
-            _value.selection.end != value.selection.end;
-    widget.onDeltasHistoryUpdate?.call(textEditingDeltas);
-
-    _value = value;
-
-    if (widget.controller is FluReplacementTextEditingController) {
-      for (final TextEditingDelta delta in textEditingDeltas) {
-        (widget.controller as FluReplacementTextEditingController)
-            .syncReplacementRanges(delta);
-      }
-    }
-
-    if (selectionChanged) {
-      widget.onDeltaStyleStateChange?.call(value.selection);
-    }
   }
 
   VoidCallback? _semanticsOnCopy(TextSelectionControls? controls) {
@@ -3313,8 +3165,9 @@ class FluEditableTextState extends State<FluEditableText>
       if (breiflyShowPassword) {
         final int? o =
             _obscureShowCharTicksPending > 0 ? _obscureLatestCharIndex : null;
-        if (o != null && o >= 0 && o < text.length)
+        if (o != null && o >= 0 && o < text.length) {
           text = text.replaceRange(o, o + 1, _value.text.substring(o, o + 1));
+        }
       }
       return TextSpan(style: widget.style, text: text);
     }
@@ -4063,6 +3916,7 @@ class _UpdateTextSelectionAction<T extends DirectionalCaretMovementIntent>
   final bool ignoreNonCollapsedSelection;
   final _TextBoundary Function(T intent) getTextBoundariesForIntent;
 
+  // ignore: constant_identifier_names
   static const int NEWLINE_CODE_UNIT = 10;
 
   // Returns true iff the given position is at a wordwrap boundary in the

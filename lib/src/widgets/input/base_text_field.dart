@@ -10,165 +10,7 @@ import 'package:flutter/services.dart';
 import 'base_client.dart';
 import 'controller.dart';
 
-/// A material design text field.
-///
-/// A text field lets the user enter text, either with hardware keyboard or with
-/// an onscreen keyboard.
-///
-/// The text field calls the [onChanged] callback whenever the user changes the
-/// text in the field. If the user indicates that they are done typing in the
-/// field (e.g., by pressing a button on the soft keyboard), the text field
-/// calls the [onSubmitted] callback.
-///
-/// To control the text that is displayed in the text field, use the
-/// [controller]. For example, to set the initial value of the text field, use
-/// a [controller] that already contains some text. The [controller] can also
-/// control the selection and composing region (and to observe changes to the
-/// text, selection, and composing region).
-///
-/// By default, a text field has a [decoration] that draws a divider below the
-/// text field. You can use the [decoration] property to control the decoration,
-/// for example by adding a label or an icon. If you set the [decoration]
-/// property to null, the decoration will be removed entirely, including the
-/// extra padding introduced by the decoration to save space for the labels.
-///
-/// If [decoration] is non-null (which is the default), the text field requires
-/// one of its ancestors to be a [Material] widget.
-///
-/// To integrate the [FluBaseTextField] into a [Form] with other [FormField] widgets,
-/// consider using [TextFormField].
-///
-/// {@template flutter.material.FluBasetextfield.wantKeepAlive}
-/// When the widget has focus, it will prevent itself from disposing via its
-/// underlying [EditableText]'s [AutomaticKeepAliveClientMixin.wantKeepAlive] in
-/// order to avoid losing the selection. Removing the focus will allow it to be
-/// disposed.
-/// {@endtemplate}
-///
-/// Remember to call [TextEditingController.dispose] of the [TextEditingController]
-/// when it is no longer needed. This will ensure we discard any resources used
-/// by the object.
-///
-/// {@tool snippet}
-/// This example shows how to create a [FluBaseTextField] that will obscure input. The
-/// [InputDecoration] surrounds the field in a border using [OutlineInputBorder]
-/// and adds a label.
-///
-/// ![](https://flutter.github.io/assets-for-api-docs/assets/material/text_field.png)
-///
-/// ```dart
-/// const FluBaseTextField(
-///   obscureText: true,
-///   decoration: InputDecoration(
-///     border: OutlineInputBorder(),
-///     labelText: 'Password',
-///   ),
-/// )
-/// ```
-/// {@end-tool}
-///
-/// ## Reading values
-///
-/// A common way to read a value from a FluBaseTextField is to use the [onSubmitted]
-/// callback. This callback is applied to the text field's current value when
-/// the user finishes editing.
-///
-/// {@tool dartpad}
-/// This sample shows how to get a value from a FluBaseTextField via the [onSubmitted]
-/// callback.
-///
-/// ** See code in examples/api/lib/material/text_field/text_field.1.dart **
-/// {@end-tool}
-///
-/// {@macro flutter.widgets.EditableText.lifeCycle}
-///
-/// For most applications the [onSubmitted] callback will be sufficient for
-/// reacting to user input.
-///
-/// The [onEditingComplete] callback also runs when the user finishes editing.
-/// It's different from [onSubmitted] because it has a default value which
-/// updates the text controller and yields the keyboard focus. Applications that
-/// require different behavior can override the default [onEditingComplete]
-/// callback.
-///
-/// Keep in mind you can also always read the current string from a FluBaseTextField's
-/// [TextEditingController] using [TextEditingController.text].
-///
-/// ## Handling emojis and other complex characters
-/// {@macro flutter.widgets.EditableText.onChanged}
-///
-/// In the live Dartpad example above, try typing the emoji 👨‍👩‍👦
-/// into the field and submitting. Because the example code measures the length
-/// with `value.characters.length`, the emoji is correctly counted as a single
-/// character.
-///
-/// {@macro flutter.widgets.editableText.showCaretOnScreen}
-///
-/// See also:
-///
-///  * [TextFormField], which integrates with the [Form] widget.
-///  * [InputDecorator], which shows the labels and other visual elements that
-///    surround the actual text editing widget.
-///  * [EditableText], which is the raw text editing control at the heart of a
-///    [FluBaseTextField]. The [EditableText] widget is rarely used directly unless
-///    you are implementing an entirely different design language, such as
-///    Cupertino.
-///  * <https://material.io/design/components/text-fields.html>
-///  * Cookbook: [Create and style a text field](https://flutter.dev/docs/cookbook/forms/text-input)
-///  * Cookbook: [Handle changes to a text field](https://flutter.dev/docs/cookbook/forms/text-field-changes)
-///  * Cookbook: [Retrieve the value of a text field](https://flutter.dev/docs/cookbook/forms/retrieve-input)
-///  * Cookbook: [Focus and text fields](https://flutter.dev/docs/cookbook/forms/focus)
 class FluBaseTextField extends StatefulWidget {
-  /// Creates a Material Design text field.
-  ///
-  /// If [decoration] is non-null (which is the default), the text field requires
-  /// one of its ancestors to be a [Material] widget.
-  ///
-  /// To remove the decoration entirely (including the extra padding introduced
-  /// by the decoration to save space for the labels), set the [decoration] to
-  /// null.
-  ///
-  /// The [maxLines] property can be set to null to remove the restriction on
-  /// the number of lines. By default, it is one, meaning this is a single-line
-  /// text field. [maxLines] must not be zero.
-  ///
-  /// The [maxLength] property is set to null by default, which means the
-  /// number of characters allowed in the text field is not restricted. If
-  /// [maxLength] is set a character counter will be displayed below the
-  /// field showing how many characters have been entered. If the value is
-  /// set to a positive integer it will also display the maximum allowed
-  /// number of characters to be entered.  If the value is set to
-  /// [FluBaseTextField.noMaxLength] then only the current length is displayed.
-  ///
-  /// After [maxLength] characters have been input, additional input
-  /// is ignored, unless [maxLengthEnforcement] is set to
-  /// [MaxLengthEnforcement.none].
-  /// The text field enforces the length with a [LengthLimitingTextInputFormatter],
-  /// which is evaluated after the supplied [inputFormatters], if any.
-  /// The [maxLength] value must be either null or greater than zero.
-  ///
-  /// If [maxLengthEnforcement] is set to [MaxLengthEnforcement.none], then more
-  /// than [maxLength] characters may be entered, and the error counter and
-  /// divider will switch to the [decoration].errorStyle when the limit is
-  /// exceeded.
-  ///
-  /// The text cursor is not shown if [showCursor] is false or if [showCursor]
-  /// is null (the default) and [readOnly] is true.
-  ///
-  /// The [selectionHeightStyle] and [selectionWidthStyle] properties allow
-  /// changing the shape of the selection highlighting. These properties default
-  /// to [ui.BoxHeightStyle.tight] and [ui.BoxWidthStyle.tight] respectively and
-  /// must not be null.
-  ///
-  /// The [textAlign], [autofocus], [obscureText], [readOnly], [autocorrect],
-  /// [scrollPadding], [maxLines], [maxLength], [selectionHeightStyle],
-  /// [selectionWidthStyle], [enableSuggestions], and
-  /// [enableIMEPersonalizedLearning] arguments must not be null.
-  ///
-  /// See also:
-  ///
-  ///  * [maxLength], which discusses the precise meaning of "number of
-  ///    characters" and how it may differ from the intuitive meaning.
   const FluBaseTextField({
     Key? key,
     this.controller,
@@ -762,7 +604,7 @@ class FluBaseTextField extends StatefulWidget {
 
 class _TextFieldState extends State<FluBaseTextField>
     with RestorationMixin
-    implements TextSelectionGestureDetectorBuilderDelegate, AutofillClient {
+    implements FluTextSelectionGestureDetectorBuilderDelegate, AutofillClient {
   RestorableTextEditingController? _controller;
   TextEditingController get _effectiveController =>
       widget.controller ?? _controller!.value;
@@ -793,8 +635,8 @@ class _TextFieldState extends State<FluBaseTextField>
   late bool forcePressEnabled;
 
   @override
-  final GlobalKey<EditableTextState> editableTextKey =
-      GlobalKey<FluEditableTextState>() as GlobalKey<EditableTextState>;
+  final GlobalKey<FluEditableTextState> editableTextKey =
+      GlobalKey<FluEditableTextState>();
 
   @override
   bool get selectionEnabled => widget.selectionEnabled;
@@ -976,8 +818,7 @@ class _TextFieldState extends State<FluBaseTextField>
     super.dispose();
   }
 
-  FluEditableTextState? get _editableText =>
-      editableTextKey.currentState as FluEditableTextState?;
+  FluEditableTextState? get _editableText => editableTextKey.currentState;
 
   void _requestKeyboard() {
     _editableText?.requestKeyboard();
@@ -1432,4 +1273,560 @@ class _TextFieldSelectionGestureDetectorBuilder
       }
     }
   }
+}
+
+class TextSelectionGestureDetectorBuilder {
+  /// Creates a [TextSelectionGestureDetectorBuilder].
+  ///
+  /// The [delegate] must not be null.
+  TextSelectionGestureDetectorBuilder({
+    required this.delegate,
+  });
+
+  /// The delegate for this [TextSelectionGestureDetectorBuilder].
+  ///
+  /// The delegate provides the builder with information about what actions can
+  /// currently be performed on the text field. Based on this, the builder adds
+  /// the correct gesture handlers to the gesture detector.
+  @protected
+  final FluTextSelectionGestureDetectorBuilderDelegate delegate;
+
+  /// Returns true if lastSecondaryTapDownPosition was on selection.
+  bool get _lastSecondaryTapWasOnSelection {
+    assert(renderEditable.lastSecondaryTapDownPosition != null);
+    if (renderEditable.selection == null) {
+      return false;
+    }
+
+    final TextPosition textPosition = renderEditable.getPositionForPoint(
+      renderEditable.lastSecondaryTapDownPosition!,
+    );
+
+    return renderEditable.selection!.start <= textPosition.offset &&
+        renderEditable.selection!.end >= textPosition.offset;
+  }
+
+  // Expand the selection to the given global position.
+  //
+  // Either base or extent will be moved to the last tapped position, whichever
+  // is closest. The selection will never shrink or pivot, only grow.
+  //
+  // If fromSelection is given, will expand from that selection instead of the
+  // current selection in renderEditable.
+  //
+  // See also:
+  //
+  //   * [_extendSelection], which is similar but pivots the selection around
+  //     the base.
+  void _expandSelection(Offset offset, SelectionChangedCause cause,
+      [TextSelection? fromSelection]) {
+    assert(renderEditable.selection?.baseOffset != null);
+
+    final TextPosition tappedPosition =
+        renderEditable.getPositionForPoint(offset);
+    final TextSelection selection = fromSelection ?? renderEditable.selection!;
+    final bool baseIsCloser =
+        (tappedPosition.offset - selection.baseOffset).abs() <
+            (tappedPosition.offset - selection.extentOffset).abs();
+    final TextSelection nextSelection = selection.copyWith(
+      baseOffset: baseIsCloser ? selection.extentOffset : selection.baseOffset,
+      extentOffset: tappedPosition.offset,
+    );
+
+    editableText.userUpdateTextEditingValue(
+      editableText.textEditingValue.copyWith(
+        selection: nextSelection,
+      ),
+      cause,
+    );
+  }
+
+  // Extend the selection to the given global position.
+  //
+  // Holds the base in place and moves the extent.
+  //
+  // See also:
+  //
+  //   * [_expandSelection], which is similar but always increases the size of
+  //     the selection.
+  void _extendSelection(Offset offset, SelectionChangedCause cause) {
+    assert(renderEditable.selection?.baseOffset != null);
+
+    final TextPosition tappedPosition =
+        renderEditable.getPositionForPoint(offset);
+    final TextSelection selection = renderEditable.selection!;
+    final TextSelection nextSelection = selection.copyWith(
+      extentOffset: tappedPosition.offset,
+    );
+
+    editableText.userUpdateTextEditingValue(
+      editableText.textEditingValue.copyWith(
+        selection: nextSelection,
+      ),
+      cause,
+    );
+  }
+
+  /// Whether to show the selection toolbar.
+  ///
+  /// It is based on the signal source when a [onTapDown] is called. This getter
+  /// will return true if current [onTapDown] event is triggered by a touch or
+  /// a stylus.
+  bool get shouldShowSelectionToolbar => _shouldShowSelectionToolbar;
+  bool _shouldShowSelectionToolbar = true;
+
+  /// The [State] of the [EditableText] for which the builder will provide a
+  /// [TextSelectionGestureDetector].
+  @protected
+  FluEditableTextState get editableText =>
+      delegate.editableTextKey.currentState!;
+
+  /// The [RenderObject] of the [EditableText] for which the builder will
+  /// provide a [TextSelectionGestureDetector].
+  @protected
+  RenderEditable get renderEditable => editableText.renderEditable;
+
+  // The viewport offset pixels of the [RenderEditable] at the last drag start.
+  double _dragStartViewportOffset = 0.0;
+
+  // Returns true iff either shift key is currently down.
+  bool get _isShiftPressed {
+    return HardwareKeyboard.instance.logicalKeysPressed
+        .any(<LogicalKeyboardKey>{
+      LogicalKeyboardKey.shiftLeft,
+      LogicalKeyboardKey.shiftRight,
+    }.contains);
+  }
+
+  // True iff a tap + shift has been detected but the tap has not yet come up.
+  bool _isShiftTapping = false;
+
+  // For a shift + tap + drag gesture, the TextSelection at the point of the
+  // tap. Mac uses this value to reset to the original selection when an
+  // inversion of the base and offset happens.
+  TextSelection? _shiftTapDragSelection;
+
+  /// Handler for [TextSelectionGestureDetector.onTapDown].
+  ///
+  /// By default, it forwards the tap to [RenderEditable.handleTapDown] and sets
+  /// [shouldShowSelectionToolbar] to true if the tap was initiated by a finger or stylus.
+  ///
+  /// See also:
+  ///
+  ///  * [TextSelectionGestureDetector.onTapDown], which triggers this callback.
+  @protected
+  void onTapDown(TapDownDetails details) {
+    renderEditable.handleTapDown(details);
+    // The selection overlay should only be shown when the user is interacting
+    // through a touch screen (via either a finger or a stylus). A mouse shouldn't
+    // trigger the selection overlay.
+    // For backwards-compatibility, we treat a null kind the same as touch.
+    final PointerDeviceKind? kind = details.kind;
+    _shouldShowSelectionToolbar = kind == null ||
+        kind == PointerDeviceKind.touch ||
+        kind == PointerDeviceKind.stylus;
+
+    // Handle shift + click selection if needed.
+    if (_isShiftPressed && renderEditable.selection?.baseOffset != null) {
+      _isShiftTapping = true;
+      switch (defaultTargetPlatform) {
+        case TargetPlatform.iOS:
+        case TargetPlatform.macOS:
+          // On these platforms, a shift-tapped unfocused field expands from 0,
+          // not from the previous selection.
+          final TextSelection? fromSelection = renderEditable.hasFocus
+              ? null
+              : const TextSelection.collapsed(offset: 0);
+          _expandSelection(
+            details.globalPosition,
+            SelectionChangedCause.tap,
+            fromSelection,
+          );
+          break;
+        case TargetPlatform.android:
+        case TargetPlatform.fuchsia:
+        case TargetPlatform.linux:
+        case TargetPlatform.windows:
+          _extendSelection(details.globalPosition, SelectionChangedCause.tap);
+          break;
+      }
+    }
+  }
+
+  /// Handler for [TextSelectionGestureDetector.onForcePressStart].
+  ///
+  /// By default, it selects the word at the position of the force press,
+  /// if selection is enabled.
+  ///
+  /// This callback is only applicable when force press is enabled.
+  ///
+  /// See also:
+  ///
+  ///  * [TextSelectionGestureDetector.onForcePressStart], which triggers this
+  ///    callback.
+  @protected
+  void onForcePressStart(ForcePressDetails details) {
+    assert(delegate.forcePressEnabled);
+    _shouldShowSelectionToolbar = true;
+    if (delegate.selectionEnabled) {
+      renderEditable.selectWordsInRange(
+        from: details.globalPosition,
+        cause: SelectionChangedCause.forcePress,
+      );
+    }
+  }
+
+  /// Handler for [TextSelectionGestureDetector.onForcePressEnd].
+  ///
+  /// By default, it selects words in the range specified in [details] and shows
+  /// toolbar if it is necessary.
+  ///
+  /// This callback is only applicable when force press is enabled.
+  ///
+  /// See also:
+  ///
+  ///  * [TextSelectionGestureDetector.onForcePressEnd], which triggers this
+  ///    callback.
+  @protected
+  void onForcePressEnd(ForcePressDetails details) {
+    assert(delegate.forcePressEnabled);
+    renderEditable.selectWordsInRange(
+      from: details.globalPosition,
+      cause: SelectionChangedCause.forcePress,
+    );
+    if (shouldShowSelectionToolbar) editableText.showToolbar();
+  }
+
+  /// Handler for [TextSelectionGestureDetector.onSingleTapUp].
+  ///
+  /// By default, it selects word edge if selection is enabled.
+  ///
+  /// See also:
+  ///
+  ///  * [TextSelectionGestureDetector.onSingleTapUp], which triggers
+  ///    this callback.
+  @protected
+  void onSingleTapUp(TapUpDetails details) {
+    if (_isShiftTapping) {
+      _isShiftTapping = false;
+      return;
+    }
+
+    if (delegate.selectionEnabled) {
+      switch (defaultTargetPlatform) {
+        case TargetPlatform.iOS:
+        case TargetPlatform.macOS:
+          switch (details.kind) {
+            case PointerDeviceKind.mouse:
+            case PointerDeviceKind.stylus:
+            case PointerDeviceKind.invertedStylus:
+              // Precise devices should place the cursor at a precise position.
+              renderEditable.selectPosition(cause: SelectionChangedCause.tap);
+              break;
+            case PointerDeviceKind.touch:
+            case PointerDeviceKind.unknown:
+            default: // ignore: no_default_cases, to allow adding new device types to [PointerDeviceKind]
+              // TODO(moffatman): Remove after landing https://github.com/flutter/flutter/issues/23604
+              // On macOS/iOS/iPadOS a touch tap places the cursor at the edge
+              // of the word.
+              renderEditable.selectWordEdge(cause: SelectionChangedCause.tap);
+              break;
+          }
+          break;
+        case TargetPlatform.android:
+        case TargetPlatform.fuchsia:
+        case TargetPlatform.linux:
+        case TargetPlatform.windows:
+          renderEditable.selectPosition(cause: SelectionChangedCause.tap);
+          break;
+      }
+    }
+  }
+
+  /// Handler for [TextSelectionGestureDetector.onSingleTapCancel].
+  ///
+  /// By default, it services as place holder to enable subclass override.
+  ///
+  /// See also:
+  ///
+  ///  * [TextSelectionGestureDetector.onSingleTapCancel], which triggers
+  ///    this callback.
+  @protected
+  void onSingleTapCancel() {
+    /* Subclass should override this method if needed. */
+  }
+
+  /// Handler for [TextSelectionGestureDetector.onSingleLongTapStart].
+  ///
+  /// By default, it selects text position specified in [details] if selection
+  /// is enabled.
+  ///
+  /// See also:
+  ///
+  ///  * [TextSelectionGestureDetector.onSingleLongTapStart], which triggers
+  ///    this callback.
+  @protected
+  void onSingleLongTapStart(LongPressStartDetails details) {
+    if (delegate.selectionEnabled) {
+      renderEditable.selectPositionAt(
+        from: details.globalPosition,
+        cause: SelectionChangedCause.longPress,
+      );
+    }
+  }
+
+  /// Handler for [TextSelectionGestureDetector.onSingleLongTapMoveUpdate].
+  ///
+  /// By default, it updates the selection location specified in [details] if
+  /// selection is enabled.
+  ///
+  /// See also:
+  ///
+  ///  * [TextSelectionGestureDetector.onSingleLongTapMoveUpdate], which
+  ///    triggers this callback.
+  @protected
+  void onSingleLongTapMoveUpdate(LongPressMoveUpdateDetails details) {
+    if (delegate.selectionEnabled) {
+      renderEditable.selectPositionAt(
+        from: details.globalPosition,
+        cause: SelectionChangedCause.longPress,
+      );
+    }
+  }
+
+  /// Handler for [TextSelectionGestureDetector.onSingleLongTapEnd].
+  ///
+  /// By default, it shows toolbar if necessary.
+  ///
+  /// See also:
+  ///
+  ///  * [TextSelectionGestureDetector.onSingleLongTapEnd], which triggers this
+  ///    callback.
+  @protected
+  void onSingleLongTapEnd(LongPressEndDetails details) {
+    if (shouldShowSelectionToolbar) editableText.showToolbar();
+  }
+
+  /// Handler for [TextSelectionGestureDetector.onSecondaryTap].
+  ///
+  /// By default, selects the word if possible and shows the toolbar.
+  @protected
+  void onSecondaryTap() {
+    if (delegate.selectionEnabled) {
+      if (!_lastSecondaryTapWasOnSelection) {
+        renderEditable.selectWord(cause: SelectionChangedCause.tap);
+      }
+      if (shouldShowSelectionToolbar) {
+        editableText.hideToolbar();
+        editableText.showToolbar();
+      }
+    }
+  }
+
+  /// Handler for [TextSelectionGestureDetector.onSecondaryTapDown].
+  ///
+  /// See also:
+  ///
+  ///  * [TextSelectionGestureDetector.onSecondaryTapDown], which triggers this
+  ///    callback.
+  ///  * [onSecondaryTap], which is typically called after this.
+  @protected
+  void onSecondaryTapDown(TapDownDetails details) {
+    renderEditable.handleSecondaryTapDown(details);
+    _shouldShowSelectionToolbar = true;
+  }
+
+  /// Handler for [TextSelectionGestureDetector.onDoubleTapDown].
+  ///
+  /// By default, it selects a word through [RenderEditable.selectWord] if
+  /// selectionEnabled and shows toolbar if necessary.
+  ///
+  /// See also:
+  ///
+  ///  * [TextSelectionGestureDetector.onDoubleTapDown], which triggers this
+  ///    callback.
+  @protected
+  void onDoubleTapDown(TapDownDetails details) {
+    if (delegate.selectionEnabled) {
+      renderEditable.selectWord(cause: SelectionChangedCause.tap);
+      if (shouldShowSelectionToolbar) editableText.showToolbar();
+    }
+  }
+
+  /// Handler for [TextSelectionGestureDetector.onDragSelectionStart].
+  ///
+  /// By default, it selects a text position specified in [details].
+  ///
+  /// See also:
+  ///
+  ///  * [TextSelectionGestureDetector.onDragSelectionStart], which triggers
+  ///    this callback.
+  @protected
+  void onDragSelectionStart(DragStartDetails details) {
+    if (!delegate.selectionEnabled) return;
+    final PointerDeviceKind? kind = details.kind;
+    _shouldShowSelectionToolbar = kind == null ||
+        kind == PointerDeviceKind.touch ||
+        kind == PointerDeviceKind.stylus;
+
+    if (_isShiftPressed &&
+        renderEditable.selection != null &&
+        renderEditable.selection!.isValid) {
+      _isShiftTapping = true;
+      switch (defaultTargetPlatform) {
+        case TargetPlatform.iOS:
+        case TargetPlatform.macOS:
+          _expandSelection(details.globalPosition, SelectionChangedCause.drag);
+          break;
+        case TargetPlatform.android:
+        case TargetPlatform.fuchsia:
+        case TargetPlatform.linux:
+        case TargetPlatform.windows:
+          _extendSelection(details.globalPosition, SelectionChangedCause.drag);
+          break;
+      }
+      _shiftTapDragSelection = renderEditable.selection;
+    } else {
+      renderEditable.selectPositionAt(
+        from: details.globalPosition,
+        cause: SelectionChangedCause.drag,
+      );
+    }
+
+    _dragStartViewportOffset = renderEditable.offset.pixels;
+  }
+
+  /// Handler for [TextSelectionGestureDetector.onDragSelectionUpdate].
+  ///
+  /// By default, it updates the selection location specified in the provided
+  /// details objects.
+  ///
+  /// See also:
+  ///
+  ///  * [TextSelectionGestureDetector.onDragSelectionUpdate], which triggers
+  ///    this callback./lib/src/material/text_field.dart
+  @protected
+  void onDragSelectionUpdate(
+      DragStartDetails startDetails, DragUpdateDetails updateDetails) {
+    if (!delegate.selectionEnabled) return;
+
+    if (!_isShiftTapping) {
+      // Adjust the drag start offset for possible viewport offset changes.
+      final Offset startOffset = renderEditable.maxLines == 1
+          ? Offset(renderEditable.offset.pixels - _dragStartViewportOffset, 0.0)
+          : Offset(
+              0.0, renderEditable.offset.pixels - _dragStartViewportOffset);
+
+      return renderEditable.selectPositionAt(
+        from: startDetails.globalPosition - startOffset,
+        to: updateDetails.globalPosition,
+        cause: SelectionChangedCause.drag,
+      );
+    }
+
+    if (_shiftTapDragSelection!.isCollapsed ||
+        (defaultTargetPlatform != TargetPlatform.iOS &&
+            defaultTargetPlatform != TargetPlatform.macOS)) {
+      return _extendSelection(
+          updateDetails.globalPosition, SelectionChangedCause.drag);
+    }
+
+    // If the drag inverts the selection, Mac and iOS revert to the initial
+    // selection.
+    final TextSelection selection = editableText.textEditingValue.selection;
+    final TextPosition nextExtent =
+        renderEditable.getPositionForPoint(updateDetails.globalPosition);
+    final bool isShiftTapDragSelectionForward =
+        _shiftTapDragSelection!.baseOffset <
+            _shiftTapDragSelection!.extentOffset;
+    final bool isInverted = isShiftTapDragSelectionForward
+        ? nextExtent.offset < _shiftTapDragSelection!.baseOffset
+        : nextExtent.offset > _shiftTapDragSelection!.baseOffset;
+    if (isInverted &&
+        selection.baseOffset == _shiftTapDragSelection!.baseOffset) {
+      editableText.userUpdateTextEditingValue(
+        editableText.textEditingValue.copyWith(
+          selection: TextSelection(
+            baseOffset: _shiftTapDragSelection!.extentOffset,
+            extentOffset: nextExtent.offset,
+          ),
+        ),
+        SelectionChangedCause.drag,
+      );
+    } else if (!isInverted &&
+        nextExtent.offset != _shiftTapDragSelection!.baseOffset &&
+        selection.baseOffset != _shiftTapDragSelection!.baseOffset) {
+      editableText.userUpdateTextEditingValue(
+        editableText.textEditingValue.copyWith(
+          selection: TextSelection(
+            baseOffset: _shiftTapDragSelection!.baseOffset,
+            extentOffset: nextExtent.offset,
+          ),
+        ),
+        SelectionChangedCause.drag,
+      );
+    } else {
+      _extendSelection(
+          updateDetails.globalPosition, SelectionChangedCause.drag);
+    }
+  }
+
+  /// Handler for [TextSelectionGestureDetector.onDragSelectionEnd].
+  ///
+  /// By default, it simply cleans up the state used for handling certain
+  /// built-in behaviors.
+  ///
+  /// See also:
+  ///
+  ///  * [TextSelectionGestureDetector.onDragSelectionEnd], which triggers this
+  ///    callback.
+  @protected
+  void onDragSelectionEnd(DragEndDetails details) {
+    if (_isShiftTapping) {
+      _isShiftTapping = false;
+      _shiftTapDragSelection = null;
+    }
+  }
+
+  /// Returns a [TextSelectionGestureDetector] configured with the handlers
+  /// provided by this builder.
+  ///
+  /// The [child] or its subtree should contain [EditableText].
+  Widget buildGestureDetector({
+    Key? key,
+    HitTestBehavior? behavior,
+    required Widget child,
+  }) {
+    return TextSelectionGestureDetector(
+      key: key,
+      onTapDown: onTapDown,
+      onForcePressStart: delegate.forcePressEnabled ? onForcePressStart : null,
+      onForcePressEnd: delegate.forcePressEnabled ? onForcePressEnd : null,
+      onSecondaryTap: onSecondaryTap,
+      onSecondaryTapDown: onSecondaryTapDown,
+      onSingleTapUp: onSingleTapUp,
+      onSingleTapCancel: onSingleTapCancel,
+      onSingleLongTapStart: onSingleLongTapStart,
+      onSingleLongTapMoveUpdate: onSingleLongTapMoveUpdate,
+      onSingleLongTapEnd: onSingleLongTapEnd,
+      onDoubleTapDown: onDoubleTapDown,
+      onDragSelectionStart: onDragSelectionStart,
+      onDragSelectionUpdate: onDragSelectionUpdate,
+      onDragSelectionEnd: onDragSelectionEnd,
+      behavior: behavior,
+      child: child,
+    );
+  }
+}
+
+abstract class FluTextSelectionGestureDetectorBuilderDelegate {
+  /// [GlobalKey] to the [EditableText] for which the
+  /// [TextSelectionGestureDetectorBuilder] will build a [TextSelectionGestureDetector].
+  GlobalKey<FluEditableTextState> get editableTextKey;
+
+  /// Whether the text field should respond to force presses.
+  bool get forcePressEnabled;
+
+  /// Whether the user may select text in the text field.
+  bool get selectionEnabled;
 }
