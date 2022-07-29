@@ -21,6 +21,7 @@ const Duration _kCursorBlinkWaitForStart = Duration(milliseconds: 150);
 const int _kObscureShowLatestCharCursorTicks = 3;
 const double _kIPadWidth = 1488.0;
 
+/// TODO give choice to Enable deltas
 class FluEditableText extends StatefulWidget {
   /// Creates a basic text input control.
   ///
@@ -2630,7 +2631,6 @@ class FluEditableTextState extends State<FluEditableText>
 
   @override
   void updateEditingValueWithDeltas(List<TextEditingDelta> textEditingDeltas) {
-    /// TODO Implement.
     TextEditingValue value = _value;
 
     for (final TextEditingDelta delta in textEditingDeltas) {
@@ -2649,6 +2649,8 @@ class FluEditableTextState extends State<FluEditableText>
     final bool selectionChanged =
         _value.selection.start != value.selection.start ||
             _value.selection.end != value.selection.end;
+
+    widget.onChanged?.call(value.text);
     widget.onDeltasHistoryUpdate?.call(textEditingDeltas);
 
     _value = value;

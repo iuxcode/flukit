@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flukit/src/configs/theme/index.dart';
 import 'package:flukit/src/utils/flu_utils.dart';
 import 'package:flukit_icons/flukit_icons.dart';
@@ -12,6 +14,7 @@ export 'controller.dart';
 export 'replacements.dart';
 
 /// Basic input field
+/// TODO Convert to StatefullWidget
 class FluTextField extends StatelessWidget {
   final FocusNode? focusNode;
   final TextEditingController? inputController;
@@ -19,6 +22,7 @@ class FluTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
   final FluTextFieldStyle style;
+  final TextStyle? textStyle;
 
   const FluTextField({
     super.key,
@@ -28,24 +32,30 @@ class FluTextField extends StatelessWidget {
     this.validator,
     this.onChanged,
     this.style = const FluTextFieldStyle(),
+    this.textStyle,
   });
 
   FluTheme get _theme => Flukit.theme;
   ThemeData get _themeData => Flukit.theme.data;
   InputDecoration get inputDecoration => InputDecoration(
-        filled: style.filled,
-        fillColor: style.fillColor ?? _theme.palette.accentBackground,
-        border: InputBorder.none,
-        hintText: style.hintText,
-        hintStyle: _theme.data.textTheme.bodyText1!
-            .copyWith(
-                fontWeight: FontWeight.w400,
-                color: style.hintColor ?? _theme.palette.text)
-            .merge(style.hintStyle),
-        errorStyle: const TextStyle(height: 0, color: Colors.transparent),
-        prefixIcon: style.prefixIcon,
-        suffixIcon: style.suffixIcon,
-      );
+      filled: style.filled,
+      fillColor: style.fillColor ?? _theme.palette.accentBackground,
+      border: InputBorder.none,
+      hintText: style.hintText,
+      hintStyle: _theme.data.textTheme.bodyText1!
+          .copyWith(
+              fontWeight: FontWeight.w400,
+              color: style.hintColor ?? _theme.palette.text)
+          .merge(style.hintStyle),
+      errorStyle: const TextStyle(height: 0, color: Colors.transparent),
+      prefixIcon: style.prefixIcon,
+      suffixIcon: style.suffixIcon,
+      contentPadding: style.contentPadding);
+  TextStyle get defaultTextStyle => _themeData.textTheme.bodyText1!
+      .copyWith(
+        color: style.color ?? _theme.palette.text,
+      )
+      .merge(textStyle);
 
   void onIconTap(FocusNode focusNode) {
     focusNode.requestFocus();
@@ -88,12 +98,8 @@ class FluTextField extends StatelessWidget {
                 textAlign: style.textAlign ?? TextAlign.center,
                 textAlignVertical: style.textAlignVertical,
                 keyboardType: style.keyboardType,
-                textInputAction: style.textInputAction,
                 inputFormatters: inputFormatters,
-                style: _themeData.textTheme.bodyText1!.copyWith(
-                  color: style.color ?? _theme.palette.accentText,
-                  fontWeight: Flukit.appConsts.textSemibold,
-                ),
+                style: defaultTextStyle,
                 cursorColor: style.cursorColor ?? _theme.primaryColor,
                 cursorHeight: style.cursorHeight,
                 cursorWidth: style.cursorWidth,
@@ -128,19 +134,23 @@ class FluTextField extends StatelessWidget {
 }
 
 class FluRichTextField extends FluTextField {
-  final FluRichTextFieldController controller;
+  FluRichTextFieldController controller;
   final TextEditingDeltaHistoryUpdateCallback? onDeltasHistoryUpdate;
 
-  const FluRichTextField({
+  FluRichTextField({
     super.key,
     super.focusNode,
     super.inputFormatters,
     super.validator,
     super.onChanged,
     super.style,
+    super.textStyle,
     required this.controller,
     this.onDeltasHistoryUpdate,
-  });
+  }) {
+    controller = Get.put<FluRichTextFieldController>(controller,
+        tag: 'FluRichTextField_${math.Random().nextInt(999999)}');
+  }
 
   @override
   Widget build(BuildContext context) => GetBuilder(
@@ -156,16 +166,14 @@ class FluRichTextField extends FluTextField {
             textAlign: style.textAlign ?? TextAlign.center,
             textAlignVertical: style.textAlignVertical,
             keyboardType: style.keyboardType,
-            textInputAction: style.textInputAction,
+            textInputAction: style.textInputAction ?? TextInputAction.newline,
             inputFormatters: inputFormatters,
-            style: _themeData.textTheme.bodyText1!.copyWith(
-              color: style.color ?? _theme.palette.accentText,
-              // fontWeight: Flukit.appConsts.textSemibold,
-            ),
+            style: defaultTextStyle,
             cursorColor: style.cursorColor ?? _theme.primaryColor,
             cursorHeight: style.cursorHeight,
             cursorWidth: style.cursorWidth,
             decoration: inputDecoration,
+            maxLines: style.maxLines,
           ));
 }
 
@@ -243,6 +251,7 @@ class FluTextFieldStyle extends InputDecoration {
     this.textAlignVertical,
     this.keyboardType,
     this.textInputAction,
+    this.maxLines,
   });
 
   final FluIconModel? fluPrefixIcon;
@@ -262,6 +271,7 @@ class FluTextFieldStyle extends InputDecoration {
   final TextAlignVertical? textAlignVertical;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
+  final int? maxLines;
 
   @override
   InputDecoration copyWith({
@@ -337,6 +347,7 @@ class FluTextFieldStyle extends InputDecoration {
     TextAlignVertical? textAlignVertical,
     TextInputType? keyboardType,
     TextInputAction? textInputAction,
+    int? maxLines,
   }) {
     return FluTextFieldStyle(
       icon: icon ?? this.icon,
@@ -415,6 +426,7 @@ class FluTextFieldStyle extends InputDecoration {
       textAlignVertical: textAlignVertical ?? this.textAlignVertical,
       keyboardType: keyboardType ?? this.keyboardType,
       textInputAction: textInputAction ?? this.textInputAction,
+      maxLines: maxLines ?? this.maxLines,
     );
   }
 }

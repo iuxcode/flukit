@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'replacements.dart';
 
 /// The toggle buttons that can be selected.
+/// TODO add more styles such as linethrough | Mono font |
 enum FluInputStyleToggleButtons {
   bold,
   italic,
@@ -32,8 +33,11 @@ class FluRichTextFieldController extends GetxController {
   late FluReplacementTextEditingController inputController;
   final String? initialText;
 
-  FluRichTextFieldController({this.initialText}) {
-    inputController = FluReplacementTextEditingController(text: initialText);
+  FluRichTextFieldController(
+      {this.initialText,
+      List<FluTextEditingInlineSpanReplacement>? replacements}) {
+    inputController = FluReplacementTextEditingController(
+        text: initialText, replacements: replacements);
   }
 
   final RxSet<FluInputStyleToggleButtons> _activeStyleButtons =
@@ -42,6 +46,8 @@ class FluRichTextFieldController extends GetxController {
       <TextEditingDelta>[].obs;
 
   String get inputText => inputController.text;
+  List<FluTextEditingInlineSpanReplacement>? get replacements =>
+      inputController.replacements;
   Set<FluInputStyleToggleButtons> get activeStyleButtons =>
       _activeStyleButtons.value;
   List<TextEditingDelta> get textEditingDeltaHistory =>
@@ -71,8 +77,8 @@ class FluRichTextFieldController extends GetxController {
     }
 
     for (final TextStyle style in replacementStyles) {
-      // See [_updateToggleButtonsStateOnButtonPressed] for how
-      // Bold, Italic and Underline are encoded into [style]
+      /// See [toggleStyleButton] for how
+      /// Bold, Italic and Underline are encoded into [style]
       if (style.fontWeight != null &&
           !hasChanged.contains(FluInputStyleToggleButtons.bold)) {
         activeStyleButtons = activeStyleButtons
