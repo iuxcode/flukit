@@ -12,6 +12,7 @@ import 'controller.dart';
 
 export 'controller.dart';
 export 'replacements.dart';
+export 'selection_toolbar.dart';
 
 /// Basic input field
 /// TODO Convert to StatefullWidget
@@ -23,6 +24,8 @@ class FluTextField extends StatelessWidget {
   final void Function(String)? onChanged;
   final FluTextFieldStyle style;
   final TextStyle? textStyle;
+  final ToolbarOptions? toolbarOptions;
+  final TextSelectionControls? selectionControls;
 
   const FluTextField({
     super.key,
@@ -33,6 +36,8 @@ class FluTextField extends StatelessWidget {
     this.onChanged,
     this.style = const FluTextFieldStyle(),
     this.textStyle,
+    this.toolbarOptions,
+    this.selectionControls,
   });
 
   FluTheme get _theme => Flukit.theme;
@@ -99,6 +104,8 @@ class FluTextField extends StatelessWidget {
                 textAlignVertical: style.textAlignVertical,
                 keyboardType: style.keyboardType,
                 inputFormatters: inputFormatters,
+                toolbarOptions: toolbarOptions,
+                selectionControls: selectionControls,
                 style: defaultTextStyle,
                 cursorColor: style.cursorColor ?? _theme.primaryColor,
                 cursorHeight: style.cursorHeight,
@@ -145,6 +152,8 @@ class FluRichTextField extends FluTextField {
     super.onChanged,
     super.style,
     super.textStyle,
+    super.toolbarOptions,
+    super.selectionControls,
     required this.controller,
     this.onDeltasHistoryUpdate,
   }) {
@@ -174,6 +183,8 @@ class FluRichTextField extends FluTextField {
             cursorWidth: style.cursorWidth,
             decoration: inputDecoration,
             maxLines: style.maxLines,
+            toolbarOptions: toolbarOptions,
+            selectionControls: selectionControls,
           ));
 }
 
