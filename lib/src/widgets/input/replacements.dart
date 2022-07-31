@@ -715,8 +715,12 @@ class FluReplacementTextEditingController extends TextEditingController {
     }
 
     if (!overlap) {
-      rangeSpanMapping[matchedRange] =
-          generator(matchedRange.textInside(text), matchedRange);
+      try {
+        rangeSpanMapping[matchedRange] =
+            generator(matchedRange.textInside(text), matchedRange);
+      } catch (e) {
+        return;
+      }
     }
 
     // Clean up collapsed ranges that we don't need to style.
