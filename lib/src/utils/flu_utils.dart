@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:flukit/src/configs/theme/index.dart';
@@ -14,7 +15,6 @@ import 'package:phone_number/phone_number.dart';
 import 'package:timeago/timeago.dart' as tmago;
 import 'package:geolocator/geolocator.dart';
 import 'package:dio/dio.dart' as dio;
-import 'package:emojis/emojis.dart';
 
 import '../configs/theme/index.dart';
 import '../controllers/flu_controllers.dart';

@@ -28,6 +28,7 @@ class FluText extends StatelessWidget {
   final TextOverflow overflow;
   final List<TextSpan> prefixs, suffixs;
   final TextAlign textAlign;
+  final bool replaceEmojis;
 
   const FluText({
     super.key,
@@ -41,6 +42,7 @@ class FluText extends StatelessWidget {
     this.prefixs = const [],
     this.suffixs = const [],
     this.textAlign = TextAlign.start,
+    this.replaceEmojis = true,
   });
 
   /// Default [TextStyle]
@@ -135,7 +137,9 @@ class FluText extends StatelessWidget {
         textAlign: textAlign,
         text: TextSpan(
             children: prefixs +
-                textSpans.map((span) => Flukit.replaceEmojis(span)).toList() +
+                (replaceEmojis
+                    ? textSpans.map((span) => Flukit.replaceEmojis(span)).toList()
+                    : textSpans) +
                 suffixs));
   }
 }

@@ -1,4 +1,3 @@
-import 'dart:math' as math;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +24,7 @@ class FluAvatar extends StatelessWidget {
   final Widget Function(BuildContext, String)? placeholder;
   final Widget Function(BuildContext, String, DownloadProgress)?
       progressIndicatorBuilder;
+  final String? memoji;
 
   const FluAvatar({
     Key? key,
@@ -50,6 +50,7 @@ class FluAvatar extends StatelessWidget {
     this.fit = BoxFit.cover,
     this.package,
     this.memojiAsDefault = false,
+    this.memoji,
   }) : super(key: key);
 
   @override
@@ -75,7 +76,7 @@ class FluAvatar extends StatelessWidget {
     } else if (text != null && text!.isNotEmpty && !memojiAsDefault) {
       return defaultt;
     } else {
-      return memoji;
+      return _memoji;
     }
   }
 
@@ -93,25 +94,21 @@ class FluAvatar extends StatelessWidget {
           boxShadow: [if (boxShadow != null && !outlined) boxShadow!],
         ),
         child: FluText(
-          text![0],
+          text: text![0],
           style: FluTextStyle.bodyNeptune,
-          customStyle:
-              labelStyle ?? TextStyle(color: Flukit.themePalette.light),
+          customStyle: labelStyle ?? TextStyle(color: Flukit.themePalette.light),
         ),
       );
 
-  Widget get memoji {
-    int random = math.Random().nextInt(35);
-
+  Widget get _memoji {
     return buildImage(
-      'assets/memojis/with_bg/avatar${random == 0 ? '' : '-$random'}.png',
+      memoji ?? Flukit.getMemoji(),
       FluImageSource.asset,
       package: 'flukit',
     );
   }
 
-  Widget buildImage(String img, FluImageSource src, {String? package}) =>
-      FluImage(
+  Widget buildImage(String img, FluImageSource src, {String? package}) => FluImage(
         image: img,
         source: src,
         height: size,
