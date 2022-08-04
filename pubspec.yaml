@@ -74,6 +74,9 @@ flutter:
   # For details regarding fonts in packages, see
   # https://flutter.dev/custom-fonts/#from-packages
   fonts:
-    - family: Neptune
+    - family: neptune
       fonts:
         - asset: assets/fonts/neptune.otf
+    - family: joypixels
+      fonts:
+        - asset: assets/fonts/joypixels.ttf

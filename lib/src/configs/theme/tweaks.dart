@@ -39,8 +39,7 @@ abstract class FluConstsInterface {
   Curve get defaultAnimationCurve => Curves.easeInOut;
 
   /// default page transition duration and curve
-  Duration get defaultPageAnimationDuration =>
-      const Duration(milliseconds: 300);
+  Duration get defaultPageAnimationDuration => const Duration(milliseconds: 300);
   Curve get defaultPageAnimationCurve => Curves.fastOutSlowIn;
 
   String get backButtonHeroTag => '<backButton>';
@@ -53,6 +52,8 @@ abstract class FluConstsInterface {
   int get httpConnectTimeout => 35000;
   int get httpReceiveTimeout => 35000;
   int get httpSendTimeout => 35000;
+
+  String? get emojiFont => null;
 }
 
 class _FluConstsImpl extends FluConstsInterface {}

@@ -49,14 +49,50 @@ extension FlukitText on FlukitInterface {
     return text;
   }
 
-  /// Emojis
-  /// Todo add type
-  dynamic get emojis => Emojis;
+  /// Replace all emojis in text with [Joypixels] emojis.
+  TextSpan replaceEmojis(TextSpan? span) {
+    final children = <TextSpan>[];
+    final runes = span?.text?.runes;
+
+    if (runes != null) {
+      for (int i = 0; i < runes.length; /* empty */) {
+        int current = runes.elementAt(i);
+
+        // we assume that everything that is not
+        // in Extended-ASCII set is an emoji...
+        final isEmoji = current > 255;
+        final shouldBreak = isEmoji ? (x) => x <= 255 : (x) => x > 255;
+
+        final chunk = <int>[];
+        while (!shouldBreak(current)) {
+          chunk.add(current);
+          if (++i >= runes.length) break;
+          current = runes.elementAt(i);
+        }
+
+        children.add(
+          TextSpan(
+            text: String.fromCharCodes(chunk),
+            recognizer: span?.recognizer,
+            style: span?.style?.copyWith(
+              fontFamily: isEmoji
+                  ? (Flukit.appConsts.emojiFont ?? Flukit.fonts.emoji)
+                  : null,
+              package: isEmoji ? 'flukit' : null,
+            ),
+          ),
+        );
+      }
+    }
+
+    return TextSpan(children: children);
+  }
 
   /// Return fonts interface
   FluFonts get fonts => FluFonts();
 }
 
 class FluFonts {
-  String get neptune => 'Neptune';
+  String get neptune => 'neptune';
+  String get emoji => 'joypixels';
 }

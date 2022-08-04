@@ -26,19 +26,20 @@ class FluTextField extends StatelessWidget {
   final TextStyle? textStyle;
   final ToolbarOptions? toolbarOptions;
   final TextSelectionControls? selectionControls;
+  final VoidCallback? onTap;
 
-  const FluTextField({
-    super.key,
-    this.inputController,
-    this.focusNode,
-    this.inputFormatters,
-    this.validator,
-    this.onChanged,
-    this.style = const FluTextFieldStyle(),
-    this.textStyle,
-    this.toolbarOptions,
-    this.selectionControls,
-  });
+  const FluTextField(
+      {super.key,
+      this.inputController,
+      this.focusNode,
+      this.inputFormatters,
+      this.validator,
+      this.onChanged,
+      this.style = const FluTextFieldStyle(),
+      this.textStyle,
+      this.toolbarOptions,
+      this.selectionControls,
+      this.onTap});
 
   FluTheme get _theme => Flukit.theme;
   ThemeData get _themeData => Flukit.theme.data;
@@ -113,6 +114,7 @@ class FluTextField extends StatelessWidget {
                 decoration: inputDecoration,
                 validator: validator,
                 onChanged: onChanged,
+                onTap: onTap,
               ),
             ),
             if (style.fluSuffixIcon != null)
@@ -154,6 +156,7 @@ class FluRichTextField extends FluTextField {
     super.textStyle,
     super.toolbarOptions,
     super.selectionControls,
+    super.onTap,
     required this.controller,
     this.onDeltasHistoryUpdate,
   }) {
@@ -185,6 +188,7 @@ class FluRichTextField extends FluTextField {
             maxLines: style.maxLines,
             toolbarOptions: toolbarOptions,
             selectionControls: selectionControls,
+            onTap: onTap,
           ));
 }
 

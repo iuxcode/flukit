@@ -6,93 +6,138 @@ import 'line.dart';
 /// TODO add more styles
 enum FluTextStyle {
   small,
+  smallBold,
   smallNeptune,
   body,
+  bodyBold,
   bodyNeptune,
   headline,
+  headlineSemibold,
+  headlineBold
 }
 
+enum FluTextStyleApplicationMethod { override, merge }
+
 class FluText extends StatelessWidget {
-  final String text;
-  final TextStyle? customStyle;
+  final String? text;
+  final List<TextSpan>? entities;
   final FluTextStyle style;
+  final TextStyle? customStyle;
+  final FluTextStyleApplicationMethod applicationMethod;
   final int? maxLines;
-  final TextOverflow? overflow;
-  final TextAlign? textAlign;
+  final TextOverflow overflow;
+  final List<TextSpan> prefixs, suffixs;
+  final TextAlign textAlign;
 
-  const FluText(this.text, {
-    Key? key,
-    this.customStyle,
+  const FluText({
+    super.key,
+    this.text,
+    this.entities,
     this.style = FluTextStyle.body,
-    this.maxLines = 1,
-    this.overflow = TextOverflow.ellipsis,
-    this.textAlign
-  }) : super(key: key);
+    this.customStyle,
+    this.applicationMethod = FluTextStyleApplicationMethod.merge,
+    this.maxLines,
+    this.overflow = TextOverflow.clip,
+    this.prefixs = const [],
+    this.suffixs = const [],
+    this.textAlign = TextAlign.start,
+  });
 
-  double get fontSize {
-    switch (style) {
-      case FluTextStyle.small:
-      case FluTextStyle.smallNeptune:
-        return Flukit.appConsts.smallFs;
-      case FluTextStyle.body:
-      case FluTextStyle.bodyNeptune:
-        return Flukit.appConsts.bodyFs;
-      case FluTextStyle.headline:
-        return Flukit.appConsts.headlineFs;
-    }
-  }
+  /// Default [TextStyle]
+  TextStyle? get _defaultTextStyle => Flukit.textTheme.bodyText1;
 
-  FontWeight get fontWeight {
-    switch (style) {
-      case FluTextStyle.small:
-      case FluTextStyle.smallNeptune:
-      case FluTextStyle.body:
-      case FluTextStyle.bodyNeptune:
-        return Flukit.appConsts.textNormal;
-      case FluTextStyle.headline:
-        return Flukit.appConsts.textBold;
-    }
-  }
-
-  Color get color {
-    switch (style) {
-      case FluTextStyle.small:
-      case FluTextStyle.smallNeptune:
-      case FluTextStyle.body:
-      case FluTextStyle.bodyNeptune:
-        return Flukit.theme.textColor;
-      case FluTextStyle.headline:
-        return Flukit.theme.accentTextColor;
-    }
-  }
-
-  TextStyle? get neptuneStyle {
+  /// Return neptune font styling for text
+  TextStyle? get _neptuneStyle {
     switch (style) {
       case FluTextStyle.body:
       case FluTextStyle.small:
       case FluTextStyle.headline:
+      case FluTextStyle.smallBold:
+      case FluTextStyle.bodyBold:
+      case FluTextStyle.headlineSemibold:
+      case FluTextStyle.headlineBold:
         return null;
       case FluTextStyle.smallNeptune:
       case FluTextStyle.bodyNeptune:
-        return TextStyle(
-          fontFamily: Flukit.fonts.neptune,
-          package: 'flukit'
-        );
+        return TextStyle(fontFamily: Flukit.fonts.neptune, package: 'flukit');
+    }
+  }
+
+  /// Build styles
+  TextStyle? get _style {
+    if (applicationMethod == FluTextStyleApplicationMethod.override) {
+      return customStyle;
+    } else {
+      TextStyle? textStyle;
+
+      switch (style) {
+        case FluTextStyle.small:
+        case FluTextStyle.smallBold:
+        case FluTextStyle.smallNeptune:
+          textStyle = Flukit.textTheme.bodyText1
+              ?.copyWith(fontSize: Flukit.appConsts.smallFs);
+          break;
+        case FluTextStyle.body:
+        case FluTextStyle.bodyBold:
+        case FluTextStyle.bodyNeptune:
+          textStyle = Flukit.textTheme.bodyText1;
+          break;
+        case FluTextStyle.headline:
+        case FluTextStyle.headlineBold:
+          textStyle = Flukit.textTheme.headline1;
+          break;
+        case FluTextStyle.headlineSemibold:
+          textStyle = Flukit.textTheme.bodyText1?.copyWith(
+              fontSize: Flukit.appConsts.headlineFs,
+              fontWeight: Flukit.appConsts.textBold,
+              color: Flukit.theme.accentTextColor);
+          break;
+      }
+
+      if (style == FluTextStyle.smallNeptune || style == FluTextStyle.bodyNeptune) {
+        textStyle = textStyle?.merge(_neptuneStyle);
+      }
+
+      if (style == FluTextStyle.smallBold ||
+          style == FluTextStyle.bodyBold ||
+          style == FluTextStyle.headlineBold) {
+        textStyle = textStyle?.merge(TextStyle(
+            fontWeight: Flukit.appConsts.textBold,
+            color: Flukit.theme.accentTextColor));
+      }
+
+      return (textStyle ?? _defaultTextStyle)?.merge(customStyle);
     }
   }
 
   @override
-  Widget build(BuildContext context) => Text(
-    text,
-    maxLines: maxLines,
-    overflow: overflow,
-    textAlign: textAlign,
-    style: Flukit.textTheme.bodyText1!.copyWith(
-      fontSize: fontSize,
-      fontWeight: fontWeight,
-      color: color,
-    ).merge(neptuneStyle?.merge(customStyle) ?? customStyle)
-  );
+  Widget build(BuildContext context) {
+    List<TextSpan> textSpans;
+
+    if (entities != null) {
+      textSpans = entities!;
+    } else {
+      bool hasText = text?.isNotEmpty ?? false;
+
+      textSpans = [
+        TextSpan(
+            text: hasText ? text : 'You have to add text or entities !',
+            style: hasText
+                ? _style
+                : (_style ?? _defaultTextStyle)
+                    ?.copyWith(color: Flukit.theme.dangerColor))
+      ];
+    }
+
+    return RichText(
+        maxLines: maxLines,
+        overflow: overflow,
+        textAlign: textAlign,
+        text: TextSpan(
+            children: prefixs +
+                textSpans.map((span) => Flukit.replaceEmojis(span)).toList() +
+                suffixs));
+  }
 }
 
 class FluTextWithLine extends StatelessWidget {
@@ -111,35 +156,34 @@ class FluTextWithLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Hero(
-          tag: Flukit.appConsts.titleTextHeroTag,
-          child: Text(text1, style: Flukit.textTheme.bodyText1!.copyWith(
-            fontSize: fontsize ?? Flukit.appConsts.headlineFs,
-            fontWeight: Flukit.appConsts.textSemibold,
-            color: Flukit.theme.accentTextColor
-          )),
-        ),
-        Row(
-          children: [
-            Hero(
-              tag: Flukit.appConsts.title2TextHeroTag,
-              child: Text(text2, maxLines: 1, overflow: TextOverflow.ellipsis, style: Flukit.textTheme.bodyText1!.copyWith(
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Hero(
+        tag: Flukit.appConsts.titleTextHeroTag,
+        child: Text(text1,
+            style: Flukit.textTheme.bodyText1!.copyWith(
                 fontSize: fontsize ?? Flukit.appConsts.headlineFs,
                 fontWeight: Flukit.appConsts.textSemibold,
-                color: Flukit.theme.accentTextColor
-              )),
-            ),
-            FluLine(
-              height: lineHeight,
-              width: lineWidth,
-              margin: const EdgeInsets.only(left: 10),
-            )
-          ],
-        ),
-      ]
-    );
+                color: Flukit.theme.accentTextColor)),
+      ),
+      Row(
+        children: [
+          Hero(
+            tag: Flukit.appConsts.title2TextHeroTag,
+            child: Text(text2,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Flukit.textTheme.bodyText1!.copyWith(
+                    fontSize: fontsize ?? Flukit.appConsts.headlineFs,
+                    fontWeight: Flukit.appConsts.textSemibold,
+                    color: Flukit.theme.accentTextColor)),
+          ),
+          FluLine(
+            height: lineHeight,
+            width: lineWidth,
+            margin: const EdgeInsets.only(left: 10),
+          )
+        ],
+      ),
+    ]);
   }
 }

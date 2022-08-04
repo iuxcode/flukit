@@ -41,6 +41,14 @@ extension FlukitUI on FlukitInterface {
   bool isKeyboardHidden(BuildContext context) =>
       !(MediaQuery.of(context).viewInsets.bottom == 0);
 
+  /// Hide the keyboard
+  void hideKeyboard() =>
+      SystemChannels.textInput.invokeMethod('TextInput.hide');
+
+  /// Show the keyboard
+  void showKeyboard() =>
+      SystemChannels.textInput.invokeMethod('TextInput.show');
+
   /// switch theme || take the theme as parameter
   /// TODO implement function to switch theme.
   void changeTheme(FluTheme theme) {}
@@ -171,15 +179,17 @@ extension FlukitUI on FlukitInterface {
     context = context ?? Flukit.context;
 
     showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        isDismissible: true,
-        backgroundColor: Colors.transparent,
-        builder: (context) => FluModalBottomSheet(
-            maxChildSize: maxChildSize ?? .85,
-            radius: radius,
-            padding: padding,
-            child: child));
+      context: context,
+      isScrollControlled: true,
+      isDismissible: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => FluModalBottomSheet(
+        maxChildSize: maxChildSize ?? .85,
+        radius: radius,
+        padding: padding,
+        child: child,
+      ),
+    );
   }
 }
 
