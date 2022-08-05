@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:flukit/flukit.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
@@ -54,8 +55,7 @@ class FluTextEditingInlineSpanReplacement {
 
   bool expand;
 
-  FluTextEditingInlineSpanReplacement? onDelete(
-      TextEditingDeltaDeletion delta) {
+  FluTextEditingInlineSpanReplacement? onDelete(TextEditingDeltaDeletion delta) {
     final TextRange deletedRange = delta.deletedRange;
     final int deletedLength = delta.textDeleted.length;
 
@@ -76,27 +76,23 @@ class FluTextEditingInlineSpanReplacement {
           end: deletedRange.start,
         ),
       );
-    } else if (range.start < deletedRange.start &&
-        range.end > deletedRange.end) {
+    } else if (range.start < deletedRange.start && range.end > deletedRange.end) {
       return copy(
         range: TextRange(
           start: range.start,
           end: range.end - deletedLength,
         ),
       );
-    } else if (range.start >= deletedRange.start &&
-        range.end <= deletedRange.end) {
+    } else if (range.start >= deletedRange.start && range.end <= deletedRange.end) {
       return null;
-    } else if (range.start > deletedRange.start &&
-        range.start >= deletedRange.end) {
+    } else if (range.start > deletedRange.start && range.start >= deletedRange.end) {
       return copy(
         range: TextRange(
           start: range.start - deletedLength,
           end: range.end - deletedLength,
         ),
       );
-    } else if (range.end <= deletedRange.start &&
-        range.end < deletedRange.end) {
+    } else if (range.end <= deletedRange.start && range.end < deletedRange.end) {
       return copy(
         range: TextRange(
           start: range.start,
@@ -108,8 +104,7 @@ class FluTextEditingInlineSpanReplacement {
     return null;
   }
 
-  FluTextEditingInlineSpanReplacement? onInsertion(
-      TextEditingDeltaInsertion delta) {
+  FluTextEditingInlineSpanReplacement? onInsertion(TextEditingDeltaInsertion delta) {
     final int insertionOffset = delta.insertionOffset;
     final int insertedLength = delta.textInserted.length;
 
@@ -210,8 +205,7 @@ class FluTextEditingInlineSpanReplacement {
           ),
         ),
       ];
-    } else if (range.start < replacedRange.start &&
-        range.end > replacedRange.end) {
+    } else if (range.start < replacedRange.start && range.end > replacedRange.end) {
       if (replacementShortenedText) {
         return [
           copy(
@@ -285,8 +279,7 @@ class FluTextEditingInlineSpanReplacement {
       } else if (replacementEqualLength) {
         return [this];
       }
-    } else if (range.end <= replacedRange.start &&
-        range.end < replacedRange.end) {
+    } else if (range.end <= replacedRange.start && range.end < replacedRange.end) {
       return [
         copy(
           range: TextRange(
@@ -303,16 +296,14 @@ class FluTextEditingInlineSpanReplacement {
   FluTextEditingInlineSpanReplacement? onNonTextUpdate(
       TextEditingDeltaNonTextUpdate delta) {
     if (range.isCollapsed) {
-      if (range.start != delta.selection.start &&
-          range.end != delta.selection.end) {
+      if (range.start != delta.selection.start && range.end != delta.selection.end) {
         return null;
       }
     }
     return this;
   }
 
-  List<FluTextEditingInlineSpanReplacement>? removeRange(
-      TextRange removalRange) {
+  List<FluTextEditingInlineSpanReplacement>? removeRange(TextRange removalRange) {
     if (range.start >= removalRange.start &&
         (range.start < removalRange.end && range.end > removalRange.end)) {
       return [
@@ -334,8 +325,7 @@ class FluTextEditingInlineSpanReplacement {
           ),
         ),
       ];
-    } else if (range.start < removalRange.start &&
-        range.end > removalRange.end) {
+    } else if (range.start < removalRange.start && range.end > removalRange.end) {
       return [
         copy(
           range: TextRange(
@@ -351,14 +341,11 @@ class FluTextEditingInlineSpanReplacement {
           ),
         ),
       ];
-    } else if (range.start >= removalRange.start &&
-        range.end <= removalRange.end) {
+    } else if (range.start >= removalRange.start && range.end <= removalRange.end) {
       return null;
-    } else if (range.start > removalRange.start &&
-        range.start >= removalRange.end) {
+    } else if (range.start > removalRange.start && range.start >= removalRange.end) {
       return [this];
-    } else if (range.end <= removalRange.start &&
-        range.end < removalRange.end) {
+    } else if (range.end <= removalRange.start && range.end < removalRange.end) {
       return [this];
     } else if (removalRange.isCollapsed && range.end == removalRange.start) {
       return [this];
@@ -516,8 +503,7 @@ class FluReplacementTextEditingController extends TextEditingController {
       }
     }
 
-    for (final FluTextEditingInlineSpanReplacement replacementToRemove
-        in toRemove) {
+    for (final FluTextEditingInlineSpanReplacement replacementToRemove in toRemove) {
       replacements!.remove(replacementToRemove);
     }
 
@@ -530,19 +516,16 @@ class FluReplacementTextEditingController extends TextEditingController {
     TextStyle? style,
     required bool withComposing,
   }) {
-    assert(!value.composing.isValid ||
-        !withComposing ||
-        value.isComposingRangeValid);
+    assert(
+        !value.composing.isValid || !withComposing || value.isComposingRangeValid);
 
     // Keep a mapping of TextRanges to the InlineSpan to replace it with.
-    final Map<TextRange, InlineSpan> rangeSpanMapping =
-        <TextRange, InlineSpan>{};
+    final Map<TextRange, InlineSpan> rangeSpanMapping = <TextRange, InlineSpan>{};
 
     // Iterate through FluTextEditingInlineSpanReplacements, handling overlapping
     // replacements and mapping them towards a generated InlineSpan.
     if (replacements != null) {
-      for (final FluTextEditingInlineSpanReplacement replacement
-          in replacements!) {
+      for (final FluTextEditingInlineSpanReplacement replacement in replacements!) {
         _addToMappingWithOverlaps(
           replacement.generator,
           TextRange(start: replacement.range.start, end: replacement.range.end),
@@ -557,9 +540,7 @@ class FluReplacementTextEditingController extends TextEditingController {
     // be thrown and this EditableText will be built with a broken subtree.
     //
     // Add composing region as a replacement to a TextSpan with underline.
-    if (composingRegionReplaceable &&
-        value.isComposingRangeValid &&
-        withComposing) {
+    if (composingRegionReplaceable && value.isComposingRangeValid && withComposing) {
       _addToMappingWithOverlaps((value, range) {
         final TextStyle composingStyle = style != null
             ? style.merge(const TextStyle(decoration: TextDecoration.underline))
@@ -581,20 +562,21 @@ class FluReplacementTextEditingController extends TextEditingController {
     int previousEndIndex = 0;
     for (final TextRange range in sortedRanges) {
       if (range.start > previousEndIndex) {
-        spans.add(TextSpan(
-            text: value.text.substring(previousEndIndex, range.start)));
+        spans.add(
+            TextSpan(text: value.text.substring(previousEndIndex, range.start)));
       }
       spans.add(rangeSpanMapping[range]!);
       previousEndIndex = range.end;
     }
     // Add any trailing text as a regular TextSpan.
     if (previousEndIndex < value.text.length) {
-      spans.add(TextSpan(
-          text: value.text.substring(previousEndIndex, value.text.length)));
+      spans.add(
+          TextSpan(text: value.text.substring(previousEndIndex, value.text.length)));
     }
+
     return TextSpan(
       style: style,
-      children: spans,
+      children: spans.map((span) => Flukit.replaceEmojis(span as TextSpan)).toList(),
     );
   }
 
@@ -646,8 +628,7 @@ class FluReplacementTextEditingController extends TextEditingController {
           if (math.max(tripleA[0] as int, tripleB[0] as int) <=
                   math.min(tripleA[1] as int, tripleB[1] as int) &&
               tripleA[2] == tripleB[2]) {
-            toRemoveRangesThatHaveBeenMerged
-                .addAll(<dynamic>[tripleA, tripleB]);
+            toRemoveRangesThatHaveBeenMerged.addAll(<dynamic>[tripleA, tripleB]);
             tripleA = <dynamic>[
               math.min(tripleA[0] as int, tripleB[0] as int),
               math.max(tripleA[1] as int, tripleB[1] as int),
@@ -694,8 +675,7 @@ class FluReplacementTextEditingController extends TextEditingController {
       }
 
       Set<TextStyle> styles = <TextStyle>{};
-      List<int> otherEndPoints =
-          endPoints.getRange(1, endPoints.length).toList();
+      List<int> otherEndPoints = endPoints.getRange(1, endPoints.length).toList();
       for (int i = 0; i < endPoints.length - 1; i++) {
         styles = styles.difference(end[endPoints[i]]!);
         styles.addAll(start[endPoints[i]]!);
@@ -739,12 +719,11 @@ class FluReplacementTextEditingController extends TextEditingController {
     final List<FluTextEditingInlineSpanReplacement> toRemove = [];
     final List<FluTextEditingInlineSpanReplacement> toAdd = [];
 
-    for (final FluTextEditingInlineSpanReplacement replacement
-        in replacements!) {
+    for (final FluTextEditingInlineSpanReplacement replacement in replacements!) {
       if (replacement.range.end == selection.start) {
-        TextStyle? replacementStyle = (replacement.generator(
-                '', const TextRange.collapsed(0)) as TextSpan)
-            .style;
+        TextStyle? replacementStyle =
+            (replacement.generator('', const TextRange.collapsed(0)) as TextSpan)
+                .style;
         if (replacementStyle! == style) {
           toRemove.add(replacement);
           toAdd.add(replacement.copy(expand: false));
@@ -752,8 +731,7 @@ class FluReplacementTextEditingController extends TextEditingController {
       }
     }
 
-    for (final FluTextEditingInlineSpanReplacement replacementToRemove
-        in toRemove) {
+    for (final FluTextEditingInlineSpanReplacement replacementToRemove in toRemove) {
       replacements!.remove(replacementToRemove);
     }
 
@@ -772,8 +750,7 @@ class FluReplacementTextEditingController extends TextEditingController {
     // should be enabled.
     final List<TextStyle> stylesAtSelection = <TextStyle>[];
 
-    for (final FluTextEditingInlineSpanReplacement replacement
-        in replacements!) {
+    for (final FluTextEditingInlineSpanReplacement replacement in replacements!) {
       if (selection.isCollapsed) {
         if (math.max(replacement.range.start, selection.start) <=
             math.min(replacement.range.end, selection.end)) {

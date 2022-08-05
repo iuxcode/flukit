@@ -46,7 +46,7 @@ class FluText extends StatelessWidget {
   });
 
   /// Default [TextStyle]
-  TextStyle? get _defaultTextStyle => Flukit.textTheme.bodyText1;
+  TextStyle get _defaultTextStyle => Flukit.textTheme.bodyText1!;
 
   /// Return neptune font styling for text
   TextStyle? get _neptuneStyle {
@@ -66,9 +66,9 @@ class FluText extends StatelessWidget {
   }
 
   /// Build styles
-  TextStyle? get _style {
+  TextStyle get _style {
     if (applicationMethod == FluTextStyleApplicationMethod.override) {
-      return customStyle;
+      return customStyle ?? _defaultTextStyle;
     } else {
       TextStyle? textStyle;
 
@@ -108,7 +108,7 @@ class FluText extends StatelessWidget {
             color: Flukit.theme.accentTextColor));
       }
 
-      return (textStyle ?? _defaultTextStyle)?.merge(customStyle);
+      return textStyle ?? _defaultTextStyle;
     }
   }
 
@@ -117,30 +117,38 @@ class FluText extends StatelessWidget {
     List<TextSpan> textSpans;
 
     if (entities != null) {
-      textSpans = entities!;
+      textSpans = entities!
+          .map((e) => TextSpan(
+                text: e.text,
+                recognizer: e.recognizer,
+                style: _style.merge(e.style).merge(customStyle),
+              ))
+          .toList();
     } else {
       bool hasText = text?.isNotEmpty ?? false;
 
       textSpans = [
         TextSpan(
-            text: hasText ? text : 'You have to add text or entities !',
-            style: hasText
-                ? _style
-                : (_style ?? _defaultTextStyle)
-                    ?.copyWith(color: Flukit.theme.dangerColor))
+          text: hasText ? text : 'You have to add text or entities !',
+          style: _style
+              .merge(customStyle)
+              .copyWith(color: hasText ? null : Flukit.theme.dangerColor),
+        )
       ];
     }
 
     return RichText(
-        maxLines: maxLines,
-        overflow: overflow,
-        textAlign: textAlign,
-        text: TextSpan(
-            children: prefixs +
-                (replaceEmojis
-                    ? textSpans.map((span) => Flukit.replaceEmojis(span)).toList()
-                    : textSpans) +
-                suffixs));
+      maxLines: maxLines,
+      overflow: overflow,
+      textAlign: textAlign,
+      text: TextSpan(
+        children: prefixs +
+            (replaceEmojis
+                ? textSpans.map((span) => Flukit.replaceEmojis(span)).toList()
+                : textSpans) +
+            suffixs,
+      ),
+    );
   }
 }
 
