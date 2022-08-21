@@ -18,7 +18,7 @@ class FluMaterialApp extends StatefulWidget {
   final List<GetPage<dynamic>>? pages;
 
   const FluMaterialApp({
-    Key? key,
+    super.key,
     this.controller,
     this.initialBinding,
     this.title,
@@ -32,7 +32,7 @@ class FluMaterialApp extends StatefulWidget {
     this.builder,
     this.pages,
     this.showDebugBanner = false,
-  }): super(key: key);
+  });
 
   @override
   State<FluMaterialApp> createState() => _FluMaterialAppState();
@@ -43,32 +43,25 @@ class _FluMaterialAppState extends State<FluMaterialApp> {
 
   @override
   void initState() {
-    controller = widget.controller != null ? widget.controller! : FluAppController();
-
-    Get.put(controller, permanent: true);
+    controller = Get.put(widget.controller ?? FluAppController(), permanent: true);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) => GetBuilder<FluAppController>(
-    init: controller,
-    initState: (_) {},
-    builder: (_) {
-      return GetMaterialApp(
-        title: widget.title ?? controller.appInfos.name,
-        debugShowCheckedModeBanner: widget.showDebugBanner,
-        theme: controller.theme.data,
-        initialBinding: widget.initialBinding,
-        home: widget.home,
-        initialRoute: widget.initialRoute ?? '/splash',
-        routes: widget.routes ?? <String, WidgetBuilder> {},
-        getPages: widget.pages ?? [
-          FluGetPage(
-            name: '/splash',
-            page: () => const FluDefaultScreen()
-          )
-        ],
-      );
-    }
-  );
+      init: controller,
+      initState: (_) {},
+      builder: (_) {
+        return GetMaterialApp(
+          title: widget.title ?? controller.appInfos.name,
+          debugShowCheckedModeBanner: widget.showDebugBanner,
+          theme: controller.theme.data,
+          initialBinding: widget.initialBinding,
+          home: widget.home,
+          initialRoute: widget.initialRoute ?? '/splash',
+          routes: widget.routes ?? <String, WidgetBuilder>{},
+          getPages: widget.pages ??
+              [FluGetPage(name: '/splash', page: () => const FluDefaultScreen())],
+        );
+      });
 }

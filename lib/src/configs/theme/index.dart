@@ -14,15 +14,15 @@ class FluTheme {
   final TextStyle? bodyTextStyle;
   final TextStyle? headlineTextStyle;
 
-  FluTheme(
-      {this.colors,
-      this.variant = FluThemeVariants.light,
-      this.bodyTextStyle,
-      this.headlineTextStyle});
+  FluTheme({
+    this.colors,
+    this.variant = FluThemeVariants.light,
+    this.bodyTextStyle,
+    this.headlineTextStyle,
+  });
 
   bool get isLightTheme => variant == FluThemeVariants.light;
-  Brightness get brightness =>
-      isLightTheme ? Brightness.dark : Brightness.light;
+  Brightness get brightness => isLightTheme ? Brightness.dark : Brightness.light;
 
   SystemUiOverlayStyle get systemStyle => SystemUiOverlayStyle(
       statusBarIconBrightness: brightness,
@@ -37,12 +37,12 @@ class FluTheme {
         primaryText: Colors.white,
         secondary: const Color(0xFFEBF4FF),
       );
+
   ThemeData get data => ThemeData(
       primaryColor: palette.primary,
       backgroundColor: palette.background,
       scaffoldBackgroundColor: palette.background,
-      colorScheme:
-          ColorScheme.fromSwatch().copyWith(secondary: palette.secondary),
+      colorScheme: ColorScheme.fromSwatch().copyWith(secondary: palette.secondary),
       textTheme: TextTheme(
         headlineLarge: GoogleFonts.poppins(
             fontWeight: FluConsts.textBold,
@@ -52,7 +52,7 @@ class FluTheme {
             fontSize: FluConsts.titleFs,
             fontWeight: FluConsts.textBold,
             color: palette.accentText),
-        headline2: GoogleFonts.poppins(
+        headline2: GoogleFonts.quicksand(
             fontSize: FluConsts.titleFs,
             fontWeight: FluConsts.textSemibold,
             color: palette.accentText),
@@ -60,7 +60,7 @@ class FluTheme {
             fontSize: FluConsts.subtitleFs,
             fontWeight: FluConsts.textSemibold,
             color: palette.accentText),
-        subtitle2: GoogleFonts.poppins(
+        subtitle2: GoogleFonts.quicksand(
             fontSize: FluConsts.subtitleFs,
             fontWeight: FluConsts.textSemibold,
             color: palette.accentText),
@@ -68,7 +68,7 @@ class FluTheme {
             fontSize: FluConsts.bodyFs,
             fontWeight: FluConsts.textNormal,
             color: palette.text),
-        bodyText2: GoogleFonts.poppins(
+        bodyText2: GoogleFonts.quicksand(
             fontSize: FluConsts.bodyFs,
             fontWeight: FluConsts.textNormal,
             color: palette.text),
@@ -87,4 +87,7 @@ class FluTheme {
   Color get successColor => palette.success;
   Color get warningColor => palette.warning;
   Color get darkColor => palette.dark;
+  Color get lightColor => palette.light;
+
+  TextTheme get textTheme => data.textTheme;
 }

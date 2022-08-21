@@ -9,6 +9,7 @@ class FluAvatar extends StatelessWidget {
   final double size;
   final double radius;
   final BorderRadius? borderRadius;
+  final String? memoji;
   final bool memojiAsDefault;
   final bool useCache;
   final bool outlined;
@@ -24,7 +25,8 @@ class FluAvatar extends StatelessWidget {
   final Widget Function(BuildContext, String)? placeholder;
   final Widget Function(BuildContext, String, DownloadProgress)?
       progressIndicatorBuilder;
-  final String? memoji;
+  final String Function(String value)? placeholderTextFormatter;
+  final TextStyle? placeholderTextStyle;
 
   const FluAvatar({
     Key? key,
@@ -51,36 +53,63 @@ class FluAvatar extends StatelessWidget {
     this.package,
     this.memojiAsDefault = false,
     this.memoji,
+    this.placeholderTextFormatter,
+    this.placeholderTextStyle,
   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) => outlined
-      ? FluOutline(
-          radius: radius + 2,
-          spacing: spacing,
-          thickness: strokeWidth,
-          borderRadius: borderRadius,
-          color: strokeColor,
-          boxShadow: boxShadow,
-          margin: margin,
-          child: avatar,
-        )
-      : Container(
-          margin: margin,
-          child: avatar,
-        );
+  String getText() {
+    final placeholderText =
+        ((text != null && text!.isNotEmpty && !memojiAsDefault) ? text! : 'flukit')
+            .trim();
 
-  Widget get avatar {
-    if (image != null && image!.isNotEmpty) {
-      return buildImage(image!, source);
-    } else if (text != null && text!.isNotEmpty && !memojiAsDefault) {
-      return defaultt;
+    if (placeholderTextFormatter != null) {
+      return placeholderTextFormatter!(placeholderText);
     } else {
-      return _memoji;
+      String text;
+      List<String> array = placeholderText.split(' ');
+
+      if (array.length >= 2) {
+        text = array[0][0] + array[array.length - 1][0];
+      } else {
+        text = placeholderText[0];
+      }
+
+      return text.toLowerCase();
     }
   }
 
-  Widget get defaultt => Container(
+  @override
+  Widget build(BuildContext context) {
+    String? img, package;
+    FluImageSource? imgSrc;
+
+    Widget avatar;
+
+    if (image != null && image!.isNotEmpty) {
+      img = image!;
+      imgSrc = source;
+    } else if (memojiAsDefault) {
+      img = memoji ?? Flukit.getMemoji();
+      imgSrc = FluImageSource.asset;
+      package = 'flukit';
+    }
+
+    if (img != null) {
+      avatar = FluImage(
+        image: img,
+        source: imgSrc,
+        height: size,
+        width: size,
+        radius: radius,
+        fit: fit,
+        boxShadow: outlined ? null : boxShadow,
+        errorBuilder: errorBuilder,
+        progressIndicatorBuilder: progressIndicatorBuilder,
+        placeholder: placeholder,
+        package: package,
+      );
+    } else {
+      avatar = Container(
         height: size,
         width: size,
         clipBehavior: Clip.hardEdge,
@@ -94,31 +123,28 @@ class FluAvatar extends StatelessWidget {
           boxShadow: [if (boxShadow != null && !outlined) boxShadow!],
         ),
         child: FluText(
-          text: text![0],
+          text: getText(),
           style: FluTextStyle.bodyNeptune,
-          customStyle: labelStyle ?? TextStyle(color: Flukit.themePalette.light),
+          customStyle: (labelStyle ?? TextStyle(color: Flukit.themePalette.light))
+              .merge(placeholderTextStyle),
         ),
       );
+    }
 
-  Widget get _memoji {
-    return buildImage(
-      memoji ?? Flukit.getMemoji(),
-      FluImageSource.asset,
-      package: 'flukit',
-    );
+    return outlined
+        ? FluOutline(
+            radius: radius + 2,
+            spacing: spacing,
+            thickness: strokeWidth,
+            borderRadius: borderRadius,
+            color: strokeColor,
+            boxShadow: boxShadow,
+            margin: margin,
+            child: avatar,
+          )
+        : Container(
+            margin: margin,
+            child: avatar,
+          );
   }
-
-  Widget buildImage(String img, FluImageSource src, {String? package}) => FluImage(
-        image: img,
-        source: src,
-        height: size,
-        width: size,
-        radius: radius,
-        fit: fit,
-        boxShadow: outlined ? null : boxShadow,
-        errorBuilder: errorBuilder,
-        progressIndicatorBuilder: progressIndicatorBuilder,
-        placeholder: placeholder,
-        package: package,
-      );
 }
