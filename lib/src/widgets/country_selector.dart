@@ -1,5 +1,5 @@
 import 'package:emojis/emojis.dart';
-import 'package:flukit/src/widgets/input/old/input.dart';
+import 'package:flukit/src/widgets/input/inputs.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
 
@@ -42,12 +42,8 @@ class FluCountrySelectState extends State<FluCountrySelect> {
     } else {
       results = Flukit.countries
           .where((FluCountryModel country) =>
-              country.name
-                  .toLowerCase()
-                  .contains(enteredKeyword.toLowerCase()) ||
-              country.phoneCode
-                  .toLowerCase()
-                  .contains(enteredKeyword.toLowerCase()))
+              country.name.toLowerCase().contains(enteredKeyword.toLowerCase()) ||
+              country.phoneCode.toLowerCase().contains(enteredKeyword.toLowerCase()))
           .toList();
     }
 
@@ -94,14 +90,10 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                     Text(
                                         widget.title ??
                                             'Select your country ${Emojis.compass}',
-                                        style: Flukit.textTheme.bodyText1!
-                                            .copyWith(
-                                                fontSize: Flukit
-                                                    .appConsts.headlineFs,
-                                                fontWeight:
-                                                    Flukit.appConsts.textBold,
-                                                color: Flukit
-                                                    .theme.palette.accentText)),
+                                        style: Flukit.textTheme.bodyText1!.copyWith(
+                                            fontSize: Flukit.appConsts.headlineFs,
+                                            fontWeight: Flukit.appConsts.textBold,
+                                            color: Flukit.theme.palette.accentText)),
                                     const SizedBox(height: 5),
                                     Text(
                                       widget.desc ??
@@ -120,18 +112,16 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                         offset: const Offset(10, 10),
                                         color: Flukit.theme.shadowColor,
                                       ),
-                                      child: FluTextInput(
-                                        hintText: widget.searchInputHint ??
-                                            'Search for a country.',
-                                        style: FluTextInputStyle(
-                                          height:
-                                              Flukit.appConsts.minElSize + 5,
+                                      child: FluTextField(
+                                        style: FluTextFieldStyle(
+                                          hintText: widget.searchInputHint ??
+                                              'Search for a country.',
+                                          height: Flukit.appConsts.minElSize + 5,
                                           radius: Flukit.appConsts.minElRadius,
-                                          fillColor:
-                                              Flukit.theme.backgroundColor,
+                                          fillColor: Flukit.theme.backgroundColor,
                                           textAlign: TextAlign.left,
-                                          prefixIcon: FluTwotoneIcons
-                                              .search_searchNormal,
+                                          fluPrefixIcon:
+                                              FluTwotoneIcons.search_searchNormal,
                                           iconSize: 18,
                                           iconStrokeWidth: 2,
                                           iconColor: Flukit.theme.textColor,
@@ -176,20 +166,18 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                                   radius: flagRadius + 2,
                                                   thickness: 1.5,
                                                   boxShadow: Flukit.boxShadow(
-                                                      offset:
-                                                          const Offset(0, 0),
+                                                      offset: const Offset(0, 0),
                                                       opacity: .15,
-                                                      color: Flukit
-                                                          .theme.primaryColor),
+                                                      color:
+                                                          Flukit.theme.primaryColor),
                                                   child: Container(
                                                     height: flagSize,
                                                     width: flagSize,
                                                     clipBehavior: Clip.hardEdge,
                                                     decoration: BoxDecoration(
                                                         borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                    flagRadius),
+                                                            BorderRadius.circular(
+                                                                flagRadius),
                                                         image: DecorationImage(
                                                           image: AssetImage(
                                                               'icons/flags/png/${country.isoCode.toLowerCase()}.png',
@@ -201,10 +189,10 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                                 ),
                                                 Expanded(
                                                     child: Text(country.name,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: Flukit.textTheme
-                                                            .bodyText1!
+                                                        overflow:
+                                                            TextOverflow.ellipsis,
+                                                        style: Flukit
+                                                            .textTheme.bodyText1!
                                                             .copyWith(
                                                                 fontWeight: Flukit
                                                                     .appConsts
@@ -216,12 +204,9 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                                         .textTheme.bodyText1!
                                                         .copyWith(
                                                             fontWeight: Flukit
-                                                                .appConsts
-                                                                .textLight,
-                                                            color: Flukit
-                                                                .theme
-                                                                .palette
-                                                                .accentText))
+                                                                .appConsts.textLight,
+                                                            color: Flukit.theme
+                                                                .palette.accentText))
                                               ]));
                                         }).toList()
                                       : [

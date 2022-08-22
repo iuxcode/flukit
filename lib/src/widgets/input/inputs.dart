@@ -93,8 +93,7 @@ class FluTextField extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (style.fluPrefixIcon != null)
-              icon(style.fluPrefixIcon, onIconTap),
+            if (style.fluPrefixIcon != null) icon(style.fluPrefixIcon, onIconTap),
             Expanded(
               child: TextFormField(
                 controller: inputController,
@@ -117,14 +116,12 @@ class FluTextField extends StatelessWidget {
                 onTap: onTap,
               ),
             ),
-            if (style.fluSuffixIcon != null)
-              icon(style.fluSuffixIcon, onIconTap),
+            if (style.fluSuffixIcon != null) icon(style.fluSuffixIcon, onIconTap),
           ],
         ));
   }
 
-  Widget icon(FluIconModel? icon, void Function(FocusNode) onTap) =>
-      GestureDetector(
+  Widget icon(FluIconModel? icon, void Function(FocusNode) onTap) => GestureDetector(
         onTap: () => onTap,
         child: SizedBox(
           width: style.iconSize,
@@ -145,6 +142,7 @@ class FluTextField extends StatelessWidget {
 class FluRichTextField extends FluTextField {
   FluRichTextFieldController controller;
   final TextEditingDeltaHistoryUpdateCallback? onDeltasHistoryUpdate;
+  final bool autoInsertController;
 
   FluRichTextField({
     super.key,
@@ -159,9 +157,12 @@ class FluRichTextField extends FluTextField {
     super.onTap,
     required this.controller,
     this.onDeltasHistoryUpdate,
+    this.autoInsertController = true,
   }) {
-    controller = Get.put<FluRichTextFieldController>(controller,
-        tag: 'FluRichTextField_${math.Random().nextInt(999999)}');
+    if (autoInsertController) {
+      controller = Get.put<FluRichTextFieldController>(controller,
+          tag: 'FluRichTextField_${math.Random().nextInt(999999)}');
+    }
   }
 
   @override
@@ -273,12 +274,7 @@ class FluTextFieldStyle extends InputDecoration {
   final FluIconModel? fluSuffixIcon;
   final List<BoxShadow>? boxShadow;
   final bool expand;
-  final double? height,
-      radius,
-      borderWidth,
-      iconSize,
-      iconStrokeWidth,
-      cursorHeight;
+  final double? height, radius, borderWidth, iconSize, iconStrokeWidth, cursorHeight;
   final double cursorWidth;
   final Color? borderColor, color, hintColor, cursorColor, selectionColor;
   final EdgeInsets? margin, padding;
@@ -381,10 +377,8 @@ class FluTextFieldStyle extends InputDecoration {
       errorText: errorText ?? this.errorText,
       errorStyle: errorStyle ?? this.errorStyle,
       errorMaxLines: errorMaxLines ?? this.errorMaxLines,
-      floatingLabelBehavior:
-          floatingLabelBehavior ?? this.floatingLabelBehavior,
-      floatingLabelAlignment:
-          floatingLabelAlignment ?? this.floatingLabelAlignment,
+      floatingLabelBehavior: floatingLabelBehavior ?? this.floatingLabelBehavior,
+      floatingLabelAlignment: floatingLabelAlignment ?? this.floatingLabelAlignment,
       isCollapsed: isCollapsed ?? this.isCollapsed,
       isDense: isDense ?? this.isDense,
       contentPadding: contentPadding ?? this.contentPadding,
@@ -393,15 +387,13 @@ class FluTextFieldStyle extends InputDecoration {
       prefixText: prefixText ?? this.prefixText,
       prefixStyle: prefixStyle ?? this.prefixStyle,
       prefixIconColor: prefixIconColor ?? this.prefixIconColor,
-      prefixIconConstraints:
-          prefixIconConstraints ?? this.prefixIconConstraints,
+      prefixIconConstraints: prefixIconConstraints ?? this.prefixIconConstraints,
       suffixIcon: suffixIcon ?? this.suffixIcon,
       suffix: suffix ?? this.suffix,
       suffixText: suffixText ?? this.suffixText,
       suffixStyle: suffixStyle ?? this.suffixStyle,
       suffixIconColor: suffixIconColor ?? this.suffixIconColor,
-      suffixIconConstraints:
-          suffixIconConstraints ?? this.suffixIconConstraints,
+      suffixIconConstraints: suffixIconConstraints ?? this.suffixIconConstraints,
       counter: counter ?? this.counter,
       counterText: counterText ?? this.counterText,
       counterStyle: counterStyle ?? this.counterStyle,
