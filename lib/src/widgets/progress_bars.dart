@@ -5,7 +5,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
-
 // Progress bar widget
 // ignore: must_be_immutable
 class FluSquareProgressBar extends StatefulWidget {
@@ -15,7 +14,7 @@ class FluSquareProgressBar extends StatefulWidget {
   double? maxWidth;
   final Color solidBarColor;
   final Color emptyBarColor;
-  final double strokeWidth;
+  final double strokewidth;
   final StrokeCap barStrokeCap;
   LinearGradient? gradientBarColor;
   final bool isAnimation;
@@ -30,7 +29,7 @@ class FluSquareProgressBar extends StatefulWidget {
     this.solidBarColor = Colors.blue,
     this.emptyBarColor = Colors.grey,
     this.gradientBarColor,
-    this.strokeWidth = 3,
+    this.strokewidth = 3,
     this.barStrokeCap = StrokeCap.round,
     this.isAnimation = false,
     this.animationDuration = const Duration(seconds: 2),
@@ -89,7 +88,7 @@ class _SquareProgressBarState extends State<FluSquareProgressBar>
             solidBarColor: widget.solidBarColor,
             emptyBarColor: widget.emptyBarColor,
             gradientBarColor: widget.gradientBarColor,
-            strokeWidth: widget.strokeWidth,
+            strokewidth: widget.strokewidth,
             barStrokeCap: widget.barStrokeCap,
           ),
           child: Transform(
@@ -110,7 +109,6 @@ class _SquareProgressBarState extends State<FluSquareProgressBar>
   }
 }
 
-
 // Custom painter to draw the the prgress bar
 class _RadialPainter extends CustomPainter {
   // animation controller for controlling progress bar animation start and reset
@@ -128,7 +126,7 @@ class _RadialPainter extends CustomPainter {
   // the gradient color, if it's not null it will be used instead of solid color for main bar
   final LinearGradient? gradientBarColor;
   // for specify the main bar Width
-  final double strokeWidth;
+  final double strokewidth;
   // for specify the main bar head shape either rounded or square
   final StrokeCap barStrokeCap;
   // for enable or disable animate the progress of the main bar
@@ -140,7 +138,7 @@ class _RadialPainter extends CustomPainter {
     required this.solidBarColor,
     required this.emptyBarColor,
     required this.gradientBarColor,
-    required this.strokeWidth,
+    required this.strokewidth,
     required this.barStrokeCap,
     required this.isAnimation,
   }) : super(repaint: animationController);
@@ -148,7 +146,7 @@ class _RadialPainter extends CustomPainter {
   // specify the base line shape and color for draw the empty space bar
   Paint paintEmptyBar() {
     final Paint paintBase = Paint()
-      ..strokeWidth = strokeWidth
+      ..strokeWidth = strokewidth
       ..color = emptyBarColor
       ..style = PaintingStyle.stroke
       ..strokeCap = barStrokeCap;
@@ -178,7 +176,7 @@ class _RadialPainter extends CustomPainter {
   // specify the main line shape and color for draw the empty space bar
   Paint paintBar(Size size) {
     final Paint paint = Paint()
-      ..strokeWidth = strokeWidth
+      ..strokeWidth = strokewidth
       ..color = solidBarColor
       ..style = PaintingStyle.stroke
       ..strokeCap = barStrokeCap;

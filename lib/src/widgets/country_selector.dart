@@ -120,8 +120,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                           radius: Flukit.appConsts.minElRadius,
                                           fillColor: Flukit.theme.backgroundColor,
                                           textAlign: TextAlign.left,
-                                          fluPrefixIcon:
-                                              FluTwotoneIcons.search_searchNormal,
+                                          fluPrefixIcon: FluIcons.searchNormal,
                                           iconSize: 18,
                                           iconStrokeWidth: 2,
                                           iconColor: Flukit.theme.textColor,

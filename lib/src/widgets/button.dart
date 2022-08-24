@@ -17,11 +17,7 @@ class FluButton extends StatefulWidget {
   final Widget child;
 
   const FluButton(
-      {Key? key,
-      this.onLongPress,
-      this.onPressed,
-      this.style,
-      required this.child})
+      {Key? key, this.onLongPress, this.onPressed, this.style, required this.child})
       : super(key: key);
 
   factory FluButton.icon({
@@ -45,9 +41,12 @@ class FluButton extends StatefulWidget {
         onLongPress: onLongPress,
         style: style,
         child: FluIcon(
-            icon: icon,
-            style: FluIconStyle(size: 20, strokeWidth: 1.5, color: style.color)
-                .merge(style.iconStyle)));
+          icon: icon,
+          size: style.iconSize,
+          strokewidth: style.iconStrokewidth,
+          color: style.color,
+          style: style.iconStyle,
+        ));
   }
 
   factory FluButton.text({
@@ -64,15 +63,16 @@ class FluButton extends StatefulWidget {
       margin: EdgeInsets.zero,
       padding: EdgeInsets.zero,
     ).merge(style));
+
     Widget spacer = SizedBox(width: spacing);
     Widget _icon(FluIconModel? icon, [bool pref = false]) => icon != null
         ? FluIcon(
             icon: icon,
-            style: FluIconStyle(
-                    size: 20,
-                    strokeWidth: 1.5,
-                    color: style?.color ?? Flukit.themePalette.light)
-                .merge(style?.iconStyle))
+            size: style!.iconSize,
+            strokewidth: style.iconStrokewidth,
+            color: style.color ?? Flukit.themePalette.light,
+            style: style.iconStyle,
+          )
         : Container();
 
     return FluButton(
@@ -108,7 +108,7 @@ class FluButton extends StatefulWidget {
           Get.back();
         },
         onLongPress: onLongPress,
-        icon: FluTwotoneIcons.arrow_arrowLeft,
+        icon: FluIcons.arrowLeft,
         style: FluButtonStyle(
             color: color ?? Flukit.theme.textColor,
             backgroundColor: Flukit.theme.backgroundColor,
@@ -141,8 +141,7 @@ class _FluButtonState extends State<FluButton> {
       decoration: BoxDecoration(
         border: style.border,
         borderRadius: style.borderRadius ??
-            BorderRadius.circular(
-                style.radius ?? Flukit.appConsts.defaultElRadius),
+            BorderRadius.circular(style.radius ?? Flukit.appConsts.defaultElRadius),
         boxShadow: [if (style.boxShadow != null) style.boxShadow!],
       ),
       child: TextButton(
@@ -222,31 +221,35 @@ class FluButtonStyle {
   bool loading;
   Widget? loadingWidget;
   Alignment? alignment;
-  FluIconStyle? iconStyle;
+  FluIconStyles iconStyle;
+  final double iconSize, iconStrokewidth;
 
   /// make the button expand to the full width of the screen
   bool expand;
 
-  FluButtonStyle(
-      {this.height,
-      this.width,
-      this.minWidth,
-      this.maxWidth,
-      this.radius,
-      this.margin = EdgeInsets.zero,
-      this.padding,
-      this.boxShadow,
-      this.backgroundColor,
-      this.border,
-      this.borderRadius,
-      this.color = Colors.white,
-      this.animationDuration,
-      this.animationCurve,
-      this.loading = false,
-      this.loadingWidget,
-      this.alignment,
-      this.iconStyle,
-      this.expand = false});
+  FluButtonStyle({
+    this.height,
+    this.width,
+    this.minWidth,
+    this.maxWidth,
+    this.radius,
+    this.margin = EdgeInsets.zero,
+    this.padding,
+    this.boxShadow,
+    this.backgroundColor,
+    this.border,
+    this.borderRadius,
+    this.color = Colors.white,
+    this.animationDuration,
+    this.animationCurve,
+    this.loading = false,
+    this.loadingWidget,
+    this.alignment,
+    this.iconStyle = FluIconStyles.twotone,
+    this.expand = false,
+    this.iconSize = 22,
+    this.iconStrokewidth = 1.5,
+  });
 
   FluButtonStyle merge(FluButtonStyle? buttonStyle) => FluButtonStyle(
         height: buttonStyle?.height ?? height,
@@ -268,6 +271,8 @@ class FluButtonStyle {
         alignment: buttonStyle?.alignment ?? alignment,
         iconStyle: buttonStyle?.iconStyle ?? iconStyle,
         expand: buttonStyle?.expand ?? expand,
+        iconSize: buttonStyle?.iconSize ?? iconSize,
+        iconStrokewidth: buttonStyle?.iconStrokewidth ?? iconStrokewidth,
       );
 
   /// Defining styles

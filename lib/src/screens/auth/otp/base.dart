@@ -20,8 +20,9 @@ class FluBasicOtpScreen extends StatefulWidget {
   final FluIconModel? buttonIcon;
   final String authRoute;
   final OnAuthGoingForwardFunction onGoingForward;
-  final Future<int> Function(FluOtpScreenController controller,
-      TextEditingController inputController) onAskCode;
+  final Future<int> Function(
+          FluOtpScreenController controller, TextEditingController inputController)
+      onAskCode;
 
   const FluBasicOtpScreen(
       {Key? key,
@@ -60,7 +61,7 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
               'consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
           inputHint: widget.inputHint ?? 'Enter the OTP code.',
           buttonLabel: widget.buttonText ?? 'Verify',
-          buttonIcon: widget.buttonIcon ?? FluBulkIcons.security_scan,
+          buttonIcon: widget.buttonIcon ?? FluIcons.scan,
         )
       ];
 
@@ -117,9 +118,9 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
         headerAction: AnimatedSwitcher(
           duration: const Duration(milliseconds: 250),
           transitionBuilder: (child, animation) => SlideTransition(
-            position: Tween<Offset>(
-                    begin: const Offset(0, 1), end: const Offset(0, 0))
-                .animate(animation),
+            position:
+                Tween<Offset>(begin: const Offset(0, 1), end: const Offset(0, 0))
+                    .animate(animation),
             child: child,
           ),
           child: Obx(() => controller.canAsk
@@ -129,22 +130,19 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
                         await widget.onAskCode(controller, inputController);
                     if (waitingTime > 0) startTimer(waitingTime);
                   },
-                  suffixIcon: FluTwotoneIcons.arrow_refresh,
+                  suffixIcon: FluIcons.refresh,
                   text: widget.codeAskButtonText ?? 'Resend the code.',
-                  textStyle:
-                      TextStyle(fontWeight: Flukit.appConsts.textSemibold),
+                  textStyle: TextStyle(fontWeight: Flukit.appConsts.textSemibold),
                   spacing: 10,
                   style: FluButtonStyle(
-                      loading: controller.askLoading,
-                      height: Flukit.appConsts.minElSize,
-                      padding: EdgeInsets.zero,
-                      backgroundColor: Colors.transparent,
-                      color: Flukit.themePalette.accentText,
-                      iconStyle: FluIconStyle(
-                        size: 20,
-                        strokeWidth: 1.8,
-                      )),
-                )
+                    loading: controller.askLoading,
+                    height: Flukit.appConsts.minElSize,
+                    padding: EdgeInsets.zero,
+                    backgroundColor: Colors.transparent,
+                    color: Flukit.themePalette.accentText,
+                    iconSize: 20,
+                    iconStrokewidth: 1.8,
+                  ))
               : Row(
                   children: [
                     Text(Flukit.timeLeft(controller.waitingTime),
@@ -154,12 +152,10 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
                             fontWeight: Flukit.appConsts.textBold)),
                     const SizedBox(width: 10),
                     FluIcon(
-                      icon: FluTwotoneIcons.arrow_refresh,
-                      style: FluIconStyle(
-                        size: 20,
-                        strokeWidth: 2.5,
-                        color: Flukit.theme.primaryColor,
-                      ),
+                      icon: FluIcons.refresh,
+                      size: 20,
+                      strokewidth: 2.5,
+                      color: Flukit.theme.primaryColor,
                     )
                   ],
                 )),

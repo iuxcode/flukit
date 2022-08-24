@@ -10,13 +10,7 @@ enum FluBottomNavBarIndicatorPosition { top, bottom }
 
 enum FluBottomNavBarIndicatorStyle { normal, drop }
 
-enum NotchSmoothness {
-  sharpEdge,
-  defaultEdge,
-  softEdge,
-  smoothEdge,
-  verySmoothEdge
-}
+enum NotchSmoothness { sharpEdge, defaultEdge, softEdge, smoothEdge, verySmoothEdge }
 
 enum GapLocation { none, center, end }
 
@@ -47,8 +41,7 @@ class FluBottomNavBarItem {
   final FluIconModel? filledIcon;
   final String label;
 
-  FluBottomNavBarItem(
-      {required this.icon, required this.label, this.filledIcon});
+  FluBottomNavBarItem({required this.icon, required this.label, this.filledIcon});
 }
 
 class FluBottomNavBarStyle {
@@ -67,51 +60,53 @@ class FluBottomNavBarStyle {
   final GapLocation gapLocation;
   final FluBottomNavBarType type;
   final BorderRadius? borderRadius;
+  final FluIconStyles iconStyle;
 
-  FluBottomNavBarStyle(
-      {this.background,
-      this.color,
-      this.activeColor,
-      this.indicatorColor,
-      this.height = 85.0,
-      this.radius = 25.0,
-      this.indicatorHeight = 8,
-      this.notchMargin = 8.0,
-      this.gapWidth = 45,
-      this.margin = const EdgeInsets.symmetric(horizontal: 15),
-      this.showItemLabelOnSelected = false,
-      this.indicatorStyle = FluBottomNavBarIndicatorStyle.normal,
-      this.indicatorPosition = FluBottomNavBarIndicatorPosition.bottom,
-      this.animationDuration = const Duration(milliseconds: 350),
-      this.animationCurve = Curves.fastOutSlowIn,
-      this.notchSmoothness = NotchSmoothness.smoothEdge,
-      this.gapLocation = GapLocation.center,
-      this.floating = true,
-      this.type = FluBottomNavBarType.normal,
-      this.borderRadius});
+  FluBottomNavBarStyle({
+    this.background,
+    this.color,
+    this.activeColor,
+    this.indicatorColor,
+    this.height = 85.0,
+    this.radius = 25.0,
+    this.indicatorHeight = 8,
+    this.notchMargin = 8.0,
+    this.gapWidth = 45,
+    this.margin = const EdgeInsets.symmetric(horizontal: 15),
+    this.showItemLabelOnSelected = false,
+    this.indicatorStyle = FluBottomNavBarIndicatorStyle.normal,
+    this.indicatorPosition = FluBottomNavBarIndicatorPosition.bottom,
+    this.animationDuration = const Duration(milliseconds: 350),
+    this.animationCurve = Curves.fastOutSlowIn,
+    this.notchSmoothness = NotchSmoothness.smoothEdge,
+    this.gapLocation = GapLocation.center,
+    this.floating = true,
+    this.type = FluBottomNavBarType.normal,
+    this.borderRadius,
+    this.iconStyle = FluIconStyles.twotone,
+  });
 
-  FluBottomNavBarStyle merge(FluBottomNavBarStyle? newStyle) =>
-      FluBottomNavBarStyle(
-          height: newStyle?.height ?? height,
-          radius: newStyle?.radius ?? radius,
-          notchMargin: newStyle?.notchMargin ?? notchMargin,
-          gapWidth: newStyle?.gapWidth ?? gapWidth,
-          background: newStyle?.background ?? background,
-          color: newStyle?.color ?? color,
-          activeColor: newStyle?.activeColor ?? activeColor,
-          indicatorColor: newStyle?.indicatorColor ?? indicatorColor,
-          showItemLabelOnSelected:
-              newStyle?.showItemLabelOnSelected ?? showItemLabelOnSelected,
-          indicatorStyle: newStyle?.indicatorStyle ?? indicatorStyle,
-          indicatorPosition: newStyle?.indicatorPosition ?? indicatorPosition,
-          animationDuration: newStyle?.animationDuration ?? animationDuration,
-          animationCurve: newStyle?.animationCurve ?? animationCurve,
-          notchSmoothness: newStyle?.notchSmoothness ?? notchSmoothness,
-          gapLocation: newStyle?.gapLocation ?? gapLocation,
-          floating: newStyle?.floating ?? floating,
-          type: newStyle?.type ?? type,
-          borderRadius: newStyle?.borderRadius ?? borderRadius,
-          indicatorHeight: newStyle?.indicatorHeight ?? indicatorHeight);
+  FluBottomNavBarStyle merge(FluBottomNavBarStyle? newStyle) => FluBottomNavBarStyle(
+      height: newStyle?.height ?? height,
+      radius: newStyle?.radius ?? radius,
+      notchMargin: newStyle?.notchMargin ?? notchMargin,
+      gapWidth: newStyle?.gapWidth ?? gapWidth,
+      background: newStyle?.background ?? background,
+      color: newStyle?.color ?? color,
+      activeColor: newStyle?.activeColor ?? activeColor,
+      indicatorColor: newStyle?.indicatorColor ?? indicatorColor,
+      showItemLabelOnSelected:
+          newStyle?.showItemLabelOnSelected ?? showItemLabelOnSelected,
+      indicatorStyle: newStyle?.indicatorStyle ?? indicatorStyle,
+      indicatorPosition: newStyle?.indicatorPosition ?? indicatorPosition,
+      animationDuration: newStyle?.animationDuration ?? animationDuration,
+      animationCurve: newStyle?.animationCurve ?? animationCurve,
+      notchSmoothness: newStyle?.notchSmoothness ?? notchSmoothness,
+      gapLocation: newStyle?.gapLocation ?? gapLocation,
+      floating: newStyle?.floating ?? floating,
+      type: newStyle?.type ?? type,
+      borderRadius: newStyle?.borderRadius ?? borderRadius,
+      indicatorHeight: newStyle?.indicatorHeight ?? indicatorHeight);
 
   static FluBottomNavBarStyle defaultt = FluBottomNavBarStyle(
       background: Flukit.themePalette.dark,
@@ -150,12 +145,10 @@ class BottomNavBarState extends State<FluBottomNavBar>
   int previousIndex = 0;
   double itemWidth = 0;
 
-  FluBottomNavBarStyle get style =>
-      widget.style ?? FluBottomNavBarStyle.defaultt;
+  FluBottomNavBarStyle get style => widget.style ?? FluBottomNavBarStyle.defaultt;
 
   void getItemWidth() {
-    final RenderBox box =
-        itemKey.currentContext?.findRenderObject() as RenderBox;
+    final RenderBox box = itemKey.currentContext?.findRenderObject() as RenderBox;
     final double width = box.size.width;
     setState(() => itemWidth = width);
   }
@@ -177,13 +170,11 @@ class BottomNavBarState extends State<FluBottomNavBar>
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
             color: style.background ?? Flukit.themePalette.dark,
-            borderRadius:
-                style.borderRadius ?? BorderRadius.circular(style.radius)),
+            borderRadius: style.borderRadius ?? BorderRadius.circular(style.radius)),
         child: Stack(
-          alignment:
-              style.indicatorPosition == FluBottomNavBarIndicatorPosition.top
-                  ? Alignment.topLeft
-                  : Alignment.bottomLeft,
+          alignment: style.indicatorPosition == FluBottomNavBarIndicatorPosition.top
+              ? Alignment.topLeft
+              : Alignment.bottomLeft,
           children: [
             Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -208,11 +199,11 @@ class BottomNavBarState extends State<FluBottomNavBar>
                       },
                       data: widget.items[i],
                       color: style.color ?? Flukit.theme.textColor,
-                      activeColor:
-                          style.activeColor ?? Flukit.theme.primaryColor,
+                      activeColor: style.activeColor ?? Flukit.theme.primaryColor,
                       animationDuration: style.animationDuration,
                       animationCurve: style.animationCurve,
                       showLabel: style.showItemLabelOnSelected,
+                      iconStyle: style.iconStyle,
                     ) as Widget);
                   }
 
@@ -243,8 +234,7 @@ class BottomNavBarState extends State<FluBottomNavBar>
       decoration: BoxDecoration(
         color: style.background ?? Flukit.theme.backgroundColor,
         borderRadius:
-            (style.borderRadius ?? BorderRadius.circular(style.radius))
-                .copyWith(
+            (style.borderRadius ?? BorderRadius.circular(style.radius)).copyWith(
           bottomLeft: const Radius.circular(0),
           bottomRight: const Radius.circular(0),
         ),
@@ -275,6 +265,7 @@ class _BottomNavBarItem extends StatelessWidget {
   final bool isSelected, showLabel;
   final Duration animationDuration;
   final Curve animationCurve;
+  final FluIconStyles iconStyle;
 
   const _BottomNavBarItem({
     Key? key,
@@ -286,6 +277,7 @@ class _BottomNavBarItem extends StatelessWidget {
     required this.animationCurve,
     this.isSelected = false,
     this.showLabel = false,
+    required this.iconStyle,
   }) : super(key: key);
 
   @override
@@ -319,10 +311,10 @@ class _BottomNavBarItem extends StatelessWidget {
                     icon: isSelected && data.filledIcon != null
                         ? data.filledIcon!
                         : data.icon,
-                    style: FluIconStyle(
-                        color: isSelected ? activeColor : color,
-                        strokeWidth: 2,
-                        size: isSelected && data.filledIcon != null ? 26 : 24),
+                    color: isSelected ? activeColor : color,
+                    strokewidth: 2,
+                    size: isSelected && data.filledIcon != null ? 26 : 24,
+                    style: iconStyle,
                   ),
           ),
         ),
@@ -367,8 +359,7 @@ class _Indicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedPositioned(
         left: (selectedIndex * maxWidth) +
-            (selectedIndex > 1 &&
-                    (bottomNavBarType == FluBottomNavBarType.curved)
+            (selectedIndex > 1 && (bottomNavBarType == FluBottomNavBarType.curved)
                 ? gapWidth
                 : 0),
         duration: duration,
@@ -387,14 +378,14 @@ class _Indicator extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: color,
                         borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(position ==
-                                  FluBottomNavBarIndicatorPosition.bottom
-                              ? radius
-                              : 0),
-                          topRight: Radius.circular(position ==
-                                  FluBottomNavBarIndicatorPosition.bottom
-                              ? radius
-                              : 0),
+                          topLeft: Radius.circular(
+                              position == FluBottomNavBarIndicatorPosition.bottom
+                                  ? radius
+                                  : 0),
+                          topRight: Radius.circular(
+                              position == FluBottomNavBarIndicatorPosition.bottom
+                                  ? radius
+                                  : 0),
                           bottomLeft: Radius.circular(
                               position == FluBottomNavBarIndicatorPosition.top
                                   ? radius
@@ -430,8 +421,8 @@ class _Indicator extends StatelessWidget {
                           .animate(CurvedAnimation(
                             parent: controller,
                             // 46
-                            curve: const Interval(0.40, 1,
-                                curve: Curves.fastOutSlowIn),
+                            curve:
+                                const Interval(0.40, 1, curve: Curves.fastOutSlowIn),
                           ))
                           .value,
                       child: Container(
@@ -555,13 +546,8 @@ class _WaterPainter extends CustomPainter {
         size.width * 0.578344,
         size.height * 0.8285814,
       )
-      ..cubicTo(
-          size.width * 0.7185669,
-          size.height * 0.4786744,
-          size.width * 0.757325,
-          size.height * 0.06629070,
-          size.width * 0.999682,
-          0)
+      ..cubicTo(size.width * 0.7185669, size.height * 0.4786744,
+          size.width * 0.757325, size.height * 0.06629070, size.width * 0.999682, 0)
       ..lineTo(0, 0);
     path.close();
 

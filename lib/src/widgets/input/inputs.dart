@@ -128,11 +128,9 @@ class FluTextField extends StatelessWidget {
           child: icon != null
               ? FluIcon(
                   icon: icon,
-                  style: FluIconStyle(
-                    color: style.iconColor ?? _theme.palette.accentText,
-                    size: style.iconSize,
-                    strokeWidth: style.iconStrokeWidth,
-                  ),
+                  color: style.iconColor ?? _theme.palette.accentText,
+                  size: style.iconSize ?? 20,
+                  strokewidth: style.iconStrokeWidth ?? 1.5,
                 )
               : null,
         ),

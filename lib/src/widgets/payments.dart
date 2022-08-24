@@ -30,25 +30,24 @@ class FluPaymentMethodSelector extends StatelessWidget {
     required this.onSelected,
   }) : super(key: key);
 
-  Map<FluPaymentMethods, FluPaymentMethodInfoModel> get _paymentMethodsInfos =>
-      {
+  Map<FluPaymentMethods, FluPaymentMethodInfoModel> get _paymentMethodsInfos => {
         FluPaymentMethods.tmoneyOrmoovMoney: FluPaymentMethodInfoModel(
           title: 'TMoney or Moov',
           description:
               'TMoney is a payment service that allows you to pay for goods and services with your mobile phone.',
-          icon: FluTwotoneIcons.arrow_arrowSwapHorizontal,
+          icon: FluIcons.arrowSwapHorizontal,
         ),
         FluPaymentMethods.card: FluPaymentMethodInfoModel(
           title: 'Card',
           description:
               'Card is a payment service that allows you to pay for goods and services with your mobile phone.',
-          icon: FluTwotoneIcons.money_cards,
+          icon: FluIcons.cards,
         ),
         FluPaymentMethods.bank: FluPaymentMethodInfoModel(
             title: 'Bank Transfer',
             description:
                 'Bank is a payment service that allows you to pay for goods and services with your mobile phone.',
-            icon: FluTwotoneIcons.building_bank),
+            icon: FluIcons.bank),
       };
 
   @override
@@ -75,11 +74,9 @@ class FluPaymentMethodSelector extends StatelessWidget {
       suffixWidget: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: FluIcon(
-          icon: FluTwotoneIcons.arrow_arrowRight1,
-          style: FluIconStyle(
-            color: Flukit.theme.textColor,
-            size: 15,
-          ),
+          icon: FluIcons.arrowRight1,
+          color: Flukit.theme.textColor,
+          size: 15,
         ),
       ),
       options: (paymentMethods ?? _defaultPaymentMethods).map((e) {

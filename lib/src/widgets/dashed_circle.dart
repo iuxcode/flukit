@@ -10,26 +10,23 @@ class FluDashedCircle extends StatelessWidget {
   final int dashes;
   final Color color;
   final double gapSize;
-  final double strokeWidth;
+  final double strokewidth;
   final Widget? child;
 
-  const FluDashedCircle({
-    Key? key, this.child,
-    this.dashes = _defaultDashes,
-    this.color = _defaultColor,
-    this.gapSize = _defaultGapSize,
-    this.strokeWidth = _defaultStrokeWidth
-  }) : super(key: key);
+  const FluDashedCircle(
+      {Key? key,
+      this.child,
+      this.dashes = _defaultDashes,
+      this.color = _defaultColor,
+      this.gapSize = _defaultGapSize,
+      this.strokewidth = _defaultStrokeWidth})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
       painter: FluDashedCirclePainter(
-        dashes: dashes,
-        color: color,
-        gapSize: gapSize,
-        strokeWidth: strokeWidth
-      ),
+          dashes: dashes, color: color, gapSize: gapSize, strokewidth: strokewidth),
       child: child,
     );
   }
@@ -39,9 +36,13 @@ class FluDashedCirclePainter extends CustomPainter {
   final int dashes;
   final Color color;
   final double gapSize;
-  final double strokeWidth;
+  final double strokewidth;
 
-  FluDashedCirclePainter({this.dashes = _defaultDashes, this.color = _defaultColor, this.gapSize = _defaultGapSize, this.strokeWidth = _defaultStrokeWidth});
+  FluDashedCirclePainter(
+      {this.dashes = _defaultDashes,
+      this.color = _defaultColor,
+      this.gapSize = _defaultGapSize,
+      this.strokewidth = _defaultStrokeWidth});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -54,7 +55,8 @@ class FluDashedCirclePainter extends CustomPainter {
         ..strokeWidth = _defaultStrokeWidth
         ..style = PaintingStyle.stroke;
 
-      canvas.drawArc(Offset.zero & size, gap + singleAngle * i, singleAngle - gap * 2, false, paint);
+      canvas.drawArc(Offset.zero & size, gap + singleAngle * i,
+          singleAngle - gap * 2, false, paint);
     }
   }
 

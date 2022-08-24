@@ -49,8 +49,7 @@ class FluOnboardingBuilderParameters {
 
 class FluOnboardingScreen extends StatefulWidget {
   final FluOnboardingScreenParameters parameters;
-  final Widget Function(FluOnboardingBuilderParameters builderParameters)?
-      builder;
+  final Widget Function(FluOnboardingBuilderParameters builderParameters)? builder;
 
   FluOnboardingScreen({required this.parameters, this.builder})
       : super(key: parameters.key);
@@ -162,8 +161,7 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
                       duration: widget.parameters.animationDuration,
                       transitionBuilder: (child, animation) => SlideTransition(
                         position: Tween<Offset>(
-                                begin: const Offset(1, 0),
-                                end: const Offset(0, 0))
+                                begin: const Offset(1, 0), end: const Offset(0, 0))
                             .animate(animation),
                         child: child,
                       ),
@@ -177,8 +175,7 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
                                         ? widget.parameters.skipButtonText
                                         : widget.parameters.prevButtonText,
                                     textStyle: TextStyle(
-                                        fontWeight:
-                                            Flukit.appConsts.textSemibold),
+                                        fontWeight: Flukit.appConsts.textSemibold),
                                     style: FluButtonStyle(
                                       height: Flukit.appConsts.defaultElSize,
                                       color: Flukit.themePalette.accentText,
@@ -194,8 +191,7 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
                                         ? widget.parameters.mainButtonText
                                         : widget.parameters.nextButtonText,
                                     textStyle: TextStyle(
-                                        fontWeight:
-                                            Flukit.appConsts.textSemibold),
+                                        fontWeight: Flukit.appConsts.textSemibold),
                                     style: FluButtonStyle(
                                       height: Flukit.appConsts.defaultElSize,
                                       color: Flukit.themePalette.accentText,
@@ -208,21 +204,18 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
                                 onPressed: () => onForward(context),
                                 text: widget.parameters.mainButtonText,
                                 prefixIcon: widget.parameters.mainButtonIcon ??
-                                    FluBulkIcons.essentional_flash,
-                                textStyle: TextStyle(
-                                    fontWeight: Flukit.appConsts.textBold),
+                                    FluIcons.flash,
+                                textStyle:
+                                    TextStyle(fontWeight: Flukit.appConsts.textBold),
                                 style: FluButtonStyle(
                                   height: Flukit.appConsts.defaultElSize,
                                   width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 12),
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 12),
                                   color: Flukit.themePalette.primaryText,
-                                  backgroundColor:
-                                      Flukit.themeData.primaryColor,
-                                  iconStyle: FluIconStyle(
-                                    size: 24,
-                                    strokeWidth: 1.8,
-                                  ),
+                                  backgroundColor: Flukit.themeData.primaryColor,
+                                  iconSize: 24,
+                                  iconStrokewidth: 1.8,
                                   // alignment: Alignment.centerLeft
                                 ),
                               ),
@@ -319,11 +312,11 @@ class FluOnboardingScreenTexts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: EdgeInsets.symmetric(
-                horizontal: Flukit.appConsts.defaultPaddingSize)
-            .copyWith(
-                bottom: marginBottom ?? Flukit.screenSize.height * .075,
-                top: 15),
+        padding:
+            EdgeInsets.symmetric(horizontal: Flukit.appConsts.defaultPaddingSize)
+                .copyWith(
+                    bottom: marginBottom ?? Flukit.screenSize.height * .075,
+                    top: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -338,8 +331,7 @@ class FluOnboardingScreenTexts extends StatelessWidget {
             Hero(
                 tag: Flukit.appConsts.descriptionTextHeroTag,
                 child: Text(desc,
-                    textAlign: TextAlign.center,
-                    style: Flukit.textTheme.bodyText1)),
+                    textAlign: TextAlign.center, style: Flukit.textTheme.bodyText1)),
           ],
         ),
       );

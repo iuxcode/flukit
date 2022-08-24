@@ -13,7 +13,7 @@ class FluAvatar extends StatelessWidget {
   final bool memojiAsDefault;
   final bool useCache;
   final bool outlined;
-  final double? strokeWidth, spacing;
+  final double? strokewidth, spacing;
   final Color? strokeColor, backgroundColor;
   final Gradient? backgroundGradient;
   final BoxShadow? boxShadow;
@@ -37,7 +37,7 @@ class FluAvatar extends StatelessWidget {
     this.radius = 18,
     this.borderRadius,
     this.boxShadow,
-    this.strokeWidth,
+    this.strokewidth,
     this.backgroundColor,
     this.backgroundGradient,
     this.strokeColor,
@@ -135,7 +135,7 @@ class FluAvatar extends StatelessWidget {
         ? FluOutline(
             radius: radius + 2,
             spacing: spacing,
-            thickness: strokeWidth,
+            thickness: strokewidth,
             borderRadius: borderRadius,
             color: strokeColor,
             boxShadow: boxShadow,
