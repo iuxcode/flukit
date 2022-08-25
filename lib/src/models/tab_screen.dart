@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 class FluTabScreenPage {
   String name;
   Widget content;
-  FluIconModel icon;
-  FluIconModel? filledIcon;
+  FluIconData icon;
+  FluIconData? filledIcon;
 
   FluTabScreenPage({
     required this.name,

@@ -17,7 +17,7 @@ class FluBasicOtpScreen extends StatefulWidget {
       codeAskButtonText,
       inputHint,
       inputErrorText;
-  final FluIconModel? buttonIcon;
+  final FluIconData? buttonIcon;
   final String authRoute;
   final OnAuthGoingForwardFunction onGoingForward;
   final Future<int> Function(

@@ -15,7 +15,7 @@ class FluOnboardingScreenParameters {
   final Duration animationDuration;
   final Curve animationCurve;
   final String mainButtonText, prevButtonText, nextButtonText, skipButtonText;
-  final FluIconModel? mainButtonIcon;
+  final FluIconData? mainButtonIcon;
   final VoidCallback onLeaving;
 
   const FluOnboardingScreenParameters({

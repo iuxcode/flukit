@@ -6,7 +6,7 @@ class FluOnboardingScreenPage {
   final FluImageSource? imageType;
   final String title, desc;
   final String? buttonText;
-  final FluIconModel? buttonIcon;
+  final FluIconData? buttonIcon;
 
   FluOnboardingScreenPage({
     this.imageType,

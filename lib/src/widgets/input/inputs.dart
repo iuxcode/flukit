@@ -121,7 +121,7 @@ class FluTextField extends StatelessWidget {
         ));
   }
 
-  Widget icon(FluIconModel? icon, void Function(FocusNode) onTap) => GestureDetector(
+  Widget icon(FluIconData? icon, void Function(FocusNode) onTap) => GestureDetector(
         onTap: () => onTap,
         child: SizedBox(
           width: style.iconSize,
@@ -268,8 +268,8 @@ class FluTextFieldStyle extends InputDecoration {
     this.maxLines,
   });
 
-  final FluIconModel? fluPrefixIcon;
-  final FluIconModel? fluSuffixIcon;
+  final FluIconData? fluPrefixIcon;
+  final FluIconData? fluSuffixIcon;
   final List<BoxShadow>? boxShadow;
   final bool expand;
   final double? height, radius, borderWidth, iconSize, iconStrokeWidth, cursorHeight;
@@ -334,8 +334,8 @@ class FluTextFieldStyle extends InputDecoration {
     String? semanticCounterText,
     bool? alignLabelWithHint,
     BoxConstraints? constraints,
-    FluIconModel? fluPrefixIcon,
-    FluIconModel? fluSuffixIcon,
+    FluIconData? fluPrefixIcon,
+    FluIconData? fluSuffixIcon,
     List<BoxShadow>? boxShadow,
     bool? expand,
     double? height,

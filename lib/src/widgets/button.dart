@@ -21,7 +21,7 @@ class FluButton extends StatefulWidget {
       : super(key: key);
 
   factory FluButton.icon({
-    required FluIconModel icon,
+    required FluIconData icon,
     void Function()? onPressed,
     void Function()? onLongPress,
     FluButtonStyle? style,
@@ -51,8 +51,8 @@ class FluButton extends StatefulWidget {
 
   factory FluButton.text({
     required String text,
-    final FluIconModel? prefixIcon,
-    final FluIconModel? suffixIcon,
+    final FluIconData? prefixIcon,
+    final FluIconData? suffixIcon,
     void Function()? onPressed,
     void Function()? onLongPress,
     FluButtonStyle? style,
@@ -65,7 +65,7 @@ class FluButton extends StatefulWidget {
     ).merge(style));
 
     Widget spacer = SizedBox(width: spacing);
-    Widget _icon(FluIconModel? icon, [bool pref = false]) => icon != null
+    Widget _icon(FluIconData? icon, [bool pref = false]) => icon != null
         ? FluIcon(
             icon: icon,
             size: style!.iconSize,

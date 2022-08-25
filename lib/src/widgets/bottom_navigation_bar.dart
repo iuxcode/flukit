@@ -37,8 +37,8 @@ extension on NotchSmoothness? {
 }
 
 class FluBottomNavBarItem {
-  final FluIconModel icon;
-  final FluIconModel? filledIcon;
+  final FluIconData icon;
+  final FluIconData? filledIcon;
   final String label;
 
   FluBottomNavBarItem({required this.icon, required this.label, this.filledIcon});
