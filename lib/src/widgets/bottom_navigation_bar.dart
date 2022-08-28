@@ -37,8 +37,8 @@ extension on NotchSmoothness? {
 }
 
 class FluBottomNavBarItem {
-  final FluIconData icon;
-  final FluIconData? filledIcon;
+  final FluIcons icon;
+  final FluIcons? filledIcon;
   final String label;
 
   FluBottomNavBarItem({required this.icon, required this.label, this.filledIcon});
@@ -308,7 +308,7 @@ class _BottomNavBarItem extends StatelessWidget {
                         color: Flukit.theme.primaryColor),
                   )
                 : FluIcon(
-                    icon: isSelected && data.filledIcon != null
+                    isSelected && data.filledIcon != null
                         ? data.filledIcon!
                         : data.icon,
                     color: isSelected ? activeColor : color,

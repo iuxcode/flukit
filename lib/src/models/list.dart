@@ -6,7 +6,7 @@ class FluOption {
   final String title;
   final String? description, image;
   final FluImageSource? imageType;
-  final FluIconData? icon;
+  final FluIcons? icon;
   final Widget? suffixWidget;
   final void Function()? onPressed;
   final Color? color, backgroundColor, iconBackgroundColor, outlineColor;

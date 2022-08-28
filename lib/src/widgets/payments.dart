@@ -74,7 +74,7 @@ class FluPaymentMethodSelector extends StatelessWidget {
       suffixWidget: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: FluIcon(
-          icon: FluIcons.arrowRight1,
+          FluIcons.arrowRight1,
           color: Flukit.theme.textColor,
           size: 15,
         ),

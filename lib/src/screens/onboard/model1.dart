@@ -45,7 +45,7 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                                   .45;
 
                           Widget icon = FluIcon(
-                            icon: page.buttonIcon ??
+                            page.buttonIcon ??
                                 parameters.mainButtonIcon ??
                                 FluIcons.flash,
                             color: Flukit.themePalette.light,
@@ -101,7 +101,7 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                                                         CrossAxisAlignment.center,
                                                     children: [
                                                       FluIcon(
-                                                        icon: page.buttonIcon ??
+                                                        page.buttonIcon ??
                                                             parameters
                                                                 .mainButtonIcon ??
                                                             FluIcons.flash,

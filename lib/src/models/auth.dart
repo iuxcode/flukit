@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class FluAuthScreenStep {
   final FluImageSource? imageType;
   final String image, title, desc, buttonLabel;
-  final FluIconData? buttonIcon;
+  final FluIcons? buttonIcon;
 
   FluAuthScreenStep(
       {required this.title,
@@ -33,7 +33,7 @@ class FluAuthScreenInputStep extends FluAuthScreenStep {
     required String image,
     required this.inputHint,
     FluImageSource? imageType,
-    FluIconData? buttonIcon,
+    FluIcons? buttonIcon,
     this.inputValidator,
     this.onInputValueChanged,
     this.onError,
@@ -60,7 +60,7 @@ class FluAuthScreenCustomStep extends FluAuthScreenStep {
       required String desc,
       required String buttonLabel,
       required String image,
-      FluIconData? buttonIcon})
+      FluIcons? buttonIcon})
       : super(
           title: title,
           desc: desc,

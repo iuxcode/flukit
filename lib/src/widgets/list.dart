@@ -68,7 +68,7 @@ class FluOptionsList extends StatelessWidget {
         Color backgroundColor =
             option.backgroundColor ?? Flukit.theme.backgroundColor;
 
-        Widget iconWidget(FluIconData? icon, String? label) => Container(
+        Widget iconWidget(FluIcons? icon, String? label) => Container(
               height: size,
               width: size,
               margin: EdgeInsets.only(right: itemIconMarginSize),
@@ -80,7 +80,7 @@ class FluOptionsList extends StatelessWidget {
                   boxShadow: [if (iconBoxShadow != null) iconBoxShadow!]),
               child: icon != null
                   ? FluIcon(
-                      icon: icon,
+                      icon,
                       color: option.color ?? iconColor ?? color,
                       size: iconSize ?? 24,
                       strokewidth: iconStrokewidth ?? 1.5,

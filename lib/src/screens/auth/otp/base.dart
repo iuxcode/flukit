@@ -17,7 +17,7 @@ class FluBasicOtpScreen extends StatefulWidget {
       codeAskButtonText,
       inputHint,
       inputErrorText;
-  final FluIconData? buttonIcon;
+  final FluIcons? buttonIcon;
   final String authRoute;
   final OnAuthGoingForwardFunction onGoingForward;
   final Future<int> Function(
@@ -152,7 +152,7 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
                             fontWeight: Flukit.appConsts.textBold)),
                     const SizedBox(width: 10),
                     FluIcon(
-                      icon: FluIcons.refresh,
+                      FluIcons.refresh,
                       size: 20,
                       strokewidth: 2.5,
                       color: Flukit.theme.primaryColor,

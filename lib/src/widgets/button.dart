@@ -21,7 +21,7 @@ class FluButton extends StatefulWidget {
       : super(key: key);
 
   factory FluButton.icon({
-    required FluIconData icon,
+    required FluIcons icon,
     void Function()? onPressed,
     void Function()? onLongPress,
     FluButtonStyle? style,
@@ -41,7 +41,7 @@ class FluButton extends StatefulWidget {
         onLongPress: onLongPress,
         style: style,
         child: FluIcon(
-          icon: icon,
+          icon,
           size: style.iconSize,
           strokewidth: style.iconStrokewidth,
           color: style.color,
@@ -51,8 +51,8 @@ class FluButton extends StatefulWidget {
 
   factory FluButton.text({
     required String text,
-    final FluIconData? prefixIcon,
-    final FluIconData? suffixIcon,
+    final FluIcons? prefixIcon,
+    final FluIcons? suffixIcon,
     void Function()? onPressed,
     void Function()? onLongPress,
     FluButtonStyle? style,
@@ -65,9 +65,9 @@ class FluButton extends StatefulWidget {
     ).merge(style));
 
     Widget spacer = SizedBox(width: spacing);
-    Widget _icon(FluIconData? icon, [bool pref = false]) => icon != null
+    Widget _icon(FluIcons? icon, [bool pref = false]) => icon != null
         ? FluIcon(
-            icon: icon,
+            icon,
             size: style!.iconSize,
             strokewidth: style.iconStrokewidth,
             color: style.color ?? Flukit.themePalette.light,
