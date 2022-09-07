@@ -354,5 +354,5 @@ class FluOnboardingScreenIndicators extends StatelessWidget {
           activeDotColor: Flukit.theme.data.primaryColor,
           dotHeight: 4,
           dotWidth: 4,
-          expansionFactor: 8));
+          expansionFactor: 6));
 }

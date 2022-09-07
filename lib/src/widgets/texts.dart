@@ -121,7 +121,7 @@ class FluText extends StatelessWidget {
           .map((e) => TextSpan(
                 text: e.text,
                 recognizer: e.recognizer,
-                style: _style.merge(e.style).merge(customStyle),
+                style: _style.merge(customStyle).merge(e.style),
               ))
           .toList();
     } else {

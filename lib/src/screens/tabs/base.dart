@@ -2,7 +2,7 @@ import 'package:flukit/src/controllers/tab_screen_controller.dart';
 import 'package:flukit/src/models/tab_screen.dart';
 import 'package:flukit/src/screens/base.dart';
 import 'package:flukit/src/utils/flu_utils.dart';
-import 'package:flukit/src/widgets/bottom_navigation_bar.dart';
+import 'package:flukit/src/widgets/bottom_nav_bar/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -41,8 +41,7 @@ class FluTabScreen extends StatefulWidget {
       this.systemUiOverlayStyle,
       this.floatingActionButton,
       this.backgroundColor,
-      this.floatingActionButtonLocation =
-          FloatingActionButtonLocation.centerDocked})
+      this.floatingActionButtonLocation = FloatingActionButtonLocation.centerDocked})
       : super(key: key);
 
   @override
@@ -114,7 +113,7 @@ class _FluTabScreenState extends State<FluTabScreen> {
             items: pages
                 .map((page) => FluBottomNavBarItem(
                       icon: page.icon,
-                      filledIcon: page.filledIcon,
+                      activeIcon: page.filledIcon,
                       label: page.name,
                     ))
                 .toList())));
