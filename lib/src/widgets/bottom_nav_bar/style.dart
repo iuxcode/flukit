@@ -19,6 +19,8 @@ class FluBottomNavBarStyle {
   final FluBottomNavBarType type;
   final BorderRadius? borderRadius;
   final FluIconStyles iconStyle;
+  final FluIconStyles? activeIconStyle;
+  final double iconSize;
 
   FluBottomNavBarStyle({
     this.background,
@@ -42,29 +44,35 @@ class FluBottomNavBarStyle {
     this.type = FluBottomNavBarType.normal,
     this.borderRadius,
     this.iconStyle = FluIconStyles.twotone,
+    this.activeIconStyle,
+    this.iconSize = 24,
   });
 
   FluBottomNavBarStyle merge(FluBottomNavBarStyle? newStyle) => FluBottomNavBarStyle(
-      height: newStyle?.height ?? height,
-      radius: newStyle?.radius ?? radius,
-      notchMargin: newStyle?.notchMargin ?? notchMargin,
-      gapWidth: newStyle?.gapWidth ?? gapWidth,
-      background: newStyle?.background ?? background,
-      color: newStyle?.color ?? color,
-      activeColor: newStyle?.activeColor ?? activeColor,
-      indicatorColor: newStyle?.indicatorColor ?? indicatorColor,
-      showItemLabelOnSelected:
-          newStyle?.showItemLabelOnSelected ?? showItemLabelOnSelected,
-      indicatorStyle: newStyle?.indicatorStyle ?? indicatorStyle,
-      indicatorPosition: newStyle?.indicatorPosition ?? indicatorPosition,
-      animationDuration: newStyle?.animationDuration ?? animationDuration,
-      animationCurve: newStyle?.animationCurve ?? animationCurve,
-      notchSmoothness: newStyle?.notchSmoothness ?? notchSmoothness,
-      gapLocation: newStyle?.gapLocation ?? gapLocation,
-      floating: newStyle?.floating ?? floating,
-      type: newStyle?.type ?? type,
-      borderRadius: newStyle?.borderRadius ?? borderRadius,
-      indicatorHeight: newStyle?.indicatorHeight ?? indicatorHeight);
+        height: newStyle?.height ?? height,
+        radius: newStyle?.radius ?? radius,
+        notchMargin: newStyle?.notchMargin ?? notchMargin,
+        gapWidth: newStyle?.gapWidth ?? gapWidth,
+        background: newStyle?.background ?? background,
+        color: newStyle?.color ?? color,
+        activeColor: newStyle?.activeColor ?? activeColor,
+        indicatorColor: newStyle?.indicatorColor ?? indicatorColor,
+        showItemLabelOnSelected:
+            newStyle?.showItemLabelOnSelected ?? showItemLabelOnSelected,
+        indicatorStyle: newStyle?.indicatorStyle ?? indicatorStyle,
+        indicatorPosition: newStyle?.indicatorPosition ?? indicatorPosition,
+        animationDuration: newStyle?.animationDuration ?? animationDuration,
+        animationCurve: newStyle?.animationCurve ?? animationCurve,
+        notchSmoothness: newStyle?.notchSmoothness ?? notchSmoothness,
+        gapLocation: newStyle?.gapLocation ?? gapLocation,
+        floating: newStyle?.floating ?? floating,
+        type: newStyle?.type ?? type,
+        borderRadius: newStyle?.borderRadius ?? borderRadius,
+        indicatorHeight: newStyle?.indicatorHeight ?? indicatorHeight,
+        iconStyle: newStyle?.iconStyle ?? iconStyle,
+        activeIconStyle: newStyle?.activeIconStyle ?? activeIconStyle,
+        iconSize: newStyle?.iconSize ?? iconSize,
+      );
 
   static FluBottomNavBarStyle defaultt = FluBottomNavBarStyle(
     background: Flukit.themePalette.dark,

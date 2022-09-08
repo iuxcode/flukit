@@ -92,6 +92,8 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
                   animationCurve: style.animationCurve,
                   showLabel: style.showItemLabelOnSelected,
                   iconStyle: style.iconStyle,
+                  activeIconStyle: style.activeIconStyle,
+                  iconSize: style.iconSize,
                 ) as Widget);
               }
 
@@ -157,6 +159,8 @@ class _Item extends StatelessWidget {
   final Duration animationDuration;
   final Curve animationCurve;
   final FluIconStyles iconStyle;
+  final FluIconStyles? activeIconStyle;
+  final double iconSize;
 
   const _Item({
     Key? key,
@@ -169,6 +173,8 @@ class _Item extends StatelessWidget {
     this.isSelected = false,
     this.showLabel = false,
     required this.iconStyle,
+    required this.iconSize,
+    this.activeIconStyle,
   }) : super(key: key);
 
   @override
@@ -203,8 +209,11 @@ class _Item extends StatelessWidget {
                           : data.icon,
                       color: isSelected ? activeColor : color,
                       strokewidth: 2,
-                      size: isSelected && data.activeIcon != null ? 26 : 24,
-                      style: iconStyle,
+                      size:
+                          iconSize, // isSelected && data.activeIcon != null ? 26 : 24
+                      style: isSelected && activeIconStyle != null
+                          ? activeIconStyle!
+                          : iconStyle,
                     ),
             ),
           ),

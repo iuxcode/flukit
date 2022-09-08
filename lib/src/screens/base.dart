@@ -8,21 +8,26 @@ class FluScreen extends StatelessWidget {
   final SystemUiOverlayStyle? systemUiOverlayStyle;
   final bool extendBody;
   final Widget? floatingActionButton, bottomNavigationBar;
-  final Color? backgroundColor;
+  final Color? backgroundColor, drawerScrimColor;
   final FloatingActionButtonLocation floatingActionButtonLocation;
+  final Widget? drawer, endDrawer;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
 
-  const FluScreen(
-      {Key? key,
-      required this.body,
-      this.appBar,
-      this.systemUiOverlayStyle,
-      this.bottomNavigationBar,
-      this.floatingActionButton,
-      this.extendBody = false,
-      this.backgroundColor,
-      this.floatingActionButtonLocation =
-          FloatingActionButtonLocation.centerDocked})
-      : super(key: key);
+  const FluScreen({
+    Key? key,
+    required this.body,
+    this.appBar,
+    this.systemUiOverlayStyle,
+    this.bottomNavigationBar,
+    this.floatingActionButton,
+    this.extendBody = false,
+    this.backgroundColor,
+    this.floatingActionButtonLocation = FloatingActionButtonLocation.centerDocked,
+    this.drawer,
+    this.endDrawer,
+    this.scaffoldKey,
+    this.drawerScrimColor,
+  }) : super(key: key);
 
   SystemUiOverlayStyle get defaultSystemStyle => Flukit.systemOverlayStyle;
 
@@ -32,8 +37,7 @@ class FluScreen extends StatelessWidget {
         statusBarColor: systemUiOverlayStyle?.statusBarColor,
         statusBarIconBrightness: systemUiOverlayStyle?.statusBarIconBrightness,
         statusBarBrightness: systemUiOverlayStyle?.statusBarBrightness,
-        systemNavigationBarColor:
-            systemUiOverlayStyle?.systemNavigationBarColor,
+        systemNavigationBarColor: systemUiOverlayStyle?.systemNavigationBarColor,
         systemNavigationBarDividerColor:
             systemUiOverlayStyle?.systemNavigationBarDividerColor,
         systemNavigationBarIconBrightness:
@@ -44,6 +48,7 @@ class FluScreen extends StatelessWidget {
             systemUiOverlayStyle?.systemNavigationBarContrastEnforced,
       ),
       child: Scaffold(
+        key: scaffoldKey,
         backgroundColor: backgroundColor ?? Flukit.theme.backgroundColor,
         extendBody: extendBody,
         appBar: appBar,
@@ -51,5 +56,8 @@ class FluScreen extends StatelessWidget {
         bottomNavigationBar: bottomNavigationBar,
         floatingActionButtonLocation: floatingActionButtonLocation,
         floatingActionButton: floatingActionButton,
+        drawer: drawer,
+        endDrawer: endDrawer,
+        drawerScrimColor: drawerScrimColor,
       ));
 }

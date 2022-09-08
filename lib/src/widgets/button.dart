@@ -101,6 +101,7 @@ class FluButton extends StatefulWidget {
     VoidCallback? onLongPress,
     Color? color,
     BoxShadow? boxShadow,
+    FluIcons? icon,
   }) =>
       FluButton.icon(
         onPressed: () {
@@ -108,14 +109,15 @@ class FluButton extends StatefulWidget {
           Get.back();
         },
         onLongPress: onLongPress,
-        icon: FluIcons.arrowLeft,
+        icon: icon ?? FluIcons.arrowLeft,
         style: FluButtonStyle(
-            color: color ?? Flukit.theme.textColor,
-            backgroundColor: Flukit.theme.backgroundColor,
-            boxShadow: boxShadow ??
-                Flukit.boxShadow(
-                  offset: const Offset(15, 15),
-                )),
+          color: color ?? Flukit.theme.textColor,
+          backgroundColor: Flukit.theme.backgroundColor,
+          boxShadow: boxShadow ??
+              Flukit.boxShadow(
+                offset: const Offset(15, 15),
+              ),
+        ),
       );
 
   @override
