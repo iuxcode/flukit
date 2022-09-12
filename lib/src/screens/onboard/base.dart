@@ -18,7 +18,10 @@ class FluOnboardingScreenParameters {
   final FluIcons? mainButtonIcon;
   final VoidCallback onLeaving;
 
-  const FluOnboardingScreenParameters({
+  late PageController _pageController;
+  late FluOnboardingScreenController _controller;
+
+  FluOnboardingScreenParameters({
     this.key,
     required this.pages,
     required this.onLeaving,
@@ -29,27 +32,47 @@ class FluOnboardingScreenParameters {
     this.nextButtonText = 'Next',
     this.skipButtonText = 'Skip',
     this.mainButtonIcon,
-  });
-}
+    FluOnboardingScreenController? controller,
+    PageController? pageController,
+  }) {
+    _controller = controller ??
+        Get.put(
+          FluOnboardingScreenController(),
+          tag: 'FluOnboardingScreenController#${math.Random().nextInt(99999)}',
+        );
+    _pageController = pageController ?? PageController();
+  }
 
-class FluOnboardingBuilderParameters {
-  final FluOnboardingScreenController controller;
-  final FluOnboardingScreenParameters screenParameters;
-  final PageController pageController;
-  final VoidCallback onForward, onBack, onSkip;
+  FluOnboardingScreenController get controller => _controller;
+  PageController get pageController => _pageController;
 
-  FluOnboardingBuilderParameters(
-      {required this.controller,
-      required this.screenParameters,
-      required this.pageController,
-      required this.onForward,
-      required this.onBack,
-      required this.onSkip});
+  void onBack() {
+    if (!controller.onFirstPage) {
+      pageController.previousPage(
+        duration: animationDuration,
+        curve: animationCurve,
+      );
+    } else {
+      pageController.jumpToPage(pages.length - 1);
+    }
+  }
+
+  void onForward() async {
+    if (!controller.onLastPage) {
+      pageController.nextPage(duration: animationDuration, curve: animationCurve);
+    } else {
+      onLeaving();
+    }
+  }
+
+  void onSkip() {
+    // widget.parameters.onLeaving();
+  }
 }
 
 class FluOnboardingScreen extends StatefulWidget {
   final FluOnboardingScreenParameters parameters;
-  final Widget Function(FluOnboardingBuilderParameters builderParameters)? builder;
+  final Widget Function()? builder;
 
   FluOnboardingScreen({required this.parameters, this.builder})
       : super(key: parameters.key);
@@ -59,50 +82,24 @@ class FluOnboardingScreen extends StatefulWidget {
 }
 
 class OnboardingScreenState extends State<FluOnboardingScreen> {
-  final FluOnboardingScreenController controller = Get.put(
-      FluOnboardingScreenController(),
-      tag: 'FluOnboardingScreenController#${math.Random().nextInt(99999)}');
-  final PageController pageController = PageController();
   // bool onFirstPage = false, onLastPage = false;
-
-  void onInit() async {
-    await Flukit.appController
-        .setFirstTimeOpeningState(false)
-        .onError((error, stackTrace) => throw {
-              "Error while setting firstTimeOpening parameter in secure storage.",
-              error,
-              stackTrace
-            });
-  }
-
-  void onBack(BuildContext context) {
-    if (!controller.onFirstPage) {
-      pageController.previousPage(
-          duration: widget.parameters.animationDuration,
-          curve: widget.parameters.animationCurve);
-    } else {
-      pageController.jumpToPage(widget.parameters.pages.length -
-          1); //, duration: animationDuration, curve: animationCurve
-    }
-  }
-
-  void onForward(BuildContext context) async {
-    if (!controller.onLastPage) {
-      pageController.nextPage(
-          duration: widget.parameters.animationDuration,
-          curve: widget.parameters.animationCurve);
-    } else {
-      widget.parameters.onLeaving();
-    }
-  }
-
-  void onSkip(BuildContext context) {
-    // widget.parameters.onLeaving();
-  }
+  late FluOnboardingScreenController controller;
+  late PageController pageController;
 
   @override
   void initState() {
-    onInit();
+    controller = widget.parameters.controller;
+    pageController = widget.parameters.pageController;
+
+    () async {
+      await Flukit.appController
+          .setFirstTimeOpeningState(false)
+          .onError((error, stackTrace) => throw {
+                "Error while setting firstTimeOpening parameter in secure storage.",
+                error,
+                stackTrace
+              });
+    }();
     super.initState();
   }
 
@@ -117,14 +114,7 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
           controller.onLastPage =
               controller.currentIndex == widget.parameters.pages.length - 1;
 
-          return widget.builder?.call(FluOnboardingBuilderParameters(
-                controller: controller,
-                screenParameters: widget.parameters,
-                pageController: pageController,
-                onForward: () => onForward(context),
-                onBack: () => onBack(context),
-                onSkip: () => onSkip(context),
-              )) ??
+          return widget.builder?.call() ??
               Column(
                 children: [
                   Expanded(
@@ -170,7 +160,7 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                   FluButton.text(
-                                    onPressed: () => onBack(context),
+                                    onPressed: widget.parameters.onBack,
                                     text: controller.onFirstPage
                                         ? widget.parameters.skipButtonText
                                         : widget.parameters.prevButtonText,
@@ -186,7 +176,7 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
                                     controller: pageController,
                                   ),
                                   FluButton.text(
-                                    onPressed: () => onForward(context),
+                                    onPressed: widget.parameters.onForward,
                                     text: controller.onLastPage
                                         ? widget.parameters.mainButtonText
                                         : widget.parameters.nextButtonText,
@@ -201,7 +191,7 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
                           : Hero(
                               tag: Flukit.appConsts.mainButtonHeroTag,
                               child: FluButton.text(
-                                onPressed: () => onForward(context),
+                                onPressed: widget.parameters.onForward,
                                 text: widget.parameters.mainButtonText,
                                 prefixIcon: widget.parameters.mainButtonIcon ??
                                     FluIcons.flash,
