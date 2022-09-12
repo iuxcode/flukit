@@ -6,70 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-const Duration _defaultDuration = Duration(milliseconds: 300);
-const Curve _defaultCurve = Curves.fastOutSlowIn;
-
-class FluOnboardingScreenParameters {
-  final Key? key;
-  final List<FluOnboardingScreenPage> pages;
-  final Duration animationDuration;
-  final Curve animationCurve;
-  final String mainButtonText, prevButtonText, nextButtonText, skipButtonText;
-  final FluIcons? mainButtonIcon;
-  final VoidCallback onLeaving;
-
-  late PageController _pageController;
-  late FluOnboardingScreenController _controller;
-
-  FluOnboardingScreenParameters({
-    this.key,
-    required this.pages,
-    required this.onLeaving,
-    this.animationDuration = _defaultDuration,
-    this.animationCurve = _defaultCurve,
-    this.mainButtonText = 'Get Started',
-    this.prevButtonText = 'Back',
-    this.nextButtonText = 'Next',
-    this.skipButtonText = 'Skip',
-    this.mainButtonIcon,
-    FluOnboardingScreenController? controller,
-    PageController? pageController,
-  }) {
-    _controller = controller ??
-        Get.put(
-          FluOnboardingScreenController(),
-          tag: 'FluOnboardingScreenController#${math.Random().nextInt(99999)}',
-        );
-    _pageController = pageController ?? PageController();
-  }
-
-  FluOnboardingScreenController get controller => _controller;
-  PageController get pageController => _pageController;
-
-  void onBack() {
-    if (!controller.onFirstPage) {
-      pageController.previousPage(
-        duration: animationDuration,
-        curve: animationCurve,
-      );
-    } else {
-      pageController.jumpToPage(pages.length - 1);
-    }
-  }
-
-  void onForward() async {
-    if (!controller.onLastPage) {
-      pageController.nextPage(duration: animationDuration, curve: animationCurve);
-    } else {
-      onLeaving();
-    }
-  }
-
-  void onSkip() {
-    // widget.parameters.onLeaving();
-  }
-}
-
 class FluOnboardingScreen extends StatefulWidget {
   final FluOnboardingScreenParameters parameters;
   final Widget Function()? builder;
@@ -330,19 +266,93 @@ class FluOnboardingScreenTexts extends StatelessWidget {
 class FluOnboardingScreenIndicators extends StatelessWidget {
   final PageController controller;
   final int count;
+  final double expansionFactor, dotHeight, dotWidth;
+  final Color? dotColor;
 
-  const FluOnboardingScreenIndicators(
-      {Key? key, required this.controller, required this.count})
-      : super(key: key);
+  const FluOnboardingScreenIndicators({
+    Key? key,
+    required this.controller,
+    required this.count,
+    this.expansionFactor = 6,
+    this.dotHeight = 4,
+    this.dotWidth = 4,
+    this.dotColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => SmoothPageIndicator(
-      controller: controller,
-      count: count,
-      effect: ExpandingDotsEffect(
-          dotColor: Colors.grey,
+        controller: controller,
+        count: count,
+        effect: ExpandingDotsEffect(
+          dotColor: dotColor ?? Colors.grey,
           activeDotColor: Flukit.theme.data.primaryColor,
-          dotHeight: 4,
-          dotWidth: 4,
-          expansionFactor: 6));
+          dotHeight: dotHeight,
+          dotWidth: dotWidth,
+          expansionFactor: expansionFactor,
+        ),
+      );
 }
+
+class FluOnboardingScreenParameters {
+  final Key? key;
+  final List<FluOnboardingScreenPage> pages;
+  final Duration animationDuration;
+  final Curve animationCurve;
+  final String mainButtonText, prevButtonText, nextButtonText, skipButtonText;
+  final FluIcons? mainButtonIcon;
+  final VoidCallback onLeaving;
+
+  late PageController _pageController;
+  late FluOnboardingScreenController _controller;
+
+  FluOnboardingScreenParameters({
+    this.key,
+    required this.pages,
+    required this.onLeaving,
+    this.animationDuration = _defaultDuration,
+    this.animationCurve = _defaultCurve,
+    this.mainButtonText = 'Get Started',
+    this.prevButtonText = 'Back',
+    this.nextButtonText = 'Next',
+    this.skipButtonText = 'Skip',
+    this.mainButtonIcon,
+    FluOnboardingScreenController? controller,
+    PageController? pageController,
+  }) {
+    _controller = controller ??
+        Get.put(
+          FluOnboardingScreenController(),
+          tag: 'FluOnboardingScreenController#${math.Random().nextInt(99999)}',
+        );
+    _pageController = pageController ?? PageController();
+  }
+
+  FluOnboardingScreenController get controller => _controller;
+  PageController get pageController => _pageController;
+
+  void onBack() {
+    if (!controller.onFirstPage) {
+      pageController.previousPage(
+        duration: animationDuration,
+        curve: animationCurve,
+      );
+    } else {
+      pageController.jumpToPage(pages.length - 1);
+    }
+  }
+
+  void onForward() async {
+    if (!controller.onLastPage) {
+      pageController.nextPage(duration: animationDuration, curve: animationCurve);
+    } else {
+      onLeaving();
+    }
+  }
+
+  void onSkip() {
+    // widget.parameters.onLeaving();
+  }
+}
+
+const Duration _defaultDuration = Duration(milliseconds: 300);
+const Curve _defaultCurve = Curves.fastOutSlowIn;

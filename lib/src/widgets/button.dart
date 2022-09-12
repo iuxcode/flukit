@@ -102,6 +102,8 @@ class FluButton extends StatefulWidget {
     Color? color,
     BoxShadow? boxShadow,
     FluIcons? icon,
+    double iconSize = 20,
+    double iconStrokewidth = 1.6,
   }) =>
       FluButton.icon(
         onPressed: () {
@@ -111,6 +113,8 @@ class FluButton extends StatefulWidget {
         onLongPress: onLongPress,
         icon: icon ?? FluIcons.arrowLeft,
         style: FluButtonStyle(
+          iconSize: iconSize,
+          iconStrokewidth: iconStrokewidth,
           color: color ?? Flukit.theme.textColor,
           backgroundColor: Flukit.theme.backgroundColor,
           boxShadow: boxShadow ??

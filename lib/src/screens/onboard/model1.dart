@@ -13,7 +13,7 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) => FluOnboardingScreen(
         parameters: parameters,
-        builder: (FluOnboardingBuilderParameters builderParameters) {
+        builder: () {
           return SafeArea(
             child: Column(
               children: [
@@ -23,21 +23,20 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                       .copyWith(top: 25),
                   child: FluOnboardingScreenIndicators(
                     count: parameters.pages.length,
-                    controller: builderParameters.pageController,
+                    controller: parameters.pageController,
                   ),
                 ),
                 Expanded(
                     child: FluOnboardingScreenPageBuilder(
-                        controller: builderParameters.controller,
-                        pageController: builderParameters.pageController,
+                        controller: parameters.controller,
+                        pageController: parameters.pageController,
                         pagesCount: parameters.pages.length,
                         builder: (context, index) {
                           FluOnboardingScreenPage page = parameters.pages[index];
                           bool isCurrent =
-                              builderParameters.controller.currentIndex == index;
-                          bool mustCollapse =
-                              !builderParameters.controller.onFirstPage &&
-                                  !builderParameters.controller.onLastPage;
+                              parameters.controller.currentIndex == index;
+                          bool mustCollapse = !parameters.controller.onFirstPage &&
+                              !parameters.controller.onLastPage;
                           double maxWidth = mustCollapse
                               ? Flukit.appConsts.defaultElSize
                               : (Flukit.screenSize.width -
@@ -70,7 +69,7 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                                 Hero(
                                   tag: Flukit.appConsts.mainButtonHeroTag,
                                   child: FluButton(
-                                      onPressed: builderParameters.onForward,
+                                      onPressed: parameters.onForward,
                                       style:
                                           FluButtonStyle.main.merge(FluButtonStyle(
                                         height: Flukit.appConsts.minElSize + 5,
