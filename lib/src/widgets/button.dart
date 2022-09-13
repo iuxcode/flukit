@@ -152,12 +152,14 @@ class _FluButtonState extends State<FluButton> {
       ),
       child: TextButton(
           onPressed: widget.onPressed != null
-              ? () => {
-                    if (!isLoading)
-                      {Flukit.selectionClickHaptic(), widget.onPressed!()}
+              ? () {
+                  if (!isLoading) {
+                    Flukit.selectionClickHaptic();
+                    widget.onPressed!();
                   }
+                }
               : null,
-          onLongPress: widget.onLongPress,
+          onLongPress: widget.onLongPress ?? () => Flukit.selectionClickHaptic(),
           /* style: TextButton.styleFrom(
             fixedSize: style.height != null
                 ? const Size(double.infinity, double.infinity)

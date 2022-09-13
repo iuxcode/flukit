@@ -63,17 +63,22 @@ class FluColorPalette {
 }
 
 class FluLightColors extends FluColorPalette {
-  FluLightColors(
-      {required Color primary,
-      required Color primaryText,
-      required Color secondary,
-      Color? background,
-      Color? accentBackground,
-      Color? text,
-      Color? accentText,
-      Color? shadow,
-      Color? tertiary})
-      : super(
+  FluLightColors({
+    required Color primary,
+    required Color primaryText,
+    required Color secondary,
+    Color? background,
+    Color? accentBackground,
+    Color? text,
+    Color? accentText,
+    Color? shadow,
+    Color? tertiary,
+    super.light,
+    super.dark,
+    super.danger,
+    super.warning,
+    super.success,
+  }) : super(
             primary: primary,
             primaryText: primaryText,
             secondary: secondary,
@@ -86,17 +91,22 @@ class FluLightColors extends FluColorPalette {
 }
 
 class FluDarkColors extends FluColorPalette {
-  FluDarkColors(
-      {required Color? primary,
-      required Color? primaryText,
-      required Color? secondary,
-      Color? background,
-      Color? accentBackground,
-      Color? text,
-      Color? accentText,
-      Color? shadow,
-      Color? tertiary})
-      : super(
+  FluDarkColors({
+    required Color? primary,
+    required Color? primaryText,
+    required Color? secondary,
+    Color? background,
+    Color? accentBackground,
+    Color? text,
+    Color? accentText,
+    Color? shadow,
+    Color? tertiary,
+    super.light,
+    super.dark,
+    super.danger,
+    super.warning,
+    super.success,
+  }) : super(
             primary: primary ?? Colors.blue,
             primaryText: primaryText ?? Colors.white,
             secondary: secondary ?? Colors.blueAccent,

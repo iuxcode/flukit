@@ -44,19 +44,20 @@ class FluTextField extends StatelessWidget {
   FluTheme get _theme => Flukit.theme;
   ThemeData get _themeData => Flukit.theme.data;
   InputDecoration get inputDecoration => InputDecoration(
-      filled: style.filled,
-      fillColor: style.fillColor ?? _theme.palette.accentBackground,
-      border: InputBorder.none,
-      hintText: style.hintText,
-      hintStyle: _theme.data.textTheme.bodyText1!
-          .copyWith(
-              fontWeight: FontWeight.w400,
-              color: style.hintColor ?? _theme.palette.text)
-          .merge(style.hintStyle),
-      errorStyle: const TextStyle(height: 0, color: Colors.transparent),
-      prefixIcon: style.prefixIcon,
-      suffixIcon: style.suffixIcon,
-      contentPadding: style.contentPadding);
+        filled: style.filled,
+        fillColor: style.fillColor ?? _theme.palette.accentBackground,
+        border: InputBorder.none,
+        hintText: style.hintText,
+        hintStyle: _theme.data.textTheme.bodyText1!
+            .copyWith(
+                fontWeight: FontWeight.w400,
+                color: style.hintColor ?? _theme.palette.text)
+            .merge(style.hintStyle),
+        errorStyle: const TextStyle(height: 0, color: Colors.transparent),
+        prefixIcon: style.prefixIcon,
+        suffixIcon: style.suffixIcon,
+        contentPadding: style.contentPadding,
+      );
   TextStyle get defaultTextStyle => _themeData.textTheme.bodyText1!
       .copyWith(
         color: style.color ?? _theme.palette.text,
@@ -78,6 +79,7 @@ class FluTextField extends StatelessWidget {
         margin: style.margin,
         padding: style.padding,
         clipBehavior: Clip.hardEdge,
+        alignment: Alignment.center,
         decoration: BoxDecoration(
           color: style.fillColor ?? _theme.palette.accentBackground,
           boxShadow: style.boxShadow,
@@ -91,7 +93,7 @@ class FluTextField extends StatelessWidget {
               style.radius ?? Flukit.appConsts.defaultElRadius),
         ),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (style.fluPrefixIcon != null) icon(style.fluPrefixIcon, onIconTap),
             Expanded(
@@ -121,20 +123,17 @@ class FluTextField extends StatelessWidget {
         ));
   }
 
-  Widget icon(FluIcons? icon, void Function(FocusNode) onTap) => GestureDetector(
-        onTap: () => onTap,
-        child: SizedBox(
-          width: style.iconSize,
-          child: icon != null
-              ? FluIcon(
-                  icon,
-                  color: style.iconColor ?? _theme.palette.accentText,
-                  size: style.iconSize ?? 20,
-                  strokewidth: style.iconStrokeWidth ?? 1.5,
-                )
-              : null,
-        ),
-      );
+  Widget icon(FluIcons? icon, void Function(FocusNode) onTap) => icon != null
+      ? GestureDetector(
+          onTap: () => onTap,
+          child: FluIcon(
+            icon,
+            color: style.iconColor ?? _theme.palette.accentText,
+            size: style.iconSize ?? 20,
+            strokewidth: style.iconStrokeWidth ?? 1.5,
+          ),
+        )
+      : Container();
 }
 
 class FluRichTextField extends FluTextField {
