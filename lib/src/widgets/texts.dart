@@ -28,7 +28,7 @@ class FluText extends StatelessWidget {
   final TextOverflow overflow;
   final List<TextSpan> prefixs, suffixs;
   final TextAlign textAlign;
-  final bool replaceEmojis;
+  final bool replaceEmojis, mergeCustomStyleBefore;
 
   const FluText({
     super.key,
@@ -43,6 +43,7 @@ class FluText extends StatelessWidget {
     this.suffixs = const [],
     this.textAlign = TextAlign.start,
     this.replaceEmojis = true,
+    this.mergeCustomStyleBefore = true,
   });
 
   /// Default [TextStyle]
@@ -117,13 +118,15 @@ class FluText extends StatelessWidget {
     List<TextSpan> textSpans;
 
     if (entities != null) {
-      textSpans = entities!
-          .map((e) => TextSpan(
-                text: e.text,
-                recognizer: e.recognizer,
-                style: _style.merge(customStyle).merge(e.style),
-              ))
-          .toList();
+      textSpans = entities!.map((e) {
+        return TextSpan(
+          text: e.text,
+          recognizer: e.recognizer,
+          style: _style
+              .merge(mergeCustomStyleBefore ? customStyle : e.style)
+              .merge(mergeCustomStyleBefore ? e.style : customStyle),
+        );
+      }).toList();
     } else {
       bool hasText = text?.isNotEmpty ?? false;
 
