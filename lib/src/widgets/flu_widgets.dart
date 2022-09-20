@@ -2,6 +2,7 @@ export './app.dart';
 export './avatar.dart';
 export './button.dart';
 export 'bottom_nav_bar/index.dart';
+export './chip.dart';
 export './collapsible.dart';
 export './dashed_circle.dart';
 export 'input/inputs.dart';

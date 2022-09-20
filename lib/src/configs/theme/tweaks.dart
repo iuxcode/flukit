@@ -6,7 +6,7 @@ abstract class FluConstsInterface {
   FluConstsInterface();
 
   /// Font sizes
-  double get verySmallFs => 12;
+  double get verySmallFs => 10;
   double get smallFs => 13;
   double get bodyFs => 14;
   double get subtitleFs => 16;
@@ -33,6 +33,9 @@ abstract class FluConstsInterface {
   double get defaultAppBarSize => defaultElSize;
   double get defaultAvatarSize => 57;
   double get defaultAvatarRadius => 24;
+
+  /// Chip
+  double get defaultChipHeight => 65;
 
   /// default animations
   Duration get defaultAnimationDuration => const Duration(milliseconds: 300);
