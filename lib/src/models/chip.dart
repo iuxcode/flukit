@@ -34,7 +34,7 @@ class FluChipModel {
     this.color,
     this.width,
     this.padding,
-  }) : assert((image != null && width != null) || text != null);
+  }) : assert(image != null || text != null);
 }
 
 enum FluChipType {
