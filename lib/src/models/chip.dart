@@ -1,3 +1,4 @@
+import 'package:flukit/flukit.dart';
 import 'package:flutter/cupertino.dart';
 
 class FluChipModel {
@@ -7,6 +8,10 @@ class FluChipModel {
   /// Chip image
   /// Can be user avatar, if [FluChipType]
   final String? image;
+
+  /// where to get image from.
+  /// Default is set to network.
+  final FluImageSource imageSource;
 
   /// Chip type
   final FluChipType type;
@@ -21,14 +26,15 @@ class FluChipModel {
   FluChipModel({
     this.text,
     this.image,
+    this.imageSource = FluImageSource.network,
     this.type = FluChipType.base,
     this.textStyle,
     this.outlined = false,
-    this.strokeWidth = 1,
+    this.strokeWidth = 1.5,
     this.color,
     this.width,
     this.padding,
-  }) : assert(image != null || text != null);
+  }) : assert((image != null && width != null) || text != null);
 }
 
 enum FluChipType {

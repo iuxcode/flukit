@@ -5,3 +5,4 @@ export 'auth.dart';
 export 'list.dart';
 export 'tab_screen.dart';
 export 'auth.dart';
+export 'chip.dart';
