@@ -1,16 +1,20 @@
 part of './index.dart';
 
 class FluColorPalette {
-  final Color background,
-      accentBackground,
-      primary,
-      primaryText,
-      secondary,
-      text,
-      accentText,
-      shadow;
+  final Color background;
+  final Color accentBackground;
+  final Color primary;
+  final Color primaryText;
+  final Color secondary;
+  final Color text;
+  final Color accentText;
+  final Color shadow;
   final Color? tertiary;
-  Color light, dark, danger, warning, success;
+  final Color light;
+  final Color dark;
+  final Color danger;
+  final Color warning;
+  final Color success;
 
   FluColorPalette({
     required this.background,

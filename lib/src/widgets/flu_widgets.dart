@@ -1,6 +1,6 @@
 export './app.dart';
 export './avatar.dart';
-export './button.dart';
+export 'button/index.dart';
 export 'bottom_nav_bar/index.dart';
 export './chip.dart';
 export './collapsible.dart';
