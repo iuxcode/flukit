@@ -70,12 +70,11 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                                   tag: Flukit.appConsts.mainButtonHeroTag,
                                   child: FluButton(
                                       onPressed: parameters.onForward,
-                                      style:
-                                          FluButtonStyle.main.merge(FluButtonStyle(
+                                      style: FluButtonStyle.defaultt.copyWith(
                                         height: Flukit.appConsts.minElSize + 5,
                                         radius: Flukit.appConsts.minElRadius + 2,
                                         maxWidth: maxWidth,
-                                      )),
+                                      ),
 
                                       /// TODO Optimize this.
                                       /// add square progress bar with border radius and remove top indicator

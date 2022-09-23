@@ -7,19 +7,37 @@ import 'utils.dart';
 export 'style.dart';
 export 'item.dart';
 
+/// A material widget that's displayed at the bottom of an app for selecting
+/// among a small number of views, typically between three and five.
+///
+/// The bottom navigation bar consists of multiple items in the form of
+/// text labels, icons, or both, laid out on top of a piece of material. It
+/// provides quick navigation between the top-level views of an app. For larger
+/// screens, side navigation may be a better fit.
+///
+/// A bottom navigation bar is usually used in conjunction with a [Scaffold], or [FluScreen],
+/// where it is provided as the [Scaffold.bottomNavigationBar]  or [FluScreen.bottomNavigationBar] argument.
+///
+/// With the bottom navigation bar's [style], you can customize the [FluBottomNavBar].
+/// If not specified, then it's automatically set to [FluBottomNavBarStyle.defaultt].
+/// Check the [FluBottomNavBarStyle] class for more details about the default applied style.
+///
+/// The length of [items] must be at least two and each item's icon must not be null.
+///
 class FluBottomNavBar extends StatefulWidget {
+  /// Active item index.
   final double selectedIndex;
   final List<FluBottomNavBarItem> items;
   final Function(int) onItemTap;
   final FluBottomNavBarStyle? style;
 
-  const FluBottomNavBar(
-      {Key? key,
-      required this.onItemTap,
-      required this.items,
-      this.selectedIndex = 0,
-      this.style})
-      : super(key: key);
+  const FluBottomNavBar({
+    Key? key,
+    required this.onItemTap,
+    required this.items,
+    this.selectedIndex = 0,
+    this.style,
+  }) : super(key: key);
 
   @override
   State<FluBottomNavBar> createState() => FluBottomNavBarState();
@@ -27,13 +45,12 @@ class FluBottomNavBar extends StatefulWidget {
 
 class FluBottomNavBarState extends State<FluBottomNavBar>
     with SingleTickerProviderStateMixin {
+  late FluBottomNavBarStyle style;
   late AnimationController animationController;
   final GlobalKey itemKey = GlobalKey();
 
   int previousIndex = 0;
   double itemWidth = 0;
-
-  FluBottomNavBarStyle get style => widget.style ?? FluBottomNavBarStyle.defaultt;
 
   void getItemWidth() {
     final RenderBox box = itemKey.currentContext?.findRenderObject() as RenderBox;
@@ -43,6 +60,7 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
 
   @override
   void initState() {
+    style = widget.style ?? FluBottomNavBarStyle.defaultt;
     animationController = AnimationController(
       vsync: this,
       duration: style.animationDuration,
@@ -53,7 +71,7 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
 
   @override
   Widget build(BuildContext context) {
-    Widget navbar = Container(
+    Widget content = Container(
       height: style.height,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
@@ -144,9 +162,9 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
                     borderRadius: style.borderRadius,
                     margin: style.floating ? style.margin.left : 0),
               ),
-              child: navbar,
+              child: content,
             )
-          : navbar,
+          : content,
     );
   }
 }

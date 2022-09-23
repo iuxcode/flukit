@@ -340,43 +340,43 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                 return Hero(
                                   tag: Flukit.appConsts.mainButtonHeroTag,
                                   child: FluButton.text(
-                                      onPressed: controller.canSubmit
-                                          ? () => onSubmit(context)
-                                          : null,
-                                      text: controller
-                                          .steps[controller.stepIndex].buttonLabel,
-                                      prefixIcon: controller
-                                          .steps[controller.stepIndex].buttonIcon,
-                                      spacing: 2,
-                                      textStyle: TextStyle(
-                                        fontWeight: Flukit.appConsts.textBold,
-                                      ),
-                                      style:
-                                          FluButtonStyle.main.merge(FluButtonStyle(
-                                        expand: true,
-                                        height: Flukit.appConsts.defaultElSize,
-                                        radius: Flukit.appConsts.defaultElRadius,
-                                        padding: EdgeInsets.zero,
-                                        margin: EdgeInsets.symmetric(
-                                                horizontal: Flukit
-                                                    .appConsts.defaultPaddingSize)
-                                            .copyWith(bottom: 25),
-                                        color: controller.canSubmit
-                                            ? Flukit.theme.primaryTextColor
-                                            : Flukit.theme.palette.accentText,
-                                        backgroundColor: controller.canSubmit
-                                            ? Flukit.theme.primaryColor
-                                            : Flukit.theme.secondaryColor,
-                                        boxShadow: Flukit.boxShadow(
-                                            color: Flukit.theme.shadowColor,
-                                            opacity:
-                                                controller.canSubmit ? .085 : .045,
-                                            blurRadius: 30,
-                                            offset: const Offset(0, 0)),
-                                        iconSize: 20,
-                                        iconStrokewidth: 1.8,
-                                        loading: controller.loading,
-                                      ))),
+                                    onPressed: controller.canSubmit
+                                        ? () => onSubmit(context)
+                                        : null,
+                                    text: controller
+                                        .steps[controller.stepIndex].buttonLabel,
+                                    prefixIcon: controller
+                                        .steps[controller.stepIndex].buttonIcon,
+                                    spacing: 2,
+                                    textStyle: TextStyle(
+                                      fontWeight: Flukit.appConsts.textBold,
+                                    ),
+                                    style: FluButtonStyle.defaultt.copyWith(
+                                      expand: true,
+                                      height: Flukit.appConsts.defaultElSize,
+                                      radius: Flukit.appConsts.defaultElRadius,
+                                      padding: EdgeInsets.zero,
+                                      margin: EdgeInsets.symmetric(
+                                              horizontal: Flukit
+                                                  .appConsts.defaultPaddingSize)
+                                          .copyWith(bottom: 25),
+                                      color: controller.canSubmit
+                                          ? Flukit.theme.primaryTextColor
+                                          : Flukit.theme.palette.accentText,
+                                      backgroundColor: controller.canSubmit
+                                          ? Flukit.theme.primaryColor
+                                          : Flukit.theme.secondaryColor,
+                                      boxShadow: Flukit.boxShadow(
+                                          color: Flukit.theme.shadowColor,
+                                          opacity:
+                                              controller.canSubmit ? .085 : .045,
+                                          blurRadius: 30,
+                                          offset: const Offset(0, 0)),
+                                      iconSize: 20,
+                                      iconStrokewidth: 1.8,
+                                      loading: controller.loading,
+                                    ),
+                                  ),
                                 );
                               })
                           : Container())
