@@ -70,6 +70,14 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
   }
 
   @override
+  void didUpdateWidget(covariant FluBottomNavBar oldWidget) {
+    if (widget.style != null && widget.style != style) {
+      style = widget.style!;
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     Widget content = Container(
       height: style.height,
@@ -226,7 +234,7 @@ class _Item extends StatelessWidget {
                           ? data.activeIcon!
                           : data.icon,
                       color: isSelected ? activeColor : color,
-                      strokewidth: 2,
+                      strokewidth: 1.6,
                       size:
                           iconSize, // isSelected && data.activeIcon != null ? 26 : 24
                       style: isSelected && activeIconStyle != null
