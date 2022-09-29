@@ -12,22 +12,37 @@ class FluDashedCircle extends StatelessWidget {
   final double gapSize;
   final double strokewidth;
   final Widget? child;
+  final EdgeInsets margin;
+  final EdgeInsets padding;
 
-  const FluDashedCircle(
-      {Key? key,
-      this.child,
-      this.dashes = _defaultDashes,
-      this.color = _defaultColor,
-      this.gapSize = _defaultGapSize,
-      this.strokewidth = _defaultStrokeWidth})
-      : super(key: key);
+  const FluDashedCircle({
+    Key? key,
+    this.child,
+    this.dashes = _defaultDashes,
+    this.color = _defaultColor,
+    this.gapSize = _defaultGapSize,
+    this.strokewidth = _defaultStrokeWidth,
+    this.margin = EdgeInsets.zero,
+    this.padding = const EdgeInsets.all(3),
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: FluDashedCirclePainter(
-          dashes: dashes, color: color, gapSize: gapSize, strokewidth: strokewidth),
-      child: child,
+    return Container(
+      alignment: Alignment.center,
+      margin: margin,
+      child: CustomPaint(
+        painter: FluDashedCirclePainter(
+          dashes: dashes,
+          color: color,
+          gapSize: gapSize,
+          strokewidth: strokewidth,
+        ),
+        child: Padding(
+          padding: padding,
+          child: child,
+        ),
+      ),
     );
   }
 }
@@ -38,11 +53,12 @@ class FluDashedCirclePainter extends CustomPainter {
   final double gapSize;
   final double strokewidth;
 
-  FluDashedCirclePainter(
-      {this.dashes = _defaultDashes,
-      this.color = _defaultColor,
-      this.gapSize = _defaultGapSize,
-      this.strokewidth = _defaultStrokeWidth});
+  FluDashedCirclePainter({
+    this.dashes = _defaultDashes,
+    this.color = _defaultColor,
+    this.gapSize = _defaultGapSize,
+    this.strokewidth = _defaultStrokeWidth,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -52,7 +68,7 @@ class FluDashedCirclePainter extends CustomPainter {
     for (int i = 0; i < dashes; i++) {
       final Paint paint = Paint()
         ..color = color
-        ..strokeWidth = _defaultStrokeWidth
+        ..strokeWidth = strokewidth
         ..style = PaintingStyle.stroke;
 
       canvas.drawArc(Offset.zero & size, gap + singleAngle * i,

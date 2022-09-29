@@ -26,23 +26,23 @@ class FluTabScreen extends StatefulWidget {
           FluTabScreenController controller, PageController pageController)?
       onPageChange;
 
-  const FluTabScreen(
-      {Key? key,
-      required this.pages,
-      this.isMainScreen = true,
-      this.initialPage = 0,
-      this.controller,
-      this.animationDuration = const Duration(milliseconds: 300),
-      this.animationCurve = Curves.decelerate,
-      this.bottomNavBarStyle,
-      this.physics,
-      this.onPageChange,
-      this.appBar,
-      this.systemUiOverlayStyle,
-      this.floatingActionButton,
-      this.backgroundColor,
-      this.floatingActionButtonLocation = FloatingActionButtonLocation.centerDocked})
-      : super(key: key);
+  const FluTabScreen({
+    Key? key,
+    required this.pages,
+    this.isMainScreen = true,
+    this.initialPage = 0,
+    this.controller,
+    this.animationDuration = const Duration(milliseconds: 300),
+    this.animationCurve = Curves.decelerate,
+    this.bottomNavBarStyle,
+    this.physics,
+    this.onPageChange,
+    this.appBar,
+    this.systemUiOverlayStyle,
+    this.floatingActionButton,
+    this.backgroundColor,
+    this.floatingActionButtonLocation = FloatingActionButtonLocation.centerDocked,
+  }) : super(key: key);
 
   @override
   State<FluTabScreen> createState() => _FluTabScreenState();

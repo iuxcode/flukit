@@ -76,8 +76,7 @@ class FluImage extends StatelessWidget {
                 // TODO make caching optional
                 // cacheManager: cache ? BaseCacheManager() : null,
                 errorWidget: errorBuilder != null
-                    ? (context, url, error) =>
-                        errorBuilder!(context, url, error)
+                    ? (context, url, error) => errorBuilder!(context, url, error)
                     : null,
                 progressIndicatorBuilder: progressIndicatorBuilder,
                 placeholder: placeholder,
@@ -100,11 +99,16 @@ class FluImage extends StatelessWidget {
                 frameBuilder: frameBuilder,
                 package: package,
               ),
-            Container(
-              decoration: BoxDecoration(
-                color: Flukit.themePalette.dark.withOpacity(overlayOpacity),
-              ),
-            ),
+            Positioned(
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Flukit.themePalette.dark.withOpacity(overlayOpacity),
+                  ),
+                )),
           ],
         ));
   }

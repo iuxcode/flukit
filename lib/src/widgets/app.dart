@@ -48,20 +48,27 @@ class _FluMaterialAppState extends State<FluMaterialApp> {
   }
 
   @override
-  Widget build(BuildContext context) => GetBuilder<FluAppController>(
+  Widget build(BuildContext context) {
+    return GetBuilder<FluAppController>(
+      id: 'flukit_app',
       init: controller,
       initState: (_) {},
-      builder: (_) {
-        return GetMaterialApp(
-          title: widget.title ?? controller.appInfos.name,
-          debugShowCheckedModeBanner: widget.showDebugBanner,
-          theme: controller.theme.data,
-          initialBinding: widget.initialBinding,
-          home: widget.home,
-          initialRoute: widget.initialRoute ?? '/splash',
-          routes: widget.routes ?? <String, WidgetBuilder>{},
-          getPages: widget.pages ??
-              [FluGetPage(name: '/splash', page: () => const FluDefaultScreen())],
-        );
-      });
+      builder: (_) => GetMaterialApp(
+        title: widget.title ?? controller.appInfos.name,
+        debugShowCheckedModeBanner: widget.showDebugBanner,
+        theme: controller.theme.data,
+        initialBinding: widget.initialBinding,
+        home: widget.home,
+        initialRoute: widget.initialRoute ?? '/splash',
+        routes: widget.routes ?? <String, WidgetBuilder>{},
+        getPages: widget.pages ??
+            [
+              FluGetPage(
+                name: '/splash',
+                page: () => const FluDefaultScreen(),
+              )
+            ],
+      ),
+    );
+  }
 }

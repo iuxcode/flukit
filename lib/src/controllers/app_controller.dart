@@ -31,7 +31,10 @@ class FluAppController extends GetxController {
   FluConstsInterface get appConsts => appConstants ?? FluConsts;
 
   set isDark(bool value) => _isDark.value = value;
-  set theme(FluTheme newTheme) => _theme.value = newTheme;
+  set theme(FluTheme newTheme) {
+    _theme.value = newTheme;
+    update(['flukit_app']);
+  }
 
   Future<bool> firstTimeOpening() async {
     if (await storageService.containsKey(FluSecureStorageKeys.firstTimeOpening)) {

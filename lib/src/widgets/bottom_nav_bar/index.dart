@@ -147,33 +147,44 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
       ),
     );
 
-    return Container(
-      margin: style.floating ? style.margin : EdgeInsets.zero,
-      decoration: BoxDecoration(
-        color: Flukit.theme.backgroundColor,
-        borderRadius: (style.borderRadius ?? BorderRadius.circular(style.radius))
-            .copyWith(
-                bottomLeft: const Radius.circular(0),
-                bottomRight: const Radius.circular(0)),
-      ),
-      child: style.type == FluBottomNavBarType.curved
-          ? PhysicalShape(
-              clipBehavior: Clip.antiAlias,
-              color: Colors.transparent,
-              clipper: CircularNotchedAndCorneredRectangleClipper(
-                notchMargin: style.notchMargin,
-                geometry: Scaffold.geometryOf(context),
-                shape: CircularNotchedAndCorneredRectangle(
-                    gapLocation: style.gapLocation,
-                    notchSmoothness: style.notchSmoothness,
-                    radius: style.radius,
-                    borderRadius: style.borderRadius,
-                    margin: style.floating ? style.margin.left : 0),
+    if (style.type == FluBottomNavBarType.curved)
+      content = PhysicalShape(
+        clipBehavior: Clip.antiAlias,
+        color: Colors.transparent,
+        clipper: CircularNotchedAndCorneredRectangleClipper(
+          notchMargin: style.notchMargin,
+          geometry: Scaffold.geometryOf(context),
+          shape: CircularNotchedAndCorneredRectangle(
+            gapLocation: style.gapLocation,
+            notchSmoothness: style.notchSmoothness,
+            radius: style.radius,
+            borderRadius: style.borderRadius,
+            margin: style.floating ? style.margin.left : 0,
+          ),
+        ),
+        child: content,
+      );
+
+    return Padding(
+        padding: style.floating ? style.margin : EdgeInsets.zero,
+        child: Stack(
+          children: [
+            /// Hide visible parts of the page if bottom
+            /// safeArea is disabled
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                height: style.height * .35,
+                decoration: BoxDecoration(
+                  color: Flukit.theme.backgroundColor,
+                ),
               ),
-              child: content,
-            )
-          : content,
-    );
+            ),
+            content,
+          ],
+        ));
   }
 }
 
