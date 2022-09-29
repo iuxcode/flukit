@@ -74,6 +74,7 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
     if (widget.style != null && widget.style != style) {
       style = widget.style!;
     }
+    getItemWidth();
     super.didUpdateWidget(oldWidget);
   }
 
@@ -147,7 +148,7 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
       ),
     );
 
-    if (style.type == FluBottomNavBarType.curved)
+    if (style.type == FluBottomNavBarType.curved) {
       content = PhysicalShape(
         clipBehavior: Clip.antiAlias,
         color: Colors.transparent,
@@ -164,27 +165,37 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
         ),
         child: content,
       );
+    }
+
+    if (style.glass) {
+      content = FluGlass(
+        child: content,
+      );
+    }
 
     return Padding(
-        padding: style.floating ? style.margin : EdgeInsets.zero,
-        child: Stack(
-          children: [
-            /// Hide visible parts of the page if bottom
-            /// safeArea is disabled
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                height: style.height * .35,
-                decoration: BoxDecoration(
-                  color: Flukit.theme.backgroundColor,
+      padding: style.floating ? style.margin : EdgeInsets.zero,
+      child: style.glass
+          ? content
+          : Stack(
+              children: [
+                /// Hide visible parts of the page if bottom
+                /// safeArea is disabled
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    height: style.height * .35,
+                    decoration: BoxDecoration(
+                      color: Flukit.theme.backgroundColor,
+                    ),
+                  ),
                 ),
-              ),
+                content,
+              ],
             ),
-            content,
-          ],
-        ));
+    );
   }
 }
 

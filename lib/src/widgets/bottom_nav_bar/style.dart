@@ -21,6 +21,7 @@ class FluBottomNavBarStyle {
   final FluIconStyles iconStyle;
   final FluIconStyles? activeIconStyle;
   final double iconSize;
+  final bool glass;
 
   FluBottomNavBarStyle({
     this.background,
@@ -46,6 +47,7 @@ class FluBottomNavBarStyle {
     this.iconStyle = FluIconStyles.twotone,
     this.activeIconStyle,
     this.iconSize = 24,
+    this.glass = false,
   });
 
   FluBottomNavBarStyle merge(FluBottomNavBarStyle? newStyle) => FluBottomNavBarStyle(
@@ -72,6 +74,7 @@ class FluBottomNavBarStyle {
         iconStyle: newStyle?.iconStyle ?? iconStyle,
         activeIconStyle: newStyle?.activeIconStyle ?? activeIconStyle,
         iconSize: newStyle?.iconSize ?? iconSize,
+        glass: newStyle?.glass ?? glass,
       );
 
   static FluBottomNavBarStyle defaultt = FluBottomNavBarStyle(
