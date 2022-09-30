@@ -10,14 +10,13 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  auto_size_text: ^3.0.0
   cached_network_image: ^3.2.1
   country_icons: ^2.0.2
   dio: ^4.0.4
   emojis: ^0.9.9
   flukit_icons:
     path: ../flukit_icons
-    # git:
-    #   url: https://github.com/charles9904/flukit_icons.git
   flutter:
     sdk: flutter
   flutter_dotenv: ^5.0.2

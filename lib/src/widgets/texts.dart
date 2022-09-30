@@ -1,26 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 import '../utils/flu_utils.dart';
-import 'line.dart';
+
+/// Use [AutoSizeText] creates a [Text] widget.
+/// If the [style] argument is null, the text will use the style from the closest enclosing [DefaultTextStyle].
 
 class FluText extends StatelessWidget {
   final String? text;
   final List<TextSpan>? entities;
-  final FluTextStyle style;
-  final TextStyle? customStyle;
+
+  final FluTextStyle stylePreset;
+  final TextStyle? style;
+
   final FluTextStyleApplicationMethod applicationMethod;
+
   final int? maxLines;
+  final double? minFontSize;
+  final double maxFontSize;
+  final double stepGranularity;
+
   final TextOverflow overflow;
+
   final List<TextSpan> prefixs, suffixs;
+
   final TextAlign textAlign;
-  final bool replaceEmojis, mergeCustomStyleBefore;
+
+  final bool replaceEmojis, mergestyleBefore;
+  final AutoSizeGroup? group;
+  final List<double>? presetFontSizes;
+
+  final Widget? overflowReplacement;
 
   const FluText({
     super.key,
     this.text,
     this.entities,
-    this.style = FluTextStyle.body,
-    this.customStyle,
+    this.stylePreset = FluTextStyle.body,
+    this.style,
     this.applicationMethod = FluTextStyleApplicationMethod.merge,
     this.maxLines,
     this.overflow = TextOverflow.clip,
@@ -28,7 +45,13 @@ class FluText extends StatelessWidget {
     this.suffixs = const [],
     this.textAlign = TextAlign.start,
     this.replaceEmojis = true,
-    this.mergeCustomStyleBefore = true,
+    this.mergestyleBefore = true,
+    this.minFontSize,
+    this.maxFontSize = double.infinity,
+    this.group,
+    this.stepGranularity = 1,
+    this.presetFontSizes,
+    this.overflowReplacement,
   });
 
   /// Default [TextStyle]
@@ -36,7 +59,7 @@ class FluText extends StatelessWidget {
 
   /// Return neptune font styling for text
   TextStyle? get _neptuneStyle {
-    switch (style) {
+    switch (stylePreset) {
       case FluTextStyle.body:
       case FluTextStyle.small:
       case FluTextStyle.headline:
@@ -54,11 +77,11 @@ class FluText extends StatelessWidget {
   /// Build styles
   TextStyle get _style {
     if (applicationMethod == FluTextStyleApplicationMethod.override) {
-      return customStyle ?? _defaultTextStyle;
+      return style ?? _defaultTextStyle;
     } else {
       TextStyle? textStyle;
 
-      switch (style) {
+      switch (stylePreset) {
         case FluTextStyle.small:
         case FluTextStyle.smallBold:
         case FluTextStyle.smallNeptune:
@@ -82,13 +105,14 @@ class FluText extends StatelessWidget {
           break;
       }
 
-      if (style == FluTextStyle.smallNeptune || style == FluTextStyle.bodyNeptune) {
+      if (stylePreset == FluTextStyle.smallNeptune ||
+          stylePreset == FluTextStyle.bodyNeptune) {
         textStyle = textStyle?.merge(_neptuneStyle);
       }
 
-      if (style == FluTextStyle.smallBold ||
-          style == FluTextStyle.bodyBold ||
-          style == FluTextStyle.headlineBold) {
+      if (stylePreset == FluTextStyle.smallBold ||
+          stylePreset == FluTextStyle.bodyBold ||
+          stylePreset == FluTextStyle.headlineBold) {
         textStyle = textStyle?.merge(TextStyle(
             fontWeight: Flukit.appConsts.textBold,
             color: Flukit.theme.accentTextColor));
@@ -100,42 +124,44 @@ class FluText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<TextSpan> textSpans;
+    bool hasText = text?.isNotEmpty ?? false;
 
-    if (entities != null) {
-      textSpans = entities!.map((e) {
-        return TextSpan(
-          text: e.text,
-          recognizer: e.recognizer,
-          style: _style
-              .merge(mergeCustomStyleBefore ? customStyle : e.style)
-              .merge(mergeCustomStyleBefore ? e.style : customStyle),
-        );
-      }).toList();
-    } else {
-      bool hasText = text?.isNotEmpty ?? false;
+    List<TextSpan> textSpans = entities != null
+        ? entities!.map((e) {
+            return TextSpan(
+              text: e.text,
+              recognizer: e.recognizer,
+              style: _style
+                  .merge(mergestyleBefore ? style : e.style)
+                  .merge(mergestyleBefore ? e.style : style),
+            );
+          }).toList()
+        : [
+            TextSpan(
+              text: hasText ? text : 'You have to add text or entities !',
+              style: _style
+                  .merge(style)
+                  .copyWith(color: hasText ? null : Flukit.theme.dangerColor),
+            )
+          ];
 
-      textSpans = [
-        TextSpan(
-          text: hasText ? text : 'You have to add text or entities !',
-          style: _style
-              .merge(customStyle)
-              .copyWith(color: hasText ? null : Flukit.theme.dangerColor),
-        )
-      ];
-    }
-
-    return RichText(
-      maxLines: maxLines,
-      overflow: overflow,
-      textAlign: textAlign,
-      text: TextSpan(
+    return AutoSizeText.rich(
+      TextSpan(
         children: prefixs +
             (replaceEmojis
                 ? textSpans.map((span) => Flukit.replaceEmojis(span)).toList()
                 : textSpans) +
             suffixs,
       ),
+      maxLines: maxLines,
+      overflow: overflow,
+      textAlign: textAlign,
+      minFontSize: minFontSize ?? Flukit.appConsts.smallFs,
+      maxFontSize: maxFontSize,
+      group: group,
+      stepGranularity: stepGranularity,
+      presetFontSizes: presetFontSizes,
+      overflowReplacement: overflowReplacement,
     );
   }
 }

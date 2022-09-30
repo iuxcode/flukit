@@ -19,6 +19,7 @@ class FluImage extends StatelessWidget {
   final EdgeInsets? margin;
   final BoxShadow? boxShadow;
   final bool cache;
+  final bool gradientOverlay;
   final Map<String, String>? httpHeaders;
   final Widget Function(BuildContext, Widget, int?, bool)? frameBuilder;
   final Widget Function(BuildContext, Object, StackTrace?)? errorBuilder;
@@ -45,6 +46,7 @@ class FluImage extends StatelessWidget {
     this.overlayOpacity = .05,
     this.cache = true,
     this.package,
+    this.gradientOverlay = false,
   }) : super(key: key);
 
   @override
@@ -106,7 +108,19 @@ class FluImage extends StatelessWidget {
                 right: 0,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Flukit.themePalette.dark.withOpacity(overlayOpacity),
+                    color: gradientOverlay
+                        ? null
+                        : Flukit.themePalette.dark.withOpacity(overlayOpacity),
+                    gradient: gradientOverlay
+                        ? LinearGradient(
+                            colors: [
+                              Colors.transparent,
+                              Colors.black,
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          )
+                        : null,
                   ),
                 )),
           ],
