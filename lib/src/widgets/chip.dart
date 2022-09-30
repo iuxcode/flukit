@@ -197,7 +197,7 @@ class FluChip extends StatelessWidget {
           )
         : FluText(
             text: chip.text,
-            customStyle: textStyle?.merge(chip.textStyle) ?? chip.textStyle,
+            style: textStyle?.merge(chip.textStyle) ?? chip.textStyle,
           );
 
     return UnconstrainedBox(

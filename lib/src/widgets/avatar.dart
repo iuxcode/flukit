@@ -124,8 +124,8 @@ class FluAvatar extends StatelessWidget {
         ),
         child: FluText(
           text: getText(),
-          style: FluTextStyle.bodyNeptune,
-          customStyle: (labelStyle ?? TextStyle(color: Flukit.themePalette.light))
+          stylePreset: FluTextStyle.bodyNeptune,
+          style: (labelStyle ?? TextStyle(color: Flukit.themePalette.light))
               .merge(placeholderTextStyle),
         ),
       );
