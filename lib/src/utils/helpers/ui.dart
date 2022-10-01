@@ -33,6 +33,8 @@ extension FlukitUI on FlukitInterface {
 
   /// return the screen size
   Size get screenSize => Get.size;
+  double get screenWidth => screenSize.width;
+  double get screenHeight => screenSize.height;
 
   /// return the status bar height
   double get statusBarHeight => MediaQuery.of(context).padding.top;

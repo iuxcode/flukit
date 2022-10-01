@@ -31,6 +31,7 @@ class FluButton extends StatefulWidget {
     void Function()? onPressed,
     void Function()? onLongPress,
     FluButtonStyle? style,
+    int iconQuarterTurn = 0,
   }) {
     style = FluButtonStyle.flat
         .copyWith(
@@ -47,12 +48,15 @@ class FluButton extends StatefulWidget {
       onPressed: onPressed,
       onLongPress: onLongPress,
       style: style,
-      child: FluIcon(
-        icon,
-        size: style.iconSize,
-        strokewidth: style.iconStrokewidth,
-        color: style.color,
-        style: style.iconStyle,
+      child: RotatedBox(
+        quarterTurns: iconQuarterTurn,
+        child: FluIcon(
+          icon,
+          size: style.iconSize,
+          strokewidth: style.iconStrokewidth,
+          color: style.color,
+          style: style.iconStyle,
+        ),
       ),
     );
   }
@@ -187,6 +191,7 @@ class _FluButtonState extends State<FluButton> {
           ),
           padding: MaterialStateProperty.all(
               style.padding ?? const EdgeInsets.symmetric(horizontal: 15)),
+          alignment: style.alignment,
         ),
         child: !isLoading
             ? widget.child

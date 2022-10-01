@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 
 import '../utils/flu_utils.dart';
 
@@ -27,7 +26,7 @@ class FluText extends StatelessWidget {
   final TextAlign textAlign;
 
   final bool replaceEmojis, mergestyleBefore;
-  final AutoSizeGroup? group;
+  // final AutoSizeGroup? group;
   final List<double>? presetFontSizes;
 
   final Widget? overflowReplacement;
@@ -48,7 +47,7 @@ class FluText extends StatelessWidget {
     this.mergestyleBefore = true,
     this.minFontSize,
     this.maxFontSize = double.infinity,
-    this.group,
+    // this.group,
     this.stepGranularity = 1,
     this.presetFontSizes,
     this.overflowReplacement,
@@ -145,8 +144,8 @@ class FluText extends StatelessWidget {
             )
           ];
 
-    return AutoSizeText.rich(
-      TextSpan(
+    return RichText(
+      text: TextSpan(
         children: prefixs +
             (replaceEmojis
                 ? textSpans.map((span) => Flukit.replaceEmojis(span)).toList()
@@ -156,12 +155,12 @@ class FluText extends StatelessWidget {
       maxLines: maxLines,
       overflow: overflow,
       textAlign: textAlign,
-      minFontSize: minFontSize ?? Flukit.appConsts.smallFs,
+      /* minFontSize: minFontSize ?? Flukit.appConsts.smallFs,
       maxFontSize: maxFontSize,
       group: group,
       stepGranularity: stepGranularity,
       presetFontSizes: presetFontSizes,
-      overflowReplacement: overflowReplacement,
+      overflowReplacement: overflowReplacement, */
     );
   }
 }
