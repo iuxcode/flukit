@@ -76,7 +76,7 @@ extension FlukitText on FlukitInterface {
             recognizer: span?.recognizer,
             style: span?.style?.copyWith(
               fontFamily: isEmoji
-                  ? (Flukit.appConsts.emojiFont ?? Flukit.fonts.emoji)
+                  ? (Flukit.appSettings.emojiFont ?? Flukit.fonts.emoji)
                   : null,
               package: isEmoji ? 'flukit' : null,
             ),

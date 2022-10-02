@@ -35,12 +35,12 @@ class FluButton extends StatefulWidget {
   }) {
     style = FluButtonStyle.flat
         .copyWith(
-          height: Flukit.appConsts.minElSize,
-          width: Flukit.appConsts.minElSize,
-          radius: Flukit.appConsts.minElRadius,
+          height: Flukit.appSettings.minElSize,
+          width: Flukit.appSettings.minElSize,
+          radius: Flukit.appSettings.minElRadius,
           padding: EdgeInsets.zero,
           margin: EdgeInsets.zero,
-          backgroundColor: Flukit.theme.data.backgroundColor,
+          backgroundColor: Flukit.fluTheme.backgroundColor,
         )
         .merge(style);
 
@@ -126,8 +126,8 @@ class FluButton extends StatefulWidget {
         style: FluButtonStyle(
           iconSize: iconSize,
           iconStrokewidth: iconStrokewidth,
-          color: color ?? Flukit.theme.textColor,
-          backgroundColor: Flukit.theme.backgroundColor,
+          color: color ?? Flukit.fluTheme.textColor,
+          backgroundColor: Flukit.fluTheme.backgroundColor,
           boxShadow: boxShadow ??
               Flukit.boxShadow(
                 offset: const Offset(15, 15),
@@ -169,7 +169,8 @@ class _FluButtonState extends State<FluButton> {
       decoration: BoxDecoration(
         border: style.border,
         borderRadius: style.borderRadius ??
-            BorderRadius.circular(style.radius ?? Flukit.appConsts.defaultElRadius),
+            BorderRadius.circular(
+                style.radius ?? Flukit.appSettings.defaultElRadius),
         boxShadow: [if (style.boxShadow != null) style.boxShadow!],
       ),
       child: TextButton(
@@ -180,12 +181,12 @@ class _FluButtonState extends State<FluButton> {
           fixedSize: MaterialStateProperty.all(
               const Size(double.infinity, double.infinity)),
           backgroundColor: MaterialStateProperty.all(
-              style.backgroundColor ?? Flukit.theme.data.primaryColor),
+              style.backgroundColor ?? Flukit.fluTheme.primaryColor),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: style.borderRadius ??
                   BorderRadius.circular(
-                    style.radius ?? Flukit.appConsts.defaultElRadius,
+                    style.radius ?? Flukit.appSettings.defaultElRadius,
                   ),
             ),
           ),

@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'dart:math';
-import 'dart:typed_data';
 
 import 'package:flukit/src/configs/theme/index.dart';
-import 'package:flukit/src/configs/theme/tweaks.dart';
+import 'package:flukit/src/configs/theme/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -16,7 +15,7 @@ import 'package:timeago/timeago.dart' as tmago;
 import 'package:geolocator/geolocator.dart';
 import 'package:dio/dio.dart' as dio;
 
-import '../configs/theme/index.dart';
+import '../configs/settings.dart';
 import '../controllers/flu_controllers.dart';
 import '../models/app.dart';
 import '../widgets/country_selector.dart';

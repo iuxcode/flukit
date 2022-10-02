@@ -9,7 +9,7 @@ class FluDefaultScreen extends StatelessWidget {
           body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            padding: EdgeInsets.all(Flukit.appConsts.defaultPaddingSize),
+            padding: EdgeInsets.all(Flukit.appSettings.defaultPaddingSize),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -17,9 +17,9 @@ class FluDefaultScreen extends StatelessWidget {
                     style: TextStyle(
                         fontFamily: 'Neptune',
                         package: 'flukit',
-                        fontWeight: Flukit.appConsts.textBold,
-                        fontSize: Flukit.appConsts.headlineFs + 25,
-                        color: Flukit.theme.primaryColor)),
+                        fontWeight: Flukit.appSettings.textBold,
+                        fontSize: Flukit.appSettings.headlineFs + 25,
+                        color: Flukit.fluTheme.primaryColor)),
                 const SizedBox(height: 5),
                 const Text(
                   'Voluptates ut earum voluptatum dolore sed. Perferendis qui enim aut labore eos. Deleniti quasi possimus molestiae eligendi est et porro et voluptatem. Libero et sunt modi aut quas accusamus fuga excepturi.',

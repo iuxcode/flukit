@@ -49,7 +49,7 @@ class FluScreen extends StatelessWidget {
       ),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: backgroundColor ?? Flukit.theme.backgroundColor,
+        backgroundColor: backgroundColor ?? Flukit.fluTheme.backgroundColor,
         extendBody: extendBody,
         appBar: appBar,
         body: body,

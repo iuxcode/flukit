@@ -41,17 +41,17 @@ class FluTextField extends StatelessWidget {
       this.selectionControls,
       this.onTap});
 
-  FluTheme get _theme => Flukit.theme;
-  ThemeData get _themeData => Flukit.theme.data;
+  FluTheme get _theme => Flukit.fluTheme;
+  ThemeData get _themeData => Flukit.themeData;
   InputDecoration get inputDecoration => InputDecoration(
         filled: style.filled,
-        fillColor: style.fillColor ?? _theme.palette.accentBackground,
+        fillColor: style.fillColor ?? _theme.accentBackgroundColor,
         border: InputBorder.none,
         hintText: style.hintText,
-        hintStyle: _theme.data.textTheme.bodyText1!
+        hintStyle: _theme.textTheme.bodyText1!
             .copyWith(
                 fontWeight: FontWeight.w400,
-                color: style.hintColor ?? _theme.palette.text)
+                color: style.hintColor ?? _theme.textColor)
             .merge(style.hintStyle),
         errorStyle: const TextStyle(height: 0, color: Colors.transparent),
         prefixIcon: style.prefixIcon,
@@ -60,7 +60,7 @@ class FluTextField extends StatelessWidget {
       );
   TextStyle get defaultTextStyle => _themeData.textTheme.bodyText1!
       .copyWith(
-        color: style.color ?? _theme.palette.text,
+        color: style.color ?? _theme.textColor,
       )
       .merge(textStyle);
 
@@ -75,13 +75,13 @@ class FluTextField extends StatelessWidget {
     return Container(
         height: style.expand
             ? double.infinity
-            : (style.height ?? Flukit.appConsts.defaultElSize),
+            : (style.height ?? Flukit.appSettings.defaultElSize),
         margin: style.margin,
         padding: style.padding,
         clipBehavior: Clip.hardEdge,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: style.fillColor ?? _theme.palette.accentBackground,
+          color: style.fillColor ?? _theme.accentBackgroundColor,
           boxShadow: style.boxShadow,
           border: style.borderWidth != null
               ? Border.all(
@@ -90,7 +90,7 @@ class FluTextField extends StatelessWidget {
                   width: style.borderWidth!)
               : null,
           borderRadius: BorderRadius.circular(
-              style.radius ?? Flukit.appConsts.defaultElRadius),
+              style.radius ?? Flukit.appSettings.defaultElRadius),
         ),
         child: Row(
           // crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,7 +128,7 @@ class FluTextField extends StatelessWidget {
           onTap: () => onTap,
           child: FluIcon(
             icon,
-            color: style.iconColor ?? _theme.palette.accentText,
+            color: style.iconColor ?? _theme.accentTextColor,
             size: style.iconSize ?? 20,
             strokewidth: style.iconStrokeWidth ?? 1.5,
           ),

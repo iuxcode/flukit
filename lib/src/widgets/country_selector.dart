@@ -68,14 +68,14 @@ class FluCountrySelectState extends State<FluCountrySelect> {
               width: Flukit.screenSize.width * .2,
               margin: const EdgeInsets.only(bottom: 8),
               decoration: BoxDecoration(
-                  color: Flukit.theme.backgroundColor.withOpacity(.5),
+                  color: Flukit.fluTheme.backgroundColor.withOpacity(.5),
                   borderRadius: BorderRadius.circular(2)),
             ),
             Expanded(
               child: Container(
                   padding: const EdgeInsets.only(top: 5),
                   decoration: BoxDecoration(
-                      color: Flukit.theme.backgroundColor,
+                      color: Flukit.fluTheme.backgroundColor,
                       borderRadius: borderRadius),
                   child: ClipRRect(
                       borderRadius: borderRadius,
@@ -85,15 +85,15 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                               controller: scrollController,
                               physics: const BouncingScrollPhysics(),
                               padding: EdgeInsets.all(
-                                  Flukit.appConsts.defaultPaddingSize),
+                                  Flukit.appSettings.defaultPaddingSize),
                               children: <Widget>[
                                     Text(
                                         widget.title ??
                                             'Select your country ${Emojis.compass}',
                                         style: Flukit.textTheme.bodyText1!.copyWith(
-                                            fontSize: Flukit.appConsts.headlineFs,
-                                            fontWeight: Flukit.appConsts.textBold,
-                                            color: Flukit.theme.palette.accentText)),
+                                            fontSize: Flukit.appSettings.headlineFs,
+                                            fontWeight: Flukit.appSettings.textBold,
+                                            color: Flukit.themePalette.accentText)),
                                     const SizedBox(height: 5),
                                     Text(
                                       widget.desc ??
@@ -101,7 +101,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                       style: Flukit.textTheme.bodyText1,
                                     ),
                                     FluOutline(
-                                      radius: Flukit.appConsts.minElRadius + 2,
+                                      radius: Flukit.appSettings.minElRadius + 2,
                                       margin: const EdgeInsets.only(
                                         bottom: 15,
                                         top: 25,
@@ -110,27 +110,27 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                         blurRadius: 30,
                                         opacity: .045,
                                         offset: const Offset(10, 10),
-                                        color: Flukit.theme.shadowColor,
+                                        color: Flukit.fluTheme.shadowColor,
                                       ),
                                       child: FluTextField(
                                         style: FluTextFieldStyle(
                                           hintText: widget.searchInputHint ??
                                               'Search for a country.',
-                                          height: Flukit.appConsts.minElSize + 5,
-                                          radius: Flukit.appConsts.minElRadius,
-                                          fillColor: Flukit.theme.backgroundColor,
+                                          height: Flukit.appSettings.minElSize + 5,
+                                          radius: Flukit.appSettings.minElRadius,
+                                          fillColor: Flukit.fluTheme.backgroundColor,
                                           textAlign: TextAlign.left,
                                           fluPrefixIcon: FluIcons.searchNormal,
                                           iconSize: 18,
                                           iconStrokeWidth: 2,
-                                          iconColor: Flukit.theme.textColor,
+                                          iconColor: Flukit.fluTheme.textColor,
                                           borderWidth: 1.2,
                                           boxShadow: [
                                             Flukit.boxShadow(
                                               blurRadius: 30,
                                               opacity: .035,
                                               offset: const Offset(0, 5),
-                                              color: Flukit.theme.primaryColor,
+                                              color: Flukit.fluTheme.primaryColor,
                                             )
                                           ],
                                         ),
@@ -153,7 +153,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                                 margin: const EdgeInsets.only(
                                                     bottom: 10),
                                                 backgroundColor: Flukit
-                                                    .theme.secondaryColor
+                                                    .fluTheme.secondaryColor
                                                     .withOpacity(.45),
                                                 radius: flagRadius + 2,
                                               ),
@@ -167,8 +167,8 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                                   boxShadow: Flukit.boxShadow(
                                                       offset: const Offset(0, 0),
                                                       opacity: .15,
-                                                      color:
-                                                          Flukit.theme.primaryColor),
+                                                      color: Flukit
+                                                          .fluTheme.primaryColor),
                                                   child: Container(
                                                     height: flagSize,
                                                     width: flagSize,
@@ -194,7 +194,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                                             .textTheme.bodyText1!
                                                             .copyWith(
                                                                 fontWeight: Flukit
-                                                                    .appConsts
+                                                                    .appSettings
                                                                     .textSemibold))),
                                                 const SizedBox(width: 5),
                                                 Text('+${country.phoneCode}',
@@ -203,9 +203,11 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                                         .textTheme.bodyText1!
                                                         .copyWith(
                                                             fontWeight: Flukit
-                                                                .appConsts.textLight,
-                                                            color: Flukit.theme
-                                                                .palette.accentText))
+                                                                .appSettings
+                                                                .textLight,
+                                                            color: Flukit
+                                                                .themePalette
+                                                                .accentText))
                                               ]));
                                         }).toList()
                                       : [

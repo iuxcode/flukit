@@ -54,27 +54,25 @@ class FluApiSettings {
 
   final dio.InterceptorsWrapper? requestsInterceptor;
 
-  FluApiSettings({
-    required this.baseUrl,
-    this.connectTimeout,
-    this.receiveTimeout,
-    this.sendTimeout,
-    this.appendSlashToUrl = false,
-    this.responseType = dio.ResponseType.json,
-    this.headers = const {
-      'Content-Type': 'application/json',
-    },
-    this.requestsInterceptor
-  });
+  FluApiSettings(
+      {required this.baseUrl,
+      this.connectTimeout,
+      this.receiveTimeout,
+      this.sendTimeout,
+      this.appendSlashToUrl = false,
+      this.responseType = dio.ResponseType.json,
+      this.headers = const {
+        'Content-Type': 'application/json',
+      },
+      this.requestsInterceptor});
 
   dio.BaseOptions get options => dio.BaseOptions(
-    baseUrl: baseUrl,
-    responseType: responseType,
-    connectTimeout: connectTimeout ?? FluConsts.httpConnectTimeout,
-    receiveTimeout: receiveTimeout ?? FluConsts.httpReceiveTimeout,
-    sendTimeout: sendTimeout ?? FluConsts.httpSendTimeout,
-    headers: headers
-  );
+      baseUrl: baseUrl,
+      responseType: responseType,
+      connectTimeout: connectTimeout ?? FluSettings.httpConnectTimeout,
+      receiveTimeout: receiveTimeout ?? FluSettings.httpReceiveTimeout,
+      sendTimeout: sendTimeout ?? FluSettings.httpSendTimeout,
+      headers: headers);
 }
 
 class _FluConnect {
@@ -88,51 +86,86 @@ class _FluConnect {
   dio.Dio _createDio() {
     dio.Dio inst = dio.Dio(settings.options);
 
-    if(settings.requestsInterceptor != null) {
+    if (settings.requestsInterceptor != null) {
       inst.interceptors.add(settings.requestsInterceptor!);
     }
 
     return inst;
   }
 
-  String _buildUrl(String endpoint) => endpoint + (settings.appendSlashToUrl ? '/' : '');
+  String _buildUrl(String endpoint) =>
+      endpoint + (settings.appendSlashToUrl ? '/' : '');
 
   /// Handy method to make http GET request
-  Future<dio.Response> get(String endpoint, { Map<String, dynamic>? parameters, dio.Options? options, dio.CancelToken? cancelToken, void Function(int, int)? onReceiveProgress }) async {
+  Future<dio.Response> get(String endpoint,
+      {Map<String, dynamic>? parameters,
+      dio.Options? options,
+      dio.CancelToken? cancelToken,
+      void Function(int, int)? onReceiveProgress}) async {
     try {
-      dio.Response response = await dioInstance.get(_buildUrl(endpoint), queryParameters: parameters, options: options, cancelToken: cancelToken, onReceiveProgress: onReceiveProgress);
+      dio.Response response = await dioInstance.get(_buildUrl(endpoint),
+          queryParameters: parameters,
+          options: options,
+          cancelToken: cancelToken,
+          onReceiveProgress: onReceiveProgress);
       return response;
-    } on dio.DioError catch(e) {
+    } on dio.DioError catch (e) {
       return Future.error(e);
     }
   }
 
   /// Handy method to make http POST request
-  Future<dio.Response> post(String endpoint, dynamic data, { Map<String, dynamic>? parameters, dio.Options? options, dio.CancelToken? cancelToken, void Function(int, int)? onSendProgress, void Function(int, int)? onReceiveProgress }) async {
+  Future<dio.Response> post(String endpoint, dynamic data,
+      {Map<String, dynamic>? parameters,
+      dio.Options? options,
+      dio.CancelToken? cancelToken,
+      void Function(int, int)? onSendProgress,
+      void Function(int, int)? onReceiveProgress}) async {
     try {
-      dio.Response response = await dioInstance.post(_buildUrl(endpoint), data: data, queryParameters: parameters, options: options, cancelToken: cancelToken, onSendProgress: onSendProgress, onReceiveProgress: onReceiveProgress);
+      dio.Response response = await dioInstance.post(_buildUrl(endpoint),
+          data: data,
+          queryParameters: parameters,
+          options: options,
+          cancelToken: cancelToken,
+          onSendProgress: onSendProgress,
+          onReceiveProgress: onReceiveProgress);
       return response;
-    } on dio.DioError catch(e) {
+    } on dio.DioError catch (e) {
       return Future.error(e);
     }
   }
 
   /// Handy method to make http PUT request
-  Future<dio.Response> put(String endpoint, dynamic data, { Map<String, dynamic>? parameters, dio.Options? options, dio.CancelToken? cancelToken, void Function(int, int)? onSendProgress, void Function(int, int)? onReceiveProgress }) async {
+  Future<dio.Response> put(String endpoint, dynamic data,
+      {Map<String, dynamic>? parameters,
+      dio.Options? options,
+      dio.CancelToken? cancelToken,
+      void Function(int, int)? onSendProgress,
+      void Function(int, int)? onReceiveProgress}) async {
     try {
-      dio.Response response = await dioInstance.put(_buildUrl(endpoint), data: data, queryParameters: parameters, options: options, cancelToken: cancelToken, onSendProgress: onSendProgress, onReceiveProgress: onReceiveProgress);
+      dio.Response response = await dioInstance.put(_buildUrl(endpoint),
+          data: data,
+          queryParameters: parameters,
+          options: options,
+          cancelToken: cancelToken,
+          onSendProgress: onSendProgress,
+          onReceiveProgress: onReceiveProgress);
       return response;
-    } on dio.DioError catch(e) {
+    } on dio.DioError catch (e) {
       return Future.error(e);
     }
   }
 
   /// Handy method to make http DELETE request
-  Future<dio.Response> delete(String endpoint, { Map<String, dynamic>? parameters, dio.Options? options, dio.CancelToken? cancelToken }) async {
+  Future<dio.Response> delete(String endpoint,
+      {Map<String, dynamic>? parameters,
+      dio.Options? options,
+      dio.CancelToken? cancelToken}) async {
     try {
-      dio.Response response = await dioInstance.delete(_buildUrl(endpoint), queryParameters: parameters, options: options, cancelToken: cancelToken);
+      dio.Response response = await dioInstance.delete(_buildUrl(endpoint),
+          queryParameters: parameters, options: options, cancelToken: cancelToken);
       return response;
-    } on dio.DioError catch(e) {
+    } on dio.DioError catch (e) {
       return Future.error(e);
     }
   }

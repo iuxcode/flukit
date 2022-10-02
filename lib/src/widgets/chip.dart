@@ -60,13 +60,13 @@ class _FluChipsState extends State<FluChips> {
   late ScrollController scrollController;
 
   void initScroll() => scrollController.animateTo(widget.initialScrollOffset,
-      duration: Flukit.appConsts.defaultAnimationDuration,
-      curve: Flukit.appConsts.defaultAnimationCurve);
+      duration: Flukit.appSettings.defaultAnimationDuration,
+      curve: Flukit.appSettings.defaultAnimationCurve);
 
   @override
   void initState() {
     padding = widget.padding ??
-        EdgeInsets.symmetric(horizontal: Flukit.appConsts.defaultPaddingSize);
+        EdgeInsets.symmetric(horizontal: Flukit.appSettings.defaultPaddingSize);
     scrollController = widget.scrollController ?? ScrollController();
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => initScroll());
@@ -185,7 +185,7 @@ class FluChip extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget child;
     double? _width = (chip.image != null && chip.text == null)
-        ? Flukit.appConsts.defaultChipHeight * 2
+        ? Flukit.appSettings.defaultChipHeight * 2
         : null;
 
     child = chip.image != null
@@ -202,7 +202,7 @@ class FluChip extends StatelessWidget {
 
     return UnconstrainedBox(
       child: Container(
-        height: height ?? Flukit.appConsts.defaultChipHeight,
+        height: height ?? Flukit.appSettings.defaultChipHeight,
         width: chip.width ?? _width,
         alignment: Alignment.center,
         clipBehavior: clipBehavior,
@@ -216,15 +216,16 @@ class FluChip extends StatelessWidget {
         decoration: BoxDecoration(
           color: chip.outlined
               ? Colors.transparent
-              : chip.color ?? Flukit.theme.secondaryColor.withOpacity(.25),
+              : chip.color ?? Flukit.fluTheme.secondaryColor.withOpacity(.25),
           border: chip.outlined
               ? Border.all(
                   width: chip.strokeWidth,
-                  color: chip.color ?? Flukit.theme.secondaryColor.withOpacity(.5),
+                  color:
+                      chip.color ?? Flukit.fluTheme.secondaryColor.withOpacity(.5),
                 )
               : null,
           borderRadius: BorderRadius.circular(
-              (height ?? Flukit.appConsts.defaultChipHeight) * 2),
+              (height ?? Flukit.appSettings.defaultChipHeight) * 2),
         ),
         child: child,
       ),

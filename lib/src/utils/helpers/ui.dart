@@ -8,28 +8,33 @@ extension FlukitUI on FlukitInterface {
   FluAppController get appController => Get.find<FluAppController>();
 
   /// Find and return app informations
-  FluAppInformations get appInfos => appController.appInfos;
+  FluAppInformations get appInfos => appController.infos;
 
   /// Find and return app constants
-  FluConstsInterface get appConsts => appController.appConsts;
+  FluSettingsInterface get appSettings => appController.settings;
 
   /// return the current theme
-  FluTheme get theme => appController.theme;
+  FluTheme get fluTheme => appController.fluTheme;
 
   /// return the current themeData
-  ThemeData get themeData => Theme.of(context);
-
-  /// return the current theme systemOverlayStyle
-  SystemUiOverlayStyle get systemOverlayStyle => theme.systemStyle;
+  ThemeData get themeData => appController.theme;
 
   /// return the current theme textThemes
   TextTheme get textTheme => themeData.textTheme;
 
   /// return the current theme color palette
-  FluColorPalette get themePalette => theme.palette;
+  FluColorPalette get themePalette => fluTheme.colors;
 
   /// return the current theme brightness
-  Brightness get themeBrightness => theme.brightness;
+  Brightness get themeBrightness => fluTheme.brightness;
+
+  /// return the current theme systemOverlayStyle
+  SystemUiOverlayStyle get systemOverlayStyle => fluTheme.systemStyle;
+
+  /// switch theme
+  void changeTheme(FluTheme theme) {
+    appController.changeTheme(theme);
+  }
 
   /// return the screen size
   Size get screenSize => Get.size;
@@ -49,10 +54,6 @@ extension FlukitUI on FlukitInterface {
   /// Show the keyboard
   void showKeyboard() => SystemChannels.textInput.invokeMethod('TextInput.show');
 
-  /// switch theme || take the theme as parameter
-  /// TODO implement function to switch theme.
-  void changeTheme(FluTheme theme) {}
-
   /// build theme based boxShadow
   BoxShadow boxShadow(
           {double blurRadius = 20,
@@ -64,7 +65,7 @@ extension FlukitUI on FlukitInterface {
           blurRadius: blurRadius,
           spreadRadius: spreadRadius,
           offset: offset,
-          color: (color ?? theme.palette.shadow).withOpacity(opacity));
+          color: (color ?? themePalette.shadow).withOpacity(opacity));
 
   /// display theme based or custom snackbar
   void showSnackbar(String message,
@@ -100,9 +101,9 @@ extension FlukitUI on FlukitInterface {
         iconColor = iconColor ?? themePalette.warning;
         break;
       case FluSnackbarType.primary:
-        backgroundColor = backgroundColor ?? themePalette.primary;
-        textColor = textColor ?? themePalette.primary;
-        iconColor = iconColor ?? themePalette.primary;
+        backgroundColor = backgroundColor ?? fluTheme.primaryColor;
+        textColor = textColor ?? fluTheme.primaryColor;
+        iconColor = iconColor ?? fluTheme.primaryColor;
         break;
       case FluSnackbarType.light:
         backgroundColor = backgroundColor ?? themePalette.light;
@@ -132,7 +133,7 @@ extension FlukitUI on FlukitInterface {
         (message ?? 'Something went wrong , please retry !').replaceAll('_', ' '),
         type: FluSnackbarType.danger,
         position: SnackPosition.TOP,
-        textColor: Flukit.theme.palette.danger,
+        textColor: themePalette.danger,
         opacity: .065,
         blur: 45,
         duration: 10);

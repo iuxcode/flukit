@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 /// FlukitInterface allows any auxiliary package to be merged into the app constants
 /// class through extensions
-abstract class FluConstsInterface {
-  FluConstsInterface();
+abstract class FluSettingsInterface {
+  FluSettingsInterface();
 
   /// Font sizes
   double get verySmallFs => 10;
@@ -59,7 +59,7 @@ abstract class FluConstsInterface {
   String? get emojiFont => null;
 }
 
-class _FluConstsImpl extends FluConstsInterface {}
+class _FluSettingsImpl extends FluSettingsInterface {}
 
 // ignore: non_constant_identifier_names
-final FluConstsInterface FluConsts = _FluConstsImpl();
+final FluSettingsInterface FluSettings = _FluSettingsImpl();

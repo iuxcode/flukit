@@ -117,7 +117,7 @@ class FluAvatar extends StatelessWidget {
         decoration: BoxDecoration(
           color: backgroundGradient == null && backgroundColor != null
               ? backgroundColor
-              : Flukit.theme.primaryColor,
+              : Flukit.fluTheme.primaryColor,
           gradient: backgroundGradient,
           borderRadius: BorderRadius.circular(radius),
           boxShadow: [if (boxShadow != null && !outlined) boxShadow!],

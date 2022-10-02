@@ -1,39 +1,54 @@
 import 'package:flukit/src/models/app.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flukit/src/configs/theme/index.dart';
 
-import '../configs/theme/tweaks.dart';
+import '../configs/settings.dart';
 import '../utils/flu_utils.dart';
 
-class FluAppController extends GetxController {
-  final FluTheme? defaultTheme;
-  final FluApiSettings? baseApiSettings;
-  final FluAppInformations? appInformations;
-  final FluConstsInterface? appConstants;
+class FluAppController extends GetMaterialController {
   final FluStorageService storageService = Flukit.secureStorage;
 
-  final RxBool _isDark = false.obs;
-  final Rx<FluTheme> _theme = FluTheme().obs;
+  final FluAppInformations infos;
+
+  late FluSettingsInterface settings;
+
   final Rx<FluApiSettings> _apiSettings =
       FluApiSettings(baseUrl: 'http://localhost:8000').obs;
+  final Rx<FluTheme> _fluTheme = FluTheme().obs;
 
   FluAppController({
-    this.defaultTheme,
-    this.baseApiSettings,
-    this.appInformations,
-    this.appConstants,
-  });
+    this.infos = const FluAppInformations(),
+    FluApiSettings? apiSettings,
+    FluSettingsInterface? settings,
+  }) {
+    if (apiSettings != null) {
+      _apiSettings.value = apiSettings;
+    }
 
-  bool get isDark => _isDark.value;
-  FluTheme get theme => _theme.value;
+    this.settings = settings ?? FluSettings;
+    Get.isDarkMode;
+  }
+
+  FluTheme get fluTheme => _fluTheme.value;
+  @override
+  ThemeData get theme => fluTheme.theme;
+  @override
+  ThemeData get darkTheme => fluTheme.darkTheme;
   FluApiSettings get apiSettings => _apiSettings.value;
-  FluAppInformations get appInfos => appInformations ?? FluAppInformations();
-  FluConstsInterface get appConsts => appConstants ?? FluConsts;
 
-  set isDark(bool value) => _isDark.value = value;
-  set theme(FluTheme newTheme) {
-    _theme.value = newTheme;
-    update(['flukit_app']);
+  void changeTheme(FluTheme value) {
+    _fluTheme.value = value;
+    update();
+  }
+
+  @override
+  @deprecated
+  void setTheme(ThemeData value) {}
+
+  set apiSettings(FluApiSettings newSettings) {
+    _apiSettings.value = newSettings;
+    update();
   }
 
   Future<bool> firstTimeOpening() async {
@@ -162,18 +177,5 @@ class FluAppController extends GetxController {
     } catch (e) {
       return Future.error(e);
     }
-  }
-
-  @override
-  void onInit() {
-    if (defaultTheme != null) {
-      _theme.value = defaultTheme!;
-    }
-
-    if (baseApiSettings != null) {
-      _apiSettings.value = baseApiSettings!;
-    }
-
-    super.onInit();
   }
 }

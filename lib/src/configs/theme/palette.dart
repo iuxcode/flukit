@@ -1,15 +1,13 @@
-part of './index.dart';
+import 'package:flutter/material.dart';
 
 class FluColorPalette {
   final Color background;
   final Color accentBackground;
-  final Color primary;
-  final Color primaryText;
-  final Color secondary;
+
   final Color text;
   final Color accentText;
   final Color shadow;
-  final Color? tertiary;
+
   final Color light;
   final Color dark;
   final Color danger;
@@ -19,13 +17,9 @@ class FluColorPalette {
   FluColorPalette({
     required this.background,
     required this.accentBackground,
-    required this.primary,
-    required this.primaryText,
-    required this.secondary,
     required this.text,
     required this.accentText,
     required this.shadow,
-    this.tertiary,
     this.light = _defaultLightColor,
     this.dark = _defaultDarkColor,
     this.danger = _defaultDangerColor,
@@ -34,9 +28,6 @@ class FluColorPalette {
   });
 
   factory FluColorPalette.light({
-    Color primary = _defaultPrimaryColor,
-    Color primaryText = _defaultPrimaryTextColor,
-    Color secondary = _defaultSecondaryColor,
     Color? light,
     Color? dark,
     Color? danger,
@@ -50,10 +41,6 @@ class FluColorPalette {
     Color? tertiary,
   }) =>
       FluColorPalette(
-        primary: primary,
-        primaryText: primaryText,
-        secondary: secondary,
-        tertiary: tertiary ?? secondary,
         background: background ?? const Color(0xffffffff),
         accentBackground: accentBackground ?? const Color(0xFFF8F8F8),
         text: text ?? const Color(0xFF6980A3),
@@ -67,9 +54,6 @@ class FluColorPalette {
       );
 
   factory FluColorPalette.dark({
-    Color primary = _defaultPrimaryColor,
-    Color primaryText = _defaultPrimaryTextColor,
-    Color secondary = _defaultSecondaryColor,
     Color? light,
     Color? dark,
     Color? danger,
@@ -83,10 +67,6 @@ class FluColorPalette {
     Color? tertiary,
   }) =>
       FluColorPalette(
-        primary: primary,
-        primaryText: primaryText,
-        secondary: secondary,
-        tertiary: tertiary ?? secondary,
         background: background ?? const Color(0xff000000),
         accentBackground: accentBackground ?? const Color(0xff000000),
         text: text ?? const Color(0xffeeeeee),
@@ -119,13 +99,9 @@ class FluColorPalette {
       FluColorPalette(
         background: background ?? this.background,
         accentBackground: accentBackground ?? this.accentBackground,
-        primary: primary ?? this.primary,
-        primaryText: primaryText ?? this.primaryText,
-        secondary: secondary ?? this.secondary,
         text: text ?? this.text,
         accentText: accentText ?? this.accentText,
         shadow: shadow ?? this.shadow,
-        tertiary: tertiary ?? this.tertiary,
         light: light ?? this.light,
         dark: dark ?? this.dark,
         danger: danger ?? this.danger,
@@ -134,9 +110,6 @@ class FluColorPalette {
       );
 }
 
-const Color _defaultPrimaryColor = Color(0xff0072ff);
-const Color _defaultPrimaryTextColor = Colors.white;
-const Color _defaultSecondaryColor = Color(0xFFEBF4FF);
 const Color _defaultLightColor = Color(0xffffffff);
 const Color _defaultDarkColor = Color(0xff000000);
 const Color _defaultDangerColor = Color(0xffFF3D71);

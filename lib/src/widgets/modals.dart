@@ -22,8 +22,7 @@ class FluModalBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: DraggableScrollableSheet(
             expand: false,
             maxChildSize: maxChildSize,
@@ -43,7 +42,7 @@ class FluModalBottomSheet extends StatelessWidget {
                     duration: animationDuration,
                     curve: animationCurve,
                     decoration: BoxDecoration(
-                        color: Flukit.theme.backgroundColor.withOpacity(.9),
+                        color: Flukit.fluTheme.backgroundColor.withOpacity(.9),
                         borderRadius: BorderRadius.circular(10)),
                   ),
                   Flexible(
@@ -54,7 +53,7 @@ class FluModalBottomSheet extends StatelessWidget {
                       duration: animationDuration,
                       curve: animationCurve,
                       decoration: BoxDecoration(
-                        color: Flukit.theme.backgroundColor,
+                        color: Flukit.fluTheme.backgroundColor,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(radius ?? defaultRadius),
                             topRight: Radius.circular(radius ?? defaultRadius)),
@@ -62,8 +61,7 @@ class FluModalBottomSheet extends StatelessWidget {
                       child: SingleChildScrollView(
                           controller: scrollController,
                           padding: padding ??
-                              EdgeInsets.all(
-                                  Flukit.appConsts.defaultPaddingSize),
+                              EdgeInsets.all(Flukit.appSettings.defaultPaddingSize),
                           child: child),
                     ),
                   ),

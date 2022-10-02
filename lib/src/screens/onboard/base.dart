@@ -42,7 +42,7 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
   @override
   Widget build(BuildContext context) => FluScreen(
       systemUiOverlayStyle:
-          Flukit.theme.systemStyle.copyWith(statusBarColor: Colors.transparent),
+          Flukit.fluTheme.systemStyle.copyWith(statusBarColor: Colors.transparent),
       body: GetX<FluOnboardingScreenController>(
         init: controller,
         initState: (_) {},
@@ -81,7 +81,7 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(
-                            horizontal: Flukit.appConsts.defaultPaddingSize)
+                            horizontal: Flukit.appSettings.defaultPaddingSize)
                         .copyWith(bottom: 15),
                     child: AnimatedSwitcher(
                       duration: widget.parameters.animationDuration,
@@ -101,9 +101,9 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
                                         ? widget.parameters.skipButtonText
                                         : widget.parameters.prevButtonText,
                                     textStyle: TextStyle(
-                                        fontWeight: Flukit.appConsts.textSemibold),
+                                        fontWeight: Flukit.appSettings.textSemibold),
                                     style: FluButtonStyle(
-                                      height: Flukit.appConsts.defaultElSize,
+                                      height: Flukit.appSettings.defaultElSize,
                                       color: Flukit.themePalette.accentText,
                                     ),
                                   ),
@@ -117,29 +117,29 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
                                         ? widget.parameters.mainButtonText
                                         : widget.parameters.nextButtonText,
                                     textStyle: TextStyle(
-                                        fontWeight: Flukit.appConsts.textSemibold),
+                                        fontWeight: Flukit.appSettings.textSemibold),
                                     style: FluButtonStyle(
-                                      height: Flukit.appConsts.defaultElSize,
+                                      height: Flukit.appSettings.defaultElSize,
                                       color: Flukit.themePalette.accentText,
                                     ),
                                   )
                                 ])
                           : Hero(
-                              tag: Flukit.appConsts.mainButtonHeroTag,
+                              tag: Flukit.appSettings.mainButtonHeroTag,
                               child: FluButton.text(
                                 onPressed: widget.parameters.onForward,
                                 text: widget.parameters.mainButtonText,
                                 prefixIcon: widget.parameters.mainButtonIcon ??
                                     FluIcons.flash,
-                                textStyle:
-                                    TextStyle(fontWeight: Flukit.appConsts.textBold),
+                                textStyle: TextStyle(
+                                    fontWeight: Flukit.appSettings.textBold),
                                 style: FluButtonStyle(
-                                  height: Flukit.appConsts.defaultElSize,
+                                  height: Flukit.appSettings.defaultElSize,
                                   width: double.infinity,
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 12),
-                                  color: Flukit.themePalette.primaryText,
-                                  backgroundColor: Flukit.themeData.primaryColor,
+                                  color: Flukit.fluTheme.primaryTextColor,
+                                  backgroundColor: Flukit.fluTheme.primaryColor,
                                   iconSize: 24,
                                   iconStrokewidth: 1.8,
                                   // alignment: Alignment.centerLeft
@@ -206,8 +206,8 @@ class FluOnboardingScreenImageViewer extends StatelessWidget {
       decoration: BoxDecoration(
           gradient: gradient
               ? LinearGradient(colors: [
-                  Flukit.theme.data.colorScheme.secondary,
-                  Flukit.theme.data.backgroundColor
+                  Flukit.fluTheme.secondaryColor,
+                  Flukit.fluTheme.backgroundColor
                 ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
               : null),
       child: AnimatedScale(
@@ -239,7 +239,7 @@ class FluOnboardingScreenTexts extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Padding(
         padding:
-            EdgeInsets.symmetric(horizontal: Flukit.appConsts.defaultPaddingSize)
+            EdgeInsets.symmetric(horizontal: Flukit.appSettings.defaultPaddingSize)
                 .copyWith(
                     bottom: marginBottom ?? Flukit.screenSize.height * .075,
                     top: 15),
@@ -247,15 +247,15 @@ class FluOnboardingScreenTexts extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Hero(
-              tag: Flukit.appConsts.titleTextHeroTag,
+              tag: Flukit.appSettings.titleTextHeroTag,
               child: Text(title,
                   textAlign: TextAlign.center,
                   style: Flukit.textTheme.headline1
-                      ?.copyWith(fontSize: Flukit.appConsts.headlineFs)),
+                      ?.copyWith(fontSize: Flukit.appSettings.headlineFs)),
             ),
             const SizedBox(height: 5),
             Hero(
-                tag: Flukit.appConsts.descriptionTextHeroTag,
+                tag: Flukit.appSettings.descriptionTextHeroTag,
                 child: Text(desc,
                     textAlign: TextAlign.center, style: Flukit.textTheme.bodyText1)),
           ],
@@ -285,7 +285,7 @@ class FluOnboardingScreenIndicators extends StatelessWidget {
         count: count,
         effect: ExpandingDotsEffect(
           dotColor: dotColor ?? Colors.grey,
-          activeDotColor: Flukit.theme.data.primaryColor,
+          activeDotColor: Flukit.fluTheme.primaryColor,
           dotHeight: dotHeight,
           dotWidth: dotWidth,
           expansionFactor: expansionFactor,

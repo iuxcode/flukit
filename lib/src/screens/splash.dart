@@ -90,16 +90,16 @@ class _FluSplashScreenState extends State<FluSplashScreen> {
                 Padding(
                   padding: EdgeInsets.only(bottom: Flukit.screenSize.height * .15),
                   child: Hero(
-                    tag: Flukit.appConsts.brandTextHeroTag,
+                    tag: Flukit.appSettings.brandTextHeroTag,
                     child: Text(
                       Flukit.appInfos.name,
                       style: widget.textStyle ??
                           TextStyle(
                             fontFamily: Flukit.fonts.neptune,
                             package: 'flukit',
-                            fontSize: Flukit.appConsts.subHeadlineFs,
-                            fontWeight: Flukit.appConsts.textBold,
-                            color: Flukit.theme.accentTextColor,
+                            fontSize: Flukit.appSettings.subHeadlineFs,
+                            fontWeight: Flukit.appSettings.textBold,
+                            color: Flukit.fluTheme.accentTextColor,
                           ),
                     ),
                   ),

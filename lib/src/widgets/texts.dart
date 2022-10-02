@@ -85,7 +85,7 @@ class FluText extends StatelessWidget {
         case FluTextStyle.smallBold:
         case FluTextStyle.smallNeptune:
           textStyle = Flukit.textTheme.bodyText1
-              ?.copyWith(fontSize: Flukit.appConsts.smallFs);
+              ?.copyWith(fontSize: Flukit.appSettings.smallFs);
           break;
         case FluTextStyle.body:
         case FluTextStyle.bodyBold:
@@ -98,9 +98,9 @@ class FluText extends StatelessWidget {
           break;
         case FluTextStyle.headlineSemibold:
           textStyle = Flukit.textTheme.bodyText1?.copyWith(
-              fontSize: Flukit.appConsts.headlineFs,
-              fontWeight: Flukit.appConsts.textBold,
-              color: Flukit.theme.accentTextColor);
+              fontSize: Flukit.appSettings.headlineFs,
+              fontWeight: Flukit.appSettings.textBold,
+              color: Flukit.fluTheme.accentTextColor);
           break;
       }
 
@@ -113,8 +113,8 @@ class FluText extends StatelessWidget {
           stylePreset == FluTextStyle.bodyBold ||
           stylePreset == FluTextStyle.headlineBold) {
         textStyle = textStyle?.merge(TextStyle(
-            fontWeight: Flukit.appConsts.textBold,
-            color: Flukit.theme.accentTextColor));
+            fontWeight: Flukit.appSettings.textBold,
+            color: Flukit.fluTheme.accentTextColor));
       }
 
       return textStyle ?? _defaultTextStyle;
@@ -140,7 +140,7 @@ class FluText extends StatelessWidget {
               text: hasText ? text : 'You have to add text or entities !',
               style: _style
                   .merge(style)
-                  .copyWith(color: hasText ? null : Flukit.theme.dangerColor),
+                  .copyWith(color: hasText ? null : Flukit.fluTheme.dangerColor),
             )
           ];
 
@@ -155,7 +155,7 @@ class FluText extends StatelessWidget {
       maxLines: maxLines,
       overflow: overflow,
       textAlign: textAlign,
-      /* minFontSize: minFontSize ?? Flukit.appConsts.smallFs,
+      /* minFontSize: minFontSize ?? Flukit.appSettings.smallFs,
       maxFontSize: maxFontSize,
       group: group,
       stepGranularity: stepGranularity,

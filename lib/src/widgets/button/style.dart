@@ -126,9 +126,9 @@ class FluButtonStyle {
   );
 
   static FluButtonStyle defaultt = FluButtonStyle(
-    height: Flukit.appConsts.defaultElSize,
-    radius: Flukit.appConsts.defaultElRadius,
-    backgroundColor: Flukit.theme.primaryColor,
+    height: Flukit.appSettings.defaultElSize,
+    radius: Flukit.appSettings.defaultElRadius,
+    backgroundColor: Flukit.fluTheme.primaryColor,
     color: Flukit.themePalette.light,
     padding: const EdgeInsets.symmetric(horizontal: 20),
   );

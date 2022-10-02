@@ -79,14 +79,14 @@ class FluBottomNavBarStyle {
 
   static FluBottomNavBarStyle defaultt = FluBottomNavBarStyle(
     background: Flukit.themePalette.dark,
-    color: Flukit.theme.textColor,
-    activeColor: Flukit.theme.primaryColor,
+    color: Flukit.fluTheme.textColor,
+    activeColor: Flukit.fluTheme.primaryColor,
   );
 
   static FluBottomNavBarStyle secondary = FluBottomNavBarStyle(
-    background: Flukit.theme.secondaryColor,
-    color: Flukit.theme.textColor,
-    activeColor: Flukit.theme.primaryColor,
+    background: Flukit.fluTheme.secondaryColor,
+    color: Flukit.fluTheme.textColor,
+    activeColor: Flukit.fluTheme.primaryColor,
   );
 }
 

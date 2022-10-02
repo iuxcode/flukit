@@ -64,18 +64,18 @@ class FluPaymentMethodSelector extends StatelessWidget {
         offset: const Offset(-25, 20),
       ),
       outlineSpacing: 2,
-      outlineColor: Flukit.theme.backgroundColor.withOpacity(.85),
+      outlineColor: Flukit.fluTheme.backgroundColor.withOpacity(.85),
       titleTextStyle: TextStyle(
-          color: Flukit.theme.accentTextColor,
-          fontSize: Flukit.appConsts.bodyFs + 1),
+          color: Flukit.fluTheme.accentTextColor,
+          fontSize: Flukit.appSettings.bodyFs + 1),
       descTextStyle: const TextStyle(fontSize: 13),
-      iconColor: Flukit.theme.accentTextColor,
+      iconColor: Flukit.fluTheme.accentTextColor,
       iconStrokewidth: 1.8,
       suffixWidget: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: FluIcon(
           FluIcons.arrowRight1,
-          color: Flukit.theme.textColor,
+          color: Flukit.fluTheme.textColor,
           size: 15,
         ),
       ),
@@ -86,7 +86,7 @@ class FluPaymentMethodSelector extends StatelessWidget {
           title: paymentMethodsInfo.title,
           description: paymentMethodsInfo.description,
           icon: paymentMethodsInfo.icon,
-          iconBackgroundColor: Flukit.theme.secondaryColor,
+          iconBackgroundColor: Flukit.fluTheme.secondaryColor,
           imageType: FluImageSource.network,
           onPressed: () => onSelected(e),
         );

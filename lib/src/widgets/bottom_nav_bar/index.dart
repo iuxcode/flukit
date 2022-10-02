@@ -113,8 +113,8 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
                         () => animationController.forward(from: 0.0));
                   },
                   data: widget.items[i],
-                  color: style.color ?? Flukit.theme.textColor,
-                  activeColor: style.activeColor ?? Flukit.theme.primaryColor,
+                  color: style.color ?? Flukit.fluTheme.textColor,
+                  activeColor: style.activeColor ?? Flukit.fluTheme.primaryColor,
                   animationDuration: style.animationDuration,
                   animationCurve: style.animationCurve,
                   showLabel: style.showItemLabelOnSelected,
@@ -137,8 +137,8 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
             curve: style.animationCurve,
             color: style.indicatorColor ??
                 style.activeColor ??
-                Flukit.theme.primaryColor,
-            activeColor: style.activeColor ?? Flukit.theme.primaryColor,
+                Flukit.fluTheme.primaryColor,
+            activeColor: style.activeColor ?? Flukit.fluTheme.primaryColor,
             style: style.indicatorStyle,
             position: style.indicatorPosition,
             gapWidth: style.gapWidth,
@@ -188,7 +188,7 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
                   child: Container(
                     height: style.height * .35,
                     decoration: BoxDecoration(
-                      color: Flukit.theme.backgroundColor,
+                      color: Flukit.fluTheme.backgroundColor,
                     ),
                   ),
                 ),
@@ -248,8 +248,8 @@ class _Item extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
                       style: Flukit.textTheme.bodyText1!.copyWith(
-                          fontSize: Flukit.appConsts.smallFs,
-                          color: Flukit.theme.primaryColor),
+                          fontSize: Flukit.appSettings.smallFs,
+                          color: Flukit.fluTheme.primaryColor),
                     )
                   : FluIcon(
                       isSelected && data.activeIcon != null

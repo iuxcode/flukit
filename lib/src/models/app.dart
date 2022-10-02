@@ -2,15 +2,18 @@
 /// This class will be used informations about author.
 class FluAppAuthor {
   /// first and last names of the author.
-  String firstName, lastName;
-  /// email address of the author.
-  String email;
-  /// website of the author.
-  String? websiteUrl;
-  /// github account of the author.
-  String? githubUrl;
+  final String firstName, lastName;
 
-  FluAppAuthor({
+  /// email address of the author.
+  final String email;
+
+  /// website of the author.
+  final String? websiteUrl;
+
+  /// github account of the author.
+  final String? githubUrl;
+
+  const FluAppAuthor({
     required this.firstName,
     required this.lastName,
     required this.email,
@@ -28,25 +31,23 @@ class FluAppAuthor {
 /// [AppVersion] is the version of the app.
 class FluAppInformations {
   /// Application name.
-  String name;
+  final String name;
+
   /// Application version.
-  String version;
+  final String version;
+
   /// Application authors.
-  List<FluAppAuthor> authors;
+  final List<FluAppAuthor> authors;
 
-  final FluAppAuthor defaultAuthor = FluAppAuthor(
-    firstName: 'charlot',
-    lastName: 'tabade',
-    email: 'charlottabade.pro@gmail.com',
-    websiteUrl: 'https://github.com/charles9904',
-    githubUrl: 'https://github.com/charles9904'
-  );
-
-  FluAppInformations({
-    this.name = 'Flukit',
-    this.version = '0.0.1',
-    this.authors = const []
-  }) {
-    authors += [defaultAuthor];
-  }
+  const FluAppInformations(
+      {this.name = 'Flukit',
+      this.version = '0.0.1',
+      this.authors = const [
+        FluAppAuthor(
+            firstName: 'charlot',
+            lastName: 'tabade',
+            email: 'charlottabade.pro@gmail.com',
+            websiteUrl: 'https://github.com/charles9904',
+            githubUrl: 'https://github.com/charles9904')
+      ]});
 }

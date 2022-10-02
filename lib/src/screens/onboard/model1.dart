@@ -19,7 +19,7 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(
-                          horizontal: Flukit.appConsts.defaultPaddingSize)
+                          horizontal: Flukit.appSettings.defaultPaddingSize)
                       .copyWith(top: 25),
                   child: FluOnboardingScreenIndicators(
                     count: parameters.pages.length,
@@ -38,9 +38,9 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                           bool mustCollapse = !parameters.controller.onFirstPage &&
                               !parameters.controller.onLastPage;
                           double maxWidth = mustCollapse
-                              ? Flukit.appConsts.defaultElSize
+                              ? Flukit.appSettings.defaultElSize
                               : (Flukit.screenSize.width -
-                                      (Flukit.appConsts.defaultPaddingSize * 2)) *
+                                      (Flukit.appSettings.defaultPaddingSize * 2)) *
                                   .45;
 
                           Widget icon = FluIcon(
@@ -67,12 +67,12 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                                   marginBottom: 20,
                                 ),
                                 Hero(
-                                  tag: Flukit.appConsts.mainButtonHeroTag,
+                                  tag: Flukit.appSettings.mainButtonHeroTag,
                                   child: FluButton(
                                       onPressed: parameters.onForward,
                                       style: FluButtonStyle.defaultt.copyWith(
-                                        height: Flukit.appConsts.minElSize + 5,
-                                        radius: Flukit.appConsts.minElRadius + 2,
+                                        height: Flukit.appSettings.minElSize + 5,
+                                        radius: Flukit.appSettings.minElRadius + 2,
                                         maxWidth: maxWidth,
                                       ),
 
@@ -116,7 +116,7 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                                                               .textTheme.bodyText1!
                                                               .copyWith(
                                                                   fontWeight: Flukit
-                                                                      .appConsts
+                                                                      .appSettings
                                                                       .textSemibold,
                                                                   color: Flukit
                                                                       .themePalette
@@ -132,7 +132,7 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20),
                   child: Hero(
-                    tag: Flukit.appConsts.brandTextHeroTag,
+                    tag: Flukit.appSettings.brandTextHeroTag,
                     child: Text(Flukit.appInfos.name,
                         style: Flukit.textTheme.bodyText1!.copyWith(
                             fontFamily: Flukit.fonts.neptune, package: 'flukit')),
