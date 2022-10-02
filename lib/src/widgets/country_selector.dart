@@ -68,14 +68,14 @@ class FluCountrySelectState extends State<FluCountrySelect> {
               width: Flukit.screenSize.width * .2,
               margin: const EdgeInsets.only(bottom: 8),
               decoration: BoxDecoration(
-                  color: Flukit.fluTheme.backgroundColor.withOpacity(.5),
+                  color: Flukit.theme.backgroundColor.withOpacity(.5),
                   borderRadius: BorderRadius.circular(2)),
             ),
             Expanded(
               child: Container(
                   padding: const EdgeInsets.only(top: 5),
                   decoration: BoxDecoration(
-                      color: Flukit.fluTheme.backgroundColor,
+                      color: Flukit.theme.backgroundColor,
                       borderRadius: borderRadius),
                   child: ClipRRect(
                       borderRadius: borderRadius,
@@ -110,7 +110,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                         blurRadius: 30,
                                         opacity: .045,
                                         offset: const Offset(10, 10),
-                                        color: Flukit.fluTheme.shadowColor,
+                                        color: Flukit.theme.shadowColor,
                                       ),
                                       child: FluTextField(
                                         style: FluTextFieldStyle(
@@ -118,19 +118,19 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                               'Search for a country.',
                                           height: Flukit.appSettings.minElSize + 5,
                                           radius: Flukit.appSettings.minElRadius,
-                                          fillColor: Flukit.fluTheme.backgroundColor,
+                                          fillColor: Flukit.theme.backgroundColor,
                                           textAlign: TextAlign.left,
                                           fluPrefixIcon: FluIcons.searchNormal,
                                           iconSize: 18,
                                           iconStrokeWidth: 2,
-                                          iconColor: Flukit.fluTheme.textColor,
+                                          iconColor: Flukit.theme.textColor,
                                           borderWidth: 1.2,
                                           boxShadow: [
                                             Flukit.boxShadow(
                                               blurRadius: 30,
                                               opacity: .035,
                                               offset: const Offset(0, 5),
-                                              color: Flukit.fluTheme.primaryColor,
+                                              color: Flukit.theme.primaryColor,
                                             )
                                           ],
                                         ),
@@ -153,7 +153,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                                 margin: const EdgeInsets.only(
                                                     bottom: 10),
                                                 backgroundColor: Flukit
-                                                    .fluTheme.secondaryColor
+                                                    .theme.secondaryColor
                                                     .withOpacity(.45),
                                                 radius: flagRadius + 2,
                                               ),
@@ -167,8 +167,8 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                                   boxShadow: Flukit.boxShadow(
                                                       offset: const Offset(0, 0),
                                                       opacity: .15,
-                                                      color: Flukit
-                                                          .fluTheme.primaryColor),
+                                                      color:
+                                                          Flukit.theme.primaryColor),
                                                   child: Container(
                                                     height: flagSize,
                                                     width: flagSize,

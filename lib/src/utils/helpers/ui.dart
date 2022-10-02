@@ -14,7 +14,7 @@ extension FlukitUI on FlukitInterface {
   FluSettingsInterface get appSettings => appController.settings;
 
   /// return the current theme
-  FluTheme get fluTheme => appController.fluTheme;
+  FluTheme get theme => appController.fluTheme;
 
   /// return the current themeData
   ThemeData get themeData => appController.theme;
@@ -23,13 +23,13 @@ extension FlukitUI on FlukitInterface {
   TextTheme get textTheme => themeData.textTheme;
 
   /// return the current theme color palette
-  FluColorPalette get themePalette => fluTheme.colors;
+  FluColorPalette get themePalette => theme.colors;
 
   /// return the current theme brightness
-  Brightness get themeBrightness => fluTheme.brightness;
+  Brightness get themeBrightness => theme.brightness;
 
   /// return the current theme systemOverlayStyle
-  SystemUiOverlayStyle get systemOverlayStyle => fluTheme.systemStyle;
+  SystemUiOverlayStyle get systemOverlayStyle => theme.systemStyle;
 
   /// switch theme
   void changeTheme(FluTheme theme) {
@@ -101,9 +101,9 @@ extension FlukitUI on FlukitInterface {
         iconColor = iconColor ?? themePalette.warning;
         break;
       case FluSnackbarType.primary:
-        backgroundColor = backgroundColor ?? fluTheme.primaryColor;
-        textColor = textColor ?? fluTheme.primaryColor;
-        iconColor = iconColor ?? fluTheme.primaryColor;
+        backgroundColor = backgroundColor ?? theme.primaryColor;
+        textColor = textColor ?? theme.primaryColor;
+        iconColor = iconColor ?? theme.primaryColor;
         break;
       case FluSnackbarType.light:
         backgroundColor = backgroundColor ?? themePalette.light;

@@ -196,7 +196,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
   Widget build(BuildContext context) {
     return FluScreen(
         systemUiOverlayStyle:
-            Flukit.fluTheme.systemStyle.copyWith(statusBarColor: Colors.transparent),
+            Flukit.theme.systemStyle.copyWith(statusBarColor: Colors.transparent),
         body: Form(
           key: _formKey,
           child: Stack(
@@ -224,8 +224,8 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                       decoration: BoxDecoration(
                                           gradient: LinearGradient(
                                               colors: [
-                                            Flukit.fluTheme.secondaryColor,
-                                            Flukit.fluTheme.backgroundColor
+                                            Flukit.theme.secondaryColor,
+                                            Flukit.theme.backgroundColor
                                           ],
                                               begin: Alignment.topCenter,
                                               end: Alignment.bottomCenter)),
@@ -279,8 +279,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                                   blurRadius: 30,
                                                   opacity: .065,
                                                   offset: const Offset(0, 0),
-                                                  color:
-                                                      Flukit.fluTheme.shadowColor),
+                                                  color: Flukit.theme.shadowColor),
                                               child: FluTextField(
                                                 inputController: inputController,
                                                 inputFormatters: null,
@@ -295,13 +294,13 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                                   keyboardType: TextInputType.text,
                                                   textInputAction:
                                                       TextInputAction.done,
-                                                  fillColor: Flukit
-                                                      .fluTheme.backgroundColor,
+                                                  fillColor:
+                                                      Flukit.theme.backgroundColor,
                                                   borderColor: (controller.hasError
                                                           ? Flukit
                                                               .themePalette.danger
-                                                          : Flukit.fluTheme
-                                                              .backgroundColor)
+                                                          : Flukit
+                                                              .theme.backgroundColor)
                                                       .withOpacity(.015),
                                                   hintColor: controller.hasError
                                                       ? Flukit.themePalette.danger
@@ -363,13 +362,13 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                                   .appSettings.defaultPaddingSize)
                                           .copyWith(bottom: 25),
                                       color: controller.canSubmit
-                                          ? Flukit.fluTheme.primaryTextColor
+                                          ? Flukit.theme.primaryTextColor
                                           : Flukit.themePalette.accentText,
                                       backgroundColor: controller.canSubmit
-                                          ? Flukit.fluTheme.primaryColor
-                                          : Flukit.fluTheme.secondaryColor,
+                                          ? Flukit.theme.primaryColor
+                                          : Flukit.theme.secondaryColor,
                                       boxShadow: Flukit.boxShadow(
-                                          color: Flukit.fluTheme.shadowColor,
+                                          color: Flukit.theme.shadowColor,
                                           opacity:
                                               controller.canSubmit ? .085 : .045,
                                           blurRadius: 30,
@@ -407,11 +406,11 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                     height: Flukit.appSettings.minElSize - 5,
                                     width: Flukit.appSettings.minElSize - 5,
                                     radius: Flukit.appSettings.minElRadius,
-                                    backgroundColor: Flukit.fluTheme.backgroundColor
+                                    backgroundColor: Flukit.theme.backgroundColor
                                         .withOpacity(.25),
                                     color: Flukit.themePalette.accentText,
                                     boxShadow: Flukit.boxShadow(
-                                        color: Flukit.fluTheme.primaryColor,
+                                        color: Flukit.theme.primaryColor,
                                         offset: const Offset(-15, 15),
                                         opacity: .1),
                                     iconSize: 20,
@@ -444,11 +443,10 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                         radius: Flukit.appSettings.minElRadius,
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 15),
-                                        backgroundColor: Flukit
-                                            .fluTheme.backgroundColor
+                                        backgroundColor: Flukit.theme.backgroundColor
                                             .withOpacity(.25),
                                         boxShadow: Flukit.boxShadow(
-                                            color: Flukit.fluTheme.primaryColor,
+                                            color: Flukit.theme.primaryColor,
                                             offset: const Offset(15, 15),
                                             opacity: .1),
                                       ),

@@ -42,7 +42,7 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
   @override
   Widget build(BuildContext context) => FluScreen(
       systemUiOverlayStyle:
-          Flukit.fluTheme.systemStyle.copyWith(statusBarColor: Colors.transparent),
+          Flukit.theme.systemStyle.copyWith(statusBarColor: Colors.transparent),
       body: GetX<FluOnboardingScreenController>(
         init: controller,
         initState: (_) {},
@@ -138,8 +138,8 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
                                   width: double.infinity,
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 12),
-                                  color: Flukit.fluTheme.primaryTextColor,
-                                  backgroundColor: Flukit.fluTheme.primaryColor,
+                                  color: Flukit.theme.primaryTextColor,
+                                  backgroundColor: Flukit.theme.primaryColor,
                                   iconSize: 24,
                                   iconStrokewidth: 1.8,
                                   // alignment: Alignment.centerLeft
@@ -206,8 +206,8 @@ class FluOnboardingScreenImageViewer extends StatelessWidget {
       decoration: BoxDecoration(
           gradient: gradient
               ? LinearGradient(colors: [
-                  Flukit.fluTheme.secondaryColor,
-                  Flukit.fluTheme.backgroundColor
+                  Flukit.theme.secondaryColor,
+                  Flukit.theme.backgroundColor
                 ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
               : null),
       child: AnimatedScale(
@@ -285,7 +285,7 @@ class FluOnboardingScreenIndicators extends StatelessWidget {
         count: count,
         effect: ExpandingDotsEffect(
           dotColor: dotColor ?? Colors.grey,
-          activeDotColor: Flukit.fluTheme.primaryColor,
+          activeDotColor: Flukit.theme.primaryColor,
           dotHeight: dotHeight,
           dotWidth: dotWidth,
           expansionFactor: expansionFactor,

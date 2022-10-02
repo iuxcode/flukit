@@ -91,11 +91,11 @@ class _FluTermsScreenState extends State<FluTermsScreen> {
                             radius: Flukit.appSettings.minElRadius,
                             padding: const EdgeInsets.symmetric(horizontal: 18),
                             backgroundColor: canAgree
-                                ? Flukit.fluTheme.primaryColor
-                                : Flukit.fluTheme.secondaryColor,
+                                ? Flukit.theme.primaryColor
+                                : Flukit.theme.secondaryColor,
                             color: canAgree
                                 ? Flukit.themePalette.light
-                                : Flukit.fluTheme.accentTextColor,
+                                : Flukit.theme.accentTextColor,
                           ),
                         ),
                       ),

@@ -155,7 +155,7 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
                       FluIcons.refresh,
                       size: 20,
                       strokewidth: 2.5,
-                      color: Flukit.fluTheme.primaryColor,
+                      color: Flukit.theme.primaryColor,
                     )
                   ],
                 )),

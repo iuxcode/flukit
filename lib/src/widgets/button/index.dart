@@ -40,7 +40,7 @@ class FluButton extends StatefulWidget {
           radius: Flukit.appSettings.minElRadius,
           padding: EdgeInsets.zero,
           margin: EdgeInsets.zero,
-          backgroundColor: Flukit.fluTheme.backgroundColor,
+          backgroundColor: Flukit.theme.backgroundColor,
         )
         .merge(style);
 
@@ -126,8 +126,8 @@ class FluButton extends StatefulWidget {
         style: FluButtonStyle(
           iconSize: iconSize,
           iconStrokewidth: iconStrokewidth,
-          color: color ?? Flukit.fluTheme.textColor,
-          backgroundColor: Flukit.fluTheme.backgroundColor,
+          color: color ?? Flukit.theme.textColor,
+          backgroundColor: Flukit.theme.backgroundColor,
           boxShadow: boxShadow ??
               Flukit.boxShadow(
                 offset: const Offset(15, 15),
@@ -181,7 +181,7 @@ class _FluButtonState extends State<FluButton> {
           fixedSize: MaterialStateProperty.all(
               const Size(double.infinity, double.infinity)),
           backgroundColor: MaterialStateProperty.all(
-              style.backgroundColor ?? Flukit.fluTheme.primaryColor),
+              style.backgroundColor ?? Flukit.theme.primaryColor),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: style.borderRadius ??
