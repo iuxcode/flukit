@@ -41,8 +41,8 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
 
   @override
   Widget build(BuildContext context) => FluScreen(
-      systemUiOverlayStyle:
-          Flukit.theme.systemStyle.copyWith(statusBarColor: Colors.transparent),
+      systemUiOverlayStyle: Flukit.theme.systemUiOverlayStyle
+          .copyWith(statusBarColor: Colors.transparent),
       body: GetX<FluOnboardingScreenController>(
         init: controller,
         initState: (_) {},
@@ -104,7 +104,7 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
                                         fontWeight: Flukit.appSettings.textSemibold),
                                     style: FluButtonStyle(
                                       height: Flukit.appSettings.defaultElSize,
-                                      color: Flukit.themePalette.accentText,
+                                      color: Flukit.theme.accentText,
                                     ),
                                   ),
                                   FluOnboardingScreenIndicators(
@@ -120,7 +120,7 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
                                         fontWeight: Flukit.appSettings.textSemibold),
                                     style: FluButtonStyle(
                                       height: Flukit.appSettings.defaultElSize,
-                                      color: Flukit.themePalette.accentText,
+                                      color: Flukit.theme.accentText,
                                     ),
                                   )
                                 ])
@@ -138,8 +138,8 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
                                   width: double.infinity,
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 12),
-                                  color: Flukit.theme.primaryTextColor,
-                                  backgroundColor: Flukit.theme.primaryColor,
+                                  color: Flukit.theme.onPrimary,
+                                  background: Flukit.theme.primary,
                                   iconSize: 24,
                                   iconStrokewidth: 1.8,
                                   // alignment: Alignment.centerLeft
@@ -205,10 +205,10 @@ class FluOnboardingScreenImageViewer extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
           gradient: gradient
-              ? LinearGradient(colors: [
-                  Flukit.theme.secondaryColor,
-                  Flukit.theme.backgroundColor
-                ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
+              ? LinearGradient(
+                  colors: [Flukit.theme.secondary, Flukit.theme.background],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter)
               : null),
       child: AnimatedScale(
           scale: scale ? 1 : 0,
@@ -285,7 +285,7 @@ class FluOnboardingScreenIndicators extends StatelessWidget {
         count: count,
         effect: ExpandingDotsEffect(
           dotColor: dotColor ?? Colors.grey,
-          activeDotColor: Flukit.theme.primaryColor,
+          activeDotColor: Flukit.theme.primary,
           dotHeight: dotHeight,
           dotWidth: dotWidth,
           expansionFactor: expansionFactor,

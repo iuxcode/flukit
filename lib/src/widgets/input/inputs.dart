@@ -42,25 +42,23 @@ class FluTextField extends StatelessWidget {
       this.onTap});
 
   FluTheme get _theme => Flukit.theme;
-  ThemeData get _themeData => Flukit.themeData;
   InputDecoration get inputDecoration => InputDecoration(
         filled: style.filled,
-        fillColor: style.fillColor ?? _theme.accentBackgroundColor,
+        fillColor: style.fillColor ?? _theme.surfaceBackground,
         border: InputBorder.none,
         hintText: style.hintText,
         hintStyle: _theme.textTheme.bodyText1!
             .copyWith(
-                fontWeight: FontWeight.w400,
-                color: style.hintColor ?? _theme.textColor)
+                fontWeight: FontWeight.w400, color: style.hintColor ?? _theme.text)
             .merge(style.hintStyle),
         errorStyle: const TextStyle(height: 0, color: Colors.transparent),
         prefixIcon: style.prefixIcon,
         suffixIcon: style.suffixIcon,
         contentPadding: style.contentPadding,
       );
-  TextStyle get defaultTextStyle => _themeData.textTheme.bodyText1!
+  TextStyle get defaultTextStyle => _theme.textTheme.bodyText1!
       .copyWith(
-        color: style.color ?? _theme.textColor,
+        color: style.color ?? _theme.text,
       )
       .merge(textStyle);
 
@@ -81,12 +79,11 @@ class FluTextField extends StatelessWidget {
         clipBehavior: Clip.hardEdge,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: style.fillColor ?? _theme.accentBackgroundColor,
+          color: style.fillColor ?? _theme.surfaceBackground,
           boxShadow: style.boxShadow,
           border: style.borderWidth != null
               ? Border.all(
-                  color: style.borderColor ??
-                      _themeData.backgroundColor.withOpacity(.05),
+                  color: style.borderColor ?? _theme.background.withOpacity(.05),
                   width: style.borderWidth!)
               : null,
           borderRadius: BorderRadius.circular(
@@ -109,7 +106,7 @@ class FluTextField extends StatelessWidget {
                 toolbarOptions: toolbarOptions,
                 selectionControls: selectionControls,
                 style: defaultTextStyle,
-                cursorColor: style.cursorColor ?? _theme.primaryColor,
+                cursorColor: style.cursorColor ?? _theme.primary,
                 cursorHeight: style.cursorHeight,
                 cursorWidth: style.cursorWidth,
                 decoration: inputDecoration,
@@ -128,7 +125,7 @@ class FluTextField extends StatelessWidget {
           onTap: () => onTap,
           child: FluIcon(
             icon,
-            color: style.iconColor ?? _theme.accentTextColor,
+            color: style.iconColor ?? _theme.accentText,
             size: style.iconSize ?? 20,
             strokewidth: style.iconStrokeWidth ?? 1.5,
           ),
@@ -179,7 +176,7 @@ class FluRichTextField extends FluTextField {
             textInputAction: style.textInputAction ?? TextInputAction.newline,
             inputFormatters: inputFormatters,
             style: defaultTextStyle,
-            cursorColor: style.cursorColor ?? _theme.primaryColor,
+            cursorColor: style.cursorColor ?? _theme.primary,
             cursorHeight: style.cursorHeight,
             cursorWidth: style.cursorWidth,
             decoration: inputDecoration,

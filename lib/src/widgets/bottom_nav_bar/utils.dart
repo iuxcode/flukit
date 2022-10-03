@@ -311,7 +311,7 @@ class _FallingDrop extends StatelessWidget {
         height: height,
         child: CustomPaint(
           size: Size.zero,
-          painter: _WaterPainter(color ?? Flukit.theme.primaryColor),
+          painter: _WaterPainter(color ?? Flukit.theme.primary),
         ),
       )),
     );

@@ -9,7 +9,7 @@ class FluOption {
   final FluIcons? icon;
   final Widget? suffixWidget;
   final void Function()? onPressed;
-  final Color? color, backgroundColor, iconBackgroundColor, outlineColor;
+  final Color? color, background, iconbackground, outlineColor;
   final bool hasSuffix;
   final String? label;
 
@@ -23,8 +23,8 @@ class FluOption {
       this.hasSuffix = true,
       this.onPressed,
       this.color,
-      this.backgroundColor,
-      this.iconBackgroundColor,
+      this.background,
+      this.iconbackground,
       this.outlineColor,
       this.label});
 }

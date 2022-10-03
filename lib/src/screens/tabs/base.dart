@@ -18,7 +18,7 @@ class FluTabScreen extends StatefulWidget {
   final PreferredSizeWidget? appBar;
   final SystemUiOverlayStyle? systemUiOverlayStyle;
   final Widget? floatingActionButton;
-  final Color? backgroundColor;
+  final Color? background;
   final FloatingActionButtonLocation floatingActionButtonLocation;
   final List<FluTabScreenPage> Function(
       FluTabScreenController controller, PageController pageController) pages;
@@ -40,7 +40,7 @@ class FluTabScreen extends StatefulWidget {
     this.appBar,
     this.systemUiOverlayStyle,
     this.floatingActionButton,
-    this.backgroundColor,
+    this.background,
     this.floatingActionButtonLocation = FloatingActionButtonLocation.centerDocked,
   }) : super(key: key);
 
@@ -94,7 +94,7 @@ class _FluTabScreenState extends State<FluTabScreen> {
         systemUiOverlayStyle: widget.systemUiOverlayStyle,
         floatingActionButton: widget.floatingActionButton,
         floatingActionButtonLocation: widget.floatingActionButtonLocation,
-        backgroundColor: widget.backgroundColor,
+        background: widget.background,
         appBar: widget.appBar,
         body: PageView(
             controller: pageController,

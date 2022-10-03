@@ -13,28 +13,17 @@ extension FlukitUI on FlukitInterface {
   /// Find and return app constants
   FluSettingsInterface get appSettings => appController.settings;
 
-  /// return the current theme
-  FluTheme get theme => appController.fluTheme;
-
-  /// return the current themeData
-  ThemeData get themeData => appController.theme;
+  /// return the current [FluTheme]
+  FluTheme get theme => FluTheme();
 
   /// return the current theme textThemes
-  TextTheme get textTheme => themeData.textTheme;
+  TextTheme get textTheme => theme.textTheme;
 
-  /// return the current theme color palette
-  FluColorPalette get themePalette => theme.colors;
-
-  /// return the current theme brightness
-  Brightness get themeBrightness => theme.brightness;
-
-  /// return the current theme systemOverlayStyle
-  SystemUiOverlayStyle get systemOverlayStyle => theme.systemStyle;
+  /// return the current theme [SystemOverlayStyle]
+  SystemUiOverlayStyle get systemOverlayStyle => theme.systemUiOverlayStyle;
 
   /// switch theme
-  void changeTheme(FluTheme theme) {
-    appController.changeTheme(theme);
-  }
+  void changeTheme(ThemeData theme) => appController.setTheme(theme);
 
   /// return the screen size
   Size get screenSize => Get.size;
@@ -65,14 +54,14 @@ extension FlukitUI on FlukitInterface {
           blurRadius: blurRadius,
           spreadRadius: spreadRadius,
           offset: offset,
-          color: (color ?? themePalette.shadow).withOpacity(opacity));
+          color: (color ?? theme.shadow).withOpacity(opacity));
 
   /// display theme based or custom snackbar
   void showSnackbar(String message,
       {String? title,
       int duration = 2,
       FluSnackbarType type = FluSnackbarType.primary,
-      Color? backgroundColor,
+      Color? background,
       Color? iconColor,
       Color? textColor,
       double? radius,
@@ -86,29 +75,29 @@ extension FlukitUI on FlukitInterface {
       double blur = 7}) {
     switch (type) {
       case FluSnackbarType.danger:
-        backgroundColor = backgroundColor ?? themePalette.danger;
-        textColor = textColor ?? themePalette.danger;
-        iconColor = iconColor ?? themePalette.danger;
+        background = background ?? theme.danger;
+        textColor = textColor ?? theme.danger;
+        iconColor = iconColor ?? theme.danger;
         break;
       case FluSnackbarType.success:
-        backgroundColor = backgroundColor ?? themePalette.success;
-        textColor = textColor ?? themePalette.success;
-        iconColor = iconColor ?? themePalette.success;
+        background = background ?? theme.success;
+        textColor = textColor ?? theme.success;
+        iconColor = iconColor ?? theme.success;
         break;
       case FluSnackbarType.warning:
-        backgroundColor = backgroundColor ?? themePalette.warning;
-        textColor = textColor ?? themePalette.warning;
-        iconColor = iconColor ?? themePalette.warning;
+        background = background ?? theme.warning;
+        textColor = textColor ?? theme.warning;
+        iconColor = iconColor ?? theme.warning;
         break;
       case FluSnackbarType.primary:
-        backgroundColor = backgroundColor ?? theme.primaryColor;
-        textColor = textColor ?? theme.primaryColor;
-        iconColor = iconColor ?? theme.primaryColor;
+        background = background ?? theme.primary;
+        textColor = textColor ?? theme.primary;
+        iconColor = iconColor ?? theme.primary;
         break;
       case FluSnackbarType.light:
-        backgroundColor = backgroundColor ?? themePalette.light;
-        textColor = textColor ?? themePalette.light;
-        iconColor = iconColor ?? themePalette.light;
+        background = background ?? theme.light;
+        textColor = textColor ?? theme.light;
+        iconColor = iconColor ?? theme.light;
         break;
     }
 
@@ -121,7 +110,7 @@ extension FlukitUI on FlukitInterface {
         icon: icon,
         boxShadows: [shadow ?? boxShadow(opacity: .085, offset: const Offset(0, 5))],
         colorText: textColor,
-        backgroundColor: (backgroundColor).withOpacity(opacity),
+        background: (background).withOpacity(opacity),
         borderRadius: radius ?? 22,
         shouldIconPulse: true,
         barBlur: blur);
@@ -133,7 +122,7 @@ extension FlukitUI on FlukitInterface {
         (message ?? 'Something went wrong , please retry !').replaceAll('_', ' '),
         type: FluSnackbarType.danger,
         position: SnackPosition.TOP,
-        textColor: themePalette.danger,
+        textColor: theme.danger,
         opacity: .065,
         blur: 45,
         duration: 10);
@@ -152,15 +141,16 @@ extension FlukitUI on FlukitInterface {
     if (onOpen != null) onOpen();
 
     return await showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        backgroundColor: Colors.transparent,
-        builder: (context) => FluCountrySelect(
-              onCountrySelected,
-              title: title,
-              desc: desc,
-              searchInputHint: searchInputHint,
-            )).then((_) {
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => FluCountrySelect(
+        onCountrySelected,
+        title: title,
+        desc: desc,
+        searchInputHint: searchInputHint,
+      ),
+    ).then((_) {
       if (onClose != null) onClose();
     });
   }

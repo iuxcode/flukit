@@ -4,126 +4,195 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'palette.dart';
-
 class FluTheme {
-  final Brightness brightness;
+  final ThemeData data = Flukit.context.theme;
 
-  late FluColorPalette _colors, _darkColors;
+  Brightness get brightness => data.brightness;
 
-  late TextStyle _bodyTextStyle;
-  late TextStyle _subtitleTextStyle;
-  late TextStyle _headingTextStyle;
+  bool get isLight => data.brightness == Brightness.light;
 
-  final Color primaryColor;
-  final Color primaryTextColor;
-  final Color secondaryColor;
+  /// Return the [SystemUiOverlayStyle] according to the theme [Brightness] and [Color palette].
+  SystemUiOverlayStyle get systemUiOverlayStyle {
+    Brightness brightness =
+        this.brightness == Brightness.light ? Brightness.dark : Brightness.light;
 
-  FluTheme({
-    this.brightness = Brightness.light,
-    this.primaryColor = _defaultPrimaryColor,
-    this.primaryTextColor = _defaultPrimaryTextColor,
-    this.secondaryColor = _defaultSecondaryColor,
+    return SystemUiOverlayStyle(
+      statusBarIconBrightness: brightness,
+      systemNavigationBarIconBrightness: brightness,
+      statusBarColor: background,
+      systemNavigationBarColor: background,
+    );
+  }
+
+  /// Return current theme based [TextTheme]
+  TextTheme get textTheme => data.textTheme;
+
+  Color get primary => data.colorScheme.primary;
+  Color get onPrimary => data.colorScheme.onPrimary;
+  Color get secondary => data.colorScheme.secondary;
+  Color get onSecondary => data.colorScheme.onSecondary;
+  Color get tertiary => data.colorScheme.tertiary;
+  Color get onTertiary => data.colorScheme.onTertiary;
+  Color get background => data.colorScheme.background;
+  Color get surfaceBackground => data.colorScheme.surface;
+  Color get text => data.colorScheme.onBackground;
+  Color get accentText => data.colorScheme.onSurface;
+  Color get divider => data.dividerColor;
+  Color get shadow => data.colorScheme.shadow;
+  Color get light => data.colorScheme.light;
+  Color get dark => data.colorScheme.dark;
+  Color get error => data.colorScheme.error;
+  Color get onError => data.colorScheme.onError;
+  Color get danger => data.colorScheme.danger;
+  Color get warning => data.colorScheme.warning;
+  Color get success => data.colorScheme.success;
+}
+
+class FluThemeBuilder {
+  final Color primary;
+  final Color onprimary;
+  final Color secondary;
+  final Color onsecondary;
+  final Color? tertiaryColor;
+  final Color? onTertiaryColor;
+
+  late FluColorPalette colors, darkColors;
+
+  late TextStyle bodyTextStyle;
+  late TextStyle subtitleTextStyle;
+  late TextStyle headingTextStyle;
+
+  FluThemeBuilder({
+    this.primary = _defaultprimary,
+    this.onprimary = _defaultOnprimary,
+    this.secondary = _defaultsecondary,
+    this.onsecondary = _defaultOnsecondary,
+    this.tertiaryColor,
+    this.onTertiaryColor,
     FluColorPalette? colors,
     FluColorPalette? darkColors,
     TextStyle? bodyTextStyle,
     TextStyle? subtitleTextStyle,
     TextStyle? headingTextStyle,
   }) {
-    _colors = colors ?? FluColorPalette.light();
-    _darkColors = darkColors ?? FluColorPalette.dark();
+    this.colors = colors ?? FluColorPalette.light();
+    this.darkColors = darkColors ?? FluColorPalette.dark();
 
-    _bodyTextStyle = bodyTextStyle ?? GoogleFonts.poppins();
-    _subtitleTextStyle = subtitleTextStyle ?? GoogleFonts.poppins();
-    _headingTextStyle = headingTextStyle ?? GoogleFonts.poppins();
+    this.bodyTextStyle = bodyTextStyle ?? GoogleFonts.poppins();
+    this.subtitleTextStyle = subtitleTextStyle ?? GoogleFonts.poppins();
+    this.headingTextStyle = headingTextStyle ?? GoogleFonts.poppins();
   }
 
-  /// Return [true] if theme [Brightness] is dark.
-  bool get isDark => brightness == Brightness.dark;
+  ThemeData get theme {
+    final ColorScheme colorScheme = _buildColorScheme();
 
-  /// Return the [SystemUiOverlayStyle] according to the theme [Brightness] and [Color palette].
-  SystemUiOverlayStyle get systemStyle => SystemUiOverlayStyle(
-        statusBarIconBrightness: brightness,
-        systemNavigationBarIconBrightness: brightness,
-        statusBarColor: Get.isDarkMode ? _darkColors.background : _colors.background,
-        systemNavigationBarColor:
-            Get.isDarkMode ? _darkColors.background : _colors.background,
+    return ThemeData(
+      brightness: colorScheme.brightness,
+      primaryColor: primary,
+      backgroundColor: colorScheme.background,
+      scaffoldBackgroundColor: colorScheme.background,
+      dividerColor: colors.divider,
+      colorScheme: colorScheme,
+      scrollbarTheme: _buildScrollBarTheme(),
+      textTheme: _buildTextTheme(),
+    );
+  }
+
+  ThemeData get darkTheme {
+    final ColorScheme darkColorScheme = _buildColorScheme(true);
+
+    return theme.copyWith(
+      brightness: darkColorScheme.brightness,
+      backgroundColor: darkColorScheme.background,
+      scaffoldBackgroundColor: darkColorScheme.background,
+      dividerColor: darkColors.divider,
+      colorScheme: darkColorScheme,
+      scrollbarTheme: _buildScrollBarTheme(true),
+      textTheme: _buildTextTheme(true),
+    );
+  }
+
+  FluColorPalette get palette => Get.isDarkMode ? darkColors : colors;
+
+  ColorScheme _buildColorScheme([bool forDarkTheme = false]) {
+    final FluColorPalette colors = forDarkTheme ? this.colors : darkColors;
+
+    return ColorScheme(
+      brightness: forDarkTheme ? Brightness.dark : Brightness.light,
+      primary: primary,
+      onPrimary: onprimary,
+      secondary: secondary,
+      onSecondary: onsecondary,
+      tertiary: tertiaryColor,
+      onTertiary: onTertiaryColor,
+      error: colors.danger,
+      onError: colors.onDanger,
+      background: colors.background,
+      onBackground: colors.text,
+      surface: colors.surfaceBackground,
+      onSurface: colors.accentText,
+      shadow: colors.shadow,
+    );
+  }
+
+  ScrollbarThemeData _buildScrollBarTheme([bool forDarkTheme = false]) =>
+      const ScrollbarThemeData(
+        thickness: MaterialStatePropertyAll<double>(2.0),
+        radius: Radius.circular(999),
       );
 
-  /// Return current theme based [FluColorPalette]
-  FluColorPalette get colors => Get.isDarkMode ? _darkColors : _colors;
+  TextTheme _buildTextTheme([bool forDarkTheme = false]) {
+    final FluColorPalette colors = forDarkTheme ? this.colors : darkColors;
 
-  /// Return current theme based [TextTheme]
-  TextTheme get textTheme => (Get.isDarkMode ? darkTheme : theme).textTheme;
-
-  /// Build and return corresponding [themeData]
-  ThemeData _buildThemeData(FluColorPalette colorPalette) => ThemeData(
-        primaryColor: primaryColor,
-        backgroundColor: colorPalette.background,
-        scaffoldBackgroundColor: colorPalette.background,
-        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: secondaryColor),
-        textTheme: TextTheme(
-          headlineLarge: headingTextStyle.copyWith(
-            fontWeight: Flukit.appSettings.textBold,
-            fontSize: Flukit.appSettings.headlineFs,
-            color: colorPalette.accentText,
-          ),
-          headline1: headingTextStyle.copyWith(
-            fontSize: Flukit.appSettings.titleFs,
-            fontWeight: Flukit.appSettings.textBold,
-            color: colorPalette.accentText,
-          ),
-          headline2: headingTextStyle.copyWith(
-            fontSize: Flukit.appSettings.titleFs,
-            fontWeight: Flukit.appSettings.textSemibold,
-            color: colorPalette.accentText,
-          ),
-          subtitle1: subtitleTextStyle.copyWith(
-            fontSize: Flukit.appSettings.subtitleFs,
-            fontWeight: Flukit.appSettings.textSemibold,
-            color: colorPalette.accentText,
-          ),
-          subtitle2: subtitleTextStyle.copyWith(
-            fontSize: Flukit.appSettings.subtitleFs,
-            fontWeight: Flukit.appSettings.textSemibold,
-            color: colorPalette.accentText,
-          ),
-          bodyText1: bodyTextStyle.copyWith(
-            fontSize: Flukit.appSettings.bodyFs,
-            fontWeight: Flukit.appSettings.textNormal,
-            color: colorPalette.text,
-          ),
-          bodyText2: bodyTextStyle.copyWith(
-            fontSize: Flukit.appSettings.bodyFs,
-            fontWeight: Flukit.appSettings.textNormal,
-            color: colorPalette.text,
-          ),
-        ),
-      );
-  ThemeData get theme => _buildThemeData(_colors);
-  ThemeData get darkTheme => _buildThemeData(_darkColors);
-
-  /// TextStyle to use as default for all texts
-  TextStyle get bodyTextStyle => _bodyTextStyle;
-
-  /// TextStyle to use for subtitle texts
-  TextStyle get subtitleTextStyle => _subtitleTextStyle;
-
-  /// TextStyle to use for heading texts
-  TextStyle get headingTextStyle => _headingTextStyle;
-
-  Color get backgroundColor => colors.background;
-  Color get accentBackgroundColor => colors.accentBackground;
-  Color get textColor => colors.text;
-  Color get accentTextColor => colors.accentText;
-  Color get shadowColor => colors.shadow;
-  Color get lightColor => colors.light;
-  Color get darkColor => colors.dark;
-  Color get dangerColor => colors.danger;
-  Color get warningColor => colors.warning;
-  Color get successColor => colors.success;
+    return TextTheme(
+      headlineLarge: headingTextStyle.copyWith(
+        fontWeight: Flukit.appSettings.textBold,
+        fontSize: Flukit.appSettings.headlineFs,
+        color: colors.accentText,
+      ),
+      headline1: headingTextStyle.copyWith(
+        fontSize: Flukit.appSettings.titleFs,
+        fontWeight: Flukit.appSettings.textBold,
+        color: colors.accentText,
+      ),
+      headline2: headingTextStyle.copyWith(
+        fontSize: Flukit.appSettings.titleFs,
+        fontWeight: Flukit.appSettings.textSemibold,
+        color: colors.accentText,
+      ),
+      subtitle1: subtitleTextStyle.copyWith(
+        fontSize: Flukit.appSettings.subtitleFs,
+        fontWeight: Flukit.appSettings.textSemibold,
+        color: colors.accentText,
+      ),
+      subtitle2: subtitleTextStyle.copyWith(
+        fontSize: Flukit.appSettings.subtitleFs,
+        fontWeight: Flukit.appSettings.textSemibold,
+        color: colors.accentText,
+      ),
+      bodyText1: bodyTextStyle.copyWith(
+        fontSize: Flukit.appSettings.bodyFs,
+        fontWeight: Flukit.appSettings.textNormal,
+        color: colors.text,
+      ),
+      bodyText2: bodyTextStyle.copyWith(
+        fontSize: Flukit.appSettings.bodyFs,
+        fontWeight: Flukit.appSettings.textNormal,
+        color: colors.text,
+      ),
+    );
+  }
 }
 
-const Color _defaultPrimaryColor = Color(0xff0072ff);
-const Color _defaultPrimaryTextColor = Colors.white;
-const Color _defaultSecondaryColor = Color(0xFFEBF4FF);
+extension FluColorScheme on ColorScheme {
+  Color get light => Flukit.appController.themeBuilder.palette.light;
+  Color get dark => Flukit.appController.themeBuilder.palette.dark;
+  Color get danger => Flukit.appController.themeBuilder.palette.danger;
+  Color get warning => Flukit.appController.themeBuilder.palette.warning;
+  Color get success => Flukit.appController.themeBuilder.palette.success;
+}
+
+const Color _defaultprimary = Color(0xff0072ff);
+const Color _defaultOnprimary = Colors.white;
+const Color _defaultsecondary = Colors.orange;
+const Color _defaultOnsecondary = Colors.white;

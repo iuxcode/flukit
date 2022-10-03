@@ -9,45 +9,29 @@ import '../utils/flu_utils.dart';
 class FluAppController extends GetMaterialController {
   final FluStorageService storageService = Flukit.secureStorage;
 
-  final FluAppInformations infos;
+  FluAppInformations infos;
 
+  late FluApiSettings apiSettings;
   late FluSettingsInterface settings;
-
-  final Rx<FluApiSettings> _apiSettings =
-      FluApiSettings(baseUrl: 'http://localhost:8000').obs;
-  final Rx<FluTheme> _fluTheme = FluTheme().obs;
+  late FluThemeBuilder themeBuilder;
 
   FluAppController({
-    this.infos = const FluAppInformations(),
     FluApiSettings? apiSettings,
     FluSettingsInterface? settings,
+    FluThemeBuilder? themeBuilder,
+    this.infos = const FluAppInformations(),
   }) {
-    if (apiSettings != null) {
-      _apiSettings.value = apiSettings;
-    }
-
+    this.apiSettings =
+        apiSettings ?? FluApiSettings(baseUrl: 'http://localhost:8000');
     this.settings = settings ?? FluSettings;
-    Get.isDarkMode;
+    this.themeBuilder = themeBuilder ?? FluThemeBuilder();
   }
 
-  FluTheme get fluTheme => _fluTheme.value;
-  @override
-  ThemeData get theme => fluTheme.theme;
-  @override
-  ThemeData get darkTheme => fluTheme.darkTheme;
-  FluApiSettings get apiSettings => _apiSettings.value;
+  void toggleDarkMode() =>
+      setTheme(Get.isDarkMode ? themeBuilder.theme : themeBuilder.darkTheme);
 
-  void changeTheme(FluTheme value) {
-    _fluTheme.value = value;
-    update();
-  }
-
-  @override
-  @deprecated
-  void setTheme(ThemeData value) {}
-
-  set apiSettings(FluApiSettings newSettings) {
-    _apiSettings.value = newSettings;
+  set changeApiSettings(FluApiSettings newSettings) {
+    apiSettings = newSettings;
     update();
   }
 

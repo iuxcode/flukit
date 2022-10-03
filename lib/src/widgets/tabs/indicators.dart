@@ -70,7 +70,7 @@ class FluDotTabIndicator extends Decoration {
   FluDotTabIndicator({
     Color? color,
     double? radius,
-  }) : _painter = FluCirclePainter(color ?? Flukit.theme.primaryColor, radius ?? 3);
+  }) : _painter = FluCirclePainter(color ?? Flukit.theme.primary, radius ?? 3);
 
   @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) => _painter;

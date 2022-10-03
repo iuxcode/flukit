@@ -8,7 +8,7 @@ class FluScreen extends StatelessWidget {
   final SystemUiOverlayStyle? systemUiOverlayStyle;
   final bool extendBody;
   final Widget? floatingActionButton, bottomNavigationBar;
-  final Color? backgroundColor, drawerScrimColor;
+  final Color? background, drawerScrimColor;
   final FloatingActionButtonLocation floatingActionButtonLocation;
   final Widget? drawer, endDrawer;
   final GlobalKey<ScaffoldState>? scaffoldKey;
@@ -21,7 +21,7 @@ class FluScreen extends StatelessWidget {
     this.bottomNavigationBar,
     this.floatingActionButton,
     this.extendBody = false,
-    this.backgroundColor,
+    this.background,
     this.floatingActionButtonLocation = FloatingActionButtonLocation.centerDocked,
     this.drawer,
     this.endDrawer,
@@ -49,7 +49,7 @@ class FluScreen extends StatelessWidget {
       ),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: backgroundColor ?? Flukit.theme.backgroundColor,
+        backgroundColor: background ?? Flukit.theme.background,
         extendBody: extendBody,
         appBar: appBar,
         body: body,

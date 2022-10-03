@@ -1,7 +1,7 @@
 part of '../flu_utils.dart';
 
 // modify the default getX Snackbar
-// - make title || titleText not required 
+// - make title || titleText not required
 extension ExtensionSnackbar on GetInterface {
   FluSnackbarController showSnakbar(FluSnackBar snackbar) {
     return FluSnackbarController(snackbar)..show();
@@ -26,7 +26,7 @@ extension ExtensionSnackbar on GetInterface {
     double? borderRadius,
     Color? borderColor,
     double? borderWidth,
-    Color? backgroundColor,
+    Color? background,
     Color? leftBarIndicatorColor,
     List<BoxShadow>? boxShadows,
     Gradient? backgroundGradient,
@@ -36,7 +36,7 @@ extension ExtensionSnackbar on GetInterface {
     bool? showProgressIndicator,
     DismissDirection? dismissDirection,
     AnimationController? progressIndicatorController,
-    Color? progressIndicatorBackgroundColor,
+    Color? progressIndicatorbackground,
     Animation<Color>? progressIndicatorValueColor,
     SnackStyle? snackStyle,
     Curve? forwardAnimationCurve,
@@ -50,53 +50,56 @@ extension ExtensionSnackbar on GetInterface {
   }) {
     final ThemeData t = Theme.of(Get.context!);
     final getSnackBar = FluSnackBar(
-      snackbarStatus: snackbarStatus,
-      titleText: titleText ?? (title != null ? Text(
-        title,
-        style: t.textTheme.bodyText1!.copyWith(
-          color: colorText ?? iconColor ?? Colors.black,
-          fontSize: 16,
-        ),
-      ) : null),
-      messageText: messageText ?? Text(
-        message,
-        textAlign: TextAlign.center,
-        style: t.textTheme.bodyText1!.copyWith(
-          color: colorText ?? iconColor ?? Colors.black,
-          fontSize: 14,
-        ),
-      ),
-      snackPosition: snackPosition ?? SnackPosition.TOP,
-      borderRadius: borderRadius ?? 20,
-      margin: margin ?? const EdgeInsets.symmetric(horizontal: 10),
-      padding: padding ?? const EdgeInsets.all(20),
-      duration: duration,
-      barBlur: barBlur ?? 7.0,
-      backgroundColor: backgroundColor ?? Colors.grey.withOpacity(0.2),
-      icon: icon,
-      shouldIconPulse: shouldIconPulse ?? true,
-      maxWidth: maxWidth,
-      borderColor: borderColor,
-      borderWidth: borderWidth,
-      leftBarIndicatorColor: leftBarIndicatorColor,
-      boxShadows: boxShadows,
-      backgroundGradient: backgroundGradient,
-      mainButton: mainButton,
-      onTap: onTap,
-      isDismissible: isDismissible ?? true,
-      dismissDirection: dismissDirection,
-      showProgressIndicator: showProgressIndicator ?? false,
-      progressIndicatorController: progressIndicatorController,
-      progressIndicatorBackgroundColor: progressIndicatorBackgroundColor,
-      progressIndicatorValueColor: progressIndicatorValueColor,
-      snackStyle: snackStyle ?? SnackStyle.FLOATING,
-      forwardAnimationCurve: forwardAnimationCurve ?? Curves.easeOutCirc,
-      reverseAnimationCurve: reverseAnimationCurve ?? Curves.easeOutCirc,
-      animationDuration: animationDuration ?? const Duration(seconds: 1),
-      overlayBlur: overlayBlur ?? 0.0,
-      overlayColor: overlayColor ?? Colors.transparent,
-      userInputForm: userInputForm
-    );
+        snackbarStatus: snackbarStatus,
+        titleText: titleText ??
+            (title != null
+                ? Text(
+                    title,
+                    style: t.textTheme.bodyText1!.copyWith(
+                      color: colorText ?? iconColor ?? Colors.black,
+                      fontSize: 16,
+                    ),
+                  )
+                : null),
+        messageText: messageText ??
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: t.textTheme.bodyText1!.copyWith(
+                color: colorText ?? iconColor ?? Colors.black,
+                fontSize: 14,
+              ),
+            ),
+        snackPosition: snackPosition ?? SnackPosition.TOP,
+        borderRadius: borderRadius ?? 20,
+        margin: margin ?? const EdgeInsets.symmetric(horizontal: 10),
+        padding: padding ?? const EdgeInsets.all(20),
+        duration: duration,
+        barBlur: barBlur ?? 7.0,
+        background: background ?? Colors.grey.withOpacity(0.2),
+        icon: icon,
+        shouldIconPulse: shouldIconPulse ?? true,
+        maxWidth: maxWidth,
+        borderColor: borderColor,
+        borderWidth: borderWidth,
+        leftBarIndicatorColor: leftBarIndicatorColor,
+        boxShadows: boxShadows,
+        backgroundGradient: backgroundGradient,
+        mainButton: mainButton,
+        onTap: onTap,
+        isDismissible: isDismissible ?? true,
+        dismissDirection: dismissDirection,
+        showProgressIndicator: showProgressIndicator ?? false,
+        progressIndicatorController: progressIndicatorController,
+        progressIndicatorbackground: progressIndicatorbackground,
+        progressIndicatorValueColor: progressIndicatorValueColor,
+        snackStyle: snackStyle ?? SnackStyle.FLOATING,
+        forwardAnimationCurve: forwardAnimationCurve ?? Curves.easeOutCirc,
+        reverseAnimationCurve: reverseAnimationCurve ?? Curves.easeOutCirc,
+        animationDuration: animationDuration ?? const Duration(seconds: 1),
+        overlayBlur: overlayBlur ?? 0.0,
+        overlayColor: overlayColor ?? Colors.transparent,
+        userInputForm: userInputForm);
 
     final controller = FluSnackbarController(getSnackBar);
 

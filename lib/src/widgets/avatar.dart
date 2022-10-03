@@ -14,7 +14,7 @@ class FluAvatar extends StatelessWidget {
   final bool useCache;
   final bool outlined;
   final double? strokewidth, spacing;
-  final Color? strokeColor, backgroundColor;
+  final Color? strokeColor, background;
   final Gradient? backgroundGradient;
   final BoxShadow? boxShadow;
   final EdgeInsets? margin;
@@ -38,7 +38,7 @@ class FluAvatar extends StatelessWidget {
     this.borderRadius,
     this.boxShadow,
     this.strokewidth,
-    this.backgroundColor,
+    this.background,
     this.backgroundGradient,
     this.strokeColor,
     this.spacing,
@@ -115,9 +115,9 @@ class FluAvatar extends StatelessWidget {
         clipBehavior: Clip.hardEdge,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: backgroundGradient == null && backgroundColor != null
-              ? backgroundColor
-              : Flukit.theme.primaryColor,
+          color: backgroundGradient == null && background != null
+              ? background
+              : Flukit.theme.primary,
           gradient: backgroundGradient,
           borderRadius: BorderRadius.circular(radius),
           boxShadow: [if (boxShadow != null && !outlined) boxShadow!],
@@ -125,7 +125,7 @@ class FluAvatar extends StatelessWidget {
         child: FluText(
           text: getText(),
           stylePreset: FluTextStyle.bodyNeptune,
-          style: (labelStyle ?? TextStyle(color: Flukit.themePalette.light))
+          style: (labelStyle ?? TextStyle(color: Flukit.theme.light))
               .merge(placeholderTextStyle),
         ),
       );

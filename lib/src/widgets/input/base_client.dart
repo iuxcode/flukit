@@ -126,8 +126,8 @@ class FluEditableText extends StatefulWidget {
           !expands || (maxLines == null && minLines == null),
           'minLines and maxLines must be null when expands is true.',
         ),
-        assert(!obscureText || maxLines == 1,
-            'Obscured fields cannot be multiline.'),
+        assert(
+            !obscureText || maxLines == 1, 'Obscured fields cannot be multiline.'),
         enableInteractiveSelection =
             enableInteractiveSelection ?? (!readOnly || !obscureText),
         toolbarOptions = toolbarOptions ??
@@ -156,13 +156,11 @@ class FluEditableText extends StatefulWidget {
                       ))),
         _strutStyle = strutStyle,
         keyboardType = keyboardType ??
-            _inferKeyboardType(
-                autofillHints: autofillHints, maxLines: maxLines),
+            _inferKeyboardType(autofillHints: autofillHints, maxLines: maxLines),
         inputFormatters = maxLines == 1
             ? <TextInputFormatter>[
                 FilteringTextInputFormatter.singleLineFormatter,
-                ...inputFormatters ??
-                    const Iterable<TextInputFormatter>.empty(),
+                ...inputFormatters ?? const Iterable<TextInputFormatter>.empty(),
               ]
             : inputFormatters,
         showCursor = showCursor ?? !readOnly;
@@ -372,7 +370,7 @@ class FluEditableText extends StatefulWidget {
   /// The color to use when painting the autocorrection Rect.
   ///
   /// For [CupertinoTextField]s, the value is set to the ambient
-  /// [CupertinoThemeData.primaryColor] with 20% opacity. For [TextField]s, the
+  /// [CupertinoThemeData.primary] with 20% opacity. For [TextField]s, the
   /// value is null on non-iOS platforms and the same color used in [CupertinoTextField]
   /// on iOS.
   ///
@@ -530,7 +528,7 @@ class FluEditableText extends StatefulWidget {
   /// The color to use when painting the selection.
   ///
   /// For [CupertinoTextField]s, the value is set to the ambient
-  /// [CupertinoThemeData.primaryColor] with 20% opacity. For [TextField]s, the
+  /// [CupertinoThemeData.primary] with 20% opacity. For [TextField]s, the
   /// value is set to the ambient [TextSelectionThemeData.selectionColor].
   final Color? selectionColor;
 
@@ -984,28 +982,23 @@ class FluEditableText extends StatefulWidget {
       switch (defaultTargetPlatform) {
         case TargetPlatform.iOS:
         case TargetPlatform.macOS:
-          const Map<String, TextInputType> iOSKeyboardType =
-              <String, TextInputType>{
+          const Map<String, TextInputType> iOSKeyboardType = <String, TextInputType>{
             AutofillHints.addressCity: TextInputType.name,
             AutofillHints.addressCityAndState:
                 TextInputType.name, // Autofill not working.
             AutofillHints.addressState: TextInputType.name,
             AutofillHints.countryName: TextInputType.name,
-            AutofillHints.creditCardNumber:
-                TextInputType.number, // Couldn't test.
+            AutofillHints.creditCardNumber: TextInputType.number, // Couldn't test.
             AutofillHints.email: TextInputType.emailAddress,
             AutofillHints.familyName: TextInputType.name,
             AutofillHints.fullStreetAddress: TextInputType.name,
             AutofillHints.givenName: TextInputType.name,
             AutofillHints.jobTitle: TextInputType.name, // Autofill not working.
             AutofillHints.location: TextInputType.name, // Autofill not working.
-            AutofillHints.middleName:
-                TextInputType.name, // Autofill not working.
+            AutofillHints.middleName: TextInputType.name, // Autofill not working.
             AutofillHints.name: TextInputType.name,
-            AutofillHints.namePrefix:
-                TextInputType.name, // Autofill not working.
-            AutofillHints.nameSuffix:
-                TextInputType.name, // Autofill not working.
+            AutofillHints.namePrefix: TextInputType.name, // Autofill not working.
+            AutofillHints.nameSuffix: TextInputType.name, // Autofill not working.
             AutofillHints.newPassword: TextInputType.text,
             AutofillHints.newUsername: TextInputType.text,
             AutofillHints.nickname: TextInputType.name, // Autofill not working.
@@ -1017,8 +1010,7 @@ class FluEditableText extends StatefulWidget {
             AutofillHints.streetAddressLine1: TextInputType.name,
             AutofillHints.streetAddressLine2:
                 TextInputType.name, // Autofill not working.
-            AutofillHints.sublocality:
-                TextInputType.name, // Autofill not working.
+            AutofillHints.sublocality: TextInputType.name, // Autofill not working.
             AutofillHints.telephoneNumber: TextInputType.name,
             AutofillHints.url: TextInputType.url, // Autofill not working.
             AutofillHints.username: TextInputType.text,
@@ -1041,8 +1033,7 @@ class FluEditableText extends StatefulWidget {
       return TextInputType.multiline;
     }
 
-    const Map<String, TextInputType> inferKeyboardType =
-        <String, TextInputType>{
+    const Map<String, TextInputType> inferKeyboardType = <String, TextInputType>{
       AutofillHints.addressCity: TextInputType.streetAddress,
       AutofillHints.addressCityAndState: TextInputType.streetAddress,
       AutofillHints.addressState: TextInputType.streetAddress,
@@ -1121,49 +1112,44 @@ class FluEditableText extends StatefulWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(
-        DiagnosticsProperty<TextEditingController>('controller', controller));
+    properties
+        .add(DiagnosticsProperty<TextEditingController>('controller', controller));
     properties.add(DiagnosticsProperty<FocusNode>('focusNode', focusNode));
-    properties.add(DiagnosticsProperty<bool>('obscureText', obscureText,
-        defaultValue: false));
     properties.add(
-        DiagnosticsProperty<bool>('readOnly', readOnly, defaultValue: false));
-    properties.add(DiagnosticsProperty<bool>('autocorrect', autocorrect,
-        defaultValue: true));
-    properties.add(EnumProperty<SmartDashesType>(
-        'smartDashesType', smartDashesType,
+        DiagnosticsProperty<bool>('obscureText', obscureText, defaultValue: false));
+    properties
+        .add(DiagnosticsProperty<bool>('readOnly', readOnly, defaultValue: false));
+    properties.add(
+        DiagnosticsProperty<bool>('autocorrect', autocorrect, defaultValue: true));
+    properties.add(EnumProperty<SmartDashesType>('smartDashesType', smartDashesType,
         defaultValue:
             obscureText ? SmartDashesType.disabled : SmartDashesType.enabled));
-    properties.add(EnumProperty<SmartQuotesType>(
-        'smartQuotesType', smartQuotesType,
+    properties.add(EnumProperty<SmartQuotesType>('smartQuotesType', smartQuotesType,
         defaultValue:
             obscureText ? SmartQuotesType.disabled : SmartQuotesType.enabled));
-    properties.add(DiagnosticsProperty<bool>(
-        'enableSuggestions', enableSuggestions,
+    properties.add(DiagnosticsProperty<bool>('enableSuggestions', enableSuggestions,
         defaultValue: true));
     style.debugFillProperties(properties);
-    properties.add(
-        EnumProperty<TextAlign>('textAlign', textAlign, defaultValue: null));
+    properties
+        .add(EnumProperty<TextAlign>('textAlign', textAlign, defaultValue: null));
     properties.add(EnumProperty<TextDirection>('textDirection', textDirection,
         defaultValue: null));
     properties
         .add(DiagnosticsProperty<Locale>('locale', locale, defaultValue: null));
-    properties.add(
-        DoubleProperty('textScaleFactor', textScaleFactor, defaultValue: null));
+    properties
+        .add(DoubleProperty('textScaleFactor', textScaleFactor, defaultValue: null));
     properties.add(IntProperty('maxLines', maxLines, defaultValue: 1));
     properties.add(IntProperty('minLines', minLines, defaultValue: null));
-    properties.add(
-        DiagnosticsProperty<bool>('expands', expands, defaultValue: false));
-    properties.add(
-        DiagnosticsProperty<bool>('autofocus', autofocus, defaultValue: false));
-    properties.add(DiagnosticsProperty<TextInputType>(
-        'keyboardType', keyboardType,
+    properties
+        .add(DiagnosticsProperty<bool>('expands', expands, defaultValue: false));
+    properties
+        .add(DiagnosticsProperty<bool>('autofocus', autofocus, defaultValue: false));
+    properties.add(DiagnosticsProperty<TextInputType>('keyboardType', keyboardType,
         defaultValue: null));
     properties.add(DiagnosticsProperty<ScrollController>(
         'scrollController', scrollController,
         defaultValue: null));
-    properties.add(DiagnosticsProperty<ScrollPhysics>(
-        'scrollPhysics', scrollPhysics,
+    properties.add(DiagnosticsProperty<ScrollPhysics>('scrollPhysics', scrollPhysics,
         defaultValue: null));
     properties.add(DiagnosticsProperty<Iterable<String>>(
         'autofillHints', autofillHints,
@@ -1192,8 +1178,7 @@ class FluEditableTextState extends State<FluEditableText>
   // TextInputClient
   Timer? _cursorTimer;
   bool _targetCursorVisibility = false;
-  final ValueNotifier<bool> _cursorVisibilityNotifier =
-      ValueNotifier<bool>(true);
+  final ValueNotifier<bool> _cursorVisibilityNotifier = ValueNotifier<bool>(true);
   final GlobalKey _editableKey = GlobalKey();
   final ClipboardStatusNotifier? _clipboardStatus =
       kIsWeb ? null : ClipboardStatusNotifier();
@@ -1203,8 +1188,7 @@ class FluEditableTextState extends State<FluEditableText>
 
   ScrollController? _internalScrollController;
   ScrollController get _scrollController =>
-      widget.scrollController ??
-      (_internalScrollController ??= ScrollController());
+      widget.scrollController ?? (_internalScrollController ??= ScrollController());
 
   AnimationController? _cursorBlinkOpacityController;
 
@@ -1306,8 +1290,8 @@ class FluEditableTextState extends State<FluEditableText>
           userUpdateTextEditingValue(
             TextEditingValue(
               text: textEditingValue.text,
-              selection: TextSelection.collapsed(
-                  offset: textEditingValue.selection.end),
+              selection:
+                  TextSelection.collapsed(offset: textEditingValue.selection.end),
             ),
             SelectionChangedCause.toolbar,
           );
@@ -1363,8 +1347,7 @@ class FluEditableTextState extends State<FluEditableText>
     // pasted content.
     final int lastSelectionIndex =
         math.max(selection.baseOffset, selection.extentOffset);
-    final TextEditingValue collapsedTextEditingValue =
-        textEditingValue.copyWith(
+    final TextEditingValue collapsedTextEditingValue = textEditingValue.copyWith(
       selection: TextSelection.collapsed(offset: lastSelectionIndex),
     );
 
@@ -1393,8 +1376,8 @@ class FluEditableTextState extends State<FluEditableText>
     }
     userUpdateTextEditingValue(
       textEditingValue.copyWith(
-        selection: TextSelection(
-            baseOffset: 0, extentOffset: textEditingValue.text.length),
+        selection:
+            TextSelection(baseOffset: 0, extentOffset: textEditingValue.text.length),
       ),
       cause,
     );
@@ -1694,8 +1677,7 @@ class FluEditableTextState extends State<FluEditableText>
 
         final TextPosition currentTextPosition =
             TextPosition(offset: renderEditable.selection!.baseOffset);
-        _startCaretRect =
-            renderEditable.getLocalRectForCaret(currentTextPosition);
+        _startCaretRect = renderEditable.getLocalRectForCaret(currentTextPosition);
 
         _lastBoundedOffset = _startCaretRect!.center - _floatingCursorOffset;
         _lastTextPosition = currentTextPosition;
@@ -1707,8 +1689,8 @@ class FluEditableTextState extends State<FluEditableText>
         final Offset rawCursorOffset =
             _startCaretRect!.center + centeredPoint - _floatingCursorOffset;
 
-        _lastBoundedOffset = renderEditable
-            .calculateBoundedFloatingCursorOffset(rawCursorOffset);
+        _lastBoundedOffset =
+            renderEditable.calculateBoundedFloatingCursorOffset(rawCursorOffset);
         _lastTextPosition = renderEditable.getPositionForPoint(renderEditable
             .localToGlobal(_lastBoundedOffset! + _floatingCursorOffset));
         renderEditable.setFloatingCursor(
@@ -1748,8 +1730,8 @@ class FluEditableTextState extends State<FluEditableText>
       final double lerpY =
           ui.lerpDouble(_lastBoundedOffset!.dy, finalPosition.dy, lerpValue)!;
 
-      renderEditable.setFloatingCursor(FloatingCursorDragState.Update,
-          Offset(lerpX, lerpY), _lastTextPosition!,
+      renderEditable.setFloatingCursor(
+          FloatingCursorDragState.Update, Offset(lerpX, lerpY), _lastTextPosition!,
           resetLerpValue: lerpValue);
     }
   }
@@ -1765,8 +1747,7 @@ class FluEditableTextState extends State<FluEditableText>
           exception: exception,
           stack: stack,
           library: 'widgets',
-          context:
-              ErrorDescription('while calling onEditingComplete for $action'),
+          context: ErrorDescription('while calling onEditingComplete for $action'),
         ));
       }
     } else {
@@ -1911,15 +1892,13 @@ class FluEditableTextState extends State<FluEditableText>
 
       additionalOffset = expandedRect.height >= editableSize.height
           ? editableSize.height / 2 - expandedRect.center.dy
-          : 0.0.clamp(
-              expandedRect.bottom - editableSize.height, expandedRect.top);
+          : 0.0.clamp(expandedRect.bottom - editableSize.height, expandedRect.top);
       unitOffset = const Offset(0, 1);
     }
 
     // No overscrolling when encountering tall fonts/scripts that extend past
     // the ascent.
-    final double targetOffset =
-        (additionalOffset + _scrollController.offset).clamp(
+    final double targetOffset = (additionalOffset + _scrollController.offset).clamp(
       _scrollController.position.minScrollExtent,
       _scrollController.position.maxScrollExtent,
     );
@@ -1933,8 +1912,8 @@ class FluEditableTextState extends State<FluEditableText>
 
   /// Whether to send the autofill information to the autofill service. True by
   /// default.
-  bool get _needsAutofill => _effectiveAutofillClient
-      .textInputConfiguration.autofillConfiguration.enabled;
+  bool get _needsAutofill =>
+      _effectiveAutofillClient.textInputConfiguration.autofillConfiguration.enabled;
 
   void _openInputConnection() {
     if (!_shouldCreateInputConnection) {
@@ -1954,8 +1933,7 @@ class FluEditableTextState extends State<FluEditableText>
       _textInputConnection = _needsAutofill && currentAutofillScope != null
           ? currentAutofillScope!
               .attach(this, _effectiveAutofillClient.textInputConfiguration)
-          : TextInput.attach(
-              this, _effectiveAutofillClient.textInputConfiguration);
+          : TextInput.attach(this, _effectiveAutofillClient.textInputConfiguration);
       _updateSizeAndTransform();
       _updateComposingRectIfNeeded();
       _updateCaretRectIfNeeded();
@@ -2023,9 +2001,9 @@ class FluEditableTextState extends State<FluEditableText>
 
     final AutofillScope? currentAutofillScope =
         _needsAutofill ? this.currentAutofillScope : null;
-    final TextInputConnection newConnection = currentAutofillScope?.attach(
-            this, textInputConfiguration) ??
-        TextInput.attach(this, _effectiveAutofillClient.textInputConfiguration);
+    final TextInputConnection newConnection =
+        currentAutofillScope?.attach(this, textInputConfiguration) ??
+            TextInput.attach(this, _effectiveAutofillClient.textInputConfiguration);
     _textInputConnection = newConnection;
 
     final TextStyle style = widget.style;
@@ -2150,8 +2128,7 @@ class FluEditableTextState extends State<FluEditableText>
         exception: exception,
         stack: stack,
         library: 'widgets',
-        context:
-            ErrorDescription('while calling onSelectionChanged for $cause'),
+        context: ErrorDescription('while calling onSelectionChanged for $cause'),
       ));
     }
 
@@ -2191,15 +2168,13 @@ class FluEditableTextState extends State<FluEditableText>
       // positioned directly at the edge after scrolling.
       double bottomSpacing = widget.scrollPadding.bottom;
       if (_selectionOverlay?.selectionControls != null) {
-        final double handleHeight = _selectionOverlay!.selectionControls!
-            .getHandleSize(lineHeight)
-            .height;
+        final double handleHeight =
+            _selectionOverlay!.selectionControls!.getHandleSize(lineHeight).height;
         final double interactiveHandleHeight = math.max(
           handleHeight,
           kMinInteractiveDimension,
         );
-        final Offset anchor =
-            _selectionOverlay!.selectionControls!.getHandleAnchor(
+        final Offset anchor = _selectionOverlay!.selectionControls!.getHandleAnchor(
           TextSelectionHandleType.collapsed,
           lineHeight,
         );
@@ -2240,13 +2215,11 @@ class FluEditableTextState extends State<FluEditableText>
 
   @override
   void didChangeMetrics() {
-    if (_lastBottomViewInset !=
-        WidgetsBinding.instance.window.viewInsets.bottom) {
+    if (_lastBottomViewInset != WidgetsBinding.instance.window.viewInsets.bottom) {
       SchedulerBinding.instance.addPostFrameCallback((Duration _) {
         _selectionOverlay?.updateForScroll();
       });
-      if (_lastBottomViewInset <
-          WidgetsBinding.instance.window.viewInsets.bottom) {
+      if (_lastBottomViewInset < WidgetsBinding.instance.window.viewInsets.bottom) {
         // Because the metrics change signal from engine will come here every frame
         // (on both iOS and Android). So we don't need to show caret with animation.
         _scheduleShowCaretOnScreen(withAnimation: false);
@@ -2354,8 +2327,7 @@ class FluEditableTextState extends State<FluEditableText>
       //
       // These values and curves have been obtained through eyeballing, so are
       // likely not exactly the same as the values for native iOS.
-      _cursorBlinkOpacityController!
-          .animateTo(targetOpacity, curve: Curves.easeOut);
+      _cursorBlinkOpacityController!.animateTo(targetOpacity, curve: Curves.easeOut);
     } else {
       _cursorBlinkOpacityController!.value = targetOpacity;
     }
@@ -2391,8 +2363,7 @@ class FluEditableTextState extends State<FluEditableText>
     _cursorBlinkOpacityController!.value = 1.0;
     if (FluEditableText.debugDeterministicCursor) return;
     if (widget.cursorOpacityAnimates) {
-      _cursorTimer =
-          Timer.periodic(_kCursorBlinkWaitForStart, _cursorWaitForStart);
+      _cursorTimer = Timer.periodic(_kCursorBlinkWaitForStart, _cursorWaitForStart);
     } else {
       _cursorTimer = Timer.periodic(_kCursorBlinkHalfPeriod, _cursorTick);
     }
@@ -2470,15 +2441,14 @@ class FluEditableTextState extends State<FluEditableText>
     if (!widget.scribbleEnabled) return;
     if (defaultTargetPlatform != TargetPlatform.iOS) return;
     // This is to avoid sending selection rects on non-iPad devices.
-    if (WidgetsBinding.instance.window.physicalSize.shortestSide <
-        _kIPadWidth) {
+    if (WidgetsBinding.instance.window.physicalSize.shortestSide < _kIPadWidth) {
       return;
     }
 
     final String text =
         renderEditable.text?.toPlainText(includeSemanticsLabels: false) ?? '';
-    final List<Rect> firstSelectionBoxes = renderEditable.getBoxesForSelection(
-        const TextSelection(baseOffset: 0, extentOffset: 1));
+    final List<Rect> firstSelectionBoxes = renderEditable
+        .getBoxesForSelection(const TextSelection(baseOffset: 0, extentOffset: 1));
     final Rect? firstRect =
         firstSelectionBoxes.isNotEmpty ? firstSelectionBoxes.first : null;
     final ScrollDirection scrollDirection =
@@ -2507,13 +2477,11 @@ class FluEditableTextState extends State<FluEditableText>
         (int i) {
           if (belowRenderEditableBottom) return null;
 
-          final int offset =
-              _cachedText.characters.getRange(0, i).string.length;
-          final List<Rect> boxes = renderEditable.getBoxesForSelection(
-              TextSelection(
-                  baseOffset: offset,
-                  extentOffset: offset +
-                      _cachedText.characters.characterAt(i).string.length));
+          final int offset = _cachedText.characters.getRange(0, i).string.length;
+          final List<Rect> boxes = renderEditable.getBoxesForSelection(TextSelection(
+              baseOffset: offset,
+              extentOffset:
+                  offset + _cachedText.characters.characterAt(i).string.length));
           if (boxes.isEmpty) return null;
 
           final SelectionRect selectionRect = SelectionRect(
@@ -2567,8 +2535,7 @@ class FluEditableTextState extends State<FluEditableText>
     final TextRange composingRange = _value.composing;
     if (_hasInputConnection) {
       assert(mounted);
-      Rect? composingRect =
-          renderEditable.getRectForComposingRange(composingRange);
+      Rect? composingRect = renderEditable.getRectForComposingRange(composingRange);
       // Send the caret location instead if there's no marked text yet.
       if (composingRect == null) {
         assert(!composingRange.isValid || composingRange.isCollapsed);
@@ -2599,8 +2566,7 @@ class FluEditableTextState extends State<FluEditableText>
   }
 
   TextDirection get _textDirection {
-    final TextDirection result =
-        widget.textDirection ?? Directionality.of(context);
+    final TextDirection result = widget.textDirection ?? Directionality.of(context);
     return result;
   }
 
@@ -2646,9 +2612,8 @@ class FluEditableTextState extends State<FluEditableText>
       return;
     }
 
-    final bool selectionChanged =
-        _value.selection.start != value.selection.start ||
-            _value.selection.end != value.selection.end;
+    final bool selectionChanged = _value.selection.start != value.selection.start ||
+        _value.selection.end != value.selection.end;
 
     widget.onChanged?.call(value.text);
     widget.onDeltasHistoryUpdate?.call(textEditingDeltas);
@@ -2733,8 +2698,7 @@ class FluEditableTextState extends State<FluEditableText>
     if (!widget.controller.selection.isValid) return;
 
     setState(() {
-      _placeholderLocation =
-          _value.text.length - widget.controller.selection.end;
+      _placeholderLocation = _value.text.length - widget.controller.selection.end;
     });
   }
 
@@ -2828,9 +2792,8 @@ class FluEditableTextState extends State<FluEditableText>
   // --------------------------- Text Editing Actions ---------------------------
 
   _TextBoundary _characterBoundary(DirectionalTextEditingIntent intent) {
-    final _TextBoundary atomicTextBoundary = widget.obscureText
-        ? _CodeUnitBoundary(_value)
-        : _CharacterBoundary(_value);
+    final _TextBoundary atomicTextBoundary =
+        widget.obscureText ? _CodeUnitBoundary(_value) : _CharacterBoundary(_value);
     return _CollapsedSelectionBoundary(atomicTextBoundary, intent.forward);
   }
 
@@ -2888,8 +2851,7 @@ class FluEditableTextState extends State<FluEditableText>
       _DocumentBoundary(_value);
 
   Action<T> _makeOverridable<T extends Intent>(Action<T> defaultAction) {
-    return Action<T>.overridable(
-        context: context, defaultAction: defaultAction);
+    return Action<T>.overridable(context: context, defaultAction: defaultAction);
   }
 
   void _replaceText(ReplaceTextIntent intent) {
@@ -2960,9 +2922,8 @@ class FluEditableTextState extends State<FluEditableText>
     final bool inOrder =
         textBoundarySelection.baseOffset <= textBoundarySelection.extentOffset;
     final bool towardsExtent = forward == inOrder;
-    final TextPosition position = towardsExtent
-        ? textBoundarySelection.extent
-        : textBoundarySelection.base;
+    final TextPosition position =
+        towardsExtent ? textBoundarySelection.extent : textBoundarySelection.base;
 
     final TextPosition newExtent = forward
         ? textBoundary.getTrailingTextBoundaryAt(position)
@@ -2990,15 +2951,13 @@ class FluEditableTextState extends State<FluEditableText>
     ReplaceTextIntent: _replaceTextAction,
     UpdateSelectionIntent: _updateSelectionAction,
     DirectionalFocusIntent: DirectionalFocusAction.forTextField(),
-    DismissIntent:
-        CallbackAction<DismissIntent>(onInvoke: _hideToolbarIfVisible),
+    DismissIntent: CallbackAction<DismissIntent>(onInvoke: _hideToolbarIfVisible),
 
     // Delete
     DeleteCharacterIntent: _makeOverridable(
         _DeleteTextAction<DeleteCharacterIntent>(this, _characterBoundary)),
     DeleteToNextWordBoundaryIntent: _makeOverridable(
-        _DeleteTextAction<DeleteToNextWordBoundaryIntent>(
-            this, _nextWordBoundary)),
+        _DeleteTextAction<DeleteToNextWordBoundaryIntent>(this, _nextWordBoundary)),
     DeleteToLineBreakIntent: _makeOverridable(
         _DeleteTextAction<DeleteToLineBreakIntent>(this, _linebreak)),
 
@@ -3060,8 +3019,7 @@ class FluEditableTextState extends State<FluEditableText>
             debugLabel: 'FluEditableText',
             child: Scrollable(
               excludeFromSemantics: true,
-              axisDirection:
-                  _isMultiline ? AxisDirection.down : AxisDirection.right,
+              axisDirection: _isMultiline ? AxisDirection.down : AxisDirection.right,
               controller: _scrollController,
               physics: widget.scrollPhysics,
               dragStartBehavior: widget.dragStartBehavior,
@@ -3128,8 +3086,7 @@ class FluEditableTextState extends State<FluEditableText>
                         selectionHeightStyle: widget.selectionHeightStyle,
                         selectionWidthStyle: widget.selectionWidthStyle,
                         paintCursorAboveText: widget.paintCursorAboveText,
-                        enableInteractiveSelection:
-                            widget._userSelectionEnabled,
+                        enableInteractiveSelection: widget._userSelectionEnabled,
                         textSelectionDelegate: this,
                         devicePixelRatio: _devicePixelRatio,
                         promptRectRange: _currentPromptRectRange,
@@ -3173,20 +3130,18 @@ class FluEditableTextState extends State<FluEditableText>
       }
       return TextSpan(style: widget.style, text: text);
     }
-    if (_placeholderLocation >= 0 &&
-        _placeholderLocation <= _value.text.length) {
+    if (_placeholderLocation >= 0 && _placeholderLocation <= _value.text.length) {
       final List<_ScribblePlaceholder> placeholders = <_ScribblePlaceholder>[];
       final int placeholderLocation = _value.text.length - _placeholderLocation;
       if (_isMultiline) {
         // The zero size placeholder here allows the line to break and keep the caret on the first line.
-        placeholders.add(
-            const _ScribblePlaceholder(child: SizedBox(), size: Size.zero));
+        placeholders
+            .add(const _ScribblePlaceholder(child: SizedBox(), size: Size.zero));
         placeholders.add(_ScribblePlaceholder(
-            child: const SizedBox(),
-            size: Size(renderEditable.size.width, 0.0)));
+            child: const SizedBox(), size: Size(renderEditable.size.width, 0.0)));
       } else {
-        placeholders.add(const _ScribblePlaceholder(
-            child: SizedBox(), size: Size(100.0, 0.0)));
+        placeholders.add(
+            const _ScribblePlaceholder(child: SizedBox(), size: Size(100.0, 0.0)));
       }
       return TextSpan(
         style: widget.style,
@@ -3470,8 +3425,7 @@ class _ScribbleFocusableState extends State<_ScribbleFocusable>
     final Rect intersection = calculatedBounds.intersect(rect);
     final HitTestResult result = HitTestResult();
     WidgetsBinding.instance.hitTest(result, intersection.center);
-    return result.path
-        .any((HitTestEntry entry) => entry.target == renderEditable);
+    return result.path.any((HitTestEntry entry) => entry.target == renderEditable);
   }
 
   @override
@@ -3595,8 +3549,7 @@ class _WhitespaceBoundary extends _TextBoundary {
   @override
   TextPosition getLeadingTextBoundaryAt(TextPosition position) {
     for (int index = position.offset; index >= 0; index -= 1) {
-      if (!TextLayoutMetrics.isWhitespace(
-          textEditingValue.text.codeUnitAt(index))) {
+      if (!TextLayoutMetrics.isWhitespace(textEditingValue.text.codeUnitAt(index))) {
         return TextPosition(offset: index);
       }
     }
@@ -3608,8 +3561,7 @@ class _WhitespaceBoundary extends _TextBoundary {
     for (int index = position.offset;
         index < textEditingValue.text.length;
         index += 1) {
-      if (!TextLayoutMetrics.isWhitespace(
-          textEditingValue.text.codeUnitAt(index))) {
+      if (!TextLayoutMetrics.isWhitespace(textEditingValue.text.codeUnitAt(index))) {
         return TextPosition(offset: index + 1);
       }
     }
@@ -3631,9 +3583,8 @@ class _CharacterBoundary extends _TextBoundary {
     final int endOffset =
         math.min(position.offset + 1, textEditingValue.text.length);
     return TextPosition(
-      offset:
-          CharacterRange.at(textEditingValue.text, position.offset, endOffset)
-              .stringBeforeLength,
+      offset: CharacterRange.at(textEditingValue.text, position.offset, endOffset)
+          .stringBeforeLength,
     );
   }
 
@@ -3675,8 +3626,7 @@ class _WordBoundary extends _TextBoundary {
     return TextPosition(
       offset: textLayout.getWordBoundary(position).start,
       // Word boundary seems to always report downstream on many platforms.
-      affinity:
-          TextAffinity.downstream, // ignore: avoid_redundant_argument_values
+      affinity: TextAffinity.downstream, // ignore: avoid_redundant_argument_values
     );
   }
 
@@ -3685,8 +3635,7 @@ class _WordBoundary extends _TextBoundary {
     return TextPosition(
       offset: textLayout.getWordBoundary(position).end,
       // Word boundary seems to always report downstream on many platforms.
-      affinity:
-          TextAffinity.downstream, // ignore: avoid_redundant_argument_values
+      affinity: TextAffinity.downstream, // ignore: avoid_redundant_argument_values
     );
   }
 }
@@ -3752,8 +3701,7 @@ class _ExpandedTextBoundary extends _TextBoundary {
 
   @override
   TextEditingValue get textEditingValue {
-    assert(innerTextBoundary.textEditingValue ==
-        outerTextBoundary.textEditingValue);
+    assert(innerTextBoundary.textEditingValue == outerTextBoundary.textEditingValue);
     return innerTextBoundary.textEditingValue;
   }
 
@@ -3792,8 +3740,8 @@ class _CollapsedSelectionBoundary extends _TextBoundary {
         ? innerTextBoundary.getLeadingTextBoundaryAt(position)
         : position.offset <= 0
             ? const TextPosition(offset: 0)
-            : innerTextBoundary.getLeadingTextBoundaryAt(
-                TextPosition(offset: position.offset - 1));
+            : innerTextBoundary
+                .getLeadingTextBoundaryAt(TextPosition(offset: position.offset - 1));
   }
 
   @override
@@ -3866,10 +3814,7 @@ class _DeleteTextAction<T extends DirectionalTextEditingIntent>
     if (!selection.isCollapsed) {
       return Actions.invoke(
         context!,
-        ReplaceTextIntent(
-            state._value,
-            '',
-            _expandNonCollapsedRange(state._value),
+        ReplaceTextIntent(state._value, '', _expandNonCollapsedRange(state._value),
             SelectionChangedCause.keyboard),
       );
     }
@@ -3894,8 +3839,7 @@ class _DeleteTextAction<T extends DirectionalTextEditingIntent>
       ReplaceTextIntent(
         textBoundary.textEditingValue,
         '',
-        textBoundary
-            .getTextBoundaryAt(textBoundary.textEditingValue.selection.base),
+        textBoundary.getTextBoundaryAt(textBoundary.textEditingValue.selection.base),
         SelectionChangedCause.keyboard,
       ),
     );
@@ -3930,8 +3874,7 @@ class _UpdateTextSelectionAction<T extends DirectionalCaretMovementIntent>
     );
     return end == position &&
         end.offset != state.textEditingValue.text.length &&
-        state.textEditingValue.text.codeUnitAt(position.offset) !=
-            NEWLINE_CODE_UNIT;
+        state.textEditingValue.text.codeUnitAt(position.offset) != NEWLINE_CODE_UNIT;
   }
 
   // Returns true iff the given position at a wordwrap boundary in the
@@ -4040,10 +3983,9 @@ class _UpdateTextSelectionAction<T extends DirectionalCaretMovementIntent>
   bool get isActionEnabled => state._value.selection.isValid;
 }
 
-class _ExtendSelectionOrCaretPositionAction extends ContextAction<
-    ExtendSelectionToNextWordBoundaryOrCaretLocationIntent> {
-  _ExtendSelectionOrCaretPositionAction(
-      this.state, this.getTextBoundariesForIntent);
+class _ExtendSelectionOrCaretPositionAction
+    extends ContextAction<ExtendSelectionToNextWordBoundaryOrCaretLocationIntent> {
+  _ExtendSelectionOrCaretPositionAction(this.state, this.getTextBoundariesForIntent);
 
   final FluEditableTextState state;
   final _TextBoundary Function(
@@ -4068,19 +4010,19 @@ class _ExtendSelectionOrCaretPositionAction extends ContextAction<
         ? textBoundary.getTrailingTextBoundaryAt(extent)
         : textBoundary.getLeadingTextBoundaryAt(extent);
 
-    final TextSelection newSelection =
-        (newExtent.offset - textBoundarySelection.baseOffset) *
-                    (textBoundarySelection.extentOffset -
-                        textBoundarySelection.baseOffset) <
-                0
-            ? textBoundarySelection.copyWith(
-                extentOffset: textBoundarySelection.baseOffset,
-                affinity: textBoundarySelection.extentOffset >
-                        textBoundarySelection.baseOffset
+    final TextSelection newSelection = (newExtent.offset -
+                    textBoundarySelection.baseOffset) *
+                (textBoundarySelection.extentOffset -
+                    textBoundarySelection.baseOffset) <
+            0
+        ? textBoundarySelection.copyWith(
+            extentOffset: textBoundarySelection.baseOffset,
+            affinity:
+                textBoundarySelection.extentOffset > textBoundarySelection.baseOffset
                     ? TextAffinity.downstream
                     : TextAffinity.upstream,
-              )
-            : textBoundarySelection.extendTo(newExtent);
+          )
+        : textBoundarySelection.extendTo(newExtent);
 
     return Actions.invoke(
       context!,
@@ -4154,8 +4096,7 @@ class _UpdateTextSelectionToAdjacentLineAction<
 
     Actions.invoke(
       context!,
-      UpdateSelectionIntent(
-          value, newSelection, SelectionChangedCause.keyboard),
+      UpdateSelectionIntent(value, newSelection, SelectionChangedCause.keyboard),
     );
     if (state._value.selection == newSelection) {
       _verticalMovementRun = currentRun;

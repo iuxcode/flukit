@@ -14,7 +14,7 @@ class FluButtonStyle {
   Curve? animationCurve;
   BoxShadow? boxShadow;
   Color? color;
-  Color? backgroundColor;
+  Color? background;
   bool loading;
   Widget? loadingWidget;
   Alignment? alignment;
@@ -33,7 +33,7 @@ class FluButtonStyle {
     this.margin = EdgeInsets.zero,
     this.padding,
     this.boxShadow,
-    this.backgroundColor,
+    this.background,
     this.border,
     this.borderRadius,
     this.color = Colors.white,
@@ -62,7 +62,7 @@ class FluButtonStyle {
     Curve? animationCurve,
     BoxShadow? boxShadow,
     Color? color,
-    Color? backgroundColor,
+    Color? background,
     bool? loading,
     Widget? loadingWidget,
     Alignment? alignment,
@@ -80,7 +80,7 @@ class FluButtonStyle {
         margin: margin ?? this.margin,
         padding: padding ?? this.padding,
         boxShadow: boxShadow ?? this.boxShadow,
-        backgroundColor: backgroundColor ?? this.backgroundColor,
+        background: background ?? this.background,
         border: border ?? this.border,
         borderRadius: borderRadius ?? this.borderRadius,
         color: color ?? this.color,
@@ -104,7 +104,7 @@ class FluButtonStyle {
         margin: newStyle?.margin ?? margin,
         padding: newStyle?.padding ?? padding,
         boxShadow: newStyle?.boxShadow ?? boxShadow,
-        backgroundColor: newStyle?.backgroundColor ?? backgroundColor,
+        background: newStyle?.background ?? background,
         border: newStyle?.border ?? border,
         borderRadius: newStyle?.borderRadius ?? borderRadius,
         color: newStyle?.color ?? color,
@@ -121,15 +121,15 @@ class FluButtonStyle {
 
   /// Defining styles
   static FluButtonStyle flat = FluButtonStyle(
-    backgroundColor: Colors.transparent,
-    color: Flukit.themePalette.accentText,
+    background: Colors.transparent,
+    color: Flukit.theme.accentText,
   );
 
   static FluButtonStyle defaultt = FluButtonStyle(
     height: Flukit.appSettings.defaultElSize,
     radius: Flukit.appSettings.defaultElRadius,
-    backgroundColor: Flukit.theme.primaryColor,
-    color: Flukit.themePalette.light,
+    background: Flukit.theme.primary,
+    color: Flukit.theme.light,
     padding: const EdgeInsets.symmetric(horizontal: 20),
   );
 }

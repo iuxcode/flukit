@@ -4,12 +4,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:get/get.dart' ;
+import 'package:get/get.dart';
 
 import '../utils/flu_utils.dart';
 
 typedef OnSnackTap = void Function(FluSnackBar snack);
-
 
 class FluSnackBar extends StatefulWidget {
   /// A callback for you to listen to the different Snack status
@@ -37,7 +36,7 @@ class FluSnackBar extends StatefulWidget {
   final Widget? messageText;
 
   /// Will be ignored if [backgroundGradient] is not null
-  final Color backgroundColor;
+  final Color background;
 
   /// If not null, shows a left vertical colored bar on notification.
   /// It is not possible to use it with a [Form] and I do not recommend
@@ -51,7 +50,7 @@ class FluSnackBar extends StatefulWidget {
   final List<BoxShadow>? boxShadows;
 
   /// Give to FluSnackbar a gradient background.
-  /// It Makes [backgroundColor] be ignored.
+  /// It Makes [background] be ignored.
   final Gradient? backgroundGradient;
 
   /// You can use any widget here, but I recommend [Icon] or [Image] as
@@ -84,7 +83,7 @@ class FluSnackBar extends StatefulWidget {
   final AnimationController? progressIndicatorController;
 
   /// A [LinearProgressIndicator] configuration parameter.
-  final Color? progressIndicatorBackgroundColor;
+  final Color? progressIndicatorbackground;
 
   /// A [LinearProgressIndicator] configuration parameter.
   final Animation<Color>? progressIndicatorValueColor;
@@ -127,7 +126,7 @@ class FluSnackBar extends StatefulWidget {
   /// Snack can be floating or be grounded to the edge of the screen.
   /// If grounded, I do not recommend using [margin] or [borderRadius].
   /// [SnackStyle.FLOATING] is the default
-  /// If grounded, I do not recommend using a [backgroundColor] with
+  /// If grounded, I do not recommend using a [background] with
   /// transparency or [barBlur]
   final SnackStyle snackStyle;
 
@@ -143,7 +142,7 @@ class FluSnackBar extends StatefulWidget {
   final Duration animationDuration;
 
   /// Default is 0.0. If different than 0.0, blurs only Snack's background.
-  /// To take effect, make sure your [backgroundColor] has some opacity.
+  /// To take effect, make sure your [background] has some opacity.
   /// The greater the value, the greater the blur.
   final double barBlur;
 
@@ -175,7 +174,7 @@ class FluSnackBar extends StatefulWidget {
     this.borderRadius = 0.0,
     this.borderColor,
     this.borderWidth = 1.0,
-    this.backgroundColor = const Color(0xFF303030),
+    this.background = const Color(0xFF303030),
     this.leftBarIndicatorColor,
     this.boxShadows,
     this.backgroundGradient,
@@ -186,7 +185,7 @@ class FluSnackBar extends StatefulWidget {
     this.dismissDirection,
     this.showProgressIndicator = false,
     this.progressIndicatorController,
-    this.progressIndicatorBackgroundColor,
+    this.progressIndicatorbackground,
     this.progressIndicatorValueColor,
     this.snackPosition = SnackPosition.BOTTOM,
     this.snackStyle = SnackStyle.FLOATING,
@@ -260,11 +259,10 @@ class FluSnackBarState extends State<FluSnackBar> with TickerProviderStateMixin 
       child: Material(
         color: widget.snackStyle == SnackStyle.FLOATING
             ? Colors.transparent
-            : widget.backgroundColor,
+            : widget.background,
         child: SafeArea(
           minimum: widget.snackPosition == SnackPosition.BOTTOM
-              ? EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom)
+              ? EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)
               : EdgeInsets.only(top: MediaQuery.of(context).padding.top),
           bottom: widget.snackPosition == SnackPosition.BOTTOM,
           top: widget.snackPosition == SnackPosition.TOP,
@@ -289,8 +287,7 @@ class FluSnackBarState extends State<FluSnackBar> with TickerProviderStateMixin 
                           width: snapshot.data!.width,
                           decoration: BoxDecoration(
                             color: Colors.transparent,
-                            borderRadius:
-                                BorderRadius.circular(widget.borderRadius),
+                            borderRadius: BorderRadius.circular(widget.borderRadius),
                           ),
                         ),
                       ),
@@ -383,8 +380,7 @@ You need to either use message[String], or messageText[Widget] or define a userI
   }
 
   void _configureProgressIndicatorAnimation() {
-    if (widget.showProgressIndicator &&
-        widget.progressIndicatorController != null) {
+    if (widget.showProgressIndicator && widget.progressIndicatorController != null) {
       widget.progressIndicatorController!.addListener(_updateProgress);
 
       _progressAnimation = CurvedAnimation(
@@ -393,7 +389,8 @@ You need to either use message[String], or messageText[Widget] or define a userI
   }
 
   void _configurePulseAnimation() {
-    _fadeController = AnimationController(vsync: this, duration: _pulseAnimationDuration);
+    _fadeController =
+        AnimationController(vsync: this, duration: _pulseAnimationDuration);
     _fadeAnimation = Tween(begin: _initialOpacity, end: _finalOpacity).animate(
       CurvedAnimation(
         parent: _fadeController!,
@@ -426,7 +423,7 @@ You need to either use message[String], or messageText[Widget] or define a userI
           ? BoxConstraints(maxWidth: widget.maxWidth!)
           : null,
       decoration: BoxDecoration(
-        color: widget.backgroundColor,
+        color: widget.background,
         gradient: widget.backgroundGradient,
         boxShadow: widget.boxShadows,
         borderRadius: BorderRadius.circular(widget.borderRadius),
@@ -438,8 +435,8 @@ You need to either use message[String], or messageText[Widget] or define a userI
             : null,
       ),
       child: Padding(
-        padding: const EdgeInsets.only(
-            left: 8.0, right: 8.0, bottom: 8.0, top: 16.0),
+        padding:
+            const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0, top: 16.0),
         child: FocusScope(
           node: _focusNode,
           autofocus: true,
@@ -463,7 +460,7 @@ You need to either use message[String], or messageText[Widget] or define a userI
           ? BoxConstraints(maxWidth: widget.maxWidth!)
           : null,
       decoration: BoxDecoration(
-        color: widget.backgroundColor,
+        color: widget.background,
         gradient: widget.backgroundGradient,
         boxShadow: widget.boxShadows,
         borderRadius: BorderRadius.circular(widget.borderRadius),
@@ -479,7 +476,7 @@ You need to either use message[String], or messageText[Widget] or define a userI
                   value: widget.progressIndicatorController != null
                       ? _progressAnimation.value
                       : null,
-                  backgroundColor: widget.progressIndicatorBackgroundColor,
+                  backgroundColor: widget.progressIndicatorbackground,
                   valueColor: widget.progressIndicatorValueColor,
                 )
               : _emptyWidget,
@@ -564,17 +561,13 @@ You need to either use message[String], or messageText[Widget] or define a userI
       child: widget.messageText ??
           Text(
             (widget.message ?? ""),
-            style:
-                const TextStyle(fontSize: 14.0, color: Colors.white),
+            style: const TextStyle(fontSize: 14.0, color: Colors.white),
           ),
     );
 
     if (_rowStyle == RowStyle.action || _rowStyle == RowStyle.all) {
       return [
-        Expanded(
-          flex: 1,
-          child: txt
-        ),
+        Expanded(flex: 1, child: txt),
         Padding(
           padding: EdgeInsets.only(right: buttonPadding),
           child: widget.mainButton,
@@ -586,13 +579,13 @@ You need to either use message[String], or messageText[Widget] or define a userI
           constraints: BoxConstraints.tightFor(width: 5.0 + iconPadding),
           child: _getIcon(),
         ),
-        const SizedBox(width: 5,),
+        const SizedBox(
+          width: 5,
+        ),
         txt
       ];
     } else {
-      return [
-        txt
-      ];
+      return [txt];
     }
   }
 
@@ -615,7 +608,6 @@ You need to either use message[String], or messageText[Widget] or define a userI
 
   void _updateProgress() => setState(() {});
 }
-
 
 class FluSnackbarController {
   static final _snackBarQueue = _SnackBarQueue();
@@ -776,8 +768,7 @@ class FluSnackbarController {
   }
 
   Animation<Color?> _createColorOverlayColor() {
-    return ColorTween(
-            begin: const Color(0x00000000), end: snackbar.overlayColor)
+    return ColorTween(begin: const Color(0x00000000), end: snackbar.overlayColor)
         .animate(
       CurvedAnimation(
         parent: _controller,
@@ -842,9 +833,7 @@ class FluSnackbarController {
   Widget _getBodyWidget() {
     return Builder(builder: (_) {
       return GestureDetector(
-        onTap: snackbar.onTap != null
-            ? () => snackbar.onTap?.call(snackbar)
-            : null,
+        onTap: snackbar.onTap != null ? () => snackbar.onTap?.call(snackbar) : null,
         child: snackbar,
       );
     });

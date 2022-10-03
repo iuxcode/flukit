@@ -76,8 +76,8 @@ class _FluTermsScreenState extends State<FluTermsScreen> {
                           textStyle:
                               TextStyle(fontWeight: Flukit.appSettings.textSemibold),
                           style: FluButtonStyle(
-                            backgroundColor: Colors.transparent,
-                            color: Flukit.themePalette.danger,
+                            background: Colors.transparent,
+                            color: Flukit.theme.danger,
                           )),
                       Hero(
                         tag: Flukit.appSettings.mainButtonHeroTag,
@@ -90,12 +90,12 @@ class _FluTermsScreenState extends State<FluTermsScreen> {
                             height: Flukit.appSettings.minElSize,
                             radius: Flukit.appSettings.minElRadius,
                             padding: const EdgeInsets.symmetric(horizontal: 18),
-                            backgroundColor: canAgree
-                                ? Flukit.theme.primaryColor
-                                : Flukit.theme.secondaryColor,
+                            background: canAgree
+                                ? Flukit.theme.primary
+                                : Flukit.theme.secondary,
                             color: canAgree
-                                ? Flukit.themePalette.light
-                                : Flukit.theme.accentTextColor,
+                                ? Flukit.theme.light
+                                : Flukit.theme.accentText,
                           ),
                         ),
                       ),

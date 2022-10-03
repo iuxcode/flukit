@@ -1,5 +1,4 @@
 import 'package:emojis/emojis.dart';
-import 'package:flukit/src/widgets/input/inputs.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
 
@@ -68,15 +67,14 @@ class FluCountrySelectState extends State<FluCountrySelect> {
               width: Flukit.screenSize.width * .2,
               margin: const EdgeInsets.only(bottom: 8),
               decoration: BoxDecoration(
-                  color: Flukit.theme.backgroundColor.withOpacity(.5),
+                  color: Flukit.theme.background.withOpacity(.5),
                   borderRadius: BorderRadius.circular(2)),
             ),
             Expanded(
               child: Container(
                   padding: const EdgeInsets.only(top: 5),
                   decoration: BoxDecoration(
-                      color: Flukit.theme.backgroundColor,
-                      borderRadius: borderRadius),
+                      color: Flukit.theme.background, borderRadius: borderRadius),
                   child: ClipRRect(
                       borderRadius: borderRadius,
                       child: Scrollbar(
@@ -93,7 +91,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                         style: Flukit.textTheme.bodyText1!.copyWith(
                                             fontSize: Flukit.appSettings.headlineFs,
                                             fontWeight: Flukit.appSettings.textBold,
-                                            color: Flukit.themePalette.accentText)),
+                                            color: Flukit.theme.accentText)),
                                     const SizedBox(height: 5),
                                     Text(
                                       widget.desc ??
@@ -110,7 +108,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                         blurRadius: 30,
                                         opacity: .045,
                                         offset: const Offset(10, 10),
-                                        color: Flukit.theme.shadowColor,
+                                        color: Flukit.theme.shadow,
                                       ),
                                       child: FluTextField(
                                         style: FluTextFieldStyle(
@@ -118,19 +116,19 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                               'Search for a country.',
                                           height: Flukit.appSettings.minElSize + 5,
                                           radius: Flukit.appSettings.minElRadius,
-                                          fillColor: Flukit.theme.backgroundColor,
+                                          fillColor: Flukit.theme.background,
                                           textAlign: TextAlign.left,
                                           fluPrefixIcon: FluIcons.searchNormal,
                                           iconSize: 18,
                                           iconStrokeWidth: 2,
-                                          iconColor: Flukit.theme.textColor,
+                                          iconColor: Flukit.theme.text,
                                           borderWidth: 1.2,
                                           boxShadow: [
                                             Flukit.boxShadow(
                                               blurRadius: 30,
                                               opacity: .035,
                                               offset: const Offset(0, 5),
-                                              color: Flukit.theme.primaryColor,
+                                              color: Flukit.theme.primary,
                                             )
                                           ],
                                         ),
@@ -152,8 +150,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                                     .copyWith(right: 10),
                                                 margin: const EdgeInsets.only(
                                                     bottom: 10),
-                                                backgroundColor: Flukit
-                                                    .theme.secondaryColor
+                                                background: Flukit.theme.secondary
                                                     .withOpacity(.45),
                                                 radius: flagRadius + 2,
                                               ),
@@ -167,8 +164,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                                   boxShadow: Flukit.boxShadow(
                                                       offset: const Offset(0, 0),
                                                       opacity: .15,
-                                                      color:
-                                                          Flukit.theme.primaryColor),
+                                                      color: Flukit.theme.primary),
                                                   child: Container(
                                                     height: flagSize,
                                                     width: flagSize,
@@ -206,8 +202,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                                                 .appSettings
                                                                 .textLight,
                                                             color: Flukit
-                                                                .themePalette
-                                                                .accentText))
+                                                                .theme.accentText))
                                               ]));
                                         }).toList()
                                       : [

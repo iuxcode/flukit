@@ -40,7 +40,7 @@ class FluButton extends StatefulWidget {
           radius: Flukit.appSettings.minElRadius,
           padding: EdgeInsets.zero,
           margin: EdgeInsets.zero,
-          backgroundColor: Flukit.theme.backgroundColor,
+          background: Flukit.theme.background,
         )
         .merge(style);
 
@@ -80,7 +80,7 @@ class FluButton extends StatefulWidget {
           icon,
           size: style!.iconSize,
           strokewidth: style.iconStrokewidth,
-          color: style.color ?? Flukit.themePalette.light,
+          color: style.color ?? Flukit.theme.light,
           style: style.iconStyle,
           margin: EdgeInsets.only(
             right: prefixIcon != null ? spacing : 0,
@@ -126,8 +126,8 @@ class FluButton extends StatefulWidget {
         style: FluButtonStyle(
           iconSize: iconSize,
           iconStrokewidth: iconStrokewidth,
-          color: color ?? Flukit.theme.textColor,
-          backgroundColor: Flukit.theme.backgroundColor,
+          color: color ?? Flukit.theme.text,
+          background: Flukit.theme.background,
           boxShadow: boxShadow ??
               Flukit.boxShadow(
                 offset: const Offset(15, 15),
@@ -180,8 +180,8 @@ class _FluButtonState extends State<FluButton> {
           overlayColor: MaterialStateProperty.all(Colors.transparent),
           fixedSize: MaterialStateProperty.all(
               const Size(double.infinity, double.infinity)),
-          backgroundColor: MaterialStateProperty.all(
-              style.backgroundColor ?? Flukit.theme.primaryColor),
+          backgroundColor:
+              MaterialStateProperty.all(style.background ?? Flukit.theme.primary),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: style.borderRadius ??
@@ -203,7 +203,7 @@ class _FluButtonState extends State<FluButton> {
                       width: 20,
                       child: CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation<Color>(
-                            style.color ?? Flukit.themePalette.dark),
+                            style.color ?? Flukit.theme.dark),
                         strokeWidth: 2,
                       ),
                     ),

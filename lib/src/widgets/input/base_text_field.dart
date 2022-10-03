@@ -83,8 +83,8 @@ class FluBaseTextField extends StatefulWidget {
           !expands || (maxLines == null && minLines == null),
           'minLines and maxLines must be null when expands is true.',
         ),
-        assert(!obscureText || maxLines == 1,
-            'Obscured fields cannot be multiline.'),
+        assert(
+            !obscureText || maxLines == 1, 'Obscured fields cannot be multiline.'),
         assert(maxLength == null ||
             maxLength == FluBaseTextField.noMaxLength ||
             maxLength > 0),
@@ -351,7 +351,7 @@ class FluBaseTextField extends StatefulWidget {
   /// If this is null it will default to the ambient
   /// [TextSelectionThemeData.cursorColor]. If that is null, and the
   /// [ThemeData.platform] is [TargetPlatform.iOS] or [TargetPlatform.macOS]
-  /// it will use [CupertinoThemeData.primaryColor]. Otherwise it will use
+  /// it will use [CupertinoThemeData.primary]. Otherwise it will use
   /// the value of [ColorScheme.primary] of [ThemeData.colorScheme].
   final Color? cursorColor;
 
@@ -512,48 +512,42 @@ class FluBaseTextField extends StatefulWidget {
     properties.add(DiagnosticsProperty<TextEditingController>(
         'controller', controller,
         defaultValue: null));
-    properties.add(DiagnosticsProperty<FocusNode>('focusNode', focusNode,
-        defaultValue: null));
+    properties.add(
+        DiagnosticsProperty<FocusNode>('focusNode', focusNode, defaultValue: null));
     properties
         .add(DiagnosticsProperty<bool>('enabled', enabled, defaultValue: null));
-    properties.add(DiagnosticsProperty<InputDecoration>(
-        'decoration', decoration,
+    properties.add(DiagnosticsProperty<InputDecoration>('decoration', decoration,
         defaultValue: const InputDecoration()));
-    properties.add(DiagnosticsProperty<TextInputType>(
-        'keyboardType', keyboardType,
+    properties.add(DiagnosticsProperty<TextInputType>('keyboardType', keyboardType,
         defaultValue: TextInputType.text));
-    properties.add(
-        DiagnosticsProperty<TextStyle>('style', style, defaultValue: null));
-    properties.add(
-        DiagnosticsProperty<bool>('autofocus', autofocus, defaultValue: false));
+    properties
+        .add(DiagnosticsProperty<TextStyle>('style', style, defaultValue: null));
+    properties
+        .add(DiagnosticsProperty<bool>('autofocus', autofocus, defaultValue: false));
     properties.add(DiagnosticsProperty<String>(
         'obscuringCharacter', obscuringCharacter,
         defaultValue: '•'));
-    properties.add(DiagnosticsProperty<bool>('obscureText', obscureText,
-        defaultValue: false));
-    properties.add(DiagnosticsProperty<bool>('autocorrect', autocorrect,
-        defaultValue: true));
-    properties.add(EnumProperty<SmartDashesType>(
-        'smartDashesType', smartDashesType,
+    properties.add(
+        DiagnosticsProperty<bool>('obscureText', obscureText, defaultValue: false));
+    properties.add(
+        DiagnosticsProperty<bool>('autocorrect', autocorrect, defaultValue: true));
+    properties.add(EnumProperty<SmartDashesType>('smartDashesType', smartDashesType,
         defaultValue:
             obscureText ? SmartDashesType.disabled : SmartDashesType.enabled));
-    properties.add(EnumProperty<SmartQuotesType>(
-        'smartQuotesType', smartQuotesType,
+    properties.add(EnumProperty<SmartQuotesType>('smartQuotesType', smartQuotesType,
         defaultValue:
             obscureText ? SmartQuotesType.disabled : SmartQuotesType.enabled));
-    properties.add(DiagnosticsProperty<bool>(
-        'enableSuggestions', enableSuggestions,
+    properties.add(DiagnosticsProperty<bool>('enableSuggestions', enableSuggestions,
         defaultValue: true));
     properties.add(IntProperty('maxLines', maxLines, defaultValue: 1));
     properties.add(IntProperty('minLines', minLines, defaultValue: null));
-    properties.add(
-        DiagnosticsProperty<bool>('expands', expands, defaultValue: false));
+    properties
+        .add(DiagnosticsProperty<bool>('expands', expands, defaultValue: false));
     properties.add(IntProperty('maxLength', maxLength, defaultValue: null));
     properties.add(EnumProperty<MaxLengthEnforcement>(
         'maxLengthEnforcement', maxLengthEnforcement,
         defaultValue: null));
-    properties.add(EnumProperty<TextInputAction>(
-        'textInputAction', textInputAction,
+    properties.add(EnumProperty<TextInputAction>('textInputAction', textInputAction,
         defaultValue: null));
     properties.add(EnumProperty<TextCapitalization>(
         'textCapitalization', textCapitalization,
@@ -565,14 +559,11 @@ class FluBaseTextField extends StatefulWidget {
         defaultValue: null));
     properties.add(EnumProperty<TextDirection>('textDirection', textDirection,
         defaultValue: null));
-    properties
-        .add(DoubleProperty('cursorWidth', cursorWidth, defaultValue: 2.0));
-    properties
-        .add(DoubleProperty('cursorHeight', cursorHeight, defaultValue: null));
+    properties.add(DoubleProperty('cursorWidth', cursorWidth, defaultValue: 2.0));
+    properties.add(DoubleProperty('cursorHeight', cursorHeight, defaultValue: null));
     properties.add(DiagnosticsProperty<Radius>('cursorRadius', cursorRadius,
         defaultValue: null));
-    properties
-        .add(ColorProperty('cursorColor', cursorColor, defaultValue: null));
+    properties.add(ColorProperty('cursorColor', cursorColor, defaultValue: null));
     properties.add(DiagnosticsProperty<Brightness>(
         'keyboardAppearance', keyboardAppearance,
         defaultValue: null));
@@ -580,17 +571,14 @@ class FluBaseTextField extends StatefulWidget {
         'scrollPadding', scrollPadding,
         defaultValue: const EdgeInsets.all(20.0)));
     properties.add(FlagProperty('selectionEnabled',
-        value: selectionEnabled,
-        defaultValue: true,
-        ifFalse: 'selection disabled'));
+        value: selectionEnabled, defaultValue: true, ifFalse: 'selection disabled'));
     properties.add(DiagnosticsProperty<TextSelectionControls>(
         'selectionControls', selectionControls,
         defaultValue: null));
     properties.add(DiagnosticsProperty<ScrollController>(
         'scrollController', scrollController,
         defaultValue: null));
-    properties.add(DiagnosticsProperty<ScrollPhysics>(
-        'scrollPhysics', scrollPhysics,
+    properties.add(DiagnosticsProperty<ScrollPhysics>('scrollPhysics', scrollPhysics,
         defaultValue: null));
     properties.add(DiagnosticsProperty<Clip>('clipBehavior', clipBehavior,
         defaultValue: Clip.hardEdge));
@@ -627,8 +615,7 @@ class _TextFieldState extends State<FluBaseTextField>
 
   bool _showSelectionHandles = false;
 
-  late _TextFieldSelectionGestureDetectorBuilder
-      _selectionGestureDetectorBuilder;
+  late _TextFieldSelectionGestureDetectorBuilder _selectionGestureDetectorBuilder;
 
   // API for TextSelectionGestureDetectorBuilderDelegate.
   @override
@@ -651,12 +638,10 @@ class _TextFieldState extends State<FluBaseTextField>
       widget.maxLength! > 0 &&
       _effectiveController.value.text.characters.length > widget.maxLength!;
 
-  bool get _hasError =>
-      widget.decoration?.errorText != null || _hasIntrinsicError;
+  bool get _hasError => widget.decoration?.errorText != null || _hasIntrinsicError;
 
   InputDecoration _getEffectiveDecoration() {
-    final MaterialLocalizations localizations =
-        MaterialLocalizations.of(context);
+    final MaterialLocalizations localizations = MaterialLocalizations.of(context);
     final ThemeData themeData = Theme.of(context);
     final InputDecoration effectiveDecoration =
         (widget.decoration ?? const InputDecoration())
@@ -742,8 +727,8 @@ class _TextFieldState extends State<FluBaseTextField>
   }
 
   bool get _canRequestFocus {
-    final NavigationMode mode = MediaQuery.maybeOf(context)?.navigationMode ??
-        NavigationMode.traditional;
+    final NavigationMode mode =
+        MediaQuery.maybeOf(context)?.navigationMode ?? NavigationMode.traditional;
     switch (mode) {
       case NavigationMode.traditional:
         return _isEnabled;
@@ -939,14 +924,12 @@ class _TextFieldState extends State<FluBaseTextField>
     assert(
       !(widget.style != null &&
           widget.style!.inherit == false &&
-          (widget.style!.fontSize == null ||
-              widget.style!.textBaseline == null)),
+          (widget.style!.fontSize == null || widget.style!.textBaseline == null)),
       'inherit false style must supply fontSize and textBaseline',
     );
 
     final ThemeData theme = Theme.of(context);
-    final TextSelectionThemeData selectionTheme =
-        TextSelectionTheme.of(context);
+    final TextSelectionThemeData selectionTheme = TextSelectionTheme.of(context);
     final TextStyle style = theme.textTheme.subtitle1!.merge(widget.style);
     final Brightness keyboardAppearance =
         widget.keyboardAppearance ?? theme.brightness;
@@ -978,13 +961,12 @@ class _TextFieldState extends State<FluBaseTextField>
         textSelectionControls ??= cupertinoTextSelectionControls;
         paintCursorAboveText = true;
         cursorOpacityAnimates = true;
-        cursorColor ??=
-            selectionTheme.cursorColor ?? cupertinoTheme.primaryColor;
+        cursorColor ??= selectionTheme.cursorColor ?? cupertinoTheme.primaryColor;
         selectionColor = selectionTheme.selectionColor ??
             cupertinoTheme.primaryColor.withOpacity(0.40);
         cursorRadius ??= const Radius.circular(2.0);
-        cursorOffset = Offset(
-            iOSHorizontalOffset / MediaQuery.of(context).devicePixelRatio, 0);
+        cursorOffset =
+            Offset(iOSHorizontalOffset / MediaQuery.of(context).devicePixelRatio, 0);
         autocorrectionTextRectColor = selectionColor;
         break;
 
@@ -994,17 +976,15 @@ class _TextFieldState extends State<FluBaseTextField>
         textSelectionControls ??= cupertinoDesktopTextSelectionControls;
         paintCursorAboveText = true;
         cursorOpacityAnimates = true;
-        cursorColor ??=
-            selectionTheme.cursorColor ?? cupertinoTheme.primaryColor;
+        cursorColor ??= selectionTheme.cursorColor ?? cupertinoTheme.primaryColor;
         selectionColor = selectionTheme.selectionColor ??
             cupertinoTheme.primaryColor.withOpacity(0.40);
         cursorRadius ??= const Radius.circular(2.0);
-        cursorOffset = Offset(
-            iOSHorizontalOffset / MediaQuery.of(context).devicePixelRatio, 0);
+        cursorOffset =
+            Offset(iOSHorizontalOffset / MediaQuery.of(context).devicePixelRatio, 0);
         handleDidGainAccessibilityFocus = () {
           // Automatically activate the FluBaseTextField when it receives accessibility focus.
-          if (!_effectiveFocusNode.hasFocus &&
-              _effectiveFocusNode.canRequestFocus) {
+          if (!_effectiveFocusNode.hasFocus && _effectiveFocusNode.canRequestFocus) {
             _effectiveFocusNode.requestFocus();
           }
         };
@@ -1041,8 +1021,7 @@ class _TextFieldState extends State<FluBaseTextField>
             theme.colorScheme.primary.withOpacity(0.40);
         handleDidGainAccessibilityFocus = () {
           // Automatically activate the FluBaseTextField when it receives accessibility focus.
-          if (!_effectiveFocusNode.hasFocus &&
-              _effectiveFocusNode.canRequestFocus) {
+          if (!_effectiveFocusNode.hasFocus && _effectiveFocusNode.canRequestFocus) {
             _effectiveFocusNode.requestFocus();
           }
         };
@@ -1079,8 +1058,7 @@ class _TextFieldState extends State<FluBaseTextField>
           expands: widget.expands,
           // Only show the selection highlight when the text field is focused.
           selectionColor: focusNode.hasFocus ? selectionColor : null,
-          selectionControls:
-              widget.selectionEnabled ? textSelectionControls : null,
+          selectionControls: widget.selectionEnabled ? textSelectionControls : null,
           onChanged: widget.onChanged,
           onSelectionChanged: _handleSelectionChanged,
           onEditingComplete: widget.onEditingComplete,
@@ -1089,8 +1067,7 @@ class _TextFieldState extends State<FluBaseTextField>
           onSelectionHandleTapped: _handleSelectionHandleTapped,
           inputFormatters: formatters,
           rendererIgnoresPointer: true,
-          mouseCursor:
-              MouseCursor.defer, // FluBaseTextField will handle the cursor
+          mouseCursor: MouseCursor.defer, // FluBaseTextField will handle the cursor
           cursorWidth: widget.cursorWidth,
           cursorHeight: widget.cursorHeight,
           cursorRadius: cursorRadius,
@@ -1176,9 +1153,8 @@ class _TextFieldState extends State<FluBaseTextField>
                     ? null
                     : () {
                         if (!_effectiveController.selection.isValid) {
-                          _effectiveController.selection =
-                              TextSelection.collapsed(
-                                  offset: _effectiveController.text.length);
+                          _effectiveController.selection = TextSelection.collapsed(
+                              offset: _effectiveController.text.length);
                         }
                         _requestKeyboard();
                       },
@@ -1322,12 +1298,10 @@ class TextSelectionGestureDetectorBuilder {
       [TextSelection? fromSelection]) {
     assert(renderEditable.selection?.baseOffset != null);
 
-    final TextPosition tappedPosition =
-        renderEditable.getPositionForPoint(offset);
+    final TextPosition tappedPosition = renderEditable.getPositionForPoint(offset);
     final TextSelection selection = fromSelection ?? renderEditable.selection!;
-    final bool baseIsCloser =
-        (tappedPosition.offset - selection.baseOffset).abs() <
-            (tappedPosition.offset - selection.extentOffset).abs();
+    final bool baseIsCloser = (tappedPosition.offset - selection.baseOffset).abs() <
+        (tappedPosition.offset - selection.extentOffset).abs();
     final TextSelection nextSelection = selection.copyWith(
       baseOffset: baseIsCloser ? selection.extentOffset : selection.baseOffset,
       extentOffset: tappedPosition.offset,
@@ -1352,8 +1326,7 @@ class TextSelectionGestureDetectorBuilder {
   void _extendSelection(Offset offset, SelectionChangedCause cause) {
     assert(renderEditable.selection?.baseOffset != null);
 
-    final TextPosition tappedPosition =
-        renderEditable.getPositionForPoint(offset);
+    final TextPosition tappedPosition = renderEditable.getPositionForPoint(offset);
     final TextSelection selection = renderEditable.selection!;
     final TextSelection nextSelection = selection.copyWith(
       extentOffset: tappedPosition.offset,
@@ -1378,8 +1351,7 @@ class TextSelectionGestureDetectorBuilder {
   /// The [State] of the [EditableText] for which the builder will provide a
   /// [TextSelectionGestureDetector].
   @protected
-  FluEditableTextState get editableText =>
-      delegate.editableTextKey.currentState!;
+  FluEditableTextState get editableText => delegate.editableTextKey.currentState!;
 
   /// The [RenderObject] of the [EditableText] for which the builder will
   /// provide a [TextSelectionGestureDetector].
@@ -1391,8 +1363,7 @@ class TextSelectionGestureDetectorBuilder {
 
   // Returns true iff either shift key is currently down.
   bool get _isShiftPressed {
-    return HardwareKeyboard.instance.logicalKeysPressed
-        .any(<LogicalKeyboardKey>{
+    return HardwareKeyboard.instance.logicalKeysPressed.any(<LogicalKeyboardKey>{
       LogicalKeyboardKey.shiftLeft,
       LogicalKeyboardKey.shiftRight,
     }.contains);
@@ -1714,8 +1685,7 @@ class TextSelectionGestureDetectorBuilder {
       // Adjust the drag start offset for possible viewport offset changes.
       final Offset startOffset = renderEditable.maxLines == 1
           ? Offset(renderEditable.offset.pixels - _dragStartViewportOffset, 0.0)
-          : Offset(
-              0.0, renderEditable.offset.pixels - _dragStartViewportOffset);
+          : Offset(0.0, renderEditable.offset.pixels - _dragStartViewportOffset);
 
       return renderEditable.selectPositionAt(
         from: startDetails.globalPosition - startOffset,
@@ -1737,13 +1707,11 @@ class TextSelectionGestureDetectorBuilder {
     final TextPosition nextExtent =
         renderEditable.getPositionForPoint(updateDetails.globalPosition);
     final bool isShiftTapDragSelectionForward =
-        _shiftTapDragSelection!.baseOffset <
-            _shiftTapDragSelection!.extentOffset;
+        _shiftTapDragSelection!.baseOffset < _shiftTapDragSelection!.extentOffset;
     final bool isInverted = isShiftTapDragSelectionForward
         ? nextExtent.offset < _shiftTapDragSelection!.baseOffset
         : nextExtent.offset > _shiftTapDragSelection!.baseOffset;
-    if (isInverted &&
-        selection.baseOffset == _shiftTapDragSelection!.baseOffset) {
+    if (isInverted && selection.baseOffset == _shiftTapDragSelection!.baseOffset) {
       editableText.userUpdateTextEditingValue(
         editableText.textEditingValue.copyWith(
           selection: TextSelection(
@@ -1766,8 +1734,7 @@ class TextSelectionGestureDetectorBuilder {
         SelectionChangedCause.drag,
       );
     } else {
-      _extendSelection(
-          updateDetails.globalPosition, SelectionChangedCause.drag);
+      _extendSelection(updateDetails.globalPosition, SelectionChangedCause.drag);
     }
   }
 
