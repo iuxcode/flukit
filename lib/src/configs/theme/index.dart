@@ -35,6 +35,8 @@ class FluTheme {
   Color get onTertiary => data.colorScheme.onTertiary;
   Color get background => data.colorScheme.background;
   Color get surfaceBackground => data.colorScheme.surface;
+  Color get surfaceBackground50 => surfaceBackground.withOpacity(.5);
+  Color get surfaceBackground25 => surfaceBackground.withOpacity(.25);
   Color get text => data.colorScheme.onBackground;
   Color get accentText => data.colorScheme.onSurface;
   Color get divider => data.dividerColor;
@@ -84,7 +86,7 @@ class FluThemeBuilder {
   }
 
   ThemeData get theme {
-    final ColorScheme colorScheme = _buildColorScheme();
+    final ColorScheme colorScheme = _buildColorScheme(colors, Brightness.light);
 
     return ThemeData(
       brightness: colorScheme.brightness,
@@ -94,12 +96,13 @@ class FluThemeBuilder {
       dividerColor: colors.divider,
       colorScheme: colorScheme,
       scrollbarTheme: _buildScrollBarTheme(),
-      textTheme: _buildTextTheme(),
+      textTheme: _buildTextTheme(colors),
     );
   }
 
   ThemeData get darkTheme {
-    final ColorScheme darkColorScheme = _buildColorScheme(true);
+    final ColorScheme darkColorScheme =
+        _buildColorScheme(darkColors, Brightness.dark);
 
     return theme.copyWith(
       brightness: darkColorScheme.brightness,
@@ -108,17 +111,15 @@ class FluThemeBuilder {
       dividerColor: darkColors.divider,
       colorScheme: darkColorScheme,
       scrollbarTheme: _buildScrollBarTheme(true),
-      textTheme: _buildTextTheme(true),
+      textTheme: _buildTextTheme(darkColors),
     );
   }
 
   FluColorPalette get palette => Get.isDarkMode ? darkColors : colors;
 
-  ColorScheme _buildColorScheme([bool forDarkTheme = false]) {
-    final FluColorPalette colors = forDarkTheme ? this.colors : darkColors;
-
+  ColorScheme _buildColorScheme(FluColorPalette colors, Brightness brightness) {
     return ColorScheme(
-      brightness: forDarkTheme ? Brightness.dark : Brightness.light,
+      brightness: brightness,
       primary: primary,
       onPrimary: onprimary,
       secondary: secondary,
@@ -141,9 +142,7 @@ class FluThemeBuilder {
         radius: Radius.circular(999),
       );
 
-  TextTheme _buildTextTheme([bool forDarkTheme = false]) {
-    final FluColorPalette colors = forDarkTheme ? this.colors : darkColors;
-
+  TextTheme _buildTextTheme(FluColorPalette colors) {
     return TextTheme(
       headlineLarge: headingTextStyle.copyWith(
         fontWeight: Flukit.appSettings.textBold,

@@ -32,6 +32,7 @@ class FluButton extends StatefulWidget {
     void Function()? onLongPress,
     FluButtonStyle? style,
     int iconQuarterTurn = 0,
+    double? rotationAngle,
   }) {
     style = FluButtonStyle.flat
         .copyWith(
@@ -44,20 +45,24 @@ class FluButton extends StatefulWidget {
         )
         .merge(style);
 
+    Widget iconWidget = FluIcon(
+      icon,
+      size: style.iconSize,
+      strokewidth: style.iconStrokewidth,
+      color: style.color,
+      style: style.iconStyle,
+    );
+
     return FluButton(
       onPressed: onPressed,
       onLongPress: onLongPress,
       style: style,
-      child: RotatedBox(
-        quarterTurns: iconQuarterTurn,
-        child: FluIcon(
-          icon,
-          size: style.iconSize,
-          strokewidth: style.iconStrokewidth,
-          color: style.color,
-          style: style.iconStyle,
-        ),
-      ),
+      child: rotationAngle != null
+          ? Transform.rotate(
+              angle: rotationAngle,
+              child: iconWidget,
+            )
+          : RotatedBox(quarterTurns: iconQuarterTurn, child: iconWidget),
     );
   }
 

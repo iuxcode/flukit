@@ -87,35 +87,40 @@ class _FluTabScreenState extends State<FluTabScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print('rebuild tab pages');
     List<FluTabScreenPage> pages = widget.pages(controller, pageController);
 
     return FluScreen(
-        extendBody: true,
-        systemUiOverlayStyle: widget.systemUiOverlayStyle,
-        floatingActionButton: widget.floatingActionButton,
-        floatingActionButtonLocation: widget.floatingActionButtonLocation,
-        background: widget.background,
-        appBar: widget.appBar,
-        body: PageView(
-            controller: pageController,
-            onPageChanged: onPageChange,
-            physics: widget.physics ?? const NeverScrollableScrollPhysics(),
-            children: pages.map((page) => page.content).toList()),
-        bottomNavigationBar: Obx(() => FluBottomNavBar(
-            selectedIndex: controller.currentIndex,
-            onItemTap: (index) {
-              onPageChange(index);
-              controller.currentIndex = index.toDouble();
-              Flukit.selectionClickHaptic();
-              widget.onPageChange?.call(controller, pageController);
-            },
-            style: widget.bottomNavBarStyle,
-            items: pages
-                .map((page) => FluBottomNavBarItem(
-                      icon: page.icon,
-                      activeIcon: page.filledIcon,
-                      label: page.name,
-                    ))
-                .toList())));
+      extendBody: true,
+      systemUiOverlayStyle: widget.systemUiOverlayStyle,
+      floatingActionButton: widget.floatingActionButton,
+      floatingActionButtonLocation: widget.floatingActionButtonLocation,
+      background: widget.background,
+      appBar: widget.appBar,
+      body: PageView(
+          controller: pageController,
+          onPageChanged: onPageChange,
+          physics: widget.physics ?? const NeverScrollableScrollPhysics(),
+          children: pages.map((page) => page.content).toList()),
+      bottomNavigationBar: Obx(
+        () => FluBottomNavBar(
+          selectedIndex: controller.currentIndex,
+          onItemTap: (index) {
+            onPageChange(index);
+            controller.currentIndex = index.toDouble();
+            Flukit.selectionClickHaptic();
+            widget.onPageChange?.call(controller, pageController);
+          },
+          style: widget.bottomNavBarStyle,
+          items: pages
+              .map((page) => FluBottomNavBarItem(
+                    icon: page.icon,
+                    activeIcon: page.filledIcon,
+                    label: page.name,
+                  ))
+              .toList(),
+        ),
+      ),
+    );
   }
 }

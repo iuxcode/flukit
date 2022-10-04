@@ -26,6 +26,7 @@ class FluImage extends StatelessWidget {
   final Widget Function(BuildContext, String)? placeholder;
   final Widget Function(BuildContext, String, DownloadProgress)?
       progressIndicatorBuilder;
+  final AlignmentGeometry? overlayGradientBegin, overlayGradientEnd;
 
   const FluImage({
     Key? key,
@@ -47,6 +48,8 @@ class FluImage extends StatelessWidget {
     this.cache = true,
     this.package,
     this.gradientOverlay = false,
+    this.overlayGradientBegin,
+    this.overlayGradientEnd,
   }) : super(key: key);
 
   @override
@@ -117,8 +120,8 @@ class FluImage extends StatelessWidget {
                               Colors.transparent,
                               Colors.black,
                             ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
+                            begin: overlayGradientBegin ?? Alignment.topCenter,
+                            end: overlayGradientEnd ?? Alignment.bottomCenter,
                           )
                         : null,
                   ),

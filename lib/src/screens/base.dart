@@ -29,11 +29,9 @@ class FluScreen extends StatelessWidget {
     this.drawerScrimColor,
   }) : super(key: key);
 
-  SystemUiOverlayStyle get defaultSystemStyle => Flukit.systemOverlayStyle;
-
   @override
   Widget build(BuildContext context) => AnnotatedRegion<SystemUiOverlayStyle>(
-      value: defaultSystemStyle.copyWith(
+      value: Flukit.theme.systemUiOverlayStyle.copyWith(
         statusBarColor: systemUiOverlayStyle?.statusBarColor,
         statusBarIconBrightness: systemUiOverlayStyle?.statusBarIconBrightness,
         statusBarBrightness: systemUiOverlayStyle?.statusBarBrightness,
@@ -49,7 +47,7 @@ class FluScreen extends StatelessWidget {
       ),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: background ?? Flukit.theme.background,
+        backgroundColor: background,
         extendBody: extendBody,
         appBar: appBar,
         body: body,

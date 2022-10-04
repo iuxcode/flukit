@@ -102,9 +102,6 @@ class FluMaterialApp extends GetMaterialApp {
           );
         },
         builder: (_) {
-          print(
-              'App is updated. New brightness: ${Flukit.theme.brightness}. New bg: ${Flukit.theme.background}');
-
           String appTitle = _.infos.name;
 
           ThemeData appTheme = _.theme ?? _.themeBuilder.theme;

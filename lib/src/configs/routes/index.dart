@@ -8,7 +8,7 @@ class FluGetPage extends GetPage {
     super.binding,
     Transition? transition,
   }) : super(
-          transition: transition ?? Transition.rightToLeftWithFade,
+          transition: transition ?? Transition.rightToLeft,
           transitionDuration: FluSettings.defaultPageAnimationDuration,
           curve: FluSettings.defaultPageAnimationCurve,
         );

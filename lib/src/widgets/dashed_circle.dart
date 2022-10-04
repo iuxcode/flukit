@@ -1,14 +1,15 @@
 import 'dart:math';
 import 'package:flutter/widgets.dart';
 
+import '../../flukit.dart';
+
 const int _defaultDashes = 20;
-const Color _defaultColor = Color(0xff000000);
 const double _defaultGapSize = 3.0;
 const double _defaultStrokeWidth = 1.5;
 
 class FluDashedCircle extends StatelessWidget {
   final int dashes;
-  final Color color;
+  final Color? color;
   final double gapSize;
   final double strokewidth;
   final Widget? child;
@@ -19,7 +20,7 @@ class FluDashedCircle extends StatelessWidget {
     Key? key,
     this.child,
     this.dashes = _defaultDashes,
-    this.color = _defaultColor,
+    this.color,
     this.gapSize = _defaultGapSize,
     this.strokewidth = _defaultStrokeWidth,
     this.margin = EdgeInsets.zero,
@@ -49,13 +50,13 @@ class FluDashedCircle extends StatelessWidget {
 
 class FluDashedCirclePainter extends CustomPainter {
   final int dashes;
-  final Color color;
+  final Color? color;
   final double gapSize;
   final double strokewidth;
 
   FluDashedCirclePainter({
     this.dashes = _defaultDashes,
-    this.color = _defaultColor,
+    this.color,
     this.gapSize = _defaultGapSize,
     this.strokewidth = _defaultStrokeWidth,
   });
@@ -67,7 +68,7 @@ class FluDashedCirclePainter extends CustomPainter {
 
     for (int i = 0; i < dashes; i++) {
       final Paint paint = Paint()
-        ..color = color
+        ..color = color ?? Flukit.theme.primary
         ..strokeWidth = strokewidth
         ..style = PaintingStyle.stroke;
 

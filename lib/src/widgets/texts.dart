@@ -53,71 +53,30 @@ class FluText extends StatelessWidget {
     this.overflowReplacement,
   });
 
-  /// Default [TextStyle]
-  TextStyle get _defaultTextStyle => Flukit.textTheme.bodyText1!;
-
-  /// Return neptune font styling for text
-  TextStyle? get _neptuneStyle {
-    switch (stylePreset) {
-      case FluTextStyle.body:
-      case FluTextStyle.small:
-      case FluTextStyle.headline:
-      case FluTextStyle.smallBold:
-      case FluTextStyle.bodyBold:
-      case FluTextStyle.headlineSemibold:
-      case FluTextStyle.headlineBold:
-        return null;
-      case FluTextStyle.smallNeptune:
-      case FluTextStyle.bodyNeptune:
-        return TextStyle(fontFamily: Flukit.fonts.neptune, package: 'flukit');
-    }
-  }
-
   /// Build styles
   TextStyle get _style {
-    if (applicationMethod == FluTextStyleApplicationMethod.override) {
-      return style ?? _defaultTextStyle;
-    } else {
-      TextStyle? textStyle;
+    TextStyle defaultTextStyle = Flukit.textTheme.bodyText1!;
 
-      switch (stylePreset) {
-        case FluTextStyle.small:
-        case FluTextStyle.smallBold:
-        case FluTextStyle.smallNeptune:
-          textStyle = Flukit.textTheme.bodyText1
-              ?.copyWith(fontSize: Flukit.appSettings.smallFs);
-          break;
-        case FluTextStyle.body:
-        case FluTextStyle.bodyBold:
-        case FluTextStyle.bodyNeptune:
-          textStyle = Flukit.textTheme.bodyText1;
-          break;
-        case FluTextStyle.headline:
-        case FluTextStyle.headlineBold:
-          textStyle = Flukit.textTheme.headline1;
-          break;
-        case FluTextStyle.headlineSemibold:
-          textStyle = Flukit.textTheme.bodyText1?.copyWith(
-              fontSize: Flukit.appSettings.headlineFs,
-              fontWeight: Flukit.appSettings.textBold,
-              color: Flukit.theme.accentText);
-          break;
-      }
+    if (applicationMethod == FluTextStyleApplicationMethod.override) {
+      return style ?? defaultTextStyle;
+    } else {
+      TextStyle neptuneStyle =
+          TextStyle(fontFamily: Flukit.fonts.neptune, package: 'flukit');
 
       if (stylePreset == FluTextStyle.smallNeptune ||
           stylePreset == FluTextStyle.bodyNeptune) {
-        textStyle = textStyle?.merge(_neptuneStyle);
+        return stylePreset.style.merge(neptuneStyle);
       }
 
       if (stylePreset == FluTextStyle.smallBold ||
           stylePreset == FluTextStyle.bodyBold ||
           stylePreset == FluTextStyle.headlineBold) {
-        textStyle = textStyle?.merge(TextStyle(
+        return stylePreset.style.merge(TextStyle(
             fontWeight: Flukit.appSettings.textBold,
             color: Flukit.theme.accentText));
       }
 
-      return textStyle ?? _defaultTextStyle;
+      return defaultTextStyle;
     }
   }
 
@@ -165,6 +124,11 @@ class FluText extends StatelessWidget {
   }
 }
 
+enum FluTextStyleApplicationMethod {
+  override,
+  merge,
+}
+
 /// TODO add more styles
 enum FluTextStyle {
   small,
@@ -178,7 +142,26 @@ enum FluTextStyle {
   headlineBold,
 }
 
-enum FluTextStyleApplicationMethod {
-  override,
-  merge,
+extension FluTextStyleExt on FluTextStyle {
+  TextStyle get style {
+    switch (this) {
+      case FluTextStyle.small:
+      case FluTextStyle.smallBold:
+      case FluTextStyle.smallNeptune:
+        return Flukit.textTheme.bodyText1!
+            .copyWith(fontSize: Flukit.appSettings.smallFs);
+      case FluTextStyle.body:
+      case FluTextStyle.bodyBold:
+      case FluTextStyle.bodyNeptune:
+        return Flukit.textTheme.bodyText1!;
+      case FluTextStyle.headline:
+      case FluTextStyle.headlineBold:
+        return Flukit.textTheme.headline1!;
+      case FluTextStyle.headlineSemibold:
+        return Flukit.textTheme.bodyText1!.copyWith(
+            fontSize: Flukit.appSettings.headlineFs,
+            fontWeight: Flukit.appSettings.textBold,
+            color: Flukit.theme.accentText);
+    }
+  }
 }
