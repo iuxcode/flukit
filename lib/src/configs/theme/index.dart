@@ -40,6 +40,8 @@ class FluTheme {
   Color get text => data.colorScheme.onBackground;
   Color get accentText => data.colorScheme.onSurface;
   Color get divider => data.dividerColor;
+  Color get divider50 => data.dividerColor.withOpacity(.5);
+  Color get divider25 => data.dividerColor.withOpacity(.25);
   Color get shadow => data.colorScheme.shadow;
   Color get light => data.colorScheme.light;
   Color get dark => data.colorScheme.dark;

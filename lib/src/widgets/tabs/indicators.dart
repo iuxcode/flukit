@@ -96,7 +96,7 @@ class FluMaterialIndicator extends Decoration {
   final double bottomLeftRadius;
 
   /// Color of the indicator, default set to [Colors.black]
-  final Color color;
+  final Color? color;
 
   /// Horizontal padding of the indicator, default set 0
   final double horizontalPadding;
@@ -114,7 +114,7 @@ class FluMaterialIndicator extends Decoration {
     this.topLeftRadius = 5,
     this.bottomRightRadius = 0,
     this.bottomLeftRadius = 0,
-    this.color = Colors.black,
+    this.color,
     this.horizontalPadding = 0,
     this.paintingStyle = PaintingStyle.fill,
     this.strokeWidth = 2,
@@ -125,12 +125,12 @@ class FluMaterialIndicator extends Decoration {
     return FluMaterialIndicatorPainter(
       this,
       onChanged,
-      bottomLeftRadius: bottomLeftRadius,
-      bottomRightRadius: bottomRightRadius,
-      color: color,
+      color: color ?? Flukit.theme.primary,
       height: height,
       horizontalPadding: horizontalPadding,
       tabPosition: tabPosition,
+      bottomLeftRadius: bottomLeftRadius,
+      bottomRightRadius: bottomRightRadius,
       topLeftRadius: topLeftRadius,
       topRightRadius: topRightRadius,
       paintingStyle: paintingStyle,
