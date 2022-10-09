@@ -5,7 +5,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FluTheme {
-  final ThemeData data = Flukit.context.theme;
+  late ThemeData data;
+
+  FluTheme(BuildContext context) {
+    data = context.theme;
+  }
 
   Brightness get brightness => data.brightness;
 
@@ -60,6 +64,8 @@ class FluThemeBuilder {
   final Color? tertiaryColor;
   final Color? onTertiaryColor;
 
+  final double scrollbarThickness;
+
   late FluColorPalette colors, darkColors;
 
   late TextStyle bodyTextStyle;
@@ -78,6 +84,7 @@ class FluThemeBuilder {
     TextStyle? bodyTextStyle,
     TextStyle? subtitleTextStyle,
     TextStyle? headingTextStyle,
+    this.scrollbarThickness = 3.5,
   }) {
     this.colors = colors ?? FluColorPalette.light();
     this.darkColors = darkColors ?? FluColorPalette.dark();
@@ -139,9 +146,11 @@ class FluThemeBuilder {
   }
 
   ScrollbarThemeData _buildScrollBarTheme([bool forDarkTheme = false]) =>
-      const ScrollbarThemeData(
-        thickness: MaterialStatePropertyAll<double>(2.0),
-        radius: Radius.circular(999),
+      ScrollbarThemeData(
+        thumbColor: MaterialStatePropertyAll<Color>(
+            forDarkTheme ? darkColors.divider : colors.divider),
+        thickness: const MaterialStatePropertyAll<double>(3.2),
+        radius: const Radius.circular(999),
       );
 
   TextTheme _buildTextTheme(FluColorPalette colors) {

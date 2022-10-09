@@ -47,7 +47,7 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                             page.buttonIcon ??
                                 parameters.mainButtonIcon ??
                                 FluIcons.flash,
-                            color: Flukit.theme.light,
+                            color: Flukit.theme().light,
                             size: 20,
                           );
 
@@ -103,7 +103,7 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                                                             parameters
                                                                 .mainButtonIcon ??
                                                             FluIcons.flash,
-                                                        color: Flukit.theme.light,
+                                                        color: Flukit.theme().light,
                                                         size: 20,
                                                       ),
                                                       const SizedBox(width: 6),
@@ -117,8 +117,9 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                                                                   fontWeight: Flukit
                                                                       .appSettings
                                                                       .textSemibold,
-                                                                  color: Flukit
-                                                                      .theme.light)),
+                                                                  color:
+                                                                      Flukit.theme()
+                                                                          .light)),
                                                     ],
                                                   ),
                                                 ),

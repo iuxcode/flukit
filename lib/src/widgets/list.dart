@@ -60,8 +60,8 @@ class FluOptionsList extends StatelessWidget {
 
         double size = itemHeight ?? Flukit.appSettings.minElSize,
             radius = itemRadius ?? Flukit.appSettings.minElRadius + 5;
-        Color color = option.color ?? textColor ?? Flukit.theme.text;
-        Color background = option.background ?? Flukit.theme.background;
+        Color color = option.color ?? textColor ?? Flukit.theme().text;
+        Color background = option.background ?? Flukit.theme().background;
 
         Widget iconWidget(FluIcons? icon, String? label) => Container(
               height: size,
@@ -70,7 +70,7 @@ class FluOptionsList extends StatelessWidget {
               decoration: BoxDecoration(
                   color: option.iconbackground ??
                       iconbackground ??
-                      Flukit.theme.surfaceBackground,
+                      Flukit.theme().surfaceBackground,
                   borderRadius: BorderRadius.circular(radius),
                   boxShadow: [if (iconBoxShadow != null) iconBoxShadow!]),
               child: icon != null

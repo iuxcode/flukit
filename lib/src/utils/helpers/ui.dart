@@ -13,14 +13,15 @@ extension FlukitUI on FlukitInterface {
   /// Find and return app constants
   FluSettingsInterface get appSettings => appController.settings;
 
-  /// return the current [FluTheme]
-  FluTheme get theme => FluTheme();
+  /// return the current [FluTheme].
+  /// If [BuildContext] isn't provided, [Get.context] is used.
+  FluTheme theme([BuildContext? context]) => FluTheme(context ?? this.context);
 
   /// return the current theme textThemes
-  TextTheme get textTheme => theme.textTheme;
+  TextTheme get textTheme => theme().textTheme;
 
   /// return the current theme [SystemOverlayStyle]
-  SystemUiOverlayStyle get systemOverlayStyle => theme.systemUiOverlayStyle;
+  SystemUiOverlayStyle get systemOverlayStyle => theme().systemUiOverlayStyle;
 
   /// switch theme
   void changeTheme(ThemeData theme) => appController.setTheme(theme);
@@ -54,7 +55,7 @@ extension FlukitUI on FlukitInterface {
           blurRadius: blurRadius,
           spreadRadius: spreadRadius,
           offset: offset,
-          color: (color ?? theme.shadow).withOpacity(opacity));
+          color: (color ?? theme().shadow).withOpacity(opacity));
 
   /// display theme based or custom snackbar
   void showSnackbar(String message,
@@ -75,29 +76,29 @@ extension FlukitUI on FlukitInterface {
       double blur = 7}) {
     switch (type) {
       case FluSnackbarType.danger:
-        background = background ?? theme.danger;
-        textColor = textColor ?? theme.danger;
-        iconColor = iconColor ?? theme.danger;
+        background = background ?? theme().danger;
+        textColor = textColor ?? theme().danger;
+        iconColor = iconColor ?? theme().danger;
         break;
       case FluSnackbarType.success:
-        background = background ?? theme.success;
-        textColor = textColor ?? theme.success;
-        iconColor = iconColor ?? theme.success;
+        background = background ?? theme().success;
+        textColor = textColor ?? theme().success;
+        iconColor = iconColor ?? theme().success;
         break;
       case FluSnackbarType.warning:
-        background = background ?? theme.warning;
-        textColor = textColor ?? theme.warning;
-        iconColor = iconColor ?? theme.warning;
+        background = background ?? theme().warning;
+        textColor = textColor ?? theme().warning;
+        iconColor = iconColor ?? theme().warning;
         break;
       case FluSnackbarType.primary:
-        background = background ?? theme.primary;
-        textColor = textColor ?? theme.primary;
-        iconColor = iconColor ?? theme.primary;
+        background = background ?? theme().primary;
+        textColor = textColor ?? theme().primary;
+        iconColor = iconColor ?? theme().primary;
         break;
       case FluSnackbarType.light:
-        background = background ?? theme.light;
-        textColor = textColor ?? theme.light;
-        iconColor = iconColor ?? theme.light;
+        background = background ?? theme().light;
+        textColor = textColor ?? theme().light;
+        iconColor = iconColor ?? theme().light;
         break;
     }
 
@@ -122,7 +123,7 @@ extension FlukitUI on FlukitInterface {
         (message ?? 'Something went wrong , please retry !').replaceAll('_', ' '),
         type: FluSnackbarType.danger,
         position: SnackPosition.TOP,
-        textColor: theme.danger,
+        textColor: theme().danger,
         opacity: .065,
         blur: 45,
         duration: 10);

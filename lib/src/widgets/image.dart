@@ -113,7 +113,7 @@ class FluImage extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: gradientOverlay
                         ? null
-                        : Flukit.theme.dark.withOpacity(overlayOpacity),
+                        : Flukit.theme().dark.withOpacity(overlayOpacity),
                     gradient: gradientOverlay
                         ? LinearGradient(
                             colors: [

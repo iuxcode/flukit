@@ -139,7 +139,7 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
                     height: Flukit.appSettings.minElSize,
                     padding: EdgeInsets.zero,
                     background: Colors.transparent,
-                    color: Flukit.theme.accentText,
+                    color: Flukit.theme().accentText,
                     iconSize: 20,
                     iconStrokewidth: 1.8,
                   ))
@@ -147,7 +147,7 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
                   children: [
                     Text(Flukit.timeLeft(controller.waitingTime),
                         style: Flukit.textTheme.bodyText1!.copyWith(
-                            color: Flukit.theme.accentText,
+                            color: Flukit.theme().accentText,
                             fontSize: Flukit.appSettings.bodyFs + 1,
                             fontWeight: Flukit.appSettings.textBold)),
                     const SizedBox(width: 10),
@@ -155,7 +155,7 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
                       FluIcons.refresh,
                       size: 20,
                       strokewidth: 2.5,
-                      color: Flukit.theme.primary,
+                      color: Flukit.theme().primary,
                     )
                   ],
                 )),

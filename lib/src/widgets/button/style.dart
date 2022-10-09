@@ -122,14 +122,14 @@ class FluButtonStyle {
   /// Defining styles
   static FluButtonStyle flat = FluButtonStyle(
     background: Colors.transparent,
-    color: Flukit.theme.accentText,
+    color: Flukit.theme().accentText,
   );
 
   static FluButtonStyle defaultt = FluButtonStyle(
     height: Flukit.appSettings.defaultElSize,
     radius: Flukit.appSettings.defaultElRadius,
-    background: Flukit.theme.primary,
-    color: Flukit.theme.light,
+    background: Flukit.theme().primary,
+    color: Flukit.theme().light,
     padding: const EdgeInsets.symmetric(horizontal: 20),
   );
 }

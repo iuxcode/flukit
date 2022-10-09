@@ -73,7 +73,7 @@ class FluText extends StatelessWidget {
           stylePreset == FluTextStyle.headlineBold) {
         return stylePreset.style.merge(TextStyle(
             fontWeight: Flukit.appSettings.textBold,
-            color: Flukit.theme.accentText));
+            color: Flukit.theme().accentText));
       }
 
       return defaultTextStyle;
@@ -99,7 +99,7 @@ class FluText extends StatelessWidget {
               text: hasText ? text : 'You have to add text or entities !',
               style: _style
                   .merge(style)
-                  .copyWith(color: hasText ? null : Flukit.theme.danger),
+                  .copyWith(color: hasText ? null : Flukit.theme().danger),
             )
           ];
 
@@ -161,7 +161,7 @@ extension FluTextStyleExt on FluTextStyle {
         return Flukit.textTheme.bodyText1!.copyWith(
             fontSize: Flukit.appSettings.headlineFs,
             fontWeight: Flukit.appSettings.textBold,
-            color: Flukit.theme.accentText);
+            color: Flukit.theme().accentText);
     }
   }
 }

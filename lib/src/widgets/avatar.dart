@@ -117,7 +117,7 @@ class FluAvatar extends StatelessWidget {
         decoration: BoxDecoration(
           color: backgroundGradient == null && background != null
               ? background
-              : Flukit.theme.primary,
+              : Flukit.theme().primary,
           gradient: backgroundGradient,
           borderRadius: BorderRadius.circular(radius),
           boxShadow: [if (boxShadow != null && !outlined) boxShadow!],
@@ -125,7 +125,7 @@ class FluAvatar extends StatelessWidget {
         child: FluText(
           text: getText(),
           stylePreset: FluTextStyle.bodyNeptune,
-          style: (labelStyle ?? TextStyle(color: Flukit.theme.light))
+          style: (labelStyle ?? TextStyle(color: Flukit.theme().light))
               .merge(placeholderTextStyle),
         ),
       );

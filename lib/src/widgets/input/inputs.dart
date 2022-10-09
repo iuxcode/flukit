@@ -41,7 +41,7 @@ class FluTextField extends StatelessWidget {
       this.selectionControls,
       this.onTap});
 
-  FluTheme get _theme => Flukit.theme;
+  FluTheme get _theme => Flukit.theme();
   InputDecoration get inputDecoration => InputDecoration(
         filled: style.filled,
         fillColor: style.fillColor ?? _theme.surfaceBackground,

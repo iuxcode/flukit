@@ -84,7 +84,7 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
       height: style.height,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
-        color: style.background ?? Flukit.theme.dark,
+        color: style.background ?? Flukit.theme().dark,
         borderRadius: style.borderRadius ?? BorderRadius.circular(style.radius),
       ),
       child: Stack(
@@ -113,8 +113,8 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
                         () => animationController.forward(from: 0.0));
                   },
                   data: widget.items[i],
-                  color: style.color ?? Flukit.theme.text,
-                  activeColor: style.activeColor ?? Flukit.theme.primary,
+                  color: style.color ?? Flukit.theme().text,
+                  activeColor: style.activeColor ?? Flukit.theme().primary,
                   animationDuration: style.animationDuration,
                   animationCurve: style.animationCurve,
                   showLabel: style.showItemLabelOnSelected,
@@ -135,8 +135,9 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
             maxWidth: itemWidth,
             duration: style.animationDuration,
             curve: style.animationCurve,
-            color: style.indicatorColor ?? style.activeColor ?? Flukit.theme.primary,
-            activeColor: style.activeColor ?? Flukit.theme.primary,
+            color:
+                style.indicatorColor ?? style.activeColor ?? Flukit.theme().primary,
+            activeColor: style.activeColor ?? Flukit.theme().primary,
             style: style.indicatorStyle,
             position: style.indicatorPosition,
             gapWidth: style.gapWidth,
@@ -186,7 +187,7 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
                   child: Container(
                     height: style.height * .35,
                     decoration: BoxDecoration(
-                      color: Flukit.theme.background,
+                      color: Flukit.theme().background,
                     ),
                   ),
                 ),
@@ -247,7 +248,7 @@ class _Item extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: Flukit.textTheme.bodyText1!.copyWith(
                           fontSize: Flukit.appSettings.smallFs,
-                          color: Flukit.theme.primary),
+                          color: Flukit.theme().primary),
                     )
                   : FluIcon(
                       isSelected && data.activeIcon != null

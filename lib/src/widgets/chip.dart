@@ -216,11 +216,11 @@ class FluChip extends StatelessWidget {
         decoration: BoxDecoration(
           color: chip.outlined
               ? Colors.transparent
-              : chip.color ?? Flukit.theme.surfaceBackground25,
+              : chip.color ?? Flukit.theme().surfaceBackground25,
           border: chip.outlined
               ? Border.all(
                   width: chip.strokeWidth,
-                  color: chip.color ?? Flukit.theme.surfaceBackground50,
+                  color: chip.color ?? Flukit.theme().surfaceBackground50,
                 )
               : null,
           borderRadius: BorderRadius.circular(

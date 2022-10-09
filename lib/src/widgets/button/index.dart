@@ -41,7 +41,7 @@ class FluButton extends StatefulWidget {
           radius: Flukit.appSettings.minElRadius,
           padding: EdgeInsets.zero,
           margin: EdgeInsets.zero,
-          background: Flukit.theme.background,
+          background: Flukit.theme().background,
         )
         .merge(style);
 
@@ -85,7 +85,7 @@ class FluButton extends StatefulWidget {
           icon,
           size: style!.iconSize,
           strokewidth: style.iconStrokewidth,
-          color: style.color ?? Flukit.theme.light,
+          color: style.color ?? Flukit.theme().light,
           style: style.iconStyle,
           margin: EdgeInsets.only(
             right: prefixIcon != null ? spacing : 0,
@@ -131,8 +131,8 @@ class FluButton extends StatefulWidget {
         style: FluButtonStyle(
           iconSize: iconSize,
           iconStrokewidth: iconStrokewidth,
-          color: color ?? Flukit.theme.text,
-          background: Flukit.theme.background,
+          color: color ?? Flukit.theme().text,
+          background: Flukit.theme().background,
           boxShadow: boxShadow ??
               Flukit.boxShadow(
                 offset: const Offset(15, 15),
@@ -186,7 +186,7 @@ class _FluButtonState extends State<FluButton> {
           fixedSize: MaterialStateProperty.all(
               const Size(double.infinity, double.infinity)),
           backgroundColor:
-              MaterialStateProperty.all(style.background ?? Flukit.theme.primary),
+              MaterialStateProperty.all(style.background ?? Flukit.theme().primary),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: style.borderRadius ??
@@ -208,7 +208,7 @@ class _FluButtonState extends State<FluButton> {
                       width: 20,
                       child: CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation<Color>(
-                            style.color ?? Flukit.theme.dark),
+                            style.color ?? Flukit.theme().dark),
                         strokeWidth: 2,
                       ),
                     ),

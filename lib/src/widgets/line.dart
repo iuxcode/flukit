@@ -37,7 +37,7 @@ class FluLine extends StatelessWidget {
           duration: animationDuration,
           curve: animationCurve,
           decoration: BoxDecoration(
-            color: color ?? Flukit.theme.divider,
+            color: color ?? Flukit.theme().divider,
             borderRadius: BorderRadius.circular(radius),
             boxShadow: [if (boxShadow != null) boxShadow!],
           ),
@@ -72,7 +72,7 @@ class DashedLineVerticalPainter extends CustomPainter {
     double startY = 0, startX = size.width / 2;
 
     final paint = Paint()
-      ..color = color ?? Flukit.theme.divider
+      ..color = color ?? Flukit.theme().divider
       ..strokeWidth = strokeWidth
       ..strokeCap = rounded ? StrokeCap.round : StrokeCap.square;
 
