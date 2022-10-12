@@ -116,7 +116,7 @@ class FluImage extends StatelessWidget {
                         : Flukit.theme().dark.withOpacity(overlayOpacity),
                     gradient: gradientOverlay
                         ? LinearGradient(
-                            colors: [
+                            colors: const [
                               Colors.transparent,
                               Colors.black,
                             ],

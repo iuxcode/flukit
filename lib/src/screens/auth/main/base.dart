@@ -225,7 +225,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                       decoration: BoxDecoration(
                                           gradient: LinearGradient(
                                               colors: [
-                                            Flukit.theme().secondary,
+                                            Flukit.theme().primary.withOpacity(.025),
                                             Flukit.theme().background
                                           ],
                                               begin: Alignment.topCenter,
@@ -366,12 +366,12 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                           : Flukit.theme().accentText,
                                       background: controller.canSubmit
                                           ? Flukit.theme().primary
-                                          : Flukit.theme().secondary,
+                                          : Flukit.theme().primary.withOpacity(.1),
                                       boxShadow: Flukit.boxShadow(
                                           color: Flukit.theme().shadow,
                                           opacity:
-                                              controller.canSubmit ? .085 : .045,
-                                          blurRadius: 30,
+                                              controller.canSubmit ? .085 : .085,
+                                          blurRadius: 20,
                                           offset: const Offset(0, 0)),
                                       iconSize: 20,
                                       iconStrokewidth: 1.8,

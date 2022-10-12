@@ -158,10 +158,11 @@ extension FluTextStyleExt on FluTextStyle {
       case FluTextStyle.headlineBold:
         return Flukit.textTheme.headline1!;
       case FluTextStyle.headlineSemibold:
-        return Flukit.textTheme.bodyText1!.copyWith(
-            fontSize: Flukit.appSettings.headlineFs,
-            fontWeight: Flukit.appSettings.textBold,
-            color: Flukit.theme().accentText);
+        return Flukit.textTheme.headline1!.copyWith(
+          fontSize: Flukit.appSettings.headlineFs,
+          fontWeight: Flukit.appSettings.textBold,
+          color: Flukit.theme().accentText,
+        );
     }
   }
 }

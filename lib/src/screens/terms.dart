@@ -92,7 +92,7 @@ class _FluTermsScreenState extends State<FluTermsScreen> {
                             padding: const EdgeInsets.symmetric(horizontal: 18),
                             background: canAgree
                                 ? Flukit.theme().primary
-                                : Flukit.theme().secondary,
+                                : Flukit.theme().primary.withOpacity(.1),
                             color: canAgree
                                 ? Flukit.theme().light
                                 : Flukit.theme().accentText,

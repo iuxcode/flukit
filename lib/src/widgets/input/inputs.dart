@@ -100,7 +100,8 @@ class FluTextField extends StatelessWidget {
                 expands: true,
                 maxLines: null,
                 textAlign: style.textAlign ?? TextAlign.center,
-                textAlignVertical: style.textAlignVertical,
+                textAlignVertical:
+                    style.textAlignVertical ?? TextAlignVertical.center,
                 keyboardType: style.keyboardType,
                 inputFormatters: inputFormatters,
                 toolbarOptions: toolbarOptions,
@@ -171,7 +172,7 @@ class FluRichTextField extends FluTextField {
             },
             onDeltaStyleStateChange: controller.updateStyleButtonsState,
             textAlign: style.textAlign ?? TextAlign.center,
-            textAlignVertical: style.textAlignVertical,
+            textAlignVertical: style.textAlignVertical ?? TextAlignVertical.center,
             keyboardType: style.keyboardType,
             textInputAction: style.textInputAction ?? TextInputAction.newline,
             inputFormatters: inputFormatters,

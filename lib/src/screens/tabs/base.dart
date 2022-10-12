@@ -87,7 +87,6 @@ class _FluTabScreenState extends State<FluTabScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('rebuild tab pages');
     List<FluTabScreenPage> pages = widget.pages(controller, pageController);
 
     return FluScreen(
