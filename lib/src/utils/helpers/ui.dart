@@ -21,7 +21,11 @@ extension FlukitUI on FlukitInterface {
   TextTheme get textTheme => theme().textTheme;
 
   /// return the current theme [SystemOverlayStyle]
-  SystemUiOverlayStyle get systemOverlayStyle => theme().systemUiOverlayStyle;
+  SystemUiOverlayStyle get systemUIOverlayStyle => theme().systemUiOverlayStyle;
+
+  /// Set new [SystemOverlayStyle]
+  void setSystemUiOverlayStyle(SystemUiOverlayStyle style) =>
+      SystemChrome.setSystemUIOverlayStyle(style);
 
   /// switch theme
   void changeTheme(ThemeData theme) => appController.setTheme(theme);

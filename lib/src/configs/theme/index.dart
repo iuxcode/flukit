@@ -148,9 +148,10 @@ class FluThemeBuilder {
   ScrollbarThemeData _buildScrollBarTheme([bool forDarkTheme = false]) =>
       ScrollbarThemeData(
         thumbColor: MaterialStatePropertyAll<Color>(
-            forDarkTheme ? darkColors.divider : colors.divider),
-        thickness: const MaterialStatePropertyAll<double>(3.2),
+            (forDarkTheme ? darkColors.text : colors.text).withOpacity(.45)),
+        thickness: const MaterialStatePropertyAll<double>(2.5),
         radius: const Radius.circular(999),
+        crossAxisMargin: 3,
       );
 
   TextTheme _buildTextTheme(FluColorPalette colors) {

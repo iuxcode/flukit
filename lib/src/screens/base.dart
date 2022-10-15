@@ -1,3 +1,4 @@
+import 'package:flukit/src/widgets/appBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../utils/flu_utils.dart';
@@ -31,31 +32,33 @@ class FluScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => AnnotatedRegion<SystemUiOverlayStyle>(
-      value: Flukit.theme().systemUiOverlayStyle.copyWith(
-            statusBarColor: systemUiOverlayStyle?.statusBarColor,
-            statusBarIconBrightness: systemUiOverlayStyle?.statusBarIconBrightness,
-            statusBarBrightness: systemUiOverlayStyle?.statusBarBrightness,
-            systemNavigationBarColor: systemUiOverlayStyle?.systemNavigationBarColor,
-            systemNavigationBarDividerColor:
-                systemUiOverlayStyle?.systemNavigationBarDividerColor,
-            systemNavigationBarIconBrightness:
-                systemUiOverlayStyle?.systemNavigationBarIconBrightness,
-            systemStatusBarContrastEnforced:
-                systemUiOverlayStyle?.systemStatusBarContrastEnforced,
-            systemNavigationBarContrastEnforced:
-                systemUiOverlayStyle?.systemNavigationBarContrastEnforced,
-          ),
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: background,
-        extendBody: extendBody,
-        appBar: appBar,
-        body: body,
-        bottomNavigationBar: bottomNavigationBar,
-        floatingActionButtonLocation: floatingActionButtonLocation,
-        floatingActionButton: floatingActionButton,
-        drawer: drawer,
-        endDrawer: endDrawer,
-        drawerScrimColor: drawerScrimColor,
-      ));
+        value: Flukit.theme().systemUiOverlayStyle.copyWith(
+              statusBarColor: systemUiOverlayStyle?.statusBarColor,
+              statusBarIconBrightness: systemUiOverlayStyle?.statusBarIconBrightness,
+              statusBarBrightness: systemUiOverlayStyle?.statusBarBrightness,
+              systemNavigationBarColor:
+                  systemUiOverlayStyle?.systemNavigationBarColor,
+              systemNavigationBarDividerColor:
+                  systemUiOverlayStyle?.systemNavigationBarDividerColor,
+              systemNavigationBarIconBrightness:
+                  systemUiOverlayStyle?.systemNavigationBarIconBrightness,
+              systemStatusBarContrastEnforced:
+                  systemUiOverlayStyle?.systemStatusBarContrastEnforced,
+              systemNavigationBarContrastEnforced:
+                  systemUiOverlayStyle?.systemNavigationBarContrastEnforced,
+            ),
+        child: Scaffold(
+          key: scaffoldKey,
+          backgroundColor: background,
+          extendBody: extendBody,
+          appBar: appBar,
+          body: body,
+          bottomNavigationBar: bottomNavigationBar,
+          floatingActionButtonLocation: floatingActionButtonLocation,
+          floatingActionButton: floatingActionButton,
+          drawer: drawer,
+          endDrawer: endDrawer,
+          drawerScrimColor: drawerScrimColor,
+        ),
+      );
 }
