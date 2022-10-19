@@ -10,17 +10,17 @@ class FluOutline extends StatelessWidget {
   final EdgeInsets? margin;
   final Widget child;
 
-  const FluOutline(
-      {Key? key,
-      this.thickness,
-      this.radius,
-      this.spacing,
-      this.color,
-      this.borderRadius,
-      this.boxShadow,
-      this.margin,
-      required this.child})
-      : super(key: key);
+  const FluOutline({
+    Key? key,
+    this.thickness,
+    this.radius,
+    this.spacing,
+    this.color,
+    this.borderRadius,
+    this.boxShadow,
+    this.margin,
+    required this.child,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

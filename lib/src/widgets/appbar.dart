@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'glass.dart';
 import 'texts.dart';
 
-class FluAppBar extends StatelessWidget {
+class FluAppbar extends StatelessWidget {
   final bool floating;
   final Duration animationDuration;
   final Curve animationCurve;
@@ -15,11 +15,11 @@ class FluAppBar extends StatelessWidget {
   final EdgeInsets? padding;
   final String title;
   final Widget? leading;
-  final List<AppbarAction> actions;
+  final List<FluAppbarAction> actions;
   final Widget? child;
   final TextStyle? textStyle;
 
-  const FluAppBar({
+  const FluAppbar({
     Key? key,
     this.floating = false,
     this.animationDuration = const Duration(milliseconds: 350),
@@ -31,8 +31,8 @@ class FluAppBar extends StatelessWidget {
     this.title = 'flukit',
     this.leading,
     this.actions = const [
-      AppbarAction(icon: FluIcons.search),
-      AppbarAction(icon: FluIcons.more),
+      FluAppbarAction(icon: FluIcons.search),
+      FluAppbarAction(icon: FluIcons.more),
     ],
     this.child,
     this.textStyle,
@@ -70,7 +70,10 @@ class FluAppBar extends StatelessWidget {
                           style: textStyle,
                         )),
                     const Spacer(),
-                    ...AppbarAction.build(actions),
+                    ...FluAppbarAction.build(
+                      actions,
+                      spaceBetween: 15,
+                    ),
                   ],
                 ),
           ),

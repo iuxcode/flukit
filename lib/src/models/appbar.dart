@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../widgets/line.dart';
 
-class AppbarAction {
+class FluAppbarAction {
   final String? label, heroTag;
   final FluIcons icon;
   final VoidCallback? onPressed;
@@ -14,7 +14,7 @@ class AppbarAction {
   final FluIconStyles? iconStyle;
   final Offset? badgePosition;
 
-  const AppbarAction({
+  const FluAppbarAction({
     required this.icon,
     this.onPressed,
     this.label,
@@ -32,11 +32,11 @@ class AppbarAction {
         color: Flukit.theme().text.withOpacity(.65),
       );
 
-  static List<Widget> build(List<AppbarAction> actions,
+  static List<Widget> build(List<FluAppbarAction> actions,
       {bool lineBetween = true, double? spaceBetween}) {
     List<Widget> widgets = [];
 
-    for (AppbarAction action in actions) {
+    for (FluAppbarAction action in actions) {
       int index = actions.indexOf(action);
       bool isFirst = index == 0, isLast = index == (actions.length - 1);
       double spacing = spaceBetween ?? (actions.length > 2 ? 10 : 12);
