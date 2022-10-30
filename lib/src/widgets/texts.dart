@@ -156,13 +156,9 @@ extension FluTextStyleExt on FluTextStyle {
         return Flukit.textTheme.bodyText1!;
       case FluTextStyle.headline:
       case FluTextStyle.headlineBold:
-        return Flukit.textTheme.headline1!;
       case FluTextStyle.headlineSemibold:
-        return Flukit.textTheme.headline1!.copyWith(
-          fontSize: Flukit.appSettings.headlineFs,
-          fontWeight: Flukit.appSettings.textBold,
-          color: Flukit.theme().accentText,
-        );
+        return Flukit.textTheme.headline1!
+            .copyWith(fontSize: Flukit.appSettings.headlineFs);
     }
   }
 }

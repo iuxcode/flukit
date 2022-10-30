@@ -49,7 +49,8 @@ class FluTextField extends StatelessWidget {
         hintText: style.hintText,
         hintStyle: _theme.textTheme.bodyText1!
             .copyWith(
-                fontWeight: FontWeight.w400, color: style.hintColor ?? _theme.text)
+                fontWeight: FontWeight.w400,
+                color: style.hintColor ?? _theme.text)
             .merge(style.hintStyle),
         errorStyle: const TextStyle(height: 0, color: Colors.transparent),
         prefixIcon: style.prefixIcon,
@@ -83,7 +84,8 @@ class FluTextField extends StatelessWidget {
           boxShadow: style.boxShadow,
           border: style.borderWidth != null
               ? Border.all(
-                  color: style.borderColor ?? _theme.background.withOpacity(.05),
+                  color:
+                      style.borderColor ?? _theme.background.withOpacity(.05),
                   width: style.borderWidth!)
               : null,
           borderRadius: BorderRadius.circular(
@@ -92,7 +94,8 @@ class FluTextField extends StatelessWidget {
         child: Row(
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (style.fluPrefixIcon != null) icon(style.fluPrefixIcon, onIconTap),
+            if (style.fluPrefixIcon != null)
+              icon(style.fluPrefixIcon, onIconTap),
             Expanded(
               child: TextFormField(
                 controller: inputController,
@@ -116,7 +119,8 @@ class FluTextField extends StatelessWidget {
                 onTap: onTap,
               ),
             ),
-            if (style.fluSuffixIcon != null) icon(style.fluSuffixIcon, onIconTap),
+            if (style.fluSuffixIcon != null)
+              icon(style.fluSuffixIcon, onIconTap),
           ],
         ));
   }
@@ -152,7 +156,7 @@ class FluRichTextField extends FluTextField {
     super.onTap,
     required this.controller,
     this.onDeltasHistoryUpdate,
-    this.autoInsertController = true,
+    this.autoInsertController = false,
   }) {
     if (autoInsertController) {
       controller = Get.put<FluRichTextFieldController>(controller,
@@ -172,7 +176,8 @@ class FluRichTextField extends FluTextField {
             },
             onDeltaStyleStateChange: controller.updateStyleButtonsState,
             textAlign: style.textAlign ?? TextAlign.center,
-            textAlignVertical: style.textAlignVertical ?? TextAlignVertical.center,
+            textAlignVertical:
+                style.textAlignVertical ?? TextAlignVertical.center,
             keyboardType: style.keyboardType,
             textInputAction: style.textInputAction ?? TextInputAction.newline,
             inputFormatters: inputFormatters,
@@ -269,7 +274,12 @@ class FluTextFieldStyle extends InputDecoration {
   final FluIcons? fluSuffixIcon;
   final List<BoxShadow>? boxShadow;
   final bool expand;
-  final double? height, radius, borderWidth, iconSize, iconStrokeWidth, cursorHeight;
+  final double? height,
+      radius,
+      borderWidth,
+      iconSize,
+      iconStrokeWidth,
+      cursorHeight;
   final double cursorWidth;
   final Color? borderColor, color, hintColor, cursorColor, selectionColor;
   final EdgeInsets? margin, padding;
@@ -372,8 +382,10 @@ class FluTextFieldStyle extends InputDecoration {
       errorText: errorText ?? this.errorText,
       errorStyle: errorStyle ?? this.errorStyle,
       errorMaxLines: errorMaxLines ?? this.errorMaxLines,
-      floatingLabelBehavior: floatingLabelBehavior ?? this.floatingLabelBehavior,
-      floatingLabelAlignment: floatingLabelAlignment ?? this.floatingLabelAlignment,
+      floatingLabelBehavior:
+          floatingLabelBehavior ?? this.floatingLabelBehavior,
+      floatingLabelAlignment:
+          floatingLabelAlignment ?? this.floatingLabelAlignment,
       isCollapsed: isCollapsed ?? this.isCollapsed,
       isDense: isDense ?? this.isDense,
       contentPadding: contentPadding ?? this.contentPadding,
@@ -382,13 +394,15 @@ class FluTextFieldStyle extends InputDecoration {
       prefixText: prefixText ?? this.prefixText,
       prefixStyle: prefixStyle ?? this.prefixStyle,
       prefixIconColor: prefixIconColor ?? this.prefixIconColor,
-      prefixIconConstraints: prefixIconConstraints ?? this.prefixIconConstraints,
+      prefixIconConstraints:
+          prefixIconConstraints ?? this.prefixIconConstraints,
       suffixIcon: suffixIcon ?? this.suffixIcon,
       suffix: suffix ?? this.suffix,
       suffixText: suffixText ?? this.suffixText,
       suffixStyle: suffixStyle ?? this.suffixStyle,
       suffixIconColor: suffixIconColor ?? this.suffixIconColor,
-      suffixIconConstraints: suffixIconConstraints ?? this.suffixIconConstraints,
+      suffixIconConstraints:
+          suffixIconConstraints ?? this.suffixIconConstraints,
       counter: counter ?? this.counter,
       counterText: counterText ?? this.counterText,
       counterStyle: counterStyle ?? this.counterStyle,

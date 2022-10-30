@@ -27,6 +27,7 @@ class FluImage extends StatelessWidget {
   final Widget Function(BuildContext, String, DownloadProgress)?
       progressIndicatorBuilder;
   final AlignmentGeometry? overlayGradientBegin, overlayGradientEnd;
+  final BoxConstraints? constraints;
 
   const FluImage({
     Key? key,
@@ -50,6 +51,7 @@ class FluImage extends StatelessWidget {
     this.gradientOverlay = false,
     this.overlayGradientBegin,
     this.overlayGradientEnd,
+    this.constraints,
   }) : super(key: key);
 
   @override
@@ -59,6 +61,7 @@ class FluImage extends StatelessWidget {
         width: width,
         margin: margin,
         clipBehavior: Clip.hardEdge,
+        constraints: constraints,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(radius ?? 0),
             boxShadow: [if (boxShadow != null) boxShadow!]),
