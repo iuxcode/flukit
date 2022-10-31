@@ -31,7 +31,7 @@ class FluBottomNavBarIndicator extends StatelessWidget {
     required this.curve,
     required this.bottomNavBarType,
     // ignore: unused_element
-    this.radius = 8,
+    this.radius = 18,
     this.style = FluBottomNavBarIndicatorStyle.drop,
     this.position = FluBottomNavBarIndicatorPosition.top,
     this.gapWidth = 0,
@@ -49,18 +49,26 @@ class FluBottomNavBarIndicator extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         child: Container(
           height: double.infinity,
-          width: height * 3,
+          width: height * (height / 2),
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(
-                  position == FluBottomNavBarIndicatorPosition.bottom ? radius : 0),
+                  position == FluBottomNavBarIndicatorPosition.bottom
+                      ? radius
+                      : 0),
               topRight: Radius.circular(
-                  position == FluBottomNavBarIndicatorPosition.bottom ? radius : 0),
+                  position == FluBottomNavBarIndicatorPosition.bottom
+                      ? radius
+                      : 0),
               bottomLeft: Radius.circular(
-                  position == FluBottomNavBarIndicatorPosition.top ? radius : 0),
+                  position == FluBottomNavBarIndicatorPosition.top
+                      ? radius
+                      : 0),
               bottomRight: Radius.circular(
-                  position == FluBottomNavBarIndicatorPosition.top ? radius : 0),
+                  position == FluBottomNavBarIndicatorPosition.top
+                      ? radius
+                      : 0),
             ),
             boxShadow: [
               Flukit.boxShadow(
@@ -97,7 +105,9 @@ class FluBottomNavBarIndicator extends StatelessWidget {
                 width: 6.0,
                 height: 6.0,
                 decoration: BoxDecoration(
-                  color: controller.value > 0.65 ? Colors.transparent : activeColor,
+                  color: controller.value > 0.65
+                      ? Colors.transparent
+                      : activeColor,
                   // color: Colors.amber,
                   shape: BoxShape.circle,
                 ),
@@ -342,8 +352,13 @@ class _WaterPainter extends CustomPainter {
         size.width * 0.578344,
         size.height * 0.8285814,
       )
-      ..cubicTo(size.width * 0.7185669, size.height * 0.4786744,
-          size.width * 0.757325, size.height * 0.06629070, size.width * 0.999682, 0)
+      ..cubicTo(
+          size.width * 0.7185669,
+          size.height * 0.4786744,
+          size.width * 0.757325,
+          size.height * 0.06629070,
+          size.width * 0.999682,
+          0)
       ..lineTo(0, 0);
     path.close();
 

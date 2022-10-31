@@ -3,26 +3,6 @@ import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
 
 class FluBottomNavBarStyle {
-  final double height, indicatorHeight;
-  final double radius;
-  final double notchMargin;
-  final double gapWidth;
-  final EdgeInsets margin;
-  final Color? background, color, activeColor, indicatorColor;
-  final bool showItemLabelOnSelected, floating;
-  final Duration animationDuration;
-  final Curve animationCurve;
-  final FluBottomNavBarIndicatorStyle indicatorStyle;
-  final FluBottomNavBarIndicatorPosition indicatorPosition;
-  final NotchSmoothness notchSmoothness;
-  final GapLocation gapLocation;
-  final FluBottomNavBarType type;
-  final BorderRadius? borderRadius;
-  final FluIconStyles iconStyle;
-  final FluIconStyles? activeIconStyle;
-  final double iconSize;
-  final bool glass;
-
   FluBottomNavBarStyle({
     this.background,
     this.color,
@@ -48,9 +28,45 @@ class FluBottomNavBarStyle {
     this.activeIconStyle,
     this.iconSize = 24,
     this.glass = false,
+    this.alwayShowItemLabel = false,
+    this.itemLabelStyle,
   });
 
-  FluBottomNavBarStyle merge(FluBottomNavBarStyle? newStyle) => FluBottomNavBarStyle(
+  static FluBottomNavBarStyle defaultt = FluBottomNavBarStyle(
+    background: Flukit.theme().dark,
+    color: Flukit.theme().text,
+    activeColor: Flukit.theme().primary,
+  );
+
+  static FluBottomNavBarStyle secondary = FluBottomNavBarStyle(
+    background: Flukit.theme().secondary,
+    color: Flukit.theme().text,
+    activeColor: Flukit.theme().primary,
+  );
+
+  final FluIconStyles? activeIconStyle;
+  final bool glass, alwayShowItemLabel;
+  final Curve animationCurve;
+  final Duration animationDuration;
+  final BorderRadius? borderRadius;
+  final bool showItemLabelOnSelected, floating;
+  final GapLocation gapLocation;
+  final double gapWidth;
+  final double iconSize;
+  final FluIconStyles iconStyle;
+  final Color? background, color, activeColor, indicatorColor;
+  final double height, indicatorHeight;
+  final FluBottomNavBarIndicatorPosition indicatorPosition;
+  final FluBottomNavBarIndicatorStyle indicatorStyle;
+  final TextStyle? itemLabelStyle;
+  final EdgeInsets margin;
+  final double notchMargin;
+  final NotchSmoothness notchSmoothness;
+  final double radius;
+  final FluBottomNavBarType type;
+
+  FluBottomNavBarStyle merge(FluBottomNavBarStyle? newStyle) =>
+      FluBottomNavBarStyle(
         height: newStyle?.height ?? height,
         radius: newStyle?.radius ?? radius,
         notchMargin: newStyle?.notchMargin ?? notchMargin,
@@ -75,19 +91,9 @@ class FluBottomNavBarStyle {
         activeIconStyle: newStyle?.activeIconStyle ?? activeIconStyle,
         iconSize: newStyle?.iconSize ?? iconSize,
         glass: newStyle?.glass ?? glass,
+        alwayShowItemLabel: newStyle?.alwayShowItemLabel ?? alwayShowItemLabel,
+        itemLabelStyle: newStyle?.itemLabelStyle ?? itemLabelStyle,
       );
-
-  static FluBottomNavBarStyle defaultt = FluBottomNavBarStyle(
-    background: Flukit.theme().dark,
-    color: Flukit.theme().text,
-    activeColor: Flukit.theme().primary,
-  );
-
-  static FluBottomNavBarStyle secondary = FluBottomNavBarStyle(
-    background: Flukit.theme().secondary,
-    color: Flukit.theme().text,
-    activeColor: Flukit.theme().primary,
-  );
 }
 
 enum FluBottomNavBarType { normal, curved }
@@ -98,4 +104,10 @@ enum FluBottomNavBarIndicatorStyle { normal, drop }
 
 enum GapLocation { none, center, end }
 
-enum NotchSmoothness { sharpEdge, defaultEdge, softEdge, smoothEdge, verySmoothEdge }
+enum NotchSmoothness {
+  sharpEdge,
+  defaultEdge,
+  softEdge,
+  smoothEdge,
+  verySmoothEdge
+}

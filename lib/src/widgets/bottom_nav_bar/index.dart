@@ -25,12 +25,6 @@ export 'item.dart';
 /// The length of [items] must be at least two and each item's icon must not be null.
 ///
 class FluBottomNavBar extends StatefulWidget {
-  /// Active item index.
-  final double selectedIndex;
-  final List<FluBottomNavBarItem> items;
-  final Function(int) onItemTap;
-  final FluBottomNavBarStyle? style;
-
   const FluBottomNavBar({
     Key? key,
     required this.onItemTap,
@@ -39,23 +33,33 @@ class FluBottomNavBar extends StatefulWidget {
     this.style,
   }) : super(key: key);
 
+  final List<FluBottomNavBarItem> items;
+  final Function(int) onItemTap;
+
+  /// Active item index.
+  final double selectedIndex;
+
+  final FluBottomNavBarStyle? style;
+
   @override
   State<FluBottomNavBar> createState() => FluBottomNavBarState();
 }
 
 class FluBottomNavBarState extends State<FluBottomNavBar>
     with SingleTickerProviderStateMixin {
-  late FluBottomNavBarStyle style;
   late AnimationController animationController;
   final GlobalKey itemKey = GlobalKey();
-
-  int previousIndex = 0;
   double itemWidth = 0;
+  int previousIndex = 0;
+  late FluBottomNavBarStyle style;
 
-  void getItemWidth() {
-    final RenderBox box = itemKey.currentContext?.findRenderObject() as RenderBox;
-    final double width = box.size.width;
-    setState(() => itemWidth = width);
+  @override
+  void didUpdateWidget(covariant FluBottomNavBar oldWidget) {
+    if (widget.style != null && widget.style != style) {
+      style = widget.style!;
+    }
+    getItemWidth();
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -69,13 +73,11 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
     super.initState();
   }
 
-  @override
-  void didUpdateWidget(covariant FluBottomNavBar oldWidget) {
-    if (widget.style != null && widget.style != style) {
-      style = widget.style!;
-    }
-    getItemWidth();
-    super.didUpdateWidget(oldWidget);
+  void getItemWidth() {
+    final RenderBox box =
+        itemKey.currentContext?.findRenderObject() as RenderBox;
+    final double width = box.size.width;
+    setState(() => itemWidth = width);
   }
 
   @override
@@ -88,9 +90,10 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
         borderRadius: style.borderRadius ?? BorderRadius.circular(style.radius),
       ),
       child: Stack(
-        alignment: style.indicatorPosition == FluBottomNavBarIndicatorPosition.top
-            ? Alignment.topLeft
-            : Alignment.bottomLeft,
+        alignment:
+            style.indicatorPosition == FluBottomNavBarIndicatorPosition.top
+                ? Alignment.topLeft
+                : Alignment.bottomLeft,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -100,7 +103,8 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
               List<Widget> items = <Widget>[];
 
               for (var i = 0; i < itemCount; i++) {
-                if (i == itemCount / 2 && style.type == FluBottomNavBarType.curved) {
+                if (i == itemCount / 2 &&
+                    style.type == FluBottomNavBarType.curved) {
                   items.add(SizedBox(width: style.gapWidth) as Widget);
                 }
                 items.add(_Item(
@@ -121,6 +125,8 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
                   iconStyle: style.iconStyle,
                   activeIconStyle: style.activeIconStyle,
                   iconSize: style.iconSize,
+                  alwayShowLabel: style.alwayShowItemLabel,
+                  labelStyle: style.itemLabelStyle,
                 ) as Widget);
               }
 
@@ -135,8 +141,9 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
             maxWidth: itemWidth,
             duration: style.animationDuration,
             curve: style.animationCurve,
-            color:
-                style.indicatorColor ?? style.activeColor ?? Flukit.theme().primary,
+            color: style.indicatorColor ??
+                style.activeColor ??
+                Flukit.theme().primary,
             activeColor: style.activeColor ?? Flukit.theme().primary,
             style: style.indicatorStyle,
             position: style.indicatorPosition,
@@ -185,7 +192,8 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
                   left: 0,
                   right: 0,
                   child: Container(
-                    height: style.height * .35,
+                    height: style.height *
+                        (style.type == FluBottomNavBarType.curved ? .35 : 1),
                     decoration: BoxDecoration(
                       color: Flukit.theme().background,
                     ),
@@ -199,16 +207,6 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
 }
 
 class _Item extends StatelessWidget {
-  final FluBottomNavBarItem data;
-  final Color color, activeColor;
-  final void Function() onTap;
-  final bool isSelected, showLabel;
-  final Duration animationDuration;
-  final Curve animationCurve;
-  final FluIconStyles iconStyle;
-  final FluIconStyles? activeIconStyle;
-  final double iconSize;
-
   const _Item({
     Key? key,
     required this.data,
@@ -222,48 +220,81 @@ class _Item extends StatelessWidget {
     required this.iconStyle,
     required this.iconSize,
     this.activeIconStyle,
+    this.alwayShowLabel = false,
+    this.labelStyle,
   }) : super(key: key);
 
+  final Color color, activeColor;
+  final FluIconStyles? activeIconStyle;
+  final bool isSelected, showLabel, alwayShowLabel;
+  final Curve animationCurve;
+  final Duration animationDuration;
+  final FluBottomNavBarItem data;
+  final double iconSize;
+  final FluIconStyles iconStyle;
+  final TextStyle? labelStyle;
+  final void Function() onTap;
+
   @override
-  Widget build(BuildContext context) => Expanded(
-        child: FluButton(
-          onPressed: () => onTap(),
-          style: FluButtonStyle(
-            height: double.infinity,
-            width: double.infinity,
-            background: Colors.transparent,
-            radius: 0,
-            padding: const EdgeInsets.symmetric(horizontal: 30),
+  Widget build(BuildContext context) {
+    Widget icon = FluIcon(
+          isSelected && data.activeIcon != null ? data.activeIcon! : data.icon,
+          color: isSelected ? activeColor : color,
+          strokewidth: 1.6,
+          size: iconSize, // isSelected && data.activeIcon != null ? 26 : 24
+          style: isSelected && activeIconStyle != null
+              ? activeIconStyle!
+              : iconStyle,
+        ),
+        label = Padding(
+            padding: EdgeInsets.only(bottom: 10),
+            child: FittedBox(
+                child: FluText(
+              text: data.label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: Flukit.appSettings.smallFs - 2,
+                fontWeight: isSelected ? Flukit.appSettings.textBold : null,
+                color: isSelected ? activeColor : color,
+              ).merge(labelStyle),
+            ))),
+        content;
+
+    if (alwayShowLabel) {
+      content = Column(
+        children: [
+          Flexible(
+            child: Center(child: icon),
           ),
-          child: Center(
-            child: AnimatedSwitcher(
-              duration: animationDuration,
-              switchInCurve: animationCurve,
-              switchOutCurve: animationCurve,
-              child: isSelected && showLabel
-                  ? Text(
-                      data.label,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center,
-                      style: Flukit.textTheme.bodyText1!.copyWith(
-                          fontSize: Flukit.appSettings.smallFs,
-                          color: Flukit.theme().primary),
-                    )
-                  : FluIcon(
-                      isSelected && data.activeIcon != null
-                          ? data.activeIcon!
-                          : data.icon,
-                      color: isSelected ? activeColor : color,
-                      strokewidth: 1.6,
-                      size:
-                          iconSize, // isSelected && data.activeIcon != null ? 26 : 24
-                      style: isSelected && activeIconStyle != null
-                          ? activeIconStyle!
-                          : iconStyle,
-                    ),
-            ),
-          ),
+          label
+        ],
+      );
+    } else if (showLabel) {
+      content = Center(
+        child: AnimatedSwitcher(
+          duration: animationDuration,
+          switchInCurve: animationCurve,
+          switchOutCurve: animationCurve,
+          child: isSelected && showLabel ? label : icon,
         ),
       );
+    } else
+      content = Center(child: icon);
+
+    return Expanded(
+      child: FluButton(
+        onPressed: () => onTap(),
+        style: FluButtonStyle(
+          height: double.infinity,
+          width: double.infinity,
+          background: Colors.transparent,
+          radius: 0,
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+        ),
+        child: content,
+      ),
+    );
+  }
 }
