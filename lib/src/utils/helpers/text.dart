@@ -8,8 +8,9 @@ extension FlukitText on FlukitInterface {
   /// Get only the time from a datetime.
   /// using the format specified by [pattern] or not
   String timeFromDateTime(DateTime date,
-          {String pattern = 'HH:mm', String? locale}) =>
-      DateFormat(pattern, locale).format(date);
+          {bool withSeconds = false, String? locale}) =>
+      formatDate(date,
+          pattern: 'HH:mm' + (withSeconds ? ':ss' : ''), locale: locale);
 
   /// Creates a new DateFormat, using the format specified by [pattern].
   String formatDate(DateTime date,
