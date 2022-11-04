@@ -30,8 +30,9 @@ class FluOutline extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 18),
             border: Border.all(
-                color: color ?? Flukit.theme().background, width: thickness ?? 1.5),
-            boxShadow: [boxShadow ?? Flukit.boxShadow()]),
+                color: color ?? Flu.theme().background,
+                width: thickness ?? 1.5),
+            boxShadow: [boxShadow ?? Flu.boxShadow()]),
         child: child);
   }
 }

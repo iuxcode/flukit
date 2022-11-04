@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../utils/flu_utils.dart';
 import 'paints.dart';
 
@@ -70,7 +71,7 @@ class FluDotTabIndicator extends Decoration {
   FluDotTabIndicator({
     Color? color,
     double? radius,
-  }) : _painter = FluCirclePainter(color ?? Flukit.theme().primary, radius ?? 3);
+  }) : _painter = FluCirclePainter(color ?? Flu.theme().primary, radius ?? 3);
 
   @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) => _painter;
@@ -125,7 +126,7 @@ class FluMaterialIndicator extends Decoration {
     return FluMaterialIndicatorPainter(
       this,
       onChanged,
-      color: color ?? Flukit.theme().primary,
+      color: color ?? Flu.theme().primary,
       height: height,
       horizontalPadding: horizontalPadding,
       tabPosition: tabPosition,

@@ -17,10 +17,10 @@ class FluAuthScreenController extends GetxController {
   /// control if the user can submit or not
   final RxBool _canSubmit = false.obs;
 
-  /// loading state 
+  /// loading state
   final RxBool _loading = false.obs;
 
-  /// country loading state 
+  /// country loading state
   final RxBool _countriesLoading = false.obs;
 
   /// carrier country code
@@ -65,17 +65,18 @@ class FluAuthScreenController extends GetxController {
   /// setRegion
   /// ** Reveive a coode as parameter and find the correct region.
   void setRegion(String code) async {
-    List<RegionInfo> regions = await Flukit.phoneNumber.allSupportedRegions();
+    List<RegionInfo> regions = await Flu.phoneNumber.allSupportedRegions();
     int regionIndex = regions.indexWhere((r) => r.code == code);
 
-    if(regionIndex >= 0) {
+    if (regionIndex >= 0) {
       _countryCode.value = code;
       _region.value = regions[regionIndex];
     }
   }
-  
+
   /// **Get the correct carrier country code.
-  void getCountryCode() async => _countryCode.value = await Flukit.phoneNumber.carrierRegionCode();
+  void getCountryCode() async =>
+      _countryCode.value = await Flu.phoneNumber.carrierRegionCode();
 
   @override
   void onInit() {

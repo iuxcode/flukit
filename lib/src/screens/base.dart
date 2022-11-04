@@ -1,6 +1,6 @@
-import 'package:flukit/src/widgets/appBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import '../utils/flu_utils.dart';
 
 class FluScreen extends StatelessWidget {
@@ -23,7 +23,8 @@ class FluScreen extends StatelessWidget {
     this.floatingActionButton,
     this.extendBody = false,
     this.background,
-    this.floatingActionButtonLocation = FloatingActionButtonLocation.centerDocked,
+    this.floatingActionButtonLocation =
+        FloatingActionButtonLocation.centerDocked,
     this.drawer,
     this.endDrawer,
     this.scaffoldKey,
@@ -32,9 +33,10 @@ class FluScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => AnnotatedRegion<SystemUiOverlayStyle>(
-        value: Flukit.theme().systemUiOverlayStyle.copyWith(
+        value: Flu.theme().systemUiOverlayStyle.copyWith(
               statusBarColor: systemUiOverlayStyle?.statusBarColor,
-              statusBarIconBrightness: systemUiOverlayStyle?.statusBarIconBrightness,
+              statusBarIconBrightness:
+                  systemUiOverlayStyle?.statusBarIconBrightness,
               statusBarBrightness: systemUiOverlayStyle?.statusBarBrightness,
               systemNavigationBarColor:
                   systemUiOverlayStyle?.systemNavigationBarColor,

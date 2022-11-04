@@ -60,13 +60,13 @@ class _FluChipsState extends State<FluChips> {
   late ScrollController scrollController;
 
   void initScroll() => scrollController.animateTo(widget.initialScrollOffset,
-      duration: Flukit.appSettings.defaultAnimationDuration,
-      curve: Flukit.appSettings.defaultAnimationCurve);
+      duration: Flu.appSettings.defaultAnimationDuration,
+      curve: Flu.appSettings.defaultAnimationCurve);
 
   @override
   void initState() {
     padding = widget.padding ??
-        EdgeInsets.symmetric(horizontal: Flukit.appSettings.defaultPaddingSize);
+        EdgeInsets.symmetric(horizontal: Flu.appSettings.defaultPaddingSize);
     scrollController = widget.scrollController ?? ScrollController();
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => initScroll());
@@ -141,7 +141,9 @@ class _FluChipsState extends State<FluChips> {
           children: chipsRows
               .map((row) => Padding(
                     padding: EdgeInsets.only(
-                        top: chipsRows.indexOf(row) == 0 ? 0 : widget.runSpacing),
+                        top: chipsRows.indexOf(row) == 0
+                            ? 0
+                            : widget.runSpacing),
                     child: Row(
                       children: row
                           .map((chip) => FluChip(
@@ -151,8 +153,9 @@ class _FluChipsState extends State<FluChips> {
                                 textStyle: widget.chipTextStyle,
                                 height: widget.chipHeight,
                                 margin: EdgeInsets.only(
-                                    left:
-                                        row.indexOf(chip) == 0 ? 0 : widget.spacing),
+                                    left: row.indexOf(chip) == 0
+                                        ? 0
+                                        : widget.spacing),
                               ))
                           .toList(),
                     ),
@@ -184,8 +187,8 @@ class FluChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget child;
-    double? _width = (chip.image != null && chip.text == null)
-        ? Flukit.appSettings.defaultChipHeight * 2
+    double? width = (chip.image != null && chip.text == null)
+        ? Flu.appSettings.defaultChipHeight * 2
         : null;
 
     child = chip.image != null
@@ -202,8 +205,8 @@ class FluChip extends StatelessWidget {
 
     return UnconstrainedBox(
       child: Container(
-        height: height ?? Flukit.appSettings.defaultChipHeight,
-        width: chip.width ?? _width,
+        height: height ?? Flu.appSettings.defaultChipHeight,
+        width: chip.width ?? width,
         alignment: Alignment.center,
         clipBehavior: clipBehavior,
         padding: chip.image == null
@@ -216,15 +219,15 @@ class FluChip extends StatelessWidget {
         decoration: BoxDecoration(
           color: chip.outlined
               ? Colors.transparent
-              : chip.color ?? Flukit.theme().surfaceBackground25,
+              : chip.color ?? Flu.theme().surfaceBackground25,
           border: chip.outlined
               ? Border.all(
                   width: chip.strokeWidth,
-                  color: chip.color ?? Flukit.theme().surfaceBackground50,
+                  color: chip.color ?? Flu.theme().surfaceBackground50,
                 )
               : null,
           borderRadius: BorderRadius.circular(
-              (height ?? Flukit.appSettings.defaultChipHeight) * 2),
+              (height ?? Flu.appSettings.defaultChipHeight) * 2),
         ),
         child: child,
       ),

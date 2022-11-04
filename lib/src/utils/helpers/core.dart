@@ -1,6 +1,6 @@
 part of '../flu_utils.dart';
 
-extension FlukitCore on FlukitInterface {
+extension FluCore on FluInterface {
   /// Phone number validator plugin
   PhoneNumberUtil get phoneNumber => PhoneNumberUtil();
 
@@ -55,5 +55,6 @@ extension FlukitCore on FlukitInterface {
     return "$hourLeft : $minuteLeft : $secondsLeft";
   }
 
-  Uint8List dataFromBase64String(String base64String) => base64Decode(base64String);
+  Uint8List dataFromBase64String(String base64String) =>
+      base64Decode(base64String);
 }

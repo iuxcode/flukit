@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+
 import 'package:flukit/src/utils/flu_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +72,7 @@ class FluBottomNavBarIndicator extends StatelessWidget {
                       : 0),
             ),
             boxShadow: [
-              Flukit.boxShadow(
+              Flu.boxShadow(
                   blurRadius: 30,
                   offset: const Offset(0, -4),
                   color: color.withOpacity(.5))
@@ -321,7 +322,7 @@ class _FallingDrop extends StatelessWidget {
         height: height,
         child: CustomPaint(
           size: Size.zero,
-          painter: _WaterPainter(color ?? Flukit.theme().primary),
+          painter: _WaterPainter(color ?? Flu.theme().primary),
         ),
       )),
     );

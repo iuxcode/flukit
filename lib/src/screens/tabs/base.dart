@@ -41,7 +41,8 @@ class FluTabScreen extends StatefulWidget {
     this.systemUiOverlayStyle,
     this.floatingActionButton,
     this.background,
-    this.floatingActionButtonLocation = FloatingActionButtonLocation.centerDocked,
+    this.floatingActionButtonLocation =
+        FloatingActionButtonLocation.centerDocked,
   }) : super(key: key);
 
   @override
@@ -65,7 +66,7 @@ class _FluTabScreenState extends State<FluTabScreen> {
 
   void onInit() async {
     if (widget.isMainScreen) {
-      await Flukit.appController
+      await Flu.appController
           .setAuthorizationState(FluAuthorizationStates.ready)
           .onError((error, stackTrace) => throw {
                 "Error while setting authorizationState parameter in secure storage.",
@@ -107,7 +108,7 @@ class _FluTabScreenState extends State<FluTabScreen> {
           onItemTap: (index) {
             onPageChange(index);
             controller.currentIndex = index.toDouble();
-            Flukit.selectionClickHaptic();
+            Flu.selectionClickHaptic();
             widget.onPageChange?.call(controller, pageController);
           },
           style: widget.bottomNavBarStyle,

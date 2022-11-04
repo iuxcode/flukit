@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flukit/flukit.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class FluAvatar extends StatelessWidget {
@@ -59,7 +59,7 @@ class FluAvatar extends StatelessWidget {
 
   String getText() {
     final placeholderText =
-        ((text != null && text!.isNotEmpty && !memojiAsDefault) ? text! : 'flukit')
+        ((text != null && text!.isNotEmpty && !memojiAsDefault) ? text! : 'Flu')
             .trim();
 
     if (placeholderTextFormatter != null) {
@@ -89,9 +89,9 @@ class FluAvatar extends StatelessWidget {
       img = image!;
       imgSrc = source;
     } else if (memojiAsDefault) {
-      img = memoji ?? Flukit.getMemoji();
+      img = memoji ?? Flu.getMemoji();
       imgSrc = FluImageSource.asset;
-      package = 'flukit';
+      package = 'Flu';
     }
 
     if (img != null) {
@@ -117,7 +117,7 @@ class FluAvatar extends StatelessWidget {
         decoration: BoxDecoration(
           color: backgroundGradient == null && background != null
               ? background
-              : Flukit.theme().primary,
+              : Flu.theme().primary,
           gradient: backgroundGradient,
           borderRadius: BorderRadius.circular(radius),
           boxShadow: [if (boxShadow != null && !outlined) boxShadow!],
@@ -125,7 +125,7 @@ class FluAvatar extends StatelessWidget {
         child: FluText(
           text: getText(),
           stylePreset: FluTextStyle.bodyNeptune,
-          style: (labelStyle ?? TextStyle(color: Flukit.theme().light))
+          style: (labelStyle ?? TextStyle(color: Flu.theme().light))
               .merge(placeholderTextStyle),
         ),
       );

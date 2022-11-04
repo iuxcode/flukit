@@ -22,7 +22,7 @@ class _FluTermsScreenState extends State<FluTermsScreen> {
   bool canAgree = false;
 
   void onInit() async {
-    await Flukit.appController
+    await Flu.appController
         .setAuthorizationState(FluAuthorizationStates.waitTerms)
         .onError((error, stackTrace) => throw {
               "Error while setting authorizationState parameter in secure storage.",
@@ -51,21 +51,22 @@ class _FluTermsScreenState extends State<FluTermsScreen> {
                       controller: scrollController,
                       // physics: const BouncingScrollPhysics(),
                       padding: EdgeInsets.symmetric(
-                          horizontal: Flukit.appSettings.defaultPaddingSize,
+                          horizontal: Flu.appSettings.defaultPaddingSize,
                           vertical: 20),
                       child: widget.content),
                 ),
                 onNotification: (notification) {
                   if (notification is ScrollEndNotification) {
-                    setState(() => canAgree = scrollController.position.pixels ==
-                        scrollController.position.maxScrollExtent);
+                    setState(() => canAgree =
+                        scrollController.position.pixels ==
+                            scrollController.position.maxScrollExtent);
                   }
                   return false;
                 },
               )),
               Padding(
                 padding: EdgeInsets.symmetric(
-                        horizontal: Flukit.appSettings.defaultPaddingSize)
+                        horizontal: Flu.appSettings.defaultPaddingSize)
                     .copyWith(top: 15, bottom: 25),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,29 +74,29 @@ class _FluTermsScreenState extends State<FluTermsScreen> {
                       FluButton.text(
                           onPressed: () => widget.onDecline(),
                           text: 'Decline.',
-                          textStyle:
-                              TextStyle(fontWeight: Flukit.appSettings.textSemibold),
+                          textStyle: TextStyle(
+                              fontWeight: Flu.appSettings.textSemibold),
                           style: FluButtonStyle(
                             background: Colors.transparent,
-                            color: Flukit.theme().danger,
+                            color: Flu.theme().danger,
                           )),
                       Hero(
-                        tag: Flukit.appSettings.mainButtonHeroTag,
+                        tag: Flu.appSettings.mainButtonHeroTag,
                         child: FluButton.text(
                           onPressed: canAgree ? () => widget.onAgree() : null,
                           text: 'I agree. 😊',
-                          textStyle:
-                              TextStyle(fontWeight: Flukit.appSettings.textSemibold),
+                          textStyle: TextStyle(
+                              fontWeight: Flu.appSettings.textSemibold),
                           style: FluButtonStyle(
-                            height: Flukit.appSettings.minElSize,
-                            radius: Flukit.appSettings.minElRadius,
+                            height: Flu.appSettings.minElSize,
+                            radius: Flu.appSettings.minElRadius,
                             padding: const EdgeInsets.symmetric(horizontal: 18),
                             background: canAgree
-                                ? Flukit.theme().primary
-                                : Flukit.theme().primary.withOpacity(.1),
+                                ? Flu.theme().primary
+                                : Flu.theme().primary.withOpacity(.1),
                             color: canAgree
-                                ? Flukit.theme().light
-                                : Flukit.theme().accentText,
+                                ? Flu.theme().light
+                                : Flu.theme().accentText,
                           ),
                         ),
                       ),

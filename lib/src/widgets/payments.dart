@@ -10,17 +10,6 @@ enum FluPaymentMethods {
 }
 
 class FluPaymentMethodSelector extends StatelessWidget {
-  final double iconContainerSize, iconSize;
-  final bool optionsOutlined;
-  final List<FluPaymentMethods>? paymentMethods;
-  final Function(FluPaymentMethods) onSelected;
-
-  final List<FluPaymentMethods> _defaultPaymentMethods = [
-    FluPaymentMethods.tmoneyOrmoovMoney,
-    FluPaymentMethods.card,
-    FluPaymentMethods.bank,
-  ];
-
   FluPaymentMethodSelector({
     Key? key,
     this.iconContainerSize = 55,
@@ -30,7 +19,19 @@ class FluPaymentMethodSelector extends StatelessWidget {
     required this.onSelected,
   }) : super(key: key);
 
-  Map<FluPaymentMethods, FluPaymentMethodInfoModel> get _paymentMethodsInfos => {
+  final double iconContainerSize, iconSize;
+  final Function(FluPaymentMethods) onSelected;
+  final bool optionsOutlined;
+  final List<FluPaymentMethods>? paymentMethods;
+
+  final List<FluPaymentMethods> _defaultPaymentMethods = [
+    FluPaymentMethods.tmoneyOrmoovMoney,
+    FluPaymentMethods.card,
+    FluPaymentMethods.bank,
+  ];
+
+  Map<FluPaymentMethods, FluPaymentMethodInfoModel> get _paymentMethodsInfos =>
+      {
         FluPaymentMethods.tmoneyOrmoovMoney: FluPaymentMethodInfoModel(
           title: 'TMoney or Moov',
           description:
@@ -59,22 +60,22 @@ class FluPaymentMethodSelector extends StatelessWidget {
       itemIconMarginSize: 12,
       itemOutlined: true,
       itemPadding: const EdgeInsets.all(5),
-      itemBoxShadow: Flukit.boxShadow(
+      itemBoxShadow: Flu.boxShadow(
         opacity: .035,
         offset: const Offset(-25, 20),
       ),
       outlineSpacing: 2,
-      outlineColor: Flukit.theme().background.withOpacity(.85),
+      outlineColor: Flu.theme().background.withOpacity(.85),
       titleTextStyle: TextStyle(
-          color: Flukit.theme().accentText, fontSize: Flukit.appSettings.bodyFs + 1),
+          color: Flu.theme().accentText, fontSize: Flu.appSettings.bodyFs + 1),
       descTextStyle: const TextStyle(fontSize: 13),
-      iconColor: Flukit.theme().accentText,
+      iconColor: Flu.theme().accentText,
       iconStrokewidth: 1.8,
       suffixWidget: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: FluIcon(
           FluIcons.arrowRight1,
-          color: Flukit.theme().text,
+          color: Flu.theme().text,
           size: 15,
         ),
       ),
@@ -85,7 +86,7 @@ class FluPaymentMethodSelector extends StatelessWidget {
           title: paymentMethodsInfo.title,
           description: paymentMethodsInfo.description,
           icon: paymentMethodsInfo.icon,
-          iconbackground: Flukit.theme().secondary,
+          iconbackground: Flu.theme().secondary,
           imageType: FluImageSource.network,
           onPressed: () => onSelected(e),
         );

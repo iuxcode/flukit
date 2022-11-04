@@ -1,7 +1,7 @@
 part of '../flu_utils.dart';
 
-extension FlukitAPIService on FlukitInterface {
-  FluApiSettings get apiSettings => Flukit.appController.apiSettings;
+extension FluAPIService on FluInterface {
+  FluApiSettings get apiSettings => Flu.appController.apiSettings;
 
   // ignore: library_private_types_in_public_api
   _FluConnect get http => _FluConnect(settings: apiSettings);
@@ -163,7 +163,9 @@ class _FluConnect {
       dio.CancelToken? cancelToken}) async {
     try {
       dio.Response response = await dioInstance.delete(_buildUrl(endpoint),
-          queryParameters: parameters, options: options, cancelToken: cancelToken);
+          queryParameters: parameters,
+          options: options,
+          cancelToken: cancelToken);
       return response;
     } on dio.DioError catch (e) {
       return Future.error(e);

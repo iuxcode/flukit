@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// FlukitInterface allows any auxiliary package to be merged into the app constants
+/// FluInterface allows any auxiliary package to be merged into the app constants
 /// class through extensions
 abstract class FluSettingsInterface {
   FluSettingsInterface();
@@ -42,7 +42,8 @@ abstract class FluSettingsInterface {
   Curve get defaultAnimationCurve => Curves.easeInOut;
 
   /// default page transition duration and curve
-  Duration get defaultPageAnimationDuration => const Duration(milliseconds: 300);
+  Duration get defaultPageAnimationDuration =>
+      const Duration(milliseconds: 300);
   Curve get defaultPageAnimationCurve => Curves.fastOutSlowIn;
 
   String get backButtonHeroTag => '<backButton>';

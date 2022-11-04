@@ -55,13 +55,13 @@ class FluText extends StatelessWidget {
 
   /// Build styles
   TextStyle get _style {
-    TextStyle defaultTextStyle = Flukit.textTheme.bodyText1!;
+    TextStyle defaultTextStyle = Flu.textTheme.bodyText1!;
 
     if (applicationMethod == FluTextStyleApplicationMethod.override) {
       return style ?? defaultTextStyle;
     } else {
       TextStyle neptuneStyle =
-          TextStyle(fontFamily: Flukit.fonts.neptune, package: 'flukit');
+          TextStyle(fontFamily: Flu.fonts.neptune, package: 'Flu');
 
       if (stylePreset == FluTextStyle.smallNeptune ||
           stylePreset == FluTextStyle.bodyNeptune) {
@@ -72,8 +72,8 @@ class FluText extends StatelessWidget {
           stylePreset == FluTextStyle.bodyBold ||
           stylePreset == FluTextStyle.headlineBold) {
         return stylePreset.style.merge(TextStyle(
-            fontWeight: Flukit.appSettings.textBold,
-            color: Flukit.theme().accentText));
+            fontWeight: Flu.appSettings.textBold,
+            color: Flu.theme().accentText));
       }
 
       return defaultTextStyle;
@@ -99,7 +99,7 @@ class FluText extends StatelessWidget {
               text: hasText ? text : 'You have to add text or entities !',
               style: _style
                   .merge(style)
-                  .copyWith(color: hasText ? null : Flukit.theme().danger),
+                  .copyWith(color: hasText ? null : Flu.theme().danger),
             )
           ];
 
@@ -107,14 +107,14 @@ class FluText extends StatelessWidget {
       text: TextSpan(
         children: prefixs +
             (replaceEmojis
-                ? textSpans.map((span) => Flukit.replaceEmojis(span)).toList()
+                ? textSpans.map((span) => Flu.replaceEmojis(span)).toList()
                 : textSpans) +
             suffixs,
       ),
       maxLines: maxLines,
       overflow: overflow,
       textAlign: textAlign,
-      /* minFontSize: minFontSize ?? Flukit.appSettings.smallFs,
+      /* minFontSize: minFontSize ?? Flu.appSettings.smallFs,
       maxFontSize: maxFontSize,
       group: group,
       stepGranularity: stepGranularity,
@@ -148,17 +148,17 @@ extension FluTextStyleExt on FluTextStyle {
       case FluTextStyle.small:
       case FluTextStyle.smallBold:
       case FluTextStyle.smallNeptune:
-        return Flukit.textTheme.bodyText1!
-            .copyWith(fontSize: Flukit.appSettings.smallFs);
+        return Flu.textTheme.bodyText1!
+            .copyWith(fontSize: Flu.appSettings.smallFs);
       case FluTextStyle.body:
       case FluTextStyle.bodyBold:
       case FluTextStyle.bodyNeptune:
-        return Flukit.textTheme.bodyText1!;
+        return Flu.textTheme.bodyText1!;
       case FluTextStyle.headline:
       case FluTextStyle.headlineBold:
       case FluTextStyle.headlineSemibold:
-        return Flukit.textTheme.headline1!
-            .copyWith(fontSize: Flukit.appSettings.headlineFs);
+        return Flu.textTheme.headline1!
+            .copyWith(fontSize: Flu.appSettings.headlineFs);
     }
   }
 }

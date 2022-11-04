@@ -1,12 +1,12 @@
+import 'package:flukit/src/configs/theme/index.dart';
 import 'package:flukit/src/models/app.dart';
 import 'package:get/get.dart';
-import 'package:flukit/src/configs/theme/index.dart';
 
 import '../configs/settings.dart';
 import '../utils/flu_utils.dart';
 
 class FluAppController extends GetMaterialController {
-  final FluStorageService storageService = Flukit.secureStorage;
+  final FluStorageService storageService = Flu.secureStorage;
 
   FluAppInformations infos;
 
@@ -35,7 +35,8 @@ class FluAppController extends GetMaterialController {
   }
 
   Future<bool> firstTimeOpening() async {
-    if (await storageService.containsKey(FluSecureStorageKeys.firstTimeOpening)) {
+    if (await storageService
+        .containsKey(FluSecureStorageKeys.firstTimeOpening)) {
       try {
         String? state =
             await storageService.read(FluSecureStorageKeys.firstTimeOpening);
@@ -51,7 +52,7 @@ class FluAppController extends GetMaterialController {
 
   Future<void> setFirstTimeOpeningState(bool state) async {
     try {
-      await Flukit.secureStorage.write(FluSecureStorageItem(
+      await Flu.secureStorage.write(FluSecureStorageItem(
           FluSecureStorageKeys.firstTimeOpening, state.toString()));
     } catch (e) {
       return Future.error(e);
@@ -132,7 +133,8 @@ class FluAppController extends GetMaterialController {
 
   Future<String?> getApiRefreshToken() async {
     try {
-      if (await storageService.containsKey(FluSecureStorageKeys.apiRefreshToken)) {
+      if (await storageService
+          .containsKey(FluSecureStorageKeys.apiRefreshToken)) {
         String? state =
             await storageService.read(FluSecureStorageKeys.apiRefreshToken);
 

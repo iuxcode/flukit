@@ -142,14 +142,16 @@ class FluMaterialApp extends GetMaterialApp {
                 )
               : MaterialApp(
                   key: _.unikey,
-                  navigatorKey:
-                      (navigatorKey == null ? Get.key : Get.addKey(navigatorKey!)),
+                  navigatorKey: (navigatorKey == null
+                      ? Get.key
+                      : Get.addKey(navigatorKey!)),
                   scaffoldMessengerKey:
                       scaffoldMessengerKey ?? _.scaffoldMessengerKey,
                   home: home,
                   routes: routes ?? const <String, WidgetBuilder>{},
                   initialRoute: initialRoute,
-                  onGenerateRoute: (getPages != null ? generator : onGenerateRoute),
+                  onGenerateRoute:
+                      (getPages != null ? generator : onGenerateRoute),
                   onGenerateInitialRoutes: (getPages == null || home != null)
                       ? onGenerateInitialRoutes
                       : initialRoutesGenerate,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../utils/flu_utils.dart';
 
 /// Todo add dashes and dots
@@ -37,7 +38,7 @@ class FluLine extends StatelessWidget {
           duration: animationDuration,
           curve: animationCurve,
           decoration: BoxDecoration(
-            color: color ?? Flukit.theme().divider,
+            color: color ?? Flu.theme().divider,
             borderRadius: BorderRadius.circular(radius),
             boxShadow: [if (boxShadow != null) boxShadow!],
           ),
@@ -72,7 +73,7 @@ class DashedLineVerticalPainter extends CustomPainter {
     double startY = 0, startX = size.width / 2;
 
     final paint = Paint()
-      ..color = color ?? Flukit.theme().divider
+      ..color = color ?? Flu.theme().divider
       ..strokeWidth = strokeWidth
       ..strokeCap = rounded ? StrokeCap.round : StrokeCap.square;
 

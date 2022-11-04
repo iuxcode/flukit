@@ -49,7 +49,9 @@ class FluAuthScreenInputStep extends FluAuthScreenStep {
 }
 
 class FluAuthScreenCustomStep extends FluAuthScreenStep {
-  final Widget Function(BuildContext context, FluAuthScreenController controller,
+  final Widget Function(
+      BuildContext context,
+      FluAuthScreenController controller,
       TextEditingController inputController) builder;
   final bool Function(FluAuthScreenController controller)? onButtonPressed;
 

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import '../../../flukit.dart';
 
 class FluGetPage extends GetPage {

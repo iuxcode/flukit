@@ -4,31 +4,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../flukit.dart';
-
 enum FluImageSource { svg, asset, network, file }
 
 class FluImage extends StatelessWidget {
-  final FluImageSource? source;
-  final ImageProvider<Object>? provider;
-  final String image;
-  final String? package;
-  final BoxFit? fit;
-  final double? height, width, radius;
-  final double overlayOpacity;
-  final EdgeInsets? margin;
-  final BoxShadow? boxShadow;
-  final bool cache;
-  final bool gradientOverlay;
-  final Map<String, String>? httpHeaders;
-  final Widget Function(BuildContext, Widget, int?, bool)? frameBuilder;
-  final Widget Function(BuildContext, Object, StackTrace?)? errorBuilder;
-  final Widget Function(BuildContext, String)? placeholder;
-  final Widget Function(BuildContext, String, DownloadProgress)?
-      progressIndicatorBuilder;
-  final AlignmentGeometry? overlayGradientBegin, overlayGradientEnd;
-  final BoxConstraints? constraints;
-
   const FluImage({
     Key? key,
     this.height,
@@ -53,6 +31,27 @@ class FluImage extends StatelessWidget {
     this.overlayGradientEnd,
     this.constraints,
   }) : super(key: key);
+
+  final Widget Function(BuildContext, Widget, int?, bool)? frameBuilder;
+  final Widget Function(BuildContext, Object, StackTrace?)? errorBuilder;
+  final Widget Function(BuildContext, String)? placeholder;
+  final Widget Function(BuildContext, String, DownloadProgress)?
+      progressIndicatorBuilder;
+
+  final BoxShadow? boxShadow;
+  final bool cache;
+  final BoxConstraints? constraints;
+  final BoxFit? fit;
+  final bool gradientOverlay;
+  final Map<String, String>? httpHeaders;
+  final String image;
+  final EdgeInsets? margin;
+  final AlignmentGeometry? overlayGradientBegin, overlayGradientEnd;
+  final double overlayOpacity;
+  final String? package;
+  final ImageProvider<Object>? provider;
+  final double? height, width, radius;
+  final FluImageSource? source;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +83,8 @@ class FluImage extends StatelessWidget {
                 // TODO make caching optional
                 // cacheManager: cache ? BaseCacheManager() : null,
                 errorWidget: errorBuilder != null
-                    ? (context, url, error) => errorBuilder!(context, url, error)
+                    ? (context, url, error) =>
+                        errorBuilder!(context, url, error)
                     : null,
                 progressIndicatorBuilder: progressIndicatorBuilder,
                 placeholder: placeholder,

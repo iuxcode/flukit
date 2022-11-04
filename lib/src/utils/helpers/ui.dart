@@ -1,6 +1,6 @@
 part of '../flu_utils.dart';
 
-extension FlukitUI on FlukitInterface {
+extension FluUI on FluInterface {
   ///return current theme context
   BuildContext get context => Get.context!;
 
@@ -43,10 +43,12 @@ extension FlukitUI on FlukitInterface {
       !(MediaQuery.of(context).viewInsets.bottom == 0);
 
   /// Hide the keyboard
-  void hideKeyboard() => SystemChannels.textInput.invokeMethod('TextInput.hide');
+  void hideKeyboard() =>
+      SystemChannels.textInput.invokeMethod('TextInput.hide');
 
   /// Show the keyboard
-  void showKeyboard() => SystemChannels.textInput.invokeMethod('TextInput.show');
+  void showKeyboard() =>
+      SystemChannels.textInput.invokeMethod('TextInput.show');
 
   /// build theme based boxShadow
   BoxShadow boxShadow(
@@ -108,12 +110,15 @@ extension FlukitUI on FlukitInterface {
 
     if (Get.isSnackbarOpen == true) Get.back();
     Get.customSnackbar(title, message,
-        margin: margin ?? const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+        margin:
+            margin ?? const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
         duration: Duration(seconds: duration),
         snackPosition: position,
         snackStyle: style,
         icon: icon,
-        boxShadows: [shadow ?? boxShadow(opacity: .085, offset: const Offset(0, 5))],
+        boxShadows: [
+          shadow ?? boxShadow(opacity: .085, offset: const Offset(0, 5))
+        ],
         colorText: textColor,
         background: (background).withOpacity(opacity),
         borderRadius: radius ?? 22,
@@ -123,8 +128,9 @@ extension FlukitUI on FlukitInterface {
 
   /// Show error snackbar
   void throwError(String? message) {
-    Flukit.showSnackbar(
-        (message ?? 'Something went wrong , please retry !').replaceAll('_', ' '),
+    Flu.showSnackbar(
+        (message ?? 'Something went wrong , please retry !')
+            .replaceAll('_', ' '),
         type: FluSnackbarType.danger,
         position: SnackPosition.TOP,
         textColor: theme().danger,
@@ -168,7 +174,7 @@ extension FlukitUI on FlukitInterface {
     double? radius,
     double? maxChildSize,
   }) {
-    context = context ?? Flukit.context;
+    context = context ?? Flu.context;
 
     showModalBottomSheet(
       context: context,

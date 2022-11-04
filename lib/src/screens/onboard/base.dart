@@ -28,7 +28,7 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
     pageController = widget.parameters.pageController;
 
     () async {
-      await Flukit.appController
+      await Flu.appController
           .setFirstTimeOpeningState(false)
           .onError((error, stackTrace) => throw {
                 "Error while setting firstTimeOpening parameter in secure storage.",
@@ -41,7 +41,7 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
 
   @override
   Widget build(BuildContext context) => FluScreen(
-      systemUiOverlayStyle: Flukit.theme()
+      systemUiOverlayStyle: Flu.theme()
           .systemUiOverlayStyle
           .copyWith(statusBarColor: Colors.transparent),
       body: GetX<FluOnboardingScreenController>(
@@ -82,13 +82,14 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(
-                            horizontal: Flukit.appSettings.defaultPaddingSize)
+                            horizontal: Flu.appSettings.defaultPaddingSize)
                         .copyWith(bottom: 15),
                     child: AnimatedSwitcher(
                       duration: widget.parameters.animationDuration,
                       transitionBuilder: (child, animation) => SlideTransition(
                         position: Tween<Offset>(
-                                begin: const Offset(1, 0), end: const Offset(0, 0))
+                                begin: const Offset(1, 0),
+                                end: const Offset(0, 0))
                             .animate(animation),
                         child: child,
                       ),
@@ -102,10 +103,11 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
                                         ? widget.parameters.skipButtonText
                                         : widget.parameters.prevButtonText,
                                     textStyle: TextStyle(
-                                        fontWeight: Flukit.appSettings.textSemibold),
+                                        fontWeight:
+                                            Flu.appSettings.textSemibold),
                                     style: FluButtonStyle(
-                                      height: Flukit.appSettings.defaultElSize,
-                                      color: Flukit.theme().accentText,
+                                      height: Flu.appSettings.defaultElSize,
+                                      color: Flu.theme().accentText,
                                     ),
                                   ),
                                   FluOnboardingScreenIndicators(
@@ -118,29 +120,30 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
                                         ? widget.parameters.mainButtonText
                                         : widget.parameters.nextButtonText,
                                     textStyle: TextStyle(
-                                        fontWeight: Flukit.appSettings.textSemibold),
+                                        fontWeight:
+                                            Flu.appSettings.textSemibold),
                                     style: FluButtonStyle(
-                                      height: Flukit.appSettings.defaultElSize,
-                                      color: Flukit.theme().accentText,
+                                      height: Flu.appSettings.defaultElSize,
+                                      color: Flu.theme().accentText,
                                     ),
                                   )
                                 ])
                           : Hero(
-                              tag: Flukit.appSettings.mainButtonHeroTag,
+                              tag: Flu.appSettings.mainButtonHeroTag,
                               child: FluButton.text(
                                 onPressed: widget.parameters.onForward,
                                 text: widget.parameters.mainButtonText,
                                 prefixIcon: widget.parameters.mainButtonIcon ??
                                     FluIcons.flash,
                                 textStyle: TextStyle(
-                                    fontWeight: Flukit.appSettings.textBold),
+                                    fontWeight: Flu.appSettings.textBold),
                                 style: FluButtonStyle(
-                                  height: Flukit.appSettings.defaultElSize,
+                                  height: Flu.appSettings.defaultElSize,
                                   width: double.infinity,
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 12),
-                                  color: Flukit.theme().onPrimary,
-                                  background: Flukit.theme().primary,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12),
+                                  color: Flu.theme().onPrimary,
+                                  background: Flu.theme().primary,
                                   iconSize: 24,
                                   iconStrokewidth: 1.8,
                                   // alignment: Alignment.centerLeft
@@ -207,7 +210,7 @@ class FluOnboardingScreenImageViewer extends StatelessWidget {
       decoration: BoxDecoration(
           gradient: gradient
               ? LinearGradient(
-                  colors: [Flukit.theme().secondary, Flukit.theme().background],
+                  colors: [Flu.theme().secondary, Flu.theme().background],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter)
               : null),
@@ -225,7 +228,7 @@ class FluOnboardingScreenImageViewer extends StatelessWidget {
 
     return expand
         ? Expanded(child: wgt)
-        : SizedBox(height: height ?? Flukit.screenSize.height * .3, child: wgt);
+        : SizedBox(height: height ?? Flu.screenSize.height * .3, child: wgt);
   }
 }
 
@@ -240,25 +243,26 @@ class FluOnboardingScreenTexts extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Padding(
         padding:
-            EdgeInsets.symmetric(horizontal: Flukit.appSettings.defaultPaddingSize)
+            EdgeInsets.symmetric(horizontal: Flu.appSettings.defaultPaddingSize)
                 .copyWith(
-                    bottom: marginBottom ?? Flukit.screenSize.height * .075,
+                    bottom: marginBottom ?? Flu.screenSize.height * .075,
                     top: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Hero(
-              tag: Flukit.appSettings.titleTextHeroTag,
+              tag: Flu.appSettings.titleTextHeroTag,
               child: Text(title,
                   textAlign: TextAlign.center,
-                  style: Flukit.textTheme.headline1
-                      ?.copyWith(fontSize: Flukit.appSettings.headlineFs)),
+                  style: Flu.textTheme.headline1
+                      ?.copyWith(fontSize: Flu.appSettings.headlineFs)),
             ),
             const SizedBox(height: 5),
             Hero(
-                tag: Flukit.appSettings.descriptionTextHeroTag,
+                tag: Flu.appSettings.descriptionTextHeroTag,
                 child: Text(desc,
-                    textAlign: TextAlign.center, style: Flukit.textTheme.bodyText1)),
+                    textAlign: TextAlign.center,
+                    style: Flu.textTheme.bodyText1)),
           ],
         ),
       );
@@ -286,7 +290,7 @@ class FluOnboardingScreenIndicators extends StatelessWidget {
         count: count,
         effect: ExpandingDotsEffect(
           dotColor: dotColor ?? Colors.grey,
-          activeDotColor: Flukit.theme().primary,
+          activeDotColor: Flu.theme().primary,
           dotHeight: dotHeight,
           dotWidth: dotWidth,
           expansionFactor: expansionFactor,
@@ -344,7 +348,8 @@ class FluOnboardingScreenParameters {
 
   void onForward() async {
     if (!controller.onLastPage) {
-      pageController.nextPage(duration: animationDuration, curve: animationCurve);
+      pageController.nextPage(
+          duration: animationDuration, curve: animationCurve);
     } else {
       onLeaving();
     }

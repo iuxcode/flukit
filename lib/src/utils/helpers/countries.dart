@@ -1,6 +1,6 @@
 part of '../flu_utils.dart';
 
-extension FlukitCountry on FlukitInterface {
+extension FluCountry on FluInterface {
   List<FluCountryModel> get countries => _countries;
 }
 
@@ -10,7 +10,11 @@ class FluCountryModel {
   final String iso3Code;
   final String phoneCode;
 
-  FluCountryModel({required this.isoCode, required this.iso3Code, required this.phoneCode, required this.name});
+  FluCountryModel(
+      {required this.isoCode,
+      required this.iso3Code,
+      required this.phoneCode,
+      required this.name});
 
   set name(String newName) => name = newName;
   set isoCode(String newIsoCode) => isoCode = newIsoCode;
@@ -18,11 +22,11 @@ class FluCountryModel {
   set phoneCode(String newPhoneCode) => phoneCode = newPhoneCode;
 
   factory FluCountryModel.fromMap(Map<String, String> map) => FluCountryModel(
-    name: map['name']!,
-    isoCode: map['isoCode']!,
-    iso3Code: map['iso3Code']!,
-    phoneCode: map['phoneCode']!,
-  );
+        name: map['name']!,
+        isoCode: map['isoCode']!,
+        iso3Code: map['iso3Code']!,
+        phoneCode: map['phoneCode']!,
+      );
 }
 
 final List<FluCountryModel> _countries = [

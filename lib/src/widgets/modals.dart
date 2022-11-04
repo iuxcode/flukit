@@ -1,15 +1,7 @@
+import 'package:flukit/src/utils/flu_utils.dart';
 import 'package:flutter/material.dart';
-import '../../flukit.dart';
 
 class FluModalBottomSheet extends StatelessWidget {
-  final Widget child;
-  final EdgeInsets? padding;
-  final double? radius;
-  final double maxChildSize;
-  final Duration animationDuration;
-  final Curve animationCurve;
-  final double defaultRadius = Flukit.screenSize.width * .085;
-
   FluModalBottomSheet({
     Key? key,
     required this.child,
@@ -20,9 +12,18 @@ class FluModalBottomSheet extends StatelessWidget {
     this.animationCurve = Curves.easeInOut,
   }) : super(key: key);
 
+  final Curve animationCurve;
+  final Duration animationDuration;
+  final Widget child;
+  final double defaultRadius = Flu.screenSize.width * .085;
+  final double maxChildSize;
+  final EdgeInsets? padding;
+  final double? radius;
+
   @override
   Widget build(BuildContext context) => Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: DraggableScrollableSheet(
             expand: false,
             maxChildSize: maxChildSize,
@@ -37,12 +38,12 @@ class FluModalBottomSheet extends StatelessWidget {
                   )), */
                   AnimatedContainer(
                     height: 4,
-                    width: Flukit.screenSize.width * .20,
+                    width: Flu.screenSize.width * .20,
                     margin: const EdgeInsets.only(bottom: 8),
                     duration: animationDuration,
                     curve: animationCurve,
                     decoration: BoxDecoration(
-                        color: Flukit.theme().background.withOpacity(.9),
+                        color: Flu.theme().background.withOpacity(.9),
                         borderRadius: BorderRadius.circular(10)),
                   ),
                   Flexible(
@@ -53,7 +54,7 @@ class FluModalBottomSheet extends StatelessWidget {
                       duration: animationDuration,
                       curve: animationCurve,
                       decoration: BoxDecoration(
-                        color: Flukit.theme().background,
+                        color: Flu.theme().background,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(radius ?? defaultRadius),
                             topRight: Radius.circular(radius ?? defaultRadius)),
@@ -61,7 +62,8 @@ class FluModalBottomSheet extends StatelessWidget {
                       child: SingleChildScrollView(
                           controller: scrollController,
                           padding: padding ??
-                              EdgeInsets.all(Flukit.appSettings.defaultPaddingSize),
+                              EdgeInsets.all(
+                                  Flu.appSettings.defaultPaddingSize),
                           child: child),
                     ),
                   ),

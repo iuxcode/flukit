@@ -37,17 +37,18 @@ class FluSplashScreen extends StatefulWidget {
 class _FluSplashScreenState extends State<FluSplashScreen> {
   late FluSplashScreenController controller;
 
-  FluStorageService storageService = Flukit.secureStorage;
+  FluStorageService storageService = Flu.secureStorage;
 
   void onInitialized() async {
     /// TODO check if phone is connected to internet
     /// if not redirect to errors page or get cached data
-    if (await storageService.containsKey(FluSecureStorageKeys.firstTimeOpening)) {
+    if (await storageService
+        .containsKey(FluSecureStorageKeys.firstTimeOpening)) {
       String? state =
           await storageService.read(FluSecureStorageKeys.firstTimeOpening);
 
       if (state != null && state.toLowerCase() == 'false') {
-        switch (await Flukit.appController.getAuthorizationState()) {
+        switch (await Flu.appController.getAuthorizationState()) {
           case FluAuthorizationStates.waitCode:
             widget.onWaitCode?.call();
             break;
@@ -88,18 +89,18 @@ class _FluSplashScreenState extends State<FluSplashScreen> {
                   child: Column(children: [
                 Expanded(child: Center(child: widget.child)),
                 Padding(
-                  padding: EdgeInsets.only(bottom: Flukit.screenSize.height * .15),
+                  padding: EdgeInsets.only(bottom: Flu.screenSize.height * .15),
                   child: Hero(
-                    tag: Flukit.appSettings.brandTextHeroTag,
+                    tag: Flu.appSettings.brandTextHeroTag,
                     child: Text(
-                      Flukit.appInfos.name,
+                      Flu.appInfos.name,
                       style: widget.textStyle ??
                           TextStyle(
-                            fontFamily: Flukit.fonts.neptune,
-                            package: 'flukit',
-                            fontSize: Flukit.appSettings.subHeadlineFs,
-                            fontWeight: Flukit.appSettings.textBold,
-                            color: Flukit.theme().accentText,
+                            fontFamily: Flu.fonts.neptune,
+                            package: 'Flu',
+                            fontSize: Flu.appSettings.subHeadlineFs,
+                            fontWeight: Flu.appSettings.textBold,
+                            color: Flu.theme().accentText,
                           ),
                     ),
                   ),

@@ -36,12 +36,12 @@ class FluButton extends StatefulWidget {
   }) {
     style = FluButtonStyle.flat
         .copyWith(
-          height: Flukit.appSettings.minElSize,
-          width: Flukit.appSettings.minElSize,
-          radius: Flukit.appSettings.minElRadius,
+          height: Flu.appSettings.minElSize,
+          width: Flu.appSettings.minElSize,
+          radius: Flu.appSettings.minElRadius,
           padding: EdgeInsets.zero,
           margin: EdgeInsets.zero,
-          background: Flukit.theme().background,
+          background: Flu.theme().background,
         )
         .merge(style);
 
@@ -85,7 +85,7 @@ class FluButton extends StatefulWidget {
           icon,
           size: style!.iconSize,
           strokewidth: style.iconStrokewidth,
-          color: style.color ?? Flukit.theme().light,
+          color: style.color ?? Flu.theme().light,
           style: style.iconStyle,
           margin: EdgeInsets.only(
             right: prefixIcon != null ? spacing : 0,
@@ -102,7 +102,7 @@ class FluButton extends StatefulWidget {
           children: [
             if (prefixIcon != null) buildIcon(prefixIcon),
             Text(text,
-                style: Flukit.textTheme.bodyText1
+                style: Flu.textTheme.bodyText1
                     ?.copyWith(
                       color: style.color,
                     )
@@ -131,10 +131,10 @@ class FluButton extends StatefulWidget {
         style: FluButtonStyle(
           iconSize: iconSize,
           iconStrokewidth: iconStrokewidth,
-          color: color ?? Flukit.theme().text,
-          background: Flukit.theme().background,
+          color: color ?? Flu.theme().text,
+          background: Flu.theme().background,
           boxShadow: boxShadow ??
-              Flukit.boxShadow(
+              Flu.boxShadow(
                 offset: const Offset(15, 15),
               ),
         ),
@@ -151,13 +151,13 @@ class _FluButtonState extends State<FluButton> {
   void onPressed() {
     if (widget.onPressed != null) {
       if (!isLoading) {
-        Flukit.selectionClickHaptic();
+        Flu.selectionClickHaptic();
         widget.onPressed!();
       }
     }
   }
 
-  void onLongPress() => widget.onLongPress ?? () => Flukit.selectionClickHaptic();
+  void onLongPress() => widget.onLongPress ?? () => Flu.selectionClickHaptic();
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +175,7 @@ class _FluButtonState extends State<FluButton> {
         border: style.border,
         borderRadius: style.borderRadius ??
             BorderRadius.circular(
-                style.radius ?? Flukit.appSettings.defaultElRadius),
+                style.radius ?? Flu.appSettings.defaultElRadius),
         boxShadow: [if (style.boxShadow != null) style.boxShadow!],
       ),
       child: TextButton(
@@ -185,13 +185,13 @@ class _FluButtonState extends State<FluButton> {
           overlayColor: MaterialStateProperty.all(Colors.transparent),
           fixedSize: MaterialStateProperty.all(
               const Size(double.infinity, double.infinity)),
-          backgroundColor:
-              MaterialStateProperty.all(style.background ?? Flukit.theme().primary),
+          backgroundColor: MaterialStateProperty.all(
+              style.background ?? Flu.theme().primary),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: style.borderRadius ??
                   BorderRadius.circular(
-                    style.radius ?? Flukit.appSettings.defaultElRadius,
+                    style.radius ?? Flu.appSettings.defaultElRadius,
                   ),
             ),
           ),
@@ -208,7 +208,7 @@ class _FluButtonState extends State<FluButton> {
                       width: 20,
                       child: CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation<Color>(
-                            style.color ?? Flukit.theme().dark),
+                            style.color ?? Flu.theme().dark),
                         strokeWidth: 2,
                       ),
                     ),

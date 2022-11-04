@@ -28,7 +28,7 @@ class FluAppbar extends StatelessWidget {
     this.blurIntensity,
     this.backgroundColor,
     this.padding,
-    this.title = 'flukit',
+    this.title = 'Flu',
     this.leading,
     this.actions = const [
       FluAppbarAction(icon: FluIcons.search),
@@ -47,15 +47,15 @@ class FluAppbar extends StatelessWidget {
           duration: animationDuration,
           curve: animationCurve,
           padding: EdgeInsets.symmetric(
-            horizontal: (padding?.left ?? Flukit.appSettings.defaultPaddingSize) +
+            horizontal: (padding?.left ?? Flu.appSettings.defaultPaddingSize) +
                 (floating ? 8 : 0),
-          ).copyWith(top: Flukit.statusBarHeight),
+          ).copyWith(top: Flu.statusBarHeight),
           decoration: BoxDecoration(
-            color: (backgroundColor ?? Flukit.theme().background)
+            color: (backgroundColor ?? Flu.theme().background)
                 .withOpacity(backgroundOpacity ?? .5),
           ),
           child: SizedBox(
-            height: Flukit.appSettings.defaultAppBarSize,
+            height: Flu.appSettings.defaultAppBarSize,
             child: child ??
                 Row(
                   children: [

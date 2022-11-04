@@ -1,6 +1,6 @@
 part of '../flu_utils.dart';
 
-extension FlukitText on FlukitInterface {
+extension FluTextUtils on FluInterface {
   /// Generate DateTime from timestamp || must be integer
   DateTime dateTimeFromTimestamp(int timestamp) =>
       DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
@@ -10,7 +10,7 @@ extension FlukitText on FlukitInterface {
   String timeFromDateTime(DateTime date,
           {bool withSeconds = false, String? locale}) =>
       formatDate(date,
-          pattern: 'HH:mm' + (withSeconds ? ':ss' : ''), locale: locale);
+          pattern: 'HH:mm${withSeconds ? ':ss' : ''}', locale: locale);
 
   /// Creates a new DateFormat, using the format specified by [pattern].
   String formatDate(DateTime date,
@@ -77,9 +77,9 @@ extension FlukitText on FlukitInterface {
             recognizer: span?.recognizer,
             style: span?.style?.copyWith(
               fontFamily: isEmoji
-                  ? (Flukit.appSettings.emojiFont ?? Flukit.fonts.emoji)
+                  ? (Flu.appSettings.emojiFont ?? Flu.fonts.emoji)
                   : null,
-              package: isEmoji ? 'flukit' : null,
+              package: isEmoji ? 'Flu' : null,
             ),
           ),
         );

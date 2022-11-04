@@ -20,9 +20,8 @@ class FluBasicOtpScreen extends StatefulWidget {
   final FluIcons? buttonIcon;
   final String authRoute;
   final OnAuthGoingForwardFunction onGoingForward;
-  final Future<int> Function(
-          FluOtpScreenController controller, TextEditingController inputController)
-      onAskCode;
+  final Future<int> Function(FluOtpScreenController controller,
+      TextEditingController inputController) onAskCode;
 
   const FluBasicOtpScreen(
       {Key? key,
@@ -81,7 +80,7 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
   }
 
   void onInit() async {
-    await Flukit.appController
+    await Flu.appController
         .setAuthorizationState(FluAuthorizationStates.waitCode)
         .onError((error, stackTrace) => throw {
               "Error while setting authorizationState parameter in secure storage.",
@@ -118,9 +117,9 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
         headerAction: AnimatedSwitcher(
           duration: const Duration(milliseconds: 250),
           transitionBuilder: (child, animation) => SlideTransition(
-            position:
-                Tween<Offset>(begin: const Offset(0, 1), end: const Offset(0, 0))
-                    .animate(animation),
+            position: Tween<Offset>(
+                    begin: const Offset(0, 1), end: const Offset(0, 0))
+                .animate(animation),
             child: child,
           ),
           child: Obx(() => controller.canAsk
@@ -132,30 +131,31 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
                   },
                   suffixIcon: FluIcons.refresh,
                   text: widget.codeAskButtonText ?? 'Resend the code.',
-                  textStyle: TextStyle(fontWeight: Flukit.appSettings.textSemibold),
+                  textStyle:
+                      TextStyle(fontWeight: Flu.appSettings.textSemibold),
                   spacing: 10,
                   style: FluButtonStyle(
                     loading: controller.askLoading,
-                    height: Flukit.appSettings.minElSize,
+                    height: Flu.appSettings.minElSize,
                     padding: EdgeInsets.zero,
                     background: Colors.transparent,
-                    color: Flukit.theme().accentText,
+                    color: Flu.theme().accentText,
                     iconSize: 20,
                     iconStrokewidth: 1.8,
                   ))
               : Row(
                   children: [
-                    Text(Flukit.timeLeft(controller.waitingTime),
-                        style: Flukit.textTheme.bodyText1!.copyWith(
-                            color: Flukit.theme().accentText,
-                            fontSize: Flukit.appSettings.bodyFs + 1,
-                            fontWeight: Flukit.appSettings.textBold)),
+                    Text(Flu.timeLeft(controller.waitingTime),
+                        style: Flu.textTheme.bodyText1!.copyWith(
+                            color: Flu.theme().accentText,
+                            fontSize: Flu.appSettings.bodyFs + 1,
+                            fontWeight: Flu.appSettings.textBold)),
                     const SizedBox(width: 10),
                     FluIcon(
                       FluIcons.refresh,
                       size: 20,
                       strokewidth: 2.5,
-                      color: Flukit.theme().primary,
+                      color: Flu.theme().primary,
                     )
                   ],
                 )),

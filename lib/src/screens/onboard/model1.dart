@@ -1,5 +1,6 @@
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
+
 import '../../../flukit.dart';
 
 class FluOnboardingScreenModel1 extends StatelessWidget {
@@ -19,7 +20,7 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(
-                          horizontal: Flukit.appSettings.defaultPaddingSize)
+                          horizontal: Flu.appSettings.defaultPaddingSize)
                       .copyWith(top: 25),
                   child: FluOnboardingScreenIndicators(
                     count: parameters.pages.length,
@@ -32,22 +33,25 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                         pageController: parameters.pageController,
                         pagesCount: parameters.pages.length,
                         builder: (context, index) {
-                          FluOnboardingScreenPage page = parameters.pages[index];
+                          FluOnboardingScreenPage page =
+                              parameters.pages[index];
                           bool isCurrent =
                               parameters.controller.currentIndex == index;
-                          bool mustCollapse = !parameters.controller.onFirstPage &&
-                              !parameters.controller.onLastPage;
+                          bool mustCollapse =
+                              !parameters.controller.onFirstPage &&
+                                  !parameters.controller.onLastPage;
                           double maxWidth = mustCollapse
-                              ? Flukit.appSettings.defaultElSize
-                              : (Flukit.screenSize.width -
-                                      (Flukit.appSettings.defaultPaddingSize * 2)) *
+                              ? Flu.appSettings.defaultElSize
+                              : (Flu.screenSize.width -
+                                      (Flu.appSettings.defaultPaddingSize *
+                                          2)) *
                                   .45;
 
                           Widget icon = FluIcon(
                             page.buttonIcon ??
                                 parameters.mainButtonIcon ??
                                 FluIcons.flash,
-                            color: Flukit.theme().light,
+                            color: Flu.theme().light,
                             size: 20,
                           );
 
@@ -67,12 +71,12 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                                   marginBottom: 20,
                                 ),
                                 Hero(
-                                  tag: Flukit.appSettings.mainButtonHeroTag,
+                                  tag: Flu.appSettings.mainButtonHeroTag,
                                   child: FluButton(
                                       onPressed: parameters.onForward,
                                       style: FluButtonStyle.defaultt.copyWith(
-                                        height: Flukit.appSettings.minElSize + 5,
-                                        radius: Flukit.appSettings.minElRadius + 2,
+                                        height: Flu.appSettings.minElSize + 5,
+                                        radius: Flu.appSettings.minElRadius + 2,
                                         maxWidth: maxWidth,
                                       ),
 
@@ -84,26 +88,30 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                                             ? icon
                                             : FluCollapsible(
                                                 collapse: mustCollapse,
-                                                axis: FluCollapsibleAxis.horizontal,
-                                                animDuration:
-                                                    parameters.animationDuration,
+                                                axis: FluCollapsibleAxis
+                                                    .horizontal,
+                                                animDuration: parameters
+                                                    .animationDuration,
 
                                                 /// i use [SingleChildScrollView] to avoid overflow error
                                                 child: SingleChildScrollView(
-                                                  scrollDirection: Axis.horizontal,
+                                                  scrollDirection:
+                                                      Axis.horizontal,
                                                   child: Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
                                                             .spaceBetween,
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.center,
+                                                        CrossAxisAlignment
+                                                            .center,
                                                     children: [
                                                       FluIcon(
                                                         page.buttonIcon ??
                                                             parameters
                                                                 .mainButtonIcon ??
                                                             FluIcons.flash,
-                                                        color: Flukit.theme().light,
+                                                        color:
+                                                            Flu.theme().light,
                                                         size: 20,
                                                       ),
                                                       const SizedBox(width: 6),
@@ -111,15 +119,15 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                                                           page.buttonText ??
                                                               parameters
                                                                   .mainButtonText,
-                                                          style: Flukit
-                                                              .textTheme.bodyText1!
+                                                          style: Flu.textTheme
+                                                              .bodyText1!
                                                               .copyWith(
-                                                                  fontWeight: Flukit
+                                                                  fontWeight: Flu
                                                                       .appSettings
                                                                       .textSemibold,
-                                                                  color:
-                                                                      Flukit.theme()
-                                                                          .light)),
+                                                                  color: Flu
+                                                                          .theme()
+                                                                      .light)),
                                                     ],
                                                   ),
                                                 ),
@@ -131,10 +139,10 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20),
                   child: Hero(
-                    tag: Flukit.appSettings.brandTextHeroTag,
-                    child: Text(Flukit.appInfos.name,
-                        style: Flukit.textTheme.bodyText1!.copyWith(
-                            fontFamily: Flukit.fonts.neptune, package: 'flukit')),
+                    tag: Flu.appSettings.brandTextHeroTag,
+                    child: Text(Flu.appInfos.name,
+                        style: Flu.textTheme.bodyText1!.copyWith(
+                            fontFamily: Flu.fonts.neptune, package: 'Flu')),
                   ),
                 )
               ],

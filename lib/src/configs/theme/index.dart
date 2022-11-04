@@ -17,8 +17,9 @@ class FluTheme {
 
   /// Return the [SystemUiOverlayStyle] according to the theme [Brightness] and [Color palette].
   SystemUiOverlayStyle get systemUiOverlayStyle {
-    Brightness brightness =
-        this.brightness == Brightness.light ? Brightness.dark : Brightness.light;
+    Brightness brightness = this.brightness == Brightness.light
+        ? Brightness.dark
+        : Brightness.light;
 
     return SystemUiOverlayStyle(
       statusBarIconBrightness: brightness,
@@ -157,38 +158,38 @@ class FluThemeBuilder {
   TextTheme _buildTextTheme(FluColorPalette colors) {
     return TextTheme(
       headlineLarge: headingTextStyle.copyWith(
-        fontWeight: Flukit.appSettings.textBold,
-        fontSize: Flukit.appSettings.headlineFs,
+        fontWeight: Flu.appSettings.textBold,
+        fontSize: Flu.appSettings.headlineFs,
         color: colors.accentText,
       ),
       headline1: headingTextStyle.copyWith(
-        fontSize: Flukit.appSettings.titleFs,
-        fontWeight: Flukit.appSettings.textBold,
+        fontSize: Flu.appSettings.titleFs,
+        fontWeight: Flu.appSettings.textBold,
         color: colors.accentText,
       ),
       headline2: headingTextStyle.copyWith(
-        fontSize: Flukit.appSettings.titleFs,
-        fontWeight: Flukit.appSettings.textSemibold,
+        fontSize: Flu.appSettings.titleFs,
+        fontWeight: Flu.appSettings.textSemibold,
         color: colors.accentText,
       ),
       subtitle1: subtitleTextStyle.copyWith(
-        fontSize: Flukit.appSettings.subtitleFs,
-        fontWeight: Flukit.appSettings.textSemibold,
+        fontSize: Flu.appSettings.subtitleFs,
+        fontWeight: Flu.appSettings.textSemibold,
         color: colors.accentText,
       ),
       subtitle2: subtitleTextStyle.copyWith(
-        fontSize: Flukit.appSettings.subtitleFs,
-        fontWeight: Flukit.appSettings.textSemibold,
+        fontSize: Flu.appSettings.subtitleFs,
+        fontWeight: Flu.appSettings.textSemibold,
         color: colors.accentText,
       ),
       bodyText1: bodyTextStyle.copyWith(
-        fontSize: Flukit.appSettings.bodyFs,
-        fontWeight: Flukit.appSettings.textNormal,
+        fontSize: Flu.appSettings.bodyFs,
+        fontWeight: Flu.appSettings.textNormal,
         color: colors.text,
       ),
       bodyText2: bodyTextStyle.copyWith(
-        fontSize: Flukit.appSettings.bodyFs,
-        fontWeight: Flukit.appSettings.textNormal,
+        fontSize: Flu.appSettings.bodyFs,
+        fontWeight: Flu.appSettings.textNormal,
         color: colors.text,
       ),
     );
@@ -196,11 +197,11 @@ class FluThemeBuilder {
 }
 
 extension FluColorScheme on ColorScheme {
-  Color get light => Flukit.appController.themeBuilder.palette.light;
-  Color get dark => Flukit.appController.themeBuilder.palette.dark;
-  Color get danger => Flukit.appController.themeBuilder.palette.danger;
-  Color get warning => Flukit.appController.themeBuilder.palette.warning;
-  Color get success => Flukit.appController.themeBuilder.palette.success;
+  Color get light => Flu.appController.themeBuilder.palette.light;
+  Color get dark => Flu.appController.themeBuilder.palette.dark;
+  Color get danger => Flu.appController.themeBuilder.palette.danger;
+  Color get warning => Flu.appController.themeBuilder.palette.warning;
+  Color get success => Flu.appController.themeBuilder.palette.success;
 }
 
 const Color _defaultprimary = Color(0xff0072ff);

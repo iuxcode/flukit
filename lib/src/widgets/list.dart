@@ -1,25 +1,11 @@
+import 'package:flukit/src/models/flu_models.dart';
+import 'package:flukit/src/utils/flu_utils.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
 
-import '../../flukit.dart';
+import 'flu_widgets.dart';
 
 class FluOptionsList extends StatelessWidget {
-  final double? itemHeight,
-      itemRadius,
-      iconSize,
-      iconStrokewidth,
-      outlineStrokewidth,
-      outlineSpacing;
-  final double itemSpacing, itemIconMarginSize;
-  final bool itemOutlined, shrinkWrap;
-  final EdgeInsets padding, itemPadding;
-  final ScrollPhysics? physics;
-  final TextStyle? titleTextStyle, descTextStyle;
-  final BoxShadow? itemBoxShadow, iconBoxShadow;
-  final Color? outlineColor, iconbackground, textColor, iconColor, itembackground;
-  final Widget? suffixWidget;
-  final List<FluOption> options;
-
   const FluOptionsList(
       {Key? key,
       required this.options,
@@ -49,6 +35,28 @@ class FluOptionsList extends StatelessWidget {
       : assert(options.length > 0),
         super(key: key);
 
+  final TextStyle? titleTextStyle, descTextStyle;
+  final BoxShadow? itemBoxShadow, iconBoxShadow;
+  final double itemSpacing, itemIconMarginSize;
+  final EdgeInsets padding, itemPadding;
+  final Color? outlineColor,
+      iconbackground,
+      textColor,
+      iconColor,
+      itembackground;
+
+  final List<FluOption> options;
+  final double? itemHeight,
+      itemRadius,
+      iconSize,
+      iconStrokewidth,
+      outlineStrokewidth,
+      outlineSpacing;
+
+  final ScrollPhysics? physics;
+  final bool itemOutlined, shrinkWrap;
+  final Widget? suffixWidget;
+
   @override
   Widget build(BuildContext context) => ListView.builder(
       shrinkWrap: shrinkWrap,
@@ -58,10 +66,10 @@ class FluOptionsList extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         FluOption option = options[index];
 
-        double size = itemHeight ?? Flukit.appSettings.minElSize,
-            radius = itemRadius ?? Flukit.appSettings.minElRadius + 5;
-        Color color = option.color ?? textColor ?? Flukit.theme().text;
-        Color background = option.background ?? Flukit.theme().background;
+        double size = itemHeight ?? Flu.appSettings.minElSize,
+            radius = itemRadius ?? Flu.appSettings.minElRadius + 5;
+        Color color = option.color ?? textColor ?? Flu.theme().text;
+        Color background = option.background ?? Flu.theme().background;
 
         Widget iconWidget(FluIcons? icon, String? label) => Container(
               height: size,
@@ -70,7 +78,7 @@ class FluOptionsList extends StatelessWidget {
               decoration: BoxDecoration(
                   color: option.iconbackground ??
                       iconbackground ??
-                      Flukit.theme().surfaceBackground,
+                      Flu.theme().surfaceBackground,
                   borderRadius: BorderRadius.circular(radius),
                   boxShadow: [if (iconBoxShadow != null) iconBoxShadow!]),
               child: icon != null
@@ -83,7 +91,7 @@ class FluOptionsList extends StatelessWidget {
                   : label != null
                       ? Center(
                           child: Text(label,
-                              style: Flukit.textTheme.bodyText1!.copyWith(
+                              style: Flu.textTheme.bodyText1!.copyWith(
                                 fontSize: iconSize ?? 24,
                               )),
                         )
@@ -92,8 +100,9 @@ class FluOptionsList extends StatelessWidget {
 
         Widget titleText = Text(option.title,
             overflow: TextOverflow.ellipsis,
-            style: Flukit.textTheme.bodyText1
-                ?.copyWith(color: color, fontWeight: Flukit.appSettings.textSemibold)
+            style: Flu.textTheme.bodyText1
+                ?.copyWith(
+                    color: color, fontWeight: Flu.appSettings.textSemibold)
                 .merge(titleTextStyle?.copyWith(color: option.color)));
 
         Widget optionWidget = Container(
@@ -127,7 +136,8 @@ class FluOptionsList extends StatelessWidget {
                         const SizedBox(height: 2),
                         Text(option.description!,
                             overflow: TextOverflow.ellipsis,
-                            style: Flukit.textTheme.bodyText1?.merge(descTextStyle))
+                            style:
+                                Flu.textTheme.bodyText1?.merge(descTextStyle))
                       ],
                     ),
                   )
@@ -147,17 +157,18 @@ class FluOptionsList extends StatelessWidget {
               color: option.outlineColor ?? outlineColor ?? background,
               thickness: outlineStrokewidth,
               boxShadow: itemBoxShadow ??
-                  Flukit.boxShadow(opacity: .065, offset: const Offset(0, 0)),
+                  Flu.boxShadow(opacity: .065, offset: const Offset(0, 0)),
               child: optionWidget);
         }
 
         return FluButton(
-            onPressed: option.onPressed,
-            style: FluButtonStyle(
-              background: Colors.transparent,
-              margin: EdgeInsets.only(top: index == 0 ? 0 : itemSpacing),
-              padding: EdgeInsets.zero,
-            ),
-            child: optionWidget);
+          onPressed: option.onPressed,
+          style: FluButtonStyle(
+            background: Colors.transparent,
+            margin: EdgeInsets.only(top: index == 0 ? 0 : itemSpacing),
+            padding: EdgeInsets.zero,
+          ),
+          child: optionWidget,
+        );
       });
 }
