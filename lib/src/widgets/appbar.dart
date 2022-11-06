@@ -7,18 +7,6 @@ import 'glass.dart';
 import 'texts.dart';
 
 class FluAppbar extends StatelessWidget {
-  final bool floating;
-  final Duration animationDuration;
-  final Curve animationCurve;
-  final double? blurIntensity, backgroundOpacity;
-  final Color? backgroundColor;
-  final EdgeInsets? padding;
-  final String title;
-  final Widget? leading;
-  final List<FluAppbarAction> actions;
-  final Widget? child;
-  final TextStyle? textStyle;
-
   const FluAppbar({
     Key? key,
     this.floating = false,
@@ -28,32 +16,46 @@ class FluAppbar extends StatelessWidget {
     this.blurIntensity,
     this.backgroundColor,
     this.padding,
-    this.title = 'Flu',
+    this.title = 'Flukit',
+    this.titleTextEntities,
     this.leading,
     this.actions = const [
       FluAppbarAction(icon: FluIcons.search),
       FluAppbarAction(icon: FluIcons.more),
     ],
     this.child,
-    this.textStyle,
+    this.titleStyle,
+    this.shrinkOnFloating = true,
   }) : super(key: key);
+
+  final List<FluAppbarAction> actions;
+  final Curve animationCurve;
+  final Duration animationDuration;
+  final Color? backgroundColor;
+  final double? blurIntensity, backgroundOpacity;
+  final Widget? child;
+  final bool floating;
+  final Widget? leading;
+  final EdgeInsets? padding;
+  final bool shrinkOnFloating;
+  final String title;
+  final TextStyle? titleStyle;
+  final List<TextSpan>? titleTextEntities;
 
   @override
   Widget build(BuildContext context) => FluGlass(
         intensity: blurIntensity ?? (floating ? 10.0 : 2.0),
-        clipBehavior: Clip.none,
-        alignment: Alignment.bottomCenter,
         child: AnimatedContainer(
           duration: animationDuration,
           curve: animationCurve,
           padding: EdgeInsets.symmetric(
-            horizontal: (padding?.left ?? Flu.appSettings.defaultPaddingSize) +
-                (floating ? 8 : 0),
-          ).copyWith(top: Flu.statusBarHeight),
+                  horizontal:
+                      (padding?.left ?? Flu.appSettings.defaultPaddingSize) +
+                          (floating && shrinkOnFloating ? 8 : 0))
+              .copyWith(top: Flu.statusBarHeight),
           decoration: BoxDecoration(
-            color: (backgroundColor ?? Flu.theme().background)
-                .withOpacity(backgroundOpacity ?? .5),
-          ),
+              color: (backgroundColor ?? Flu.theme().background)
+                  .withOpacity(backgroundOpacity ?? .5)),
           child: SizedBox(
             height: Flu.appSettings.defaultAppBarSize,
             child: child ??
@@ -65,9 +67,10 @@ class FluAppbar extends StatelessWidget {
                         duration: animationDuration,
                         curve: animationCurve,
                         child: FluText(
-                          text: title,
+                          text: titleTextEntities == null ? title : null,
+                          entities: titleTextEntities,
                           stylePreset: FluTextStyle.headlineBold,
-                          style: textStyle,
+                          style: titleStyle,
                         )),
                     const Spacer(),
                     ...FluAppbarAction.build(

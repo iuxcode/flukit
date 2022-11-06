@@ -91,7 +91,7 @@ class FluAvatar extends StatelessWidget {
     } else if (memojiAsDefault) {
       img = memoji ?? Flu.getMemoji();
       imgSrc = FluImageSource.asset;
-      package = 'Flu';
+      package = 'flukit';
     }
 
     if (img != null) {

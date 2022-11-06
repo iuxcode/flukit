@@ -18,5 +18,5 @@ export 'payments.dart';
 export 'progress_bars.dart';
 export 'snackbar.dart';
 export 'skeleton.dart';
-export 'tabs/indicators.dart';
+export 'tabs/index.dart';
 export 'texts.dart';

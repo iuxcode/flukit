@@ -4,42 +4,12 @@ import '../../utils/flu_utils.dart';
 import 'paints.dart';
 
 class FluRectangularIndicator extends Decoration {
-  /// Corner radius, default to 25
-  final double radius;
-
-  /// topRight radius of the indicator.
-  final double? topRightRadius;
-
-  /// topLeft radius of the indicator.
-  final double? topLeftRadius;
-
-  /// bottomRight radius of the indicator.
-  final double? bottomRightRadius;
-
-  /// bottomLeft radius of the indicator
-  final double? bottomLeftRadius;
-
-  /// Color of the indicator, default set to [Colors.black]
-  final Color color;
-
-  /// Horizontal padding of the indicator, default set to 0
-  final double horizontalPadding;
-
-  /// Vertical padding of the indicator, default set to 0
-  final double verticalPadding;
-
-  /// [PagingStyle] determines if the indicator should be fill or stroke, default to fill
-  final PaintingStyle paintingStyle;
-
-  /// StrokeWidth, used for [PaintingStyle.stroke], default set to 0
-  final double strokeWidth;
-
   const FluRectangularIndicator({
-    this.radius = 25,
-    this.topRightRadius,
-    this.topLeftRadius,
-    this.bottomRightRadius,
-    this.bottomLeftRadius,
+    this.cornerRadius = 25,
+    this.topRightCornerRadius,
+    this.topLeftCornerRadius,
+    this.bottomRightCornerRadius,
+    this.bottomLeftCornerRadius,
     this.color = Colors.black,
     this.horizontalPadding = 0,
     this.verticalPadding = 0,
@@ -47,15 +17,45 @@ class FluRectangularIndicator extends Decoration {
     this.strokeWidth = 2,
   });
 
+  /// bottomLeft radius of the indicator
+  final double? bottomLeftCornerRadius;
+
+  /// bottomRight radius of the indicator.
+  final double? bottomRightCornerRadius;
+
+  /// Color of the indicator, default set to [Colors.black]
+  final Color color;
+
+  /// Corner radius, default to 25
+  final double cornerRadius;
+
+  /// Horizontal padding of the indicator, default set to 0
+  final double horizontalPadding;
+
+  /// [PagingStyle] determines if the indicator should be fill or stroke, default to fill
+  final PaintingStyle paintingStyle;
+
+  /// StrokeWidth, used for [PaintingStyle.stroke], default set to 0
+  final double strokeWidth;
+
+  /// topLeft radius of the indicator.
+  final double? topLeftCornerRadius;
+
+  /// topRight radius of the indicator.
+  final double? topRightCornerRadius;
+
+  /// Vertical padding of the indicator, default set to 0
+  final double verticalPadding;
+
   @override
   FluRectangularIndicatorPainter createBoxPainter([VoidCallback? onChanged]) {
     return FluRectangularIndicatorPainter(
       this,
       onChanged,
-      topLeftRadius: topLeftRadius ?? radius,
-      topRightRadius: topRightRadius ?? radius,
-      bottomLeftRadius: bottomLeftRadius ?? radius,
-      bottomRightRadius: bottomRightRadius ?? radius,
+      topLeftRadius: topLeftCornerRadius ?? cornerRadius,
+      topRightRadius: topRightCornerRadius ?? cornerRadius,
+      bottomLeftRadius: bottomLeftCornerRadius ?? cornerRadius,
+      bottomRightRadius: bottomRightCornerRadius ?? cornerRadius,
       color: color,
       horizontalPadding: horizontalPadding,
       verticalPadding: verticalPadding,
@@ -66,48 +66,18 @@ class FluRectangularIndicator extends Decoration {
 }
 
 class FluDotTabIndicator extends Decoration {
-  final BoxPainter _painter;
-
   FluDotTabIndicator({
     Color? color,
     double? radius,
   }) : _painter = FluCirclePainter(color ?? Flu.theme().primary, radius ?? 3);
+
+  final BoxPainter _painter;
 
   @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) => _painter;
 }
 
 class FluMaterialIndicator extends Decoration {
-  /// Height of the indicator. Defaults to 4
-  final double height;
-
-  /// Determines to location of the tab, [TabPosition.bottom] set to default.
-  final TabPosition tabPosition;
-
-  /// topRight radius of the indicator, default to 5.
-  final double topRightRadius;
-
-  /// topLeft radius of the indicator, default to 5.
-  final double topLeftRadius;
-
-  /// bottomRight radius of the indicator, default to 0.
-  final double bottomRightRadius;
-
-  /// bottomLeft radius of the indicator, default to 0
-  final double bottomLeftRadius;
-
-  /// Color of the indicator, default set to [Colors.black]
-  final Color? color;
-
-  /// Horizontal padding of the indicator, default set 0
-  final double horizontalPadding;
-
-  /// [PagingStyle] determines if the indicator should be fill or stroke, default to fill
-  final PaintingStyle paintingStyle;
-
-  /// StrokeWidth, used for [PaintingStyle.stroke], default set to 2
-  final double strokeWidth;
-
   const FluMaterialIndicator({
     this.height = 4,
     this.tabPosition = TabPosition.bottom,
@@ -120,6 +90,36 @@ class FluMaterialIndicator extends Decoration {
     this.paintingStyle = PaintingStyle.fill,
     this.strokeWidth = 2,
   });
+
+  /// bottomLeft radius of the indicator, default to 0
+  final double bottomLeftRadius;
+
+  /// bottomRight radius of the indicator, default to 0.
+  final double bottomRightRadius;
+
+  /// Color of the indicator, default set to [Colors.black]
+  final Color? color;
+
+  /// Height of the indicator. Defaults to 4
+  final double height;
+
+  /// Horizontal padding of the indicator, default set 0
+  final double horizontalPadding;
+
+  /// [PagingStyle] determines if the indicator should be fill or stroke, default to fill
+  final PaintingStyle paintingStyle;
+
+  /// StrokeWidth, used for [PaintingStyle.stroke], default set to 2
+  final double strokeWidth;
+
+  /// Determines to location of the tab, [TabPosition.bottom] set to default.
+  final TabPosition tabPosition;
+
+  /// topLeft radius of the indicator, default to 5.
+  final double topLeftRadius;
+
+  /// topRight radius of the indicator, default to 5.
+  final double topRightRadius;
 
   @override
   FluMaterialIndicatorPainter createBoxPainter([VoidCallback? onChanged]) {
