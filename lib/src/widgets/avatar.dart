@@ -73,7 +73,9 @@ class FluAvatar extends StatelessWidget {
     if (img != null) {
       avatar = FluImage(
         img,
-        src: memojiAsDefault ? FluImageSource.asset : imageSource,
+        src: memojiAsDefault && image == null
+            ? FluImageSource.asset
+            : imageSource,
         height: size,
         width: size,
         cornerRadius: cornerRadius,
