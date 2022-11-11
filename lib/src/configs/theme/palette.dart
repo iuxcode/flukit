@@ -1,21 +1,6 @@
 import 'package:flutter/material.dart';
 
 class FluColorPalette {
-  final Color background;
-  final Color surfaceBackground;
-
-  final Color text;
-  final Color accentText;
-  final Color shadow;
-  final Color divider;
-
-  final Color light;
-  final Color dark;
-  final Color danger;
-  final Color onDanger;
-  final Color warning;
-  final Color success;
-
   FluColorPalette({
     required this.background,
     required this.surfaceBackground,
@@ -30,6 +15,33 @@ class FluColorPalette {
     this.warning = _defaultWarningColor,
     this.success = _defaultSuccessColor,
   });
+
+  factory FluColorPalette.dark({
+    Color? light,
+    Color? dark,
+    Color? danger,
+    Color? warning,
+    Color? success,
+    Color? background,
+    Color? surfaceBackground,
+    Color? text,
+    Color? accentText,
+    Color? shadow,
+    Color? divider,
+  }) =>
+      FluColorPalette(
+        background: background ?? const Color(0xff000000),
+        surfaceBackground: surfaceBackground ?? const Color(0xff000000),
+        text: text ?? const Color(0xffeeeeee),
+        accentText: accentText ?? const Color(0xffffffff),
+        divider: divider ?? const Color(0xffeeeeee).withOpacity(.15),
+        shadow: shadow ?? const Color(0xff000000),
+        light: light ?? _defaultLightColor,
+        dark: dark ?? _defaultDarkColor,
+        danger: danger ?? _defaultDangerColor,
+        warning: warning ?? _defaultWarningColor,
+        success: success ?? _defaultSuccessColor,
+      );
 
   factory FluColorPalette.light({
     Color? light,
@@ -58,32 +70,18 @@ class FluColorPalette {
         success: success ?? _defaultSuccessColor,
       );
 
-  factory FluColorPalette.dark({
-    Color? light,
-    Color? dark,
-    Color? danger,
-    Color? warning,
-    Color? success,
-    Color? background,
-    Color? surfaceBackground,
-    Color? text,
-    Color? accentText,
-    Color? shadow,
-    Color? divider,
-  }) =>
-      FluColorPalette(
-        background: background ?? const Color(0xff000000),
-        surfaceBackground: surfaceBackground ?? const Color(0xff000000),
-        text: text ?? const Color(0xffeeeeee),
-        accentText: accentText ?? const Color(0xffffffff),
-        divider: divider ?? const Color(0xffeeeeee).withOpacity(.15),
-        shadow: shadow ?? const Color(0xff000000),
-        light: light ?? _defaultLightColor,
-        dark: dark ?? _defaultDarkColor,
-        danger: danger ?? _defaultDangerColor,
-        warning: warning ?? _defaultWarningColor,
-        success: success ?? _defaultSuccessColor,
-      );
+  final Color accentText;
+  final Color background;
+  final Color danger;
+  final Color dark;
+  final Color divider;
+  final Color light;
+  final Color onDanger;
+  final Color shadow;
+  final Color success;
+  final Color surfaceBackground;
+  final Color text;
+  final Color warning;
 
   FluColorPalette copyWith({
     Color? background,

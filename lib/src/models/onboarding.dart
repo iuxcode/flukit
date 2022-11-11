@@ -3,13 +3,13 @@ import 'package:flukit_icons/flukit_icons.dart';
 
 class FluOnboardingScreenPage {
   final String? image;
-  final FluImageSource? imageType;
+  final FluImageSource imageType;
   final String title, desc;
   final String? buttonText;
   final FluIcons? buttonIcon;
 
   FluOnboardingScreenPage({
-    this.imageType,
+    this.imageType = FluImageSource.network,
     this.image,
     required this.title,
     required this.desc,

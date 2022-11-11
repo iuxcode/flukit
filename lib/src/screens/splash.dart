@@ -96,7 +96,7 @@ class _FluSplashScreenState extends State<FluSplashScreen> {
                       Flu.appInfos.name,
                       style: widget.textStyle ??
                           TextStyle(
-                            fontFamily: Flu.fonts.neptune,
+                            fontFamily: FluFonts.neptune.name,
                             package: 'Flu',
                             fontSize: Flu.appSettings.subHeadlineFs,
                             fontWeight: Flu.appSettings.textBold,

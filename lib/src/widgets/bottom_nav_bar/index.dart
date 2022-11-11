@@ -280,8 +280,9 @@ class _Item extends StatelessWidget {
           child: isSelected && showLabel ? label : icon,
         ),
       );
-    } else
+    } else {
       content = Center(child: icon);
+    }
 
     return Expanded(
       child: FluButton(

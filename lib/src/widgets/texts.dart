@@ -61,7 +61,7 @@ class FluText extends StatelessWidget {
       return style ?? defaultTextStyle;
     } else {
       TextStyle neptuneStyle =
-          TextStyle(fontFamily: Flu.fonts.neptune, package: 'flukit');
+          TextStyle(fontFamily: FluFonts.neptune.name, package: 'flukit');
 
       if (stylePreset == FluTextStyle.smallNeptune ||
           stylePreset == FluTextStyle.bodyNeptune) {

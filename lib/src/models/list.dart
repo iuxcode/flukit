@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 class FluOption {
   final String title;
   final String? description, image;
-  final FluImageSource? imageType;
+  final FluImageSource imageType;
   final FluIcons? icon;
   final Widget? suffixWidget;
   final void Function()? onPressed;

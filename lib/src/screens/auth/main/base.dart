@@ -243,9 +243,8 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                       child: controller
                                               .steps[index].image.isNotEmpty
                                           ? FluImage(
-                                              image:
-                                                  controller.steps[index].image,
-                                              source: controller
+                                              controller.steps[index].image,
+                                              src: controller
                                                   .steps[index].imageType,
                                             )
                                           : null)),
@@ -452,7 +451,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                                 searchInputHint: widget
                                                     .countrySelectorSearchInputHint,
                                                 onCountrySelected:
-                                                    (FluCountryModel country) {
+                                                    (Country country) {
                                                   controller.setRegion(
                                                       country.isoCode);
                                                 },

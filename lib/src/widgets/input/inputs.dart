@@ -112,14 +112,10 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
   }
 
   InputDecoration get _decoration => InputDecoration(
-        filled: false,
         border: InputBorder.none,
         hintText: widget.label,
-        hintStyle: _theme.textTheme.bodyText1!
-            .copyWith(
-              fontWeight: FontWeight.w400,
-              color: widget.labelColor ?? _theme.text,
-            )
+        hintStyle: _defaultTextStyle
+            .copyWith(color: widget.labelColor ?? _theme.text)
             .merge(widget.labelStyle),
         errorStyle: const TextStyle(height: 0, color: Colors.transparent),
         prefixIcon: _icon(widget.prefixIcon),
@@ -134,9 +130,9 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
   Color get _fillColor => widget.fillColor ?? _theme.surfaceBackground;
   FluTheme get _theme => Flu.theme();
 
-  Widget _icon(FluIcons? icon) {
+  Widget? _icon(FluIcons? icon) {
     if (icon != null) {
-      FluIcon(
+      return FluIcon(
         icon,
         color: widget.iconColor ?? _theme.accentText,
         size: widget.iconSize,
@@ -145,7 +141,7 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
       );
     }
 
-    return const SizedBox();
+    return null;
   }
 
   @override
@@ -294,7 +290,10 @@ class _FluRichTextFieldState extends _FluTextFieldState<FluRichTextField> {
         cursorColor: widget.cursorColor ?? _theme.primary,
         cursorHeight: widget.cursorHeight,
         cursorWidth: widget.cursorWidth,
-        decoration: _decoration,
+        decoration: _decoration.copyWith(
+          filled: widget.fillColor != null,
+          fillColor: widget.fillColor,
+        ),
         maxLines: widget.maxlines,
         toolbarOptions: widget.toolbarOptions,
         selectionControls: widget.selectionControls,

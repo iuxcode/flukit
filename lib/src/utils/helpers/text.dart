@@ -6,7 +6,6 @@ extension FluTextUtils on FluInterface {
       DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
 
   /// Get only the time from a datetime.
-  /// using the format specified by [pattern] or not
   String timeFromDateTime(DateTime date,
           {bool withSeconds = false, String? locale}) =>
       formatDate(date,
@@ -50,10 +49,38 @@ extension FluTextUtils on FluInterface {
     return text;
   }
 
+  /// format seconds to time
+  String timeLeft(int value) {
+    int h, m, s;
+
+    h = value ~/ 3600;
+    m = ((value - h * 3600)) ~/ 60;
+    s = value - (h * 3600) - (m * 60);
+
+    String hourLeft = h.toString().length < 2 ? "0$h" : h.toString();
+    String minuteLeft = m.toString().length < 2 ? "0$m" : m.toString();
+    String secondsLeft = s.toString().length < 2 ? "0$s" : s.toString();
+
+    return "$hourLeft : $minuteLeft : $secondsLeft";
+  }
+
+  String textToAvatarFormat(String text) {
+    text = text.trim();
+    List<String> array = text.split(' ');
+
+    if (array.length >= 2) {
+      text = array[0][0] + array[array.length - 1][0];
+    } else {
+      text = text[0];
+    }
+
+    return text.toLowerCase();
+  }
+
   /// Replace all emojis in text with [Joypixels] emojis.
-  TextSpan replaceEmojis(TextSpan? span) {
+  TextSpan replaceEmojis(TextSpan span) {
     final children = <TextSpan>[];
-    final runes = span?.text?.runes;
+    final runes = span.text?.runes;
 
     if (runes != null) {
       for (int i = 0; i < runes.length; /* empty */) {
@@ -74,10 +101,10 @@ extension FluTextUtils on FluInterface {
         children.add(
           TextSpan(
             text: String.fromCharCodes(chunk),
-            recognizer: span?.recognizer,
-            style: span?.style?.copyWith(
+            recognizer: span.recognizer,
+            style: span.style?.copyWith(
               fontFamily: isEmoji
-                  ? (Flu.appSettings.emojiFont ?? Flu.fonts.emoji)
+                  ? (Flu.appSettings.emojiFont ?? FluFonts.joypixels.name)
                   : null,
               package: isEmoji ? 'Flu' : null,
             ),
@@ -88,12 +115,20 @@ extension FluTextUtils on FluInterface {
 
     return TextSpan(children: children);
   }
-
-  /// Return fonts interface
-  FluFonts get fonts => FluFonts();
 }
 
-class FluFonts {
-  String get neptune => 'neptune';
-  String get emoji => 'joypixels';
+enum FluFonts {
+  neptune,
+  joypixels,
+}
+
+extension on FluFonts {
+  String get name {
+    switch (this) {
+      case FluFonts.neptune:
+        return 'neptune';
+      case FluFonts.joypixels:
+        return 'joypixels';
+    }
+  }
 }

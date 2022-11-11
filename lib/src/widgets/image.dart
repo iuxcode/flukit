@@ -4,15 +4,22 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-enum FluImageSource { svg, asset, network, file }
+enum FluImageSource { asset, network, system }
 
+/// A widget that displays an image.
+/// unlike flutter [Image] widget, you don't have to use different constructor
+/// such as [Image.network] to specify the which type of image you want to load.
+/// Instead you have to provide the source with the [src] parameter and everything is done.
+/// The [image] parameter can be the url, asset path or file path.
+/// You can also load svg file by switching [isSvg] to true.
 class FluImage extends StatelessWidget {
-  const FluImage({
-    Key? key,
+  const FluImage(
+    this.image, {
+    super.key,
     this.height,
     this.width,
-    this.radius,
-    this.source,
+    this.cornerRadius,
+    this.src = FluImageSource.network,
     this.boxShadow,
     this.provider,
     this.frameBuilder,
@@ -20,7 +27,6 @@ class FluImage extends StatelessWidget {
     this.placeholder,
     this.progressIndicatorBuilder,
     this.httpHeaders,
-    required this.image,
     this.fit = BoxFit.cover,
     this.margin = EdgeInsets.zero,
     this.overlayOpacity = .05,
@@ -30,7 +36,8 @@ class FluImage extends StatelessWidget {
     this.overlayGradientBegin,
     this.overlayGradientEnd,
     this.constraints,
-  }) : super(key: key);
+    this.isSvg = false,
+  });
 
   final Widget Function(BuildContext, Widget, int?, bool)? frameBuilder;
   final Widget Function(BuildContext, Object, StackTrace?)? errorBuilder;
@@ -41,95 +48,142 @@ class FluImage extends StatelessWidget {
   final BoxShadow? boxShadow;
   final bool cache;
   final BoxConstraints? constraints;
+  final double? height, width, cornerRadius;
   final BoxFit? fit;
   final bool gradientOverlay;
   final Map<String, String>? httpHeaders;
   final String image;
+  final bool isSvg;
   final EdgeInsets? margin;
   final AlignmentGeometry? overlayGradientBegin, overlayGradientEnd;
   final double overlayOpacity;
   final String? package;
   final ImageProvider<Object>? provider;
-  final double? height, width, radius;
-  final FluImageSource? source;
+  final FluImageSource src;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: height,
-        width: width,
-        margin: margin,
-        clipBehavior: Clip.hardEdge,
-        constraints: constraints,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(radius ?? 0),
-            boxShadow: [if (boxShadow != null) boxShadow!]),
-        child: Stack(
-          children: [
-            if (source == FluImageSource.svg)
-              SvgPicture.asset(
-                image,
-                height: height,
-                width: width,
-                fit: fit ?? BoxFit.cover,
-                package: package,
-              )
-            else if (source == FluImageSource.network)
-              CachedNetworkImage(
-                imageUrl: image,
-                height: height,
-                width: width,
-                fit: fit ?? BoxFit.cover,
-                // TODO make caching optional
-                // cacheManager: cache ? BaseCacheManager() : null,
-                errorWidget: errorBuilder != null
-                    ? (context, url, error) =>
-                        errorBuilder!(context, url, error)
-                    : null,
-                progressIndicatorBuilder: progressIndicatorBuilder,
-                placeholder: placeholder,
-                httpHeaders: httpHeaders,
-              )
-            else if (source == FluImageSource.file)
-              Image.file(File(image),
+    Widget img;
+
+    switch (src) {
+      case FluImageSource.asset:
+        if (isSvg) {
+          img = SvgPicture.asset(
+            image,
+            height: height,
+            width: width,
+            fit: fit ?? BoxFit.cover,
+            package: package,
+          );
+        } else {
+          img = Image.asset(
+            image,
+            height: height,
+            width: width,
+            fit: fit ?? BoxFit.cover,
+            errorBuilder: errorBuilder,
+            frameBuilder: frameBuilder,
+            package: package,
+          );
+        }
+        break;
+      case FluImageSource.network:
+        if (isSvg) {
+          img = SvgPicture.network(
+            image,
+            height: height,
+            width: width,
+            fit: fit ?? BoxFit.cover,
+            headers: httpHeaders,
+          );
+        } else {
+          img = cache
+              ? CachedNetworkImage(
+                  imageUrl: image,
+                  height: height,
+                  width: width,
+                  fit: fit ?? BoxFit.cover,
+                  errorWidget: errorBuilder != null
+                      ? (context, url, error) =>
+                          errorBuilder!(context, url, error)
+                      : null,
+                  progressIndicatorBuilder: progressIndicatorBuilder,
+                  placeholder: placeholder,
+                  httpHeaders: httpHeaders,
+                )
+              : Image.network(
+                  image,
                   height: height,
                   width: width,
                   fit: fit ?? BoxFit.cover,
                   errorBuilder: errorBuilder,
-                  frameBuilder: frameBuilder)
-            else if (source == FluImageSource.asset)
-              Image.asset(
-                image,
-                height: height,
-                width: width,
-                fit: fit ?? BoxFit.cover,
-                errorBuilder: errorBuilder,
-                frameBuilder: frameBuilder,
-                package: package,
-              ),
-            Positioned(
-                top: 0,
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: gradientOverlay
-                        ? null
-                        : Colors.black.withOpacity(overlayOpacity),
-                    gradient: gradientOverlay
-                        ? LinearGradient(
-                            colors: [
-                              Colors.transparent,
-                              Colors.black.withOpacity(overlayOpacity),
-                            ],
-                            begin: overlayGradientBegin ?? Alignment.topCenter,
-                            end: overlayGradientEnd ?? Alignment.bottomCenter,
-                          )
-                        : null,
+                  frameBuilder: frameBuilder,
+                  headers: httpHeaders,
+                );
+        }
+        break;
+      case FluImageSource.system:
+        if (isSvg) {
+          img = SvgPicture.file(
+            File(image),
+            height: height,
+            width: width,
+            fit: fit ?? BoxFit.cover,
+          );
+        } else {
+          img = Image.file(
+            File(image),
+            height: height,
+            width: width,
+            fit: fit ?? BoxFit.cover,
+            errorBuilder: errorBuilder,
+            frameBuilder: frameBuilder,
+          );
+        }
+        break;
+    }
+
+    return Container(
+      height: height,
+      width: width,
+      margin: margin,
+      clipBehavior: Clip.hardEdge,
+      constraints: constraints,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(cornerRadius ?? 0),
+        boxShadow: [if (boxShadow != null) boxShadow!],
+      ),
+      child: isSvg
+          ? img
+          : Stack(
+              children: [
+                img,
+                Positioned(
+                  top: 0,
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: gradientOverlay
+                          ? null
+                          : Colors.black.withOpacity(overlayOpacity),
+                      gradient: gradientOverlay
+                          ? LinearGradient(
+                              colors: [
+                                Colors.transparent,
+                                Colors.black.withOpacity(overlayOpacity),
+                              ],
+                              begin:
+                                  overlayGradientBegin ?? Alignment.topCenter,
+                              end: overlayGradientEnd ?? Alignment.bottomCenter,
+                            )
+                          : null,
+                    ),
                   ),
-                )),
-          ],
-        ));
+                ),
+              ],
+            ),
+    );
   }
 }

@@ -9,27 +9,6 @@ const Clip _defaultChipClipBehavior = Clip.hardEdge;
 const EdgeInsets _defaultChipPadding = EdgeInsets.symmetric(horizontal: 20);
 
 class FluChips extends StatefulWidget {
-  /// Chips
-  final List<FluChipModel> chips;
-
-  /// Number of rows to have if this is scrollable
-  final int rows;
-
-  /// Can chips be scrolled horizontally
-  /// If false they are just wrapped in parent container.
-  final bool isScrollable;
-  final EdgeInsets? padding;
-  final double? chipHeight;
-  final EdgeInsets chipPadding;
-  final Clip chipClipBehavior;
-  final TextStyle? chipTextStyle;
-  final double spacing, runSpacing;
-  final WrapCrossAlignment crossAxisAlignment;
-  final VerticalDirection verticalDirection;
-  final bool shuffle;
-  final ScrollController? scrollController;
-  final double initialScrollOffset;
-
   FluChips({
     super.key,
     required this.chips,
@@ -51,6 +30,31 @@ class FluChips extends StatefulWidget {
     if (shuffle) chips.shuffle();
   }
 
+  final Clip chipClipBehavior;
+  final double? chipHeight;
+  final EdgeInsets chipPadding;
+  final TextStyle? chipTextStyle;
+
+  /// Chips
+  final List<FluChipModel> chips;
+
+  final WrapCrossAlignment crossAxisAlignment;
+  final double initialScrollOffset;
+
+  /// Can chips be scrolled horizontally
+  /// If false they are just wrapped in parent container.
+  final bool isScrollable;
+
+  final EdgeInsets? padding;
+
+  /// Number of rows to have if this is scrollable
+  final int rows;
+
+  final double spacing, runSpacing;
+  final ScrollController? scrollController;
+  final bool shuffle;
+  final VerticalDirection verticalDirection;
+
   @override
   State<FluChips> createState() => _FluChipsState();
 }
@@ -59,9 +63,11 @@ class _FluChipsState extends State<FluChips> {
   late EdgeInsets padding;
   late ScrollController scrollController;
 
-  void initScroll() => scrollController.animateTo(widget.initialScrollOffset,
-      duration: Flu.appSettings.defaultAnimationDuration,
-      curve: Flu.appSettings.defaultAnimationCurve);
+  @override
+  void didUpdateWidget(covariant FluChips oldWidget) {
+    initScroll();
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   void initState() {
@@ -72,11 +78,9 @@ class _FluChipsState extends State<FluChips> {
     WidgetsBinding.instance.addPostFrameCallback((_) => initScroll());
   }
 
-  @override
-  void didUpdateWidget(covariant FluChips oldWidget) {
-    initScroll();
-    super.didUpdateWidget(oldWidget);
-  }
+  void initScroll() => scrollController.animateTo(widget.initialScrollOffset,
+      duration: Flu.appSettings.defaultAnimationDuration,
+      curve: Flu.appSettings.defaultAnimationCurve);
 
   @override
   Widget build(BuildContext context) {
@@ -168,12 +172,6 @@ class _FluChipsState extends State<FluChips> {
 }
 
 class FluChip extends StatelessWidget {
-  final FluChipModel chip;
-  final double? height;
-  final EdgeInsets padding, margin;
-  final Clip clipBehavior;
-  final TextStyle? textStyle;
-
   const FluChip({
     required this.chip,
     super.key,
@@ -184,6 +182,12 @@ class FluChip extends StatelessWidget {
     this.margin = EdgeInsets.zero,
   });
 
+  final FluChipModel chip;
+  final Clip clipBehavior;
+  final double? height;
+  final EdgeInsets padding, margin;
+  final TextStyle? textStyle;
+
   @override
   Widget build(BuildContext context) {
     Widget child;
@@ -193,8 +197,8 @@ class FluChip extends StatelessWidget {
 
     child = chip.image != null
         ? FluImage(
-            image: chip.image!,
-            source: chip.imageSource,
+            chip.image!,
+            src: chip.imageSource,
             height: double.infinity,
             width: double.infinity,
           )

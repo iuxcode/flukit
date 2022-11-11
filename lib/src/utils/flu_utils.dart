@@ -18,10 +18,12 @@ import '../controllers/flu_controllers.dart';
 import '../models/app.dart';
 import '../widgets/country_selector.dart';
 import '../widgets/flu_widgets.dart';
+import 'helpers/countries.dart';
+
+export './helpers/countries.dart';
 
 part './extensions/get.dart';
 part './helpers/core.dart';
-part './helpers/countries.dart';
 part './helpers/text.dart';
 part './helpers/ui.dart';
 part './services/api.dart';

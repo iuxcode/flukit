@@ -142,7 +142,7 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                     tag: Flu.appSettings.brandTextHeroTag,
                     child: Text(Flu.appInfos.name,
                         style: Flu.textTheme.bodyText1!.copyWith(
-                            fontFamily: Flu.fonts.neptune, package: 'Flu')),
+                            fontFamily: FluFonts.neptune.name, package: 'Flu')),
                   ),
                 )
               ],

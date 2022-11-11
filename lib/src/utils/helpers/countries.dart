@@ -1,1560 +1,1559 @@
-part of '../flu_utils.dart';
+class Country {
+  Country({
+    required this.isoCode,
+    required this.iso3Code,
+    required this.phoneCode,
+    required this.name,
+  });
 
-extension FluCountry on FluInterface {
-  List<FluCountryModel> get countries => _countries;
-}
-
-class FluCountryModel {
-  final String name;
-  final String isoCode;
-  final String iso3Code;
-  final String phoneCode;
-
-  FluCountryModel(
-      {required this.isoCode,
-      required this.iso3Code,
-      required this.phoneCode,
-      required this.name});
-
-  set name(String newName) => name = newName;
-  set isoCode(String newIsoCode) => isoCode = newIsoCode;
-  set iso3Code(String newIso3Code) => iso3Code = newIso3Code;
-  set phoneCode(String newPhoneCode) => phoneCode = newPhoneCode;
-
-  factory FluCountryModel.fromMap(Map<String, String> map) => FluCountryModel(
+  factory Country.fromMap(Map<String, String> map) => Country(
         name: map['name']!,
         isoCode: map['isoCode']!,
         iso3Code: map['iso3Code']!,
         phoneCode: map['phoneCode']!,
       );
+
+  final String iso3Code;
+  final String isoCode;
+  final String name;
+  final String phoneCode;
+
+  set name(String newName) => name = newName;
+
+  set isoCode(String newIsoCode) => isoCode = newIsoCode;
+
+  set iso3Code(String newIso3Code) => iso3Code = newIso3Code;
+
+  set phoneCode(String newPhoneCode) => phoneCode = newPhoneCode;
 }
 
-final List<FluCountryModel> _countries = [
-  FluCountryModel(
+// ignore: non_constant_identifier_names
+final List<Country> Countries = [
+  Country(
     isoCode: "AF",
     phoneCode: "93",
     name: "Afghanistan",
     iso3Code: "AFG",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "AL",
     phoneCode: "355",
     name: "Albania",
     iso3Code: "ALB",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "DZ",
     phoneCode: "213",
     name: "Algeria",
     iso3Code: "DZA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "AS",
     phoneCode: "1-684",
     name: "American Samoa",
     iso3Code: "ASM",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "AD",
     phoneCode: "376",
     name: "Andorra",
     iso3Code: "AND",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "AO",
     phoneCode: "244",
     name: "Angola",
     iso3Code: "AGO",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "AI",
     phoneCode: "1-264",
     name: "Anguilla",
     iso3Code: "AIA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "AQ",
     phoneCode: "672",
     name: "Antarctica",
     iso3Code: "ATA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "AG",
     phoneCode: "1-268",
     name: "Antigua and Barbuda",
     iso3Code: "ATG",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "AR",
     phoneCode: "54",
     name: "Argentina",
     iso3Code: "ARG",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "AM",
     phoneCode: "374",
     name: "Armenia",
     iso3Code: "ARM",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "AW",
     phoneCode: "297",
     name: "Aruba",
     iso3Code: "ABW",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "AU",
     phoneCode: "61",
     name: "Australia",
     iso3Code: "AUS",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "AT",
     phoneCode: "43",
     name: "Austria",
     iso3Code: "AUT",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "AZ",
     phoneCode: "994",
     name: "Azerbaijan",
     iso3Code: "AZE",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "BS",
     phoneCode: "1-242",
     name: "Bahamas",
     iso3Code: "BHS",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "BH",
     phoneCode: "973",
     name: "Bahrain",
     iso3Code: "BHR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "BD",
     phoneCode: "880",
     name: "Bangladesh",
     iso3Code: "BGD",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "BB",
     phoneCode: "1-246",
     name: "Barbados",
     iso3Code: "BRB",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "BY",
     phoneCode: "375",
     name: "Belarus",
     iso3Code: "BLR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "BE",
     phoneCode: "32",
     name: "Belgium",
     iso3Code: "BEL",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "BZ",
     phoneCode: "501",
     name: "Belize",
     iso3Code: "BLZ",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "BJ",
     phoneCode: "229",
     name: "Benin",
     iso3Code: "BEN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "BM",
     phoneCode: "1-441",
     name: "Bermuda",
     iso3Code: "BMU",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "BT",
     phoneCode: "975",
     name: "Bhutan",
     iso3Code: "BTN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "BO",
     phoneCode: "591",
     name: "Bolivia, Plurinational State of",
     iso3Code: "BOL",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "BA",
     phoneCode: "387",
     name: "Bosnia and Herzegovina",
     iso3Code: "BIH",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "BW",
     phoneCode: "267",
     name: "Botswana",
     iso3Code: "BWA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "BV",
     phoneCode: "47",
     name: "Bouvet Island",
     iso3Code: "BVT",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "BR",
     phoneCode: "55",
     name: "Brazil",
     iso3Code: "BRA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "IO",
     phoneCode: "246",
     name: "British Indian Ocean Territory",
     iso3Code: "IOT",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "BN",
     phoneCode: "673",
     name: "Brunei Darussalam",
     iso3Code: "BRN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "BG",
     phoneCode: "359",
     name: "Bulgaria",
     iso3Code: "BGR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "BF",
     phoneCode: "226",
     name: "Burkina Faso",
     iso3Code: "BFA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "BI",
     phoneCode: "257",
     name: "Burundi",
     iso3Code: "BDI",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "KH",
     phoneCode: "855",
     name: "Cambodia",
     iso3Code: "KHM",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "CM",
     phoneCode: "237",
     name: "Cameroon",
     iso3Code: "CMR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "CA",
     phoneCode: "1",
     name: "Canada",
     iso3Code: "CAN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "CV",
     phoneCode: "238",
     name: "Cape Verde",
     iso3Code: "CPV",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "BQ",
     phoneCode: "599",
     name: "Caribbean Netherlands",
     iso3Code: "BES",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "KY",
     phoneCode: "1-345",
     name: "Cayman Islands",
     iso3Code: "CYM",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "CF",
     phoneCode: "236",
     name: "Central African Republic",
     iso3Code: "CAF",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "TD",
     phoneCode: "235",
     name: "Chad",
     iso3Code: "TCD",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "CL",
     phoneCode: "56",
     name: "Chile",
     iso3Code: "CHL",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "CN",
     phoneCode: "86",
     name: "China",
     iso3Code: "CHN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "CX",
     phoneCode: "61",
     name: "Christmas Island",
     iso3Code: "CXR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "CC",
     phoneCode: "61",
     name: "Cocos (Keeling) Islands",
     iso3Code: "CCK",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "CO",
     phoneCode: "57",
     name: "Colombia",
     iso3Code: "COL",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "KM",
     phoneCode: "269",
     name: "Comoros",
     iso3Code: "COM",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "CG",
     phoneCode: "242",
     name: "Congo",
     iso3Code: "COG",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "CD",
     phoneCode: "243",
     name: "Congo, the Democratic Republic of the",
     iso3Code: "COD",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "CK",
     phoneCode: "682",
     name: "Cook Islands",
     iso3Code: "COK",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "CR",
     phoneCode: "506",
     name: "Costa Rica",
     iso3Code: "CRI",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "HR",
     phoneCode: "385",
     name: "Croatia",
     iso3Code: "HRV",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "CU",
     phoneCode: "53",
     name: "Cuba",
     iso3Code: "CUB",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "CW",
     phoneCode: "599",
     name: "Curaçao",
     iso3Code: "CUW",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "CY",
     phoneCode: "357",
     name: "Cyprus",
     iso3Code: "CYP",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "CZ",
     phoneCode: "420",
     name: "Czech Republic",
     iso3Code: "CZE",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "CI",
     phoneCode: "225",
     name: "Côte d'Ivoire",
     iso3Code: "CIV",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "DK",
     phoneCode: "45",
     name: "Denmark",
     iso3Code: "DNK",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "DJ",
     phoneCode: "253",
     name: "Djibouti",
     iso3Code: "DJI",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "DM",
     phoneCode: "1-767",
     name: "Dominica",
     iso3Code: "DMA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "DO",
     phoneCode: "1-849",
     name: "Dominican Republic",
     iso3Code: "DOM",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "EC",
     phoneCode: "593",
     name: "Ecuador",
     iso3Code: "ECU",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "EG",
     phoneCode: "20",
     name: "Egypt",
     iso3Code: "EGY",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "SV",
     phoneCode: "503",
     name: "El Salvador",
     iso3Code: "SLV",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GB-ENG",
     phoneCode: "44",
     name: "England",
     iso3Code: "GBR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GQ",
     phoneCode: "240",
     name: "Equatorial Guinea",
     iso3Code: "GNQ",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "ER",
     phoneCode: "291",
     name: "Eritrea",
     iso3Code: "ERI",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "EE",
     phoneCode: "372",
     name: "Estonia",
     iso3Code: "EST",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "ET",
     phoneCode: "251",
     name: "Ethiopia",
     iso3Code: "ETH",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "FK",
     phoneCode: "500",
     name: "Falkland Islands (Malvinas)",
     iso3Code: "FLK",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "FO",
     phoneCode: "298",
     name: "Faroe Islands",
     iso3Code: "FRO",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "FJ",
     phoneCode: "679",
     name: "Fiji",
     iso3Code: "FJI",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "FI",
     phoneCode: "358",
     name: "Finland",
     iso3Code: "FIN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "FR",
     phoneCode: "33",
     name: "France",
     iso3Code: "FRA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GF",
     phoneCode: "594",
     name: "French Guiana",
     iso3Code: "GUF",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "PF",
     phoneCode: "689",
     name: "French Polynesia",
     iso3Code: "PYF",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "TF",
     phoneCode: "262",
     name: "French Southern Territories",
     iso3Code: "ATF",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GA",
     phoneCode: "241",
     name: "Gabon",
     iso3Code: "GAB",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GM",
     phoneCode: "220",
     name: "Gambia",
     iso3Code: "GMB",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GE",
     phoneCode: "995",
     name: "Georgia",
     iso3Code: "GEO",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "DE",
     phoneCode: "49",
     name: "Germany",
     iso3Code: "DEU",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GH",
     phoneCode: "233",
     name: "Ghana",
     iso3Code: "GHA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GI",
     phoneCode: "350",
     name: "Gibraltar",
     iso3Code: "GIB",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GR",
     phoneCode: "30",
     name: "Greece",
     iso3Code: "GRC",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GL",
     phoneCode: "299",
     name: "Greenland",
     iso3Code: "GRL",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GD",
     phoneCode: "1-473",
     name: "Grenada",
     iso3Code: "GRD",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GP",
     phoneCode: "590",
     name: "Guadeloupe",
     iso3Code: "GLP",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GU",
     phoneCode: "1-671",
     name: "Guam",
     iso3Code: "GUM",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GT",
     phoneCode: "502",
     name: "Guatemala",
     iso3Code: "GTM",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GG",
     phoneCode: "44-1481",
     name: "Guernsey",
     iso3Code: "GGY",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GN",
     phoneCode: "224",
     name: "Guinea",
     iso3Code: "GIN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GW",
     phoneCode: "245",
     name: "Guinea-Bissau",
     iso3Code: "GNB",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GY",
     phoneCode: "592",
     name: "Guyana",
     iso3Code: "GUY",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "HT",
     phoneCode: "509",
     name: "Haiti",
     iso3Code: "HTI",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "HM",
     phoneCode: "672",
     name: "Heard Island and McDonald Islands",
     iso3Code: "HMD",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "VA",
     phoneCode: "379",
     name: "Holy See (Vatican City State)",
     iso3Code: "VAT",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "HN",
     phoneCode: "504",
     name: "Honduras",
     iso3Code: "HND",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "HK",
     phoneCode: "852",
     name: "Hong Kong",
     iso3Code: "HKG",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "HU",
     phoneCode: "36",
     name: "Hungary",
     iso3Code: "HUN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "IS",
     phoneCode: "354",
     name: "Iceland",
     iso3Code: "ISL",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "IN",
     phoneCode: "91",
     name: "India",
     iso3Code: "IND",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "ID",
     phoneCode: "62",
     name: "Indonesia",
     iso3Code: "IDN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "IR",
     phoneCode: "98",
     name: "Iran, Islamic Republic of",
     iso3Code: "IRN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "IQ",
     phoneCode: "964",
     name: "Iraq",
     iso3Code: "IRQ",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "IE",
     phoneCode: "353",
     name: "Ireland",
     iso3Code: "IRL",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "IM",
     phoneCode: "44-1624",
     name: "Isle of Man",
     iso3Code: "IMN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "IL",
     phoneCode: "972",
     name: "Israel",
     iso3Code: "ISR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "IT",
     phoneCode: "39",
     name: "Italy",
     iso3Code: "ITA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "JM",
     phoneCode: "1-876",
     name: "Jamaica",
     iso3Code: "JAM",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "JP",
     phoneCode: "81",
     name: "Japan",
     iso3Code: "JPN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "JE",
     phoneCode: "44-1534",
     name: "Jersey",
     iso3Code: "JEY",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "JO",
     phoneCode: "962",
     name: "Jordan",
     iso3Code: "JOR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "KZ",
     phoneCode: "7",
     name: "Kazakhstan",
     iso3Code: "KAZ",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "KE",
     phoneCode: "254",
     name: "Kenya",
     iso3Code: "KEN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "KI",
     phoneCode: "686",
     name: "Kiribati",
     iso3Code: "KIR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "KP",
     phoneCode: "850",
     name: "Korea, Democratic People's Republic of",
     iso3Code: "PRK",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "KR",
     phoneCode: "82",
     name: "Korea, Republic of",
     iso3Code: "KOR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "XK",
     phoneCode: "383",
     name: "Kosovo",
     iso3Code: "KOS",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "KW",
     phoneCode: "965",
     name: "Kuwait",
     iso3Code: "KWT",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "KG",
     phoneCode: "996",
     name: "Kyrgyzstan",
     iso3Code: "KGZ",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "LA",
     phoneCode: "856",
     name: "Lao People's Democratic Republic",
     iso3Code: "LAO",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "LV",
     phoneCode: "371",
     name: "Latvia",
     iso3Code: "LVA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "LB",
     phoneCode: "961",
     name: "Lebanon",
     iso3Code: "LBN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "LS",
     phoneCode: "266",
     name: "Lesotho",
     iso3Code: "LSO",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "LR",
     phoneCode: "231",
     name: "Liberia",
     iso3Code: "LBR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "LY",
     phoneCode: "218",
     name: "Libya",
     iso3Code: "LBY",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "LI",
     phoneCode: "423",
     name: "Liechtenstein",
     iso3Code: "LIE",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "LT",
     phoneCode: "370",
     name: "Lithuania",
     iso3Code: "LTU",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "LU",
     phoneCode: "352",
     name: "Luxembourg",
     iso3Code: "LUX",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "MO",
     phoneCode: "853",
     name: "Macao",
     iso3Code: "MAC",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "MK",
     phoneCode: "389",
     name: "Macedonia, the former Yugoslav Republic of",
     iso3Code: "MKD",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "MG",
     phoneCode: "261",
     name: "Madagascar",
     iso3Code: "MDG",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "MW",
     phoneCode: "265",
     name: "Malawi",
     iso3Code: "MWI",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "MY",
     phoneCode: "60",
     name: "Malaysia",
     iso3Code: "MYS",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "MV",
     phoneCode: "960",
     name: "Maldives",
     iso3Code: "MDV",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "ML",
     phoneCode: "223",
     name: "Mali",
     iso3Code: "MLI",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "MT",
     phoneCode: "356",
     name: "Malta",
     iso3Code: "MLT",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "MH",
     phoneCode: "692",
     name: "Marshall Islands",
     iso3Code: "MHL",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "MQ",
     phoneCode: "596",
     name: "Martinique",
     iso3Code: "MTQ",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "MR",
     phoneCode: "222",
     name: "Mauritania",
     iso3Code: "MRT",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "MU",
     phoneCode: "230",
     name: "Mauritius",
     iso3Code: "MUS",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "YT",
     phoneCode: "262",
     name: "Mayotte",
     iso3Code: "MYT",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "MX",
     phoneCode: "52",
     name: "Mexico",
     iso3Code: "MEX",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "FM",
     phoneCode: "691",
     name: "Micronesia, Federated States of",
     iso3Code: "FSM",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "MD",
     phoneCode: "373",
     name: "Moldova, Republic of",
     iso3Code: "MDA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "MC",
     phoneCode: "377",
     name: "Monaco",
     iso3Code: "MCO",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "MN",
     phoneCode: "976",
     name: "Mongolia",
     iso3Code: "MNG",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "ME",
     phoneCode: "382",
     name: "Montenegro",
     iso3Code: "MNE",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "MS",
     phoneCode: "1-664",
     name: "Montserrat",
     iso3Code: "MSR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "MA",
     phoneCode: "212",
     name: "Morocco",
     iso3Code: "MAR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "MZ",
     phoneCode: "258",
     name: "Mozambique",
     iso3Code: "MOZ",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "MM",
     phoneCode: "95",
     name: "Myanmar",
     iso3Code: "MMR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "NA",
     phoneCode: "264",
     name: "Namibia",
     iso3Code: "NAM",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "NR",
     phoneCode: "674",
     name: "Nauru",
     iso3Code: "NRU",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "NP",
     phoneCode: "977",
     name: "Nepal",
     iso3Code: "NPL",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "NL",
     phoneCode: "31",
     name: "Netherlands",
     iso3Code: "NLD",
   ),
-  /* FluCountryModel(
+  /* Country(
     isoCode: "AN",
     phoneCode: "599",
     name: "Netherlands Antilles",
     iso3Code: "AN",
   ), */
-  FluCountryModel(
+  Country(
     isoCode: "NC",
     phoneCode: "687",
     name: "New Caledonia",
     iso3Code: "NCL",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "NZ",
     phoneCode: "64",
     name: "New Zealand",
     iso3Code: "NZL",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "NI",
     phoneCode: "505",
     name: "Nicaragua",
     iso3Code: "NIC",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "NE",
     phoneCode: "227",
     name: "Niger",
     iso3Code: "NER",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "NG",
     phoneCode: "234",
     name: "Nigeria",
     iso3Code: "NGA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "NU",
     phoneCode: "683",
     name: "Niue",
     iso3Code: "NIU",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "NF",
     phoneCode: "672",
     name: "Norfolk Island",
     iso3Code: "NFK",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GB-NIR",
     phoneCode: "44",
     name: "Northern Ireland",
     iso3Code: "GBR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "MP",
     phoneCode: "1-670",
     name: "Northern Mariana Islands",
     iso3Code: "MNP",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "NO",
     phoneCode: "47",
     name: "Norway",
     iso3Code: "NOR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "OM",
     phoneCode: "968",
     name: "Oman",
     iso3Code: "OMN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "PK",
     phoneCode: "92",
     name: "Pakistan",
     iso3Code: "PAK",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "PW",
     phoneCode: "680",
     name: "Palau",
     iso3Code: "PLW",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "PS",
     phoneCode: "970",
     name: "Palestine",
     iso3Code: "PSE",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "PA",
     phoneCode: "507",
     name: "Panama",
     iso3Code: "PAN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "PG",
     phoneCode: "675",
     name: "Papua New Guinea",
     iso3Code: "PNG",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "PY",
     phoneCode: "595",
     name: "Paraguay",
     iso3Code: "PRY",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "PE",
     phoneCode: "51",
     name: "Peru",
     iso3Code: "PER",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "PH",
     phoneCode: "63",
     name: "Philippines",
     iso3Code: "PHL",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "PN",
     phoneCode: "64",
     name: "Pitcairn",
     iso3Code: "PCN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "PL",
     phoneCode: "48",
     name: "Poland",
     iso3Code: "POL",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "PT",
     phoneCode: "351",
     name: "Portugal",
     iso3Code: "PRT",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "PR",
     phoneCode: "1-787",
     name: "Puerto Rico",
     iso3Code: "PRI",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "QA",
     phoneCode: "974",
     name: "Qatar",
     iso3Code: "QAT",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "RO",
     phoneCode: "40",
     name: "Romania",
     iso3Code: "ROU",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "RU",
     phoneCode: "7",
     name: "Russian Federation",
     iso3Code: "RUS",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "RW",
     phoneCode: "250",
     name: "Rwanda",
     iso3Code: "RWA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "RE",
     phoneCode: "262",
     name: "Réunion",
     iso3Code: "REU",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "BL",
     phoneCode: "590",
     name: "Saint Barthélemy",
     iso3Code: "BLM",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "SH",
     phoneCode: "290",
     name: "Saint Helena, Ascension and Tristan da Cunha",
     iso3Code: "SHN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "KN",
     phoneCode: "1-869",
     name: "Saint Kitts and Nevis",
     iso3Code: "KNA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "LC",
     phoneCode: "1-758",
     name: "Saint Lucia",
     iso3Code: "LCA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "MF",
     phoneCode: "590",
     name: "Saint Martin",
     iso3Code: "MAF",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "PM",
     phoneCode: "508",
     name: "Saint Pierre and Miquelon",
     iso3Code: "SPM",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "VC",
     phoneCode: "1-784",
     name: "Saint Vincent and the Grenadines",
     iso3Code: "VCT",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "WS",
     phoneCode: "685",
     name: "Samoa",
     iso3Code: "WSM",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "SM",
     phoneCode: "378",
     name: "San Marino",
     iso3Code: "SMR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "ST",
     phoneCode: "239",
     name: "Sao Tome and Principe",
     iso3Code: "STP",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "SA",
     phoneCode: "966",
     name: "Saudi Arabia",
     iso3Code: "SAU",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GB-SCT",
     phoneCode: "44",
     name: "Scotland",
     iso3Code: "GBR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "SN",
     phoneCode: "221",
     name: "Senegal",
     iso3Code: "SEN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "RS",
     phoneCode: "381",
     name: "Serbia",
     iso3Code: "SRB",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "SC",
     phoneCode: "248",
     name: "Seychelles",
     iso3Code: "SYC",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "SL",
     phoneCode: "232",
     name: "Sierra Leone",
     iso3Code: "SLE",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "SG",
     phoneCode: "65",
     name: "Singapore",
     iso3Code: "SGP",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "SX",
     phoneCode: "1-721",
     name: "Sint Maarten (Dutch part)",
     iso3Code: "SXM",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "SK",
     phoneCode: "421",
     name: "Slovakia",
     iso3Code: "SVK",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "SI",
     phoneCode: "386",
     name: "Slovenia",
     iso3Code: "SVN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "SB",
     phoneCode: "677",
     name: "Solomon Islands",
     iso3Code: "SLB",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "SO",
     phoneCode: "252",
     name: "Somalia",
     iso3Code: "SOM",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "ZA",
     phoneCode: "27",
     name: "South Africa",
     iso3Code: "ZAF",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GS",
     phoneCode: "500",
     name: "South Georgia and the South Sandwich Islands",
     iso3Code: "SGS",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "SS",
     phoneCode: "211",
     name: "South Sudan",
     iso3Code: "SSD",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "ES",
     phoneCode: "34",
     name: "Spain",
     iso3Code: "ESP",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "LK",
     phoneCode: "94",
     name: "Sri Lanka",
     iso3Code: "LKA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "SD",
     phoneCode: "249",
     name: "Sudan",
     iso3Code: "SDN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "SR",
     phoneCode: "597",
     name: "Suriname",
     iso3Code: "SUR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "SJ",
     phoneCode: "47",
     name: "Svalbard and Jan Mayen Islands",
     iso3Code: "SJM",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "SZ",
     phoneCode: "268",
     name: "Swaziland",
     iso3Code: "SWZ",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "SE",
     phoneCode: "46",
     name: "Sweden",
     iso3Code: "SWE",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "CH",
     phoneCode: "41",
     name: "Switzerland",
     iso3Code: "CHE",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "SY",
     phoneCode: "963",
     name: "Syrian Arab Republic",
     iso3Code: "SYR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "TW",
     phoneCode: "886",
     name: "Taiwan",
     iso3Code: "TWN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "TJ",
     phoneCode: "992",
     name: "Tajikistan",
     iso3Code: "TJK",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "TZ",
     phoneCode: "255",
     name: "Tanzania, United Republic of",
     iso3Code: "TZA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "TH",
     phoneCode: "66",
     name: "Thailand",
     iso3Code: "THA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "TL",
     phoneCode: "670",
     name: "Timor-Leste",
     iso3Code: "TLS",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "TG",
     phoneCode: "228",
     name: "Togo",
     iso3Code: "TGO",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "TK",
     phoneCode: "690",
     name: "Tokelau",
     iso3Code: "TKL",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "TO",
     phoneCode: "676",
     name: "Tonga",
     iso3Code: "TON",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "TT",
     phoneCode: "1-868",
     name: "Trinidad and Tobago",
     iso3Code: "TTO",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "TN",
     phoneCode: "216",
     name: "Tunisia",
     iso3Code: "TUN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "TR",
     phoneCode: "90",
     name: "Turkey",
     iso3Code: "TUR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "TM",
     phoneCode: "993",
     name: "Turkmenistan",
     iso3Code: "TKM",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "TC",
     phoneCode: "1-649",
     name: "Turks and Caicos Islands",
     iso3Code: "TCA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "TV",
     phoneCode: "688",
     name: "Tuvalu",
     iso3Code: "TUV",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "UG",
     phoneCode: "256",
     name: "Uganda",
     iso3Code: "UGA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "UA",
     phoneCode: "380",
     name: "Ukraine",
     iso3Code: "UKR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "AE",
     phoneCode: "971",
     name: "United Arab Emirates",
     iso3Code: "ARE",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GB",
     phoneCode: "44",
     name: "United Kingdom",
     iso3Code: "GBR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "US",
     phoneCode: "1",
     name: "United States",
     iso3Code: "USA",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "UY",
     phoneCode: "598",
     name: "Uruguay",
     iso3Code: "URY",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "UM",
     phoneCode: "1",
     name: "US Minor Outlying Islands",
     iso3Code: "UMI",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "UZ",
     phoneCode: "998",
     name: "Uzbekistan",
     iso3Code: "UZB",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "VU",
     phoneCode: "678",
     name: "Vanuatu",
     iso3Code: "VUT",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "VE",
     phoneCode: "58",
     name: "Venezuela, Bolivarian Republic of",
     iso3Code: "VEN",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "VN",
     phoneCode: "84",
     name: "Vietnam",
     iso3Code: "VNM",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "VG",
     phoneCode: "1-284",
     name: "Virgin Islands, British",
     iso3Code: "VGB",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "VI",
     phoneCode: "1-340",
     name: "Virgin Islands, U.S.",
     iso3Code: "VIR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "GB-WLS",
     phoneCode: "44",
     name: "Wales",
     iso3Code: "GBR",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "WF",
     phoneCode: "681",
     name: "Wallis and Futuna Islands",
     iso3Code: "WLF",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "EH",
     phoneCode: "212",
     name: "Western Sahara",
     iso3Code: "ESH",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "YE",
     phoneCode: "967",
     name: "Yemen",
     iso3Code: "YEM",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "ZM",
     phoneCode: "260",
     name: "Zambia",
     iso3Code: "ZMB",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "ZW",
     phoneCode: "263",
     name: "Zimbabwe",
     iso3Code: "ZWE",
   ),
-  FluCountryModel(
+  Country(
     isoCode: "AX",
     phoneCode: "358",
     name: "Åland Islands",

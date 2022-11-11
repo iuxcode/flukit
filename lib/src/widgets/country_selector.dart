@@ -16,7 +16,7 @@ class FluCountrySelect extends StatefulWidget {
     this.searchInputHint,
   }) : super(key: key);
 
-  final void Function(FluCountryModel) onSelect;
+  final void Function(Country) onSelect;
   final String? title, desc, searchInputHint;
 
   @override
@@ -24,7 +24,7 @@ class FluCountrySelect extends StatefulWidget {
 }
 
 class FluCountrySelectState extends State<FluCountrySelect> {
-  late List<FluCountryModel> foundCountries;
+  late List<Country> foundCountries;
   final double height = Flu.screenSize.height * .85,
       radius = Flu.screenSize.width * .08,
       flagRadius = 18,
@@ -32,7 +32,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
 
   @override
   void initState() {
-    foundCountries = Flu.countries;
+    foundCountries = Countries;
     super.initState();
   }
 
@@ -42,20 +42,16 @@ class FluCountrySelectState extends State<FluCountrySelect> {
       );
 
   void filter(String enteredKeyword) {
-    List<FluCountryModel> results = [];
+    List<Country> results = [];
 
     if (enteredKeyword.isEmpty) {
-      results = Flu.countries;
+      results = Countries;
     } else {
-      results = Flu.countries
-          .where((FluCountryModel country) =>
-              country.name
-                  .toLowerCase()
-                  .contains(enteredKeyword.toLowerCase()) ||
-              country.phoneCode
-                  .toLowerCase()
-                  .contains(enteredKeyword.toLowerCase()))
-          .toList();
+      results = Countries.where((Country country) =>
+          country.name.toLowerCase().contains(enteredKeyword.toLowerCase()) ||
+          country.phoneCode
+              .toLowerCase()
+              .contains(enteredKeyword.toLowerCase())).toList();
     }
 
     setState(() => foundCountries = results);
@@ -141,7 +137,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                               onChanged: (value) => filter(value),
                             ),
                           ),
-                          ...foundCountries.map((FluCountryModel country) {
+                          ...foundCountries.map((Country country) {
                             return FluButton(
                               onPressed: () {
                                 widget.onSelect(country);

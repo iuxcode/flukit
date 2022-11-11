@@ -189,12 +189,12 @@ class FluOnboardingScreenImageViewer extends StatelessWidget {
   final Duration animationDuration;
   final Curve animationCurve;
   final String? imageUrl;
-  final FluImageSource? imageType;
+  final FluImageSource imageType;
 
   const FluOnboardingScreenImageViewer({
     Key? key,
     this.imageUrl,
-    this.imageType,
+    this.imageType = FluImageSource.network,
     this.height,
     this.scale = false,
     this.expand = true,
@@ -220,8 +220,8 @@ class FluOnboardingScreenImageViewer extends StatelessWidget {
           curve: animationCurve,
           child: imageUrl?.isNotEmpty ?? false
               ? FluImage(
-                  image: imageUrl!,
-                  source: imageType,
+                  imageUrl!,
+                  src: imageType,
                 )
               : Container()),
     );

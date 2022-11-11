@@ -36,23 +36,9 @@ extension FluCore on FluInterface {
   }
 
   /// Verify if the [email] is correct.
+  /// TODO validate email
   Future<bool> validateEmail(String email) async {
     return false;
-  }
-
-  /// format seconds to time
-  String timeLeft(int value) {
-    int h, m, s;
-
-    h = value ~/ 3600;
-    m = ((value - h * 3600)) ~/ 60;
-    s = value - (h * 3600) - (m * 60);
-
-    String hourLeft = h.toString().length < 2 ? "0$h" : h.toString();
-    String minuteLeft = m.toString().length < 2 ? "0$m" : m.toString();
-    String secondsLeft = s.toString().length < 2 ? "0$s" : s.toString();
-
-    return "$hourLeft : $minuteLeft : $secondsLeft";
   }
 
   Uint8List dataFromBase64String(String base64String) =>

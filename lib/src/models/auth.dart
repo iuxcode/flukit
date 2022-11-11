@@ -3,29 +3,21 @@ import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
 
 class FluAuthScreenStep {
-  final FluImageSource? imageType;
-  final String image, title, desc, buttonLabel;
-  final FluIcons? buttonIcon;
+  FluAuthScreenStep({
+    required this.title,
+    required this.desc,
+    required this.buttonLabel,
+    required this.image,
+    this.imageType = FluImageSource.network,
+    this.buttonIcon,
+  });
 
-  FluAuthScreenStep(
-      {required this.title,
-      required this.desc,
-      required this.buttonLabel,
-      required this.image,
-      this.imageType,
-      this.buttonIcon});
+  final FluIcons? buttonIcon;
+  final String image, title, desc, buttonLabel;
+  final FluImageSource imageType;
 }
 
 class FluAuthScreenInputStep extends FluAuthScreenStep {
-  final String inputHint;
-  final double? inputHeight;
-  final double? inputRadius;
-  final bool Function(String value, FluAuthScreenController controller)?
-      inputValidator;
-  final void Function(String value, FluAuthScreenController controller)?
-      onInputValueChanged;
-  final String Function(FluAuthScreenController controller)? onError;
-
   FluAuthScreenInputStep({
     required String title,
     required String desc,
@@ -40,21 +32,27 @@ class FluAuthScreenInputStep extends FluAuthScreenStep {
     this.inputHeight,
     this.inputRadius,
   }) : super(
-            title: title,
-            desc: desc,
-            buttonLabel: buttonLabel,
-            buttonIcon: buttonIcon,
-            image: image,
-            imageType: imageType);
+          title: title,
+          desc: desc,
+          buttonLabel: buttonLabel,
+          buttonIcon: buttonIcon,
+          image: image,
+          imageType: imageType ?? FluImageSource.network,
+        );
+
+  final bool Function(String value, FluAuthScreenController controller)?
+      inputValidator;
+
+  final void Function(String value, FluAuthScreenController controller)?
+      onInputValueChanged;
+
+  final String Function(FluAuthScreenController controller)? onError;
+  final double? inputHeight;
+  final String inputHint;
+  final double? inputRadius;
 }
 
 class FluAuthScreenCustomStep extends FluAuthScreenStep {
-  final Widget Function(
-      BuildContext context,
-      FluAuthScreenController controller,
-      TextEditingController inputController) builder;
-  final bool Function(FluAuthScreenController controller)? onButtonPressed;
-
   FluAuthScreenCustomStep(
       {required this.builder,
       this.onButtonPressed,
@@ -70,6 +68,13 @@ class FluAuthScreenCustomStep extends FluAuthScreenStep {
           buttonIcon: buttonIcon,
           image: image,
         );
+
+  final Widget Function(
+      BuildContext context,
+      FluAuthScreenController controller,
+      TextEditingController inputController) builder;
+
+  final bool Function(FluAuthScreenController controller)? onButtonPressed;
 }
 
 class FluAuthData {

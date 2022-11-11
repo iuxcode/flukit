@@ -28,7 +28,11 @@ extension FluUI on FluInterface {
       SystemChrome.setSystemUIOverlayStyle(style);
 
   /// switch theme
-  void changeTheme(ThemeData theme) => appController.setTheme(theme);
+  /// TODO Handle cold or hot restart
+  void changeTheme(ThemeData theme, {bool restartApp = false}) {
+    appController.setTheme(theme);
+    if (restartApp) appController.restartApp();
+  }
 
   /// return the screen size
   Size get screenSize => Get.size;
@@ -145,7 +149,7 @@ extension FluUI on FluInterface {
     desc,
     searchInputHint,
     required BuildContext context,
-    required void Function(FluCountryModel) onCountrySelected,
+    required void Function(Country) onCountrySelected,
     void Function()? onOpen,
     void Function()? onClose,
   }) async {
