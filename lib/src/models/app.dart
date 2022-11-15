@@ -39,15 +39,19 @@ class FluAppInformations {
   /// Application authors.
   final List<FluAppAuthor> authors;
 
-  const FluAppInformations(
-      {this.name = 'Flu',
-      this.version = '0.0.1',
-      this.authors = const [
-        FluAppAuthor(
-            firstName: 'charlot',
-            lastName: 'tabade',
-            email: 'charlottabade.pro@gmail.com',
-            websiteUrl: 'https://github.com/charles9904',
-            githubUrl: 'https://github.com/charles9904')
-      ]});
+  FluAppInformations({
+    this.name = 'Flukit',
+    this.version = '0.0.1',
+    this.authors = [],
+  }) {
+    authors += const [
+      FluAppAuthor(
+        firstName: 'charlot',
+        lastName: 'tabade',
+        email: 'charlottabade.pro@gmail.com',
+        websiteUrl: 'https://github.com/charles9904',
+        githubUrl: 'https://github.com/charles9904',
+      )
+    ];
+  }
 }

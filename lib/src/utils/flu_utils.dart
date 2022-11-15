@@ -21,6 +21,11 @@ import '../widgets/flu_widgets.dart';
 import 'helpers/countries.dart';
 
 export './helpers/countries.dart';
+export './extensions/string.dart';
+export './extensions/int.dart';
+export './extensions/double.dart';
+export './extensions/datetime.dart';
+export './extensions/textspan.dart';
 
 part './extensions/get.dart';
 part './helpers/core.dart';
