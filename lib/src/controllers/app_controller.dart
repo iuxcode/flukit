@@ -8,7 +8,7 @@ import '../utils/flu_utils.dart';
 class FluAppController extends GetMaterialController {
   final FluStorageService storageService = Flu.secureStorage;
 
-  FluAppInformations infos;
+  late FluAppInformations infos;
 
   late FluApiSettings apiSettings;
   late FluSettingsInterface settings;
@@ -18,8 +18,9 @@ class FluAppController extends GetMaterialController {
     FluApiSettings? apiSettings,
     FluSettingsInterface? settings,
     FluThemeBuilder? themeBuilder,
-    this.infos = const FluAppInformations(),
+    FluAppInformations? appInformations,
   }) {
+    this.infos = appInformations ?? FluAppInformations();
     this.apiSettings =
         apiSettings ?? FluApiSettings(baseUrl: 'http://localhost:8000');
     this.settings = settings ?? FluSettings;

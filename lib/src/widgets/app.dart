@@ -1,6 +1,7 @@
 import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flukit/src/screens/default.dart';
 
 class FluMaterialApp extends GetMaterialApp {
   final FluAppController? controller;
@@ -61,6 +62,27 @@ class FluMaterialApp extends GetMaterialApp {
 
   @override
   Widget build(BuildContext context) {
+    List<GetPage<dynamic>>? _getPages;
+    String? _initialRoute;
+
+    if (home == null) {
+      if (initialRoute != null && (routes != null || getPages != null))
+        _initialRoute = initialRoute;
+      else
+        _initialRoute = '/default';
+
+      if (getPages != null)
+        _getPages = getPages;
+      else if (getPages == null && home == null) {
+        _getPages = [
+          FluGetPage(
+            name: '/default',
+            page: () => const FluDefaultScreen(),
+          ),
+        ];
+      }
+    }
+
     return GetBuilder<FluAppController>(
         init: controller ?? FluAppController(),
         dispose: (d) {
@@ -83,8 +105,8 @@ class FluMaterialApp extends GetMaterialApp {
           Get.customTransition = customTransition;
 
           initialBinding?.dependencies();
-          if (getPages != null) {
-            Get.addPages(getPages!);
+          if (_getPages != null) {
+            Get.addPages(_getPages!);
           }
 
           //Get.setDefaultDelegate(routerDelegate);
@@ -148,11 +170,11 @@ class FluMaterialApp extends GetMaterialApp {
                   scaffoldMessengerKey:
                       scaffoldMessengerKey ?? _.scaffoldMessengerKey,
                   home: home,
-                  routes: routes ?? const <String, WidgetBuilder>{},
-                  initialRoute: initialRoute,
+                  routes: routes ?? <String, WidgetBuilder>{},
+                  initialRoute: _initialRoute,
                   onGenerateRoute:
-                      (getPages != null ? generator : onGenerateRoute),
-                  onGenerateInitialRoutes: (getPages == null || home != null)
+                      (_getPages != null ? generator : onGenerateRoute),
+                  onGenerateInitialRoutes: (_getPages == null || home != null)
                       ? onGenerateInitialRoutes
                       : initialRoutesGenerate,
                   onUnknownRoute: onUnknownRoute,

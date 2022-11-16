@@ -13,12 +13,12 @@ class FluDefaultScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Flu.',
+                Text('Flukit.',
                     style: TextStyle(
-                        fontFamily: 'Neptune',
-                        package: 'Flu',
+                        fontFamily: FluFonts.neptune.name,
+                        package: 'flukit',
                         fontWeight: Flu.appSettings.textBold,
-                        fontSize: Flu.appSettings.headlineFs + 25,
+                        fontSize: Flu.appSettings.headlineFs + 15,
                         color: Flu.theme().primary)),
                 const SizedBox(height: 5),
                 const Text(

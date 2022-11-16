@@ -37,12 +37,12 @@ class FluAppInformations {
   final String version;
 
   /// Application authors.
-  final List<FluAppAuthor> authors;
+  List<FluAppAuthor> authors;
 
   FluAppInformations({
     this.name = 'Flukit',
     this.version = '0.0.1',
-    this.authors = [],
+    this.authors = const [],
   }) {
     authors += const [
       FluAppAuthor(
