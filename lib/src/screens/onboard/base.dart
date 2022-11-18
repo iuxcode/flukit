@@ -252,17 +252,20 @@ class FluOnboardingScreenTexts extends StatelessWidget {
           children: [
             Hero(
               tag: Flu.appSettings.titleTextHeroTag,
-              child: Text(title,
-                  textAlign: TextAlign.center,
-                  style: Flu.textTheme.headline1
-                      ?.copyWith(fontSize: Flu.appSettings.headlineFs)),
+              child: FluText(
+                text: title,
+                textAlign: TextAlign.center,
+                stylePreset: FluTextStyle.headlineBold,
+              ),
             ),
             const SizedBox(height: 5),
             Hero(
                 tag: Flu.appSettings.descriptionTextHeroTag,
-                child: Text(desc,
-                    textAlign: TextAlign.center,
-                    style: Flu.textTheme.bodyText1)),
+                child: FluText(
+                  text: desc,
+                  textAlign: TextAlign.center,
+                  stylePreset: FluTextStyle.body,
+                )),
           ],
         ),
       );

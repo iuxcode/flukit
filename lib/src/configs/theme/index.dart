@@ -5,15 +5,34 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FluTheme {
-  late ThemeData data;
-
   FluTheme(BuildContext context) {
     data = context.theme;
   }
 
-  Brightness get brightness => data.brightness;
+  late ThemeData data;
 
+  Color get accentText => data.colorScheme.onSurface;
+  Color get background => data.colorScheme.background;
+  Brightness get brightness => data.brightness;
+  Color get danger => data.colorScheme.danger;
+  Color get dark => data.colorScheme.dark;
+  Color get divider => data.dividerColor;
+  Color get divider25 => data.dividerColor.withOpacity(.25);
+  Color get divider50 => data.dividerColor.withOpacity(.5);
+  Color get error => data.colorScheme.error;
   bool get isLight => data.brightness == Brightness.light;
+  Color get light => data.colorScheme.light;
+  Color get onError => data.colorScheme.onError;
+  Color get onPrimary => data.colorScheme.onPrimary;
+  Color get onSecondary => data.colorScheme.onSecondary;
+  Color get onTertiary => data.colorScheme.onTertiary;
+  Color get primary => data.colorScheme.primary;
+  Color get secondary => data.colorScheme.secondary;
+  Color get shadow => data.colorScheme.shadow;
+  Color get success => data.colorScheme.success;
+  Color get surfaceBackground => data.colorScheme.surface;
+  Color get surfaceBackground25 => surfaceBackground.withOpacity(.25);
+  Color get surfaceBackground50 => surfaceBackground.withOpacity(.5);
 
   /// Return the [SystemUiOverlayStyle] according to the theme [Brightness] and [Color palette].
   SystemUiOverlayStyle get systemUiOverlayStyle {
@@ -29,50 +48,16 @@ class FluTheme {
     );
   }
 
+  Color get tertiary => data.colorScheme.tertiary;
+  Color get text => data.colorScheme.onBackground;
+
   /// Return current theme based [TextTheme]
   TextTheme get textTheme => data.textTheme;
 
-  Color get primary => data.colorScheme.primary;
-  Color get onPrimary => data.colorScheme.onPrimary;
-  Color get secondary => data.colorScheme.secondary;
-  Color get onSecondary => data.colorScheme.onSecondary;
-  Color get tertiary => data.colorScheme.tertiary;
-  Color get onTertiary => data.colorScheme.onTertiary;
-  Color get background => data.colorScheme.background;
-  Color get surfaceBackground => data.colorScheme.surface;
-  Color get surfaceBackground50 => surfaceBackground.withOpacity(.5);
-  Color get surfaceBackground25 => surfaceBackground.withOpacity(.25);
-  Color get text => data.colorScheme.onBackground;
-  Color get accentText => data.colorScheme.onSurface;
-  Color get divider => data.dividerColor;
-  Color get divider50 => data.dividerColor.withOpacity(.5);
-  Color get divider25 => data.dividerColor.withOpacity(.25);
-  Color get shadow => data.colorScheme.shadow;
-  Color get light => data.colorScheme.light;
-  Color get dark => data.colorScheme.dark;
-  Color get error => data.colorScheme.error;
-  Color get onError => data.colorScheme.onError;
-  Color get danger => data.colorScheme.danger;
   Color get warning => data.colorScheme.warning;
-  Color get success => data.colorScheme.success;
 }
 
 class FluThemeBuilder {
-  final Color primary;
-  final Color onprimary;
-  final Color secondary;
-  final Color onsecondary;
-  final Color? tertiaryColor;
-  final Color? onTertiaryColor;
-
-  final double scrollbarThickness;
-
-  late FluColorPalette colors, darkColors;
-
-  late TextStyle bodyTextStyle;
-  late TextStyle subtitleTextStyle;
-  late TextStyle headingTextStyle;
-
   FluThemeBuilder({
     this.primary = _defaultprimary,
     this.onprimary = _defaultOnprimary,
@@ -83,7 +68,6 @@ class FluThemeBuilder {
     FluColorPalette? colors,
     FluColorPalette? darkColors,
     TextStyle? bodyTextStyle,
-    TextStyle? subtitleTextStyle,
     TextStyle? headingTextStyle,
     this.scrollbarThickness = 3.5,
   }) {
@@ -91,24 +75,19 @@ class FluThemeBuilder {
     this.darkColors = darkColors ?? FluColorPalette.dark();
 
     this.bodyTextStyle = bodyTextStyle ?? GoogleFonts.poppins();
-    this.subtitleTextStyle = subtitleTextStyle ?? GoogleFonts.poppins();
     this.headingTextStyle = headingTextStyle ?? GoogleFonts.poppins();
   }
 
-  ThemeData get theme {
-    final ColorScheme colorScheme = _buildColorScheme(colors, Brightness.light);
-
-    return ThemeData(
-      brightness: colorScheme.brightness,
-      primaryColor: primary,
-      backgroundColor: colorScheme.background,
-      scaffoldBackgroundColor: colorScheme.background,
-      dividerColor: colors.divider,
-      colorScheme: colorScheme,
-      scrollbarTheme: _buildScrollBarTheme(),
-      textTheme: _buildTextTheme(colors),
-    );
-  }
+  late TextStyle bodyTextStyle;
+  late FluColorPalette colors, darkColors;
+  late TextStyle headingTextStyle;
+  final Color? onTertiaryColor;
+  final Color onprimary;
+  final Color onsecondary;
+  final Color primary;
+  final double scrollbarThickness;
+  final Color secondary;
+  final Color? tertiaryColor;
 
   ThemeData get darkTheme {
     final ColorScheme darkColorScheme =
@@ -126,6 +105,45 @@ class FluThemeBuilder {
   }
 
   FluColorPalette get palette => Get.isDarkMode ? darkColors : colors;
+  ThemeData get theme {
+    final ColorScheme colorScheme = _buildColorScheme(colors, Brightness.light);
+
+    return ThemeData(
+      brightness: colorScheme.brightness,
+      primaryColor: primary,
+      backgroundColor: colorScheme.background,
+      scaffoldBackgroundColor: colorScheme.background,
+      dividerColor: colors.divider,
+      colorScheme: colorScheme,
+      scrollbarTheme: _buildScrollBarTheme(),
+      textTheme: _buildTextTheme(colors),
+    );
+  }
+
+  FluThemeBuilder copyWith({
+    Color? primary,
+    Color? onprimary,
+    Color? secondary,
+    Color? onsecondary,
+    Color? tertiaryColor,
+    Color? onTertiaryColor,
+    FluColorPalette? colors,
+    FluColorPalette? darkColors,
+    double? scrollbarThickness,
+  }) =>
+      FluThemeBuilder(
+        primary: primary ?? this.primary,
+        onprimary: onprimary ?? this.onprimary,
+        secondary: secondary ?? this.secondary,
+        onsecondary: onsecondary ?? this.onsecondary,
+        tertiaryColor: tertiaryColor ?? this.tertiaryColor,
+        onTertiaryColor: onTertiaryColor ?? this.onTertiaryColor,
+        colors: colors ?? this.colors,
+        darkColors: darkColors ?? this.darkColors,
+        scrollbarThickness: scrollbarThickness ?? this.scrollbarThickness,
+        bodyTextStyle: this.bodyTextStyle,
+        headingTextStyle: this.headingTextStyle,
+      );
 
   ColorScheme _buildColorScheme(FluColorPalette colors, Brightness brightness) {
     return ColorScheme(
@@ -172,12 +190,12 @@ class FluThemeBuilder {
         fontWeight: Flu.appSettings.textSemibold,
         color: colors.accentText,
       ),
-      subtitle1: subtitleTextStyle.copyWith(
+      subtitle1: bodyTextStyle.copyWith(
         fontSize: Flu.appSettings.subtitleFs,
         fontWeight: Flu.appSettings.textSemibold,
         color: colors.accentText,
       ),
-      subtitle2: subtitleTextStyle.copyWith(
+      subtitle2: bodyTextStyle.copyWith(
         fontSize: Flu.appSettings.subtitleFs,
         fontWeight: Flu.appSettings.textSemibold,
         color: colors.accentText,

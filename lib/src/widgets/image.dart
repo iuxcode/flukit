@@ -37,6 +37,7 @@ class FluImage extends StatelessWidget {
     this.overlayGradientEnd,
     this.constraints,
     this.isSvg = false,
+    this.color,
   });
 
   final Widget Function(BuildContext, Widget, int?, bool)? frameBuilder;
@@ -60,6 +61,7 @@ class FluImage extends StatelessWidget {
   final String? package;
   final ImageProvider<Object>? provider;
   final FluImageSource src;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +75,7 @@ class FluImage extends StatelessWidget {
             height: height,
             width: width,
             fit: fit ?? BoxFit.cover,
+            color: color,
             package: package,
           );
         } else {
@@ -95,6 +98,7 @@ class FluImage extends StatelessWidget {
             width: width,
             fit: fit ?? BoxFit.cover,
             headers: httpHeaders,
+            color: color,
           );
         } else {
           img = cache
@@ -129,6 +133,7 @@ class FluImage extends StatelessWidget {
             height: height,
             width: width,
             fit: fit ?? BoxFit.cover,
+            color: color,
           );
         } else {
           img = Image.file(

@@ -2,6 +2,7 @@ import 'package:flukit/flukit.dart';
 import 'package:flukit/src/controllers/splash_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flukit/src/screens/base.dart';
 
 class FluSplashScreen extends StatefulWidget {
   final void Function()? onInitialized;
@@ -15,19 +16,19 @@ class FluSplashScreen extends StatefulWidget {
   final VoidCallback? onReady;
   final VoidCallback? defaultAction;
 
-  const FluSplashScreen(
-      {Key? key,
-      this.onInitialized,
-      this.controller,
-      this.builder,
-      this.child,
-      this.textStyle,
-      this.onWaitAuth,
-      this.onWaitCode,
-      this.onWaitTerms,
-      this.onReady,
-      this.defaultAction})
-      : assert(builder == null || child == null),
+  const FluSplashScreen({
+    Key? key,
+    this.onInitialized,
+    this.controller,
+    this.builder,
+    this.child,
+    this.textStyle,
+    this.onWaitAuth,
+    this.onWaitCode,
+    this.onWaitTerms,
+    this.onReady,
+    this.defaultAction,
+  })  : assert(builder == null || child == null),
         super(key: key);
 
   @override
@@ -79,33 +80,32 @@ class _FluSplashScreenState extends State<FluSplashScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => FluScreen(
-          body: GetBuilder<FluSplashScreenController>(
-        init: controller,
-        initState: (_) {},
-        builder: widget.builder ??
-            (_) {
-              return SafeArea(
-                  child: Column(children: [
-                Expanded(child: Center(child: widget.child)),
-                Padding(
-                  padding: EdgeInsets.only(bottom: Flu.screenSize.height * .15),
-                  child: Hero(
-                    tag: Flu.appSettings.brandTextHeroTag,
-                    child: Text(
-                      Flu.appInfos.name,
-                      style: widget.textStyle ??
-                          TextStyle(
-                            fontFamily: FluFonts.neptune.name,
-                            package: 'flukit',
-                            fontSize: Flu.appSettings.subHeadlineFs,
-                            fontWeight: Flu.appSettings.textBold,
-                            color: Flu.theme().accentText,
-                          ),
+  Widget build(BuildContext context) => GetBuilder<FluSplashScreenController>(
+      init: controller,
+      initState: (_) {},
+      builder: widget.builder ??
+          (_) => FluScreen(
+                body: SafeArea(
+                    child: Column(children: [
+                  Expanded(child: Center(child: widget.child)),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(bottom: Flu.screenSize.height * .15),
+                    child: Hero(
+                      tag: Flu.appSettings.brandTextHeroTag,
+                      child: Text(
+                        Flu.appInfos.name,
+                        style: widget.textStyle ??
+                            TextStyle(
+                              fontFamily: FluFonts.neptune.name,
+                              package: 'flukit',
+                              fontSize: Flu.appSettings.subHeadlineFs,
+                              fontWeight: Flu.appSettings.textBold,
+                              color: Flu.theme().accentText,
+                            ),
+                      ),
                     ),
                   ),
-                ),
-              ]));
-            },
-      ));
+                ])),
+              ));
 }
