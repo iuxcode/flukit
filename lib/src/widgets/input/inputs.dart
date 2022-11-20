@@ -58,6 +58,7 @@ class FluTextField extends StatefulWidget {
     this.labelColor,
     this.inputAction = TextInputAction.done,
     this.maxlines,
+    this.obscureText = false,
   });
 
   final String? Function(String?)? validator;
@@ -96,6 +97,7 @@ class FluTextField extends StatefulWidget {
   final TextAlignVertical textAlignVertical;
   final TextStyle? textStyle;
   final ToolbarOptions? toolbarOptions;
+  final bool obscureText;
 
   @override
   State<FluTextField> createState() => _FluTextFieldState();
@@ -187,6 +189,7 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
         validator: widget.validator,
         onChanged: widget.onChanged,
         onTap: widget.onTap,
+        obscureText: widget.obscureText,
       ),
     );
   }
