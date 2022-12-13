@@ -179,30 +179,34 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
       );
     }
 
-    return Padding(
+    content = Padding(
       padding: style.floating ? style.margin : EdgeInsets.zero,
-      child: style.glass
-          ? content
-          : Stack(
-              children: [
-                /// Hide visible parts of the page if bottom
-                /// safeArea is disabled
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    height: style.height *
-                        (style.type == FluBottomNavBarType.curved ? .35 : 1),
-                    decoration: BoxDecoration(
-                      color: Flu.theme().background,
-                    ),
+      child: content,
+    );
+
+    return style.glass
+        ? content
+        : Stack(
+            alignment: Alignment.center,
+            children: [
+              /// Hide visible parts of the page if bottom
+              /// safeArea is disabled
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: (style.height *
+                          (style.type == FluBottomNavBarType.curved ? .5 : 1)) +
+                      (style.floating ? style.margin.bottom : 0),
+                  decoration: BoxDecoration(
+                    color: Flu.theme().background,
                   ),
                 ),
-                content,
-              ],
-            ),
-    );
+              ),
+              content,
+            ],
+          );
   }
 }
 
