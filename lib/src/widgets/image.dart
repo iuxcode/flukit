@@ -19,7 +19,7 @@ class FluImage extends StatelessWidget {
     this.height,
     this.width,
     this.cornerRadius,
-    this.src = FluImageSource.network,
+    this.source = FluImageSource.network,
     this.boxShadow,
     this.provider,
     this.frameBuilder,
@@ -27,7 +27,7 @@ class FluImage extends StatelessWidget {
     this.placeholder,
     this.progressIndicatorBuilder,
     this.httpHeaders,
-    this.fit = BoxFit.cover,
+    this.fit,
     this.margin = EdgeInsets.zero,
     this.overlayOpacity = .05,
     this.cache = true,
@@ -46,35 +46,76 @@ class FluImage extends StatelessWidget {
   final Widget Function(BuildContext, String, DownloadProgress)?
       progressIndicatorBuilder;
 
+  /// If non-null, it define a shadow cast by this image behind the image.
   final BoxShadow? boxShadow;
+
+  /// Set to true, if you want the image to be cached.
+  /// Default is `True`
   final bool cache;
-  final BoxConstraints? constraints;
-  final double? height, width, cornerRadius;
-  final BoxFit? fit;
-  final bool gradientOverlay;
-  final Map<String, String>? httpHeaders;
-  final String image;
-  final bool isSvg;
-  final EdgeInsets? margin;
-  final AlignmentGeometry? overlayGradientBegin, overlayGradientEnd;
-  final double overlayOpacity;
-  final String? package;
-  final ImageProvider<Object>? provider;
-  final FluImageSource src;
+
   final Color? color;
+
+  /// Can be used to define minimum and maximum sizes of the image.
+  final BoxConstraints? constraints;
+
+  /// Round all image corner with the value defined.
+  final double? cornerRadius;
+
+  /// How to inscribe the picture into the space allocated during layout.
+  /// The default is [BoxFit.contain] if [isSvg] and [BoxFit.cover] else.
+  final BoxFit? fit;
+
+  /// Set this to true if you want the overlay to be a gradient.
+  final bool gradientOverlay;
+
+  /// Image height
+  final double? height;
+
+  /// Can be used to send custom HTTP headers with the image request.
+  final Map<String, String>? httpHeaders;
+
+  /// The image to display.
+  /// can be an `URL`, `Asset` or `File` path.
+  final String image;
+
+  /// Set this to true if the image you want to display is an `SVG`
+  final bool isSvg;
+
+  /// Empty space to surround the image.
+  final EdgeInsets? margin;
+
+  /// If the overlay is gradient, you can setup the begin and end of this one.
+  final AlignmentGeometry? overlayGradientBegin, overlayGradientEnd;
+
+  /// Set the intensity of the overlay. Default is `.05`
+  final double overlayOpacity;
+
+  /// The package argument must be non-null when displaying an image from a `package` and null otherwise. See the `Assets in packages` section for details.
+  final String? package;
+
+  final ImageProvider<Object>? provider;
+
+  /// The source of the [image]. Can be `asset`, `network` or `system`.
+  final FluImageSource source;
+
+  /// Image width
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
-    Widget img;
+    late final Widget img;
+    late final BoxFit fit;
 
-    switch (src) {
+    fit = this.fit ?? (isSvg ? BoxFit.contain : BoxFit.cover);
+
+    switch (source) {
       case FluImageSource.asset:
         if (isSvg) {
           img = SvgPicture.asset(
             image,
             height: height,
             width: width,
-            fit: fit ?? BoxFit.cover,
+            fit: fit,
             color: color,
             package: package,
           );
@@ -83,7 +124,7 @@ class FluImage extends StatelessWidget {
             image,
             height: height,
             width: width,
-            fit: fit ?? BoxFit.cover,
+            fit: fit,
             errorBuilder: errorBuilder,
             frameBuilder: frameBuilder,
             package: package,
@@ -96,7 +137,7 @@ class FluImage extends StatelessWidget {
             image,
             height: height,
             width: width,
-            fit: fit ?? BoxFit.cover,
+            fit: fit,
             headers: httpHeaders,
             color: color,
           );
@@ -106,7 +147,7 @@ class FluImage extends StatelessWidget {
                   imageUrl: image,
                   height: height,
                   width: width,
-                  fit: fit ?? BoxFit.cover,
+                  fit: fit,
                   errorWidget: errorBuilder != null
                       ? (context, url, error) =>
                           errorBuilder!(context, url, error)
@@ -119,7 +160,7 @@ class FluImage extends StatelessWidget {
                   image,
                   height: height,
                   width: width,
-                  fit: fit ?? BoxFit.cover,
+                  fit: fit,
                   errorBuilder: errorBuilder,
                   frameBuilder: frameBuilder,
                   headers: httpHeaders,
@@ -132,7 +173,7 @@ class FluImage extends StatelessWidget {
             File(image),
             height: height,
             width: width,
-            fit: fit ?? BoxFit.cover,
+            fit: fit,
             color: color,
           );
         } else {
@@ -140,7 +181,7 @@ class FluImage extends StatelessWidget {
             File(image),
             height: height,
             width: width,
-            fit: fit ?? BoxFit.cover,
+            fit: fit,
             errorBuilder: errorBuilder,
             frameBuilder: frameBuilder,
           );

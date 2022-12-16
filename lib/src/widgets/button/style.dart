@@ -72,10 +72,10 @@ class FluButtonStyle {
   /// If non-null, it define a border to draw above the background [color].
   final Border? border;
 
-  /// If non-null, the corners of this box are rounded by this [BorderRadius].
+  /// If non-null, the corners of this button are rounded by this [BorderRadius].
   final BorderRadius? borderRadius;
 
-  /// If non-null, it define a shadow cast by this box behind the box.
+  /// If non-null, it define a shadow cast by this button behind the button.
   final BoxShadow? boxShadow;
 
   /// Change the color of the button and some of its sub components like icons or texts for [FluButton.text] for example
