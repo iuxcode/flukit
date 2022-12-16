@@ -1,8 +1,6 @@
 import 'package:flukit/flukit.dart';
-import 'package:flukit/src/controllers/splash_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flukit/src/screens/base.dart';
 
 class FluSplashScreen extends StatefulWidget {
   final void Function()? onInitialized;
@@ -92,7 +90,7 @@ class _FluSplashScreenState extends State<FluSplashScreen> {
                     padding:
                         EdgeInsets.only(bottom: Flu.screenSize.height * .15),
                     child: Hero(
-                      tag: Flu.appSettings.brandTextHeroTag,
+                      tag: '</brand>',
                       child: Text(
                         Flu.appInfos.name,
                         style: widget.textStyle ??
@@ -100,7 +98,7 @@ class _FluSplashScreenState extends State<FluSplashScreen> {
                               fontFamily: FluFonts.neptune.name,
                               package: 'flukit',
                               fontSize: Flu.appSettings.subHeadlineFs,
-                              fontWeight: Flu.appSettings.textBold,
+                              fontWeight: FontWeight.bold,
                               color: Flu.theme().accentText,
                             ),
                       ),

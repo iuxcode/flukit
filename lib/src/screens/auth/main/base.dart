@@ -257,14 +257,13 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Hero(
-                                      tag: Flu.appSettings.titleTextHeroTag,
+                                      tag: '</title>',
                                       child: text(controller.steps[index].title,
                                           isTitle: true),
                                     ),
                                     const SizedBox(height: 3),
                                     Hero(
-                                        tag: Flu
-                                            .appSettings.descriptionTextHeroTag,
+                                        tag: '</description>',
                                         child:
                                             text(controller.steps[index].desc)),
                                     GetBuilder<FluAuthScreenController>(
@@ -354,7 +353,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                               initState: (_) {},
                               builder: (_) {
                                 return Hero(
-                                  tag: Flu.appSettings.mainButtonHeroTag,
+                                  tag: '</mainButton>',
                                   child: FluButton.text(
                                     onPressed: controller.canSubmit
                                         ? () => onSubmit(context)
@@ -364,13 +363,14 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                     prefixIcon: controller
                                         .steps[controller.stepIndex].buttonIcon,
                                     spacing: 2,
-                                    textStyle: TextStyle(
-                                      fontWeight: Flu.appSettings.textBold,
+                                    textStyle: const TextStyle(
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    style: FluButtonStyle.defaultt.copyWith(
-                                      expand: true,
+                                    style: FluButtonStyle.primary.copyWith(
+                                      block: true,
                                       height: Flu.appSettings.defaultElSize,
-                                      radius: Flu.appSettings.defaultElRadius,
+                                      cornerRadius:
+                                          Flu.appSettings.defaultElRadius,
                                       padding: EdgeInsets.zero,
                                       margin: EdgeInsets.symmetric(
                                               horizontal: Flu.appSettings
@@ -413,7 +413,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                               opacity: controller.canGetBack ? 1 : 0,
                               duration: const Duration(milliseconds: 300),
                               child: Hero(
-                                tag: Flu.appSettings.backButtonHeroTag,
+                                tag: '</backButton>',
                                 child: FluButton.icon(
                                   onPressed: controller.canGetBack
                                       ? () => onBack()
@@ -422,7 +422,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                   style: FluButtonStyle(
                                     height: Flu.appSettings.minElSize - 5,
                                     width: Flu.appSettings.minElSize - 5,
-                                    radius: Flu.appSettings.minElRadius,
+                                    cornerRadius: Flu.appSettings.minElRadius,
                                     background:
                                         Flu.theme().background.withOpacity(.25),
                                     color: Flu.theme().accentText,
@@ -459,7 +459,8 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                           : null,
                                       style: FluButtonStyle(
                                         height: Flu.appSettings.minElSize - 5,
-                                        radius: Flu.appSettings.minElRadius,
+                                        cornerRadius:
+                                            Flu.appSettings.minElRadius,
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 15),
                                         background: Flu.theme()
@@ -489,18 +490,17 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                               )
                                             : Row(children: [
                                                 Text(
-                                                    controller.region == null
-                                                        ? 'Togo'
-                                                        : controller
-                                                            .region!.name,
-                                                    style: Flu
-                                                        .textTheme.bodyText1!
-                                                        .copyWith(
-                                                            color: Flu.theme()
-                                                                .accentText,
-                                                            fontWeight: Flu
-                                                                .appSettings
-                                                                .textSemibold)),
+                                                  controller.region == null
+                                                      ? 'Togo'
+                                                      : controller.region!.name,
+                                                  style: Flu
+                                                      .textTheme.bodyText1!
+                                                      .copyWith(
+                                                    color:
+                                                        Flu.theme().accentText,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
                                                 Container(
                                                     height: 20,
                                                     width: 25,

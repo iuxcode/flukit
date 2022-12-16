@@ -72,8 +72,7 @@ class FluText extends StatelessWidget {
           stylePreset == FluTextStyle.bodyBold ||
           stylePreset == FluTextStyle.headlineBold) {
         return stylePreset.style.merge(TextStyle(
-            fontWeight: Flu.appSettings.textBold,
-            color: Flu.theme().accentText));
+            fontWeight: FontWeight.bold, color: Flu.theme().accentText));
       }
 
       return defaultTextStyle;

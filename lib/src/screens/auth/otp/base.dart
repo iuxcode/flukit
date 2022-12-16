@@ -131,8 +131,7 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
                   },
                   suffixIcon: FluIcons.refresh,
                   text: widget.codeAskButtonText ?? 'Resend the code.',
-                  textStyle:
-                      TextStyle(fontWeight: Flu.appSettings.textSemibold),
+                  textStyle: const TextStyle(fontWeight: FontWeight.w600),
                   spacing: 10,
                   style: FluButtonStyle(
                     loading: controller.askLoading,
@@ -149,7 +148,7 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
                         style: Flu.textTheme.bodyText1!.copyWith(
                             color: Flu.theme().accentText,
                             fontSize: Flu.appSettings.bodyFs + 1,
-                            fontWeight: Flu.appSettings.textBold)),
+                            fontWeight: FontWeight.bold)),
                     const SizedBox(width: 10),
                     FluIcon(
                       FluIcons.refresh,

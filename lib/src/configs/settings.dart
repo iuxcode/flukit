@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+enum PhysicFeedbackIntensity {
+  light,
+  normal,
+  medium,
+  heavy,
+}
+
 /// FluInterface allows any auxiliary package to be merged into the app constants
 /// class through extensions
 abstract class FluSettingsInterface {
@@ -15,14 +22,6 @@ abstract class FluSettingsInterface {
   double get headlineFs => 22;
   double get extraHeadlineFs => 24;
 
-  /// Font weights
-  FontWeight get textExtraBold => FontWeight.w900;
-  FontWeight get textBold => FontWeight.bold;
-  FontWeight get textSemibold => FontWeight.w600;
-  FontWeight get textMedium => FontWeight.w500;
-  FontWeight get textLight => FontWeight.w400;
-  FontWeight get textNormal => FontWeight.normal;
-
   /// base
   double get defaultPaddingSize => 30;
   double get defaultPageMaxWidthFactor => .85;
@@ -37,27 +36,20 @@ abstract class FluSettingsInterface {
   /// Chip
   double get defaultChipHeight => 65;
 
-  /// default animations
-  Duration get defaultAnimationDuration => const Duration(milliseconds: 300);
-  Curve get defaultAnimationCurve => Curves.easeInOut;
-
   /// default page transition duration and curve
   Duration get defaultPageAnimationDuration =>
       const Duration(milliseconds: 300);
   Curve get defaultPageAnimationCurve => Curves.fastOutSlowIn;
-
-  String get backButtonHeroTag => '<backButton>';
-  String get mainButtonHeroTag => '<mainButton>';
-  String get titleTextHeroTag => '<titleText>';
-  String get title2TextHeroTag => '<title2Text>';
-  String get descriptionTextHeroTag => '<descriptionText>';
-  String get brandTextHeroTag => '<brandText>';
 
   int get httpConnectTimeout => 35000;
   int get httpReceiveTimeout => 35000;
   int get httpSendTimeout => 35000;
 
   String? get emojiFont => null;
+
+  bool get enablePhysicFeedback => true;
+  PhysicFeedbackIntensity get physicFeedbackIntensity =>
+      PhysicFeedbackIntensity.light;
 }
 
 class _FluSettingsImpl extends FluSettingsInterface {}

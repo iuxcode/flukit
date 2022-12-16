@@ -29,6 +29,26 @@ extension FluCore on FluInterface {
   /// On Android, this uses HapticFeedbackConstants.CONTEXT_CLICK on API levels 23 and above. This call has no effects on Android API levels below 23.
   void heavyImpactHaptic() => HapticFeedback.heavyImpact();
 
+  /// Provides a haptic feedback corresponding a collision impact with [PhysicFeedbackIntensity] mass.
+  void physicFeedback() {
+    if (Flu.appSettings.enablePhysicFeedback) {
+      switch (Flu.appSettings.physicFeedbackIntensity) {
+        case PhysicFeedbackIntensity.light:
+          lightImpactHaptic();
+          break;
+        case PhysicFeedbackIntensity.normal:
+          selectionClickHaptic();
+          break;
+        case PhysicFeedbackIntensity.medium:
+          mediumImpactHaptic();
+          break;
+        case PhysicFeedbackIntensity.heavy:
+          heavyImpactHaptic();
+          break;
+      }
+    }
+  }
+
   /// Verify if the [value] is a correct phone number based on the selected region.
   Future<bool> validatePhoneNumber(String value, String countryCode) async {
     return await phoneNumber.validate(value, countryCode);

@@ -26,6 +26,8 @@ class FluChips extends StatefulWidget {
     this.shuffle = false,
     this.scrollController,
     this.initialScrollOffset = 0.0,
+    this.animationCurve = Curves.decelerate,
+    this.animationDuration = const Duration(milliseconds: 300),
   }) {
     if (shuffle) chips.shuffle();
   }
@@ -54,6 +56,8 @@ class FluChips extends StatefulWidget {
   final ScrollController? scrollController;
   final bool shuffle;
   final VerticalDirection verticalDirection;
+  final Duration animationDuration;
+  final Curve animationCurve;
 
   @override
   State<FluChips> createState() => _FluChipsState();
@@ -79,8 +83,7 @@ class _FluChipsState extends State<FluChips> {
   }
 
   void initScroll() => scrollController.animateTo(widget.initialScrollOffset,
-      duration: Flu.appSettings.defaultAnimationDuration,
-      curve: Flu.appSettings.defaultAnimationCurve);
+      duration: widget.animationDuration, curve: widget.animationCurve);
 
   @override
   Widget build(BuildContext context) {

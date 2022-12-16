@@ -74,22 +74,22 @@ class _FluTermsScreenState extends State<FluTermsScreen> {
                       FluButton.text(
                           onPressed: () => widget.onDecline(),
                           text: 'Decline.',
-                          textStyle: TextStyle(
-                              fontWeight: Flu.appSettings.textSemibold),
+                          textStyle:
+                              const TextStyle(fontWeight: FontWeight.w600),
                           style: FluButtonStyle(
                             background: Colors.transparent,
                             color: Flu.theme().danger,
                           )),
                       Hero(
-                        tag: Flu.appSettings.mainButtonHeroTag,
+                        tag: '</mainButton>',
                         child: FluButton.text(
                           onPressed: canAgree ? () => widget.onAgree() : null,
                           text: 'I agree. 😊',
-                          textStyle: TextStyle(
-                              fontWeight: Flu.appSettings.textSemibold),
+                          textStyle:
+                              const TextStyle(fontWeight: FontWeight.w600),
                           style: FluButtonStyle(
                             height: Flu.appSettings.minElSize,
-                            radius: Flu.appSettings.minElRadius,
+                            cornerRadius: Flu.appSettings.minElRadius,
                             padding: const EdgeInsets.symmetric(horizontal: 18),
                             background: canAgree
                                 ? Flu.theme().primary

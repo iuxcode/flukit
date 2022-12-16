@@ -45,7 +45,7 @@ class FluAppbarAction {
         child: GestureDetector(
           onTap: () {
             action.onPressed?.call();
-            Flu.selectionClickHaptic();
+            Flu.physicFeedback();
           },
           child: Padding(
             padding: EdgeInsets.only(

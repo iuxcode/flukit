@@ -260,7 +260,7 @@ class _Item extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: Flu.appSettings.smallFs - 2,
-                fontWeight: isSelected ? Flu.appSettings.textBold : null,
+                fontWeight: isSelected ? FontWeight.bold : null,
                 color: isSelected ? activeColor : color,
               ).merge(labelStyle),
             ))),
@@ -291,12 +291,12 @@ class _Item extends StatelessWidget {
     return Expanded(
       child: FluButton(
         onPressed: () => onTap(),
-        style: FluButtonStyle(
+        style: const FluButtonStyle(
           height: double.infinity,
           width: double.infinity,
           background: Colors.transparent,
-          radius: 0,
-          padding: const EdgeInsets.symmetric(horizontal: 30),
+          cornerRadius: 0,
+          padding: EdgeInsets.symmetric(horizontal: 30),
         ),
         child: content,
       ),

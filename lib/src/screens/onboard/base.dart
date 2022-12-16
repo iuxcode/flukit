@@ -102,9 +102,8 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
                                     text: controller.onFirstPage
                                         ? widget.parameters.skipButtonText
                                         : widget.parameters.prevButtonText,
-                                    textStyle: TextStyle(
-                                        fontWeight:
-                                            Flu.appSettings.textSemibold),
+                                    textStyle: const TextStyle(
+                                        fontWeight: FontWeight.w600),
                                     style: FluButtonStyle(
                                       height: Flu.appSettings.defaultElSize,
                                       color: Flu.theme().accentText,
@@ -119,9 +118,8 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
                                     text: controller.onLastPage
                                         ? widget.parameters.mainButtonText
                                         : widget.parameters.nextButtonText,
-                                    textStyle: TextStyle(
-                                        fontWeight:
-                                            Flu.appSettings.textSemibold),
+                                    textStyle: const TextStyle(
+                                        fontWeight: FontWeight.w600),
                                     style: FluButtonStyle(
                                       height: Flu.appSettings.defaultElSize,
                                       color: Flu.theme().accentText,
@@ -129,14 +127,14 @@ class OnboardingScreenState extends State<FluOnboardingScreen> {
                                   )
                                 ])
                           : Hero(
-                              tag: Flu.appSettings.mainButtonHeroTag,
+                              tag: '</mainButton>',
                               child: FluButton.text(
                                 onPressed: widget.parameters.onForward,
                                 text: widget.parameters.mainButtonText,
                                 prefixIcon: widget.parameters.mainButtonIcon ??
                                     FluIcons.flash,
-                                textStyle: TextStyle(
-                                    fontWeight: Flu.appSettings.textBold),
+                                textStyle: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                                 style: FluButtonStyle(
                                   height: Flu.appSettings.defaultElSize,
                                   width: double.infinity,
@@ -251,7 +249,7 @@ class FluOnboardingScreenTexts extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Hero(
-              tag: Flu.appSettings.titleTextHeroTag,
+              tag: '</title>',
               child: FluText(
                 text: title,
                 textAlign: TextAlign.center,
@@ -260,7 +258,7 @@ class FluOnboardingScreenTexts extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             Hero(
-                tag: Flu.appSettings.descriptionTextHeroTag,
+                tag: '</description>',
                 child: FluText(
                   text: desc,
                   textAlign: TextAlign.center,

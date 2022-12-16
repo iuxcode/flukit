@@ -20,7 +20,7 @@ class FluAppController extends GetMaterialController {
     FluThemeBuilder? themeBuilder,
     FluAppInformations? appInformations,
   }) {
-    this.infos = appInformations ?? FluAppInformations();
+    infos = appInformations ?? FluAppInformations();
     this.apiSettings =
         apiSettings ?? FluApiSettings(baseUrl: 'http://localhost:8000');
     this.settings = settings ?? FluSettings;

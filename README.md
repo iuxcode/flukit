@@ -1,34 +1,48 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Flukit
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-minSdkVersion 18
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A package for quick flutter developpement app
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+* Screens: There are plenty screens that are designed to help you go faster
+* Widgets: useful widgets are designed for quick dev
+* Utils
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+First at all, you need to make some modifications to your `android/app/build.gradle`
+
+```gradle
+ // some code
+
+ android {
+    compileSdkVersion 33
+ }
+ // another code
+
+ defaultConfig {
+  minSdkVersion 18
+ }
+ 
+ // and another code
+```
+
+then you can setup your app
+
+```dart
+
+void main() => runApp(FlukitApp);
+
+class FlukitApp extends StatelessWidget {
+ Widget build(BuildContext context) => FluMaterialApp();
+}
+
+```
 
 ## Usage
 
 TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+to `/example` folder.
 
 ```dart
 const like = 'sample';
@@ -36,6 +50,6 @@ const like = 'sample';
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
+TODO: Tell users more about the package: where to find more information, how to
+contribute to the package, how to file issues, what response they can expect
 from the package authors, and more.

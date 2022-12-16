@@ -71,12 +71,13 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                                   marginBottom: 20,
                                 ),
                                 Hero(
-                                  tag: Flu.appSettings.mainButtonHeroTag,
+                                  tag: '</mainButton>',
                                   child: FluButton(
                                       onPressed: parameters.onForward,
-                                      style: FluButtonStyle.defaultt.copyWith(
+                                      style: FluButtonStyle.primary.copyWith(
                                         height: Flu.appSettings.minElSize + 5,
-                                        radius: Flu.appSettings.minElRadius + 2,
+                                        cornerRadius:
+                                            Flu.appSettings.minElRadius + 2,
                                         maxWidth: maxWidth,
                                       ),
 
@@ -122,9 +123,9 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                                                           style: Flu.textTheme
                                                               .bodyText1!
                                                               .copyWith(
-                                                                  fontWeight: Flu
-                                                                      .appSettings
-                                                                      .textSemibold,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
                                                                   color: Flu
                                                                           .theme()
                                                                       .light)),
@@ -139,7 +140,7 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20),
                   child: Hero(
-                    tag: Flu.appSettings.brandTextHeroTag,
+                    tag: '</brand>',
                     child: Text(Flu.appInfos.name,
                         style: Flu.textTheme.bodyText1!.copyWith(
                             fontFamily: FluFonts.neptune.name, package: 'Flu')),

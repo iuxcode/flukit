@@ -101,8 +101,7 @@ class FluOptionsList extends StatelessWidget {
         Widget titleText = Text(option.title,
             overflow: TextOverflow.ellipsis,
             style: Flu.textTheme.bodyText1
-                ?.copyWith(
-                    color: color, fontWeight: Flu.appSettings.textSemibold)
+                ?.copyWith(color: color, fontWeight: FontWeight.w600)
                 .merge(titleTextStyle?.copyWith(color: option.color)));
 
         Widget optionWidget = Container(

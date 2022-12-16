@@ -94,7 +94,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                   'Select your country ${Emojis.compass}',
                               style: Flu.textTheme.bodyText1!.copyWith(
                                   fontSize: Flu.appSettings.headlineFs,
-                                  fontWeight: Flu.appSettings.textBold,
+                                  fontWeight: FontWeight.bold,
                                   color: Flu.theme().accentText)),
                           const SizedBox(height: 5),
                           Text(
@@ -151,7 +151,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                   background: Flu.theme()
                                       .surfaceBackground
                                       .withOpacity(.45),
-                                  radius: flagRadius + 2,
+                                  cornerRadius: flagRadius + 2,
                                   boxShadow: Flu.boxShadow(
                                     opacity: .035,
                                     offset: const Offset(0, 5),
@@ -188,13 +188,13 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                           overflow: TextOverflow.ellipsis,
                                           style: Flu.textTheme.bodyText1!
                                               .copyWith(
-                                                  fontWeight: Flu.appSettings
-                                                      .textSemibold))),
+                                                  fontWeight:
+                                                      FontWeight.w600))),
                                   const SizedBox(width: 5),
                                   Text('+${country.phoneCode}',
                                       textAlign: TextAlign.right,
                                       style: Flu.textTheme.bodyText1!.copyWith(
-                                          fontWeight: Flu.appSettings.textLight,
+                                          fontWeight: FontWeight.normal,
                                           color: Flu.theme().accentText))
                                 ],
                               ),

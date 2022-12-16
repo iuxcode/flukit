@@ -108,7 +108,7 @@ class _FluTabScreenState extends State<FluTabScreen> {
           onItemTap: (index) {
             onPageChange(index);
             controller.currentIndex = index.toDouble();
-            Flu.selectionClickHaptic();
+            Flu.physicFeedback();
             widget.onPageChange?.call(controller, pageController);
           },
           style: widget.bottomNavBarStyle,

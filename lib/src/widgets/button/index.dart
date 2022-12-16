@@ -6,18 +6,6 @@ import 'package:get/get.dart';
 part 'style.dart';
 
 class FluButton extends StatefulWidget {
-  /// Handle the button press event.
-  final void Function()? onPressed;
-
-  /// Handle the button long press event.
-  final void Function()? onLongPress;
-
-  /// Button style.
-  final FluButtonStyle? style;
-
-  /// Button content.
-  final Widget child;
-
   const FluButton({
     super.key,
     this.onLongPress,
@@ -26,19 +14,47 @@ class FluButton extends StatefulWidget {
     required this.child,
   });
 
+  /// You can use this button to get back to the previous page.
+  factory FluButton.back({
+    Color? color,
+    BoxShadow? boxShadow,
+    FluIcons? icon,
+    double iconSize = 20,
+    double iconStrokewidth = 1.6,
+    VoidCallback? onGoingBack,
+  }) =>
+      FluButton.icon(
+        onPressed: () {
+          onGoingBack?.call();
+          Get.back();
+        },
+        icon: icon ?? FluIcons.arrowLeft,
+        style: FluButtonStyle(
+            iconSize: iconSize,
+            iconStrokewidth: iconStrokewidth,
+            color: color ?? Flu.theme().text,
+            background: Flu.theme().background,
+            boxShadow: boxShadow ??
+                Flu.boxShadow(
+                  offset: const Offset(15, 15),
+                )),
+      );
+
+  /// If you need an icon-only button, this is for you !!!
+  /// you can use [iconRotationQuarterTurn] or [rotationAngle] to rotate the icon.
   factory FluButton.icon({
     required FluIcons icon,
     void Function()? onPressed,
     void Function()? onLongPress,
     FluButtonStyle? style,
-    int iconQuarterTurn = 0,
+    int iconRotationQuarterTurn = 0,
     double? rotationAngle,
   }) {
     style = FluButtonStyle.flat
         .copyWith(
           height: Flu.appSettings.minElSize,
-          width: Flu.appSettings.minElSize,
-          radius: Flu.appSettings.minElRadius,
+          square: true,
+          cornerRadius: Flu.appSettings.minElRadius,
           padding: EdgeInsets.zero,
           margin: EdgeInsets.zero,
           background: Flu.theme().background,
@@ -62,10 +78,13 @@ class FluButton extends StatefulWidget {
               angle: rotationAngle,
               child: iconWidget,
             )
-          : RotatedBox(quarterTurns: iconQuarterTurn, child: iconWidget),
+          : RotatedBox(
+              quarterTurns: iconRotationQuarterTurn, child: iconWidget),
     );
   }
 
+  /// Use this if you're looking for a button with text with or without an icon.
+  /// [spacing] define the amount of space between text and icon(s).
   factory FluButton.text({
     required String text,
     final FluIcons? prefixIcon,
@@ -76,7 +95,7 @@ class FluButton extends StatefulWidget {
     TextStyle? textStyle,
     double spacing = 6,
   }) {
-    style = FluButtonStyle.flat.merge(FluButtonStyle(
+    style = FluButtonStyle.flat.merge(const FluButtonStyle(
       margin: EdgeInsets.zero,
       padding: EdgeInsets.zero,
     ).merge(style));
@@ -112,33 +131,17 @@ class FluButton extends StatefulWidget {
         ));
   }
 
-  factory FluButton.back({
-    Color? color,
-    BoxShadow? boxShadow,
-    FluIcons? icon,
-    double iconSize = 20,
-    double iconStrokewidth = 1.6,
-    VoidCallback? onGoingBack,
-    VoidCallback? onLongPress,
-  }) =>
-      FluButton.icon(
-        onPressed: () {
-          onGoingBack?.call();
-          Get.back();
-        },
-        onLongPress: onLongPress,
-        icon: icon ?? FluIcons.arrowLeft,
-        style: FluButtonStyle(
-          iconSize: iconSize,
-          iconStrokewidth: iconStrokewidth,
-          color: color ?? Flu.theme().text,
-          background: Flu.theme().background,
-          boxShadow: boxShadow ??
-              Flu.boxShadow(
-                offset: const Offset(15, 15),
-              ),
-        ),
-      );
+  /// Handle the button press event.
+  final void Function()? onPressed;
+
+  /// Handle the button long press event.
+  final void Function()? onLongPress;
+
+  /// Button content.
+  final Widget child;
+
+  /// Button style.
+  final FluButtonStyle? style;
 
   @override
   State<FluButton> createState() => _FluButtonState();
@@ -146,24 +149,43 @@ class FluButton extends StatefulWidget {
 
 class _FluButtonState extends State<FluButton> {
   bool get isLoading => widget.style?.loading ?? false;
-  FluButtonStyle get style => widget.style ?? FluButtonStyle.defaultt;
+  FluButtonStyle get style => widget.style ?? FluButtonStyle.primary;
 
   void onPressed() {
-    if (widget.onPressed != null) {
-      if (!isLoading) {
-        Flu.selectionClickHaptic();
-        widget.onPressed!();
-      }
+    if (!isLoading && widget.onPressed != null) {
+      Flu.physicFeedback();
+      widget.onPressed!.call();
     }
   }
 
-  void onLongPress() => widget.onLongPress ?? () => Flu.selectionClickHaptic();
+  void onLongPress() {
+    if (!isLoading && widget.onLongPress != null) {
+      Flu.physicFeedback();
+      widget.onLongPress!.call();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    double? height, width;
+
+    if (style.square) {
+      if (style.height != null && style.width == null) {
+        width = style.height;
+      } else if (style.height == null && style.width != null) {
+        height = style.width;
+      } else if (style.height != null && style.width != null) {
+        width = style.height;
+      } else {
+        height = Flu.appSettings.defaultElSize;
+        width = Flu.appSettings.defaultElSize;
+      }
+    }
+
+    /// TODO: remove either the container shadow or the textButton one.
     return AnimatedContainer(
-      height: style.height,
-      width: style.expand ? double.infinity : style.width,
+      height: height,
+      width: style.block ? double.infinity : width,
       margin: style.margin,
       duration: style.animationDuration ?? const Duration(milliseconds: 300),
       curve: style.animationCurve ?? Curves.linear,
@@ -175,7 +197,7 @@ class _FluButtonState extends State<FluButton> {
         border: style.border,
         borderRadius: style.borderRadius ??
             BorderRadius.circular(
-                style.radius ?? Flu.appSettings.defaultElRadius),
+                style.cornerRadius ?? Flu.appSettings.defaultElRadius),
         boxShadow: [if (style.boxShadow != null) style.boxShadow!],
       ),
       child: TextButton(
@@ -191,7 +213,7 @@ class _FluButtonState extends State<FluButton> {
             RoundedRectangleBorder(
               borderRadius: style.borderRadius ??
                   BorderRadius.circular(
-                    style.radius ?? Flu.appSettings.defaultElRadius,
+                    style.cornerRadius ?? Flu.appSettings.defaultElRadius,
                   ),
             ),
           ),

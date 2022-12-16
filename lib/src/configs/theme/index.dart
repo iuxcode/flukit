@@ -141,8 +141,8 @@ class FluThemeBuilder {
         colors: colors ?? this.colors,
         darkColors: darkColors ?? this.darkColors,
         scrollbarThickness: scrollbarThickness ?? this.scrollbarThickness,
-        bodyTextStyle: this.bodyTextStyle,
-        headingTextStyle: this.headingTextStyle,
+        bodyTextStyle: bodyTextStyle,
+        headingTextStyle: headingTextStyle,
       );
 
   ColorScheme _buildColorScheme(FluColorPalette colors, Brightness brightness) {
@@ -176,38 +176,38 @@ class FluThemeBuilder {
   TextTheme _buildTextTheme(FluColorPalette colors) {
     return TextTheme(
       headlineLarge: headingTextStyle.copyWith(
-        fontWeight: Flu.appSettings.textBold,
+        fontWeight: FontWeight.bold,
         fontSize: Flu.appSettings.headlineFs,
         color: colors.accentText,
       ),
       headline1: headingTextStyle.copyWith(
         fontSize: Flu.appSettings.titleFs,
-        fontWeight: Flu.appSettings.textBold,
+        fontWeight: FontWeight.bold,
         color: colors.accentText,
       ),
       headline2: headingTextStyle.copyWith(
         fontSize: Flu.appSettings.titleFs,
-        fontWeight: Flu.appSettings.textSemibold,
+        fontWeight: FontWeight.w600,
         color: colors.accentText,
       ),
       subtitle1: bodyTextStyle.copyWith(
         fontSize: Flu.appSettings.subtitleFs,
-        fontWeight: Flu.appSettings.textSemibold,
+        fontWeight: FontWeight.w600,
         color: colors.accentText,
       ),
       subtitle2: bodyTextStyle.copyWith(
         fontSize: Flu.appSettings.subtitleFs,
-        fontWeight: Flu.appSettings.textSemibold,
+        fontWeight: FontWeight.w600,
         color: colors.accentText,
       ),
       bodyText1: bodyTextStyle.copyWith(
         fontSize: Flu.appSettings.bodyFs,
-        fontWeight: Flu.appSettings.textNormal,
+        fontWeight: FontWeight.normal,
         color: colors.text,
       ),
       bodyText2: bodyTextStyle.copyWith(
         fontSize: Flu.appSettings.bodyFs,
-        fontWeight: Flu.appSettings.textNormal,
+        fontWeight: FontWeight.normal,
         color: colors.text,
       ),
     );
