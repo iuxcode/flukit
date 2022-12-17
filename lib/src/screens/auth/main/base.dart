@@ -244,7 +244,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                               .steps[index].image.isNotEmpty
                                           ? FluImage(
                                               controller.steps[index].image,
-                                              src: controller
+                                              source: controller
                                                   .steps[index].imageType,
                                             )
                                           : null)),

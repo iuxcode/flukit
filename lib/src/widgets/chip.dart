@@ -201,7 +201,7 @@ class FluChip extends StatelessWidget {
     child = chip.image != null
         ? FluImage(
             chip.image!,
-            src: chip.imageSource,
+            source: chip.imageSource,
             height: double.infinity,
             width: double.infinity,
           )
