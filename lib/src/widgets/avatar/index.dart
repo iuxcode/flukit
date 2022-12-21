@@ -156,13 +156,3 @@ class FluAvatar extends StatelessWidget {
           );
   }
 }
-
-/// TODO: Build avatar group.
-class AvatarGroup extends StatelessWidget {
-  const AvatarGroup({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}

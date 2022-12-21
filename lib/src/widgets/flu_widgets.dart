@@ -1,6 +1,7 @@
 export 'app.dart';
 export 'appbar.dart';
-export 'avatar.dart';
+export 'avatar/index.dart';
+export 'avatar/group.dart';
 export 'button/index.dart';
 export 'bottom_nav_bar/index.dart';
 export 'chip.dart';
