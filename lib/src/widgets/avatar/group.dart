@@ -10,11 +10,15 @@ class FluAvatarGroup extends StatelessWidget {
     required this.itemCount,
     this.itemBuilder,
     this.visibleCount,
+    this.layout = FluAvatarGroupLayout.normal,
+    this.onTap,
   });
 
   final int itemCount;
   final FluAvatar Function(int index)? itemBuilder;
   final int? visibleCount;
+  final FluAvatarGroupLayout layout;
+  final void Function(int index)? onTap;
 
   List<Widget> _buildAvatars() {
     List<Widget> avatars = [];
@@ -45,19 +49,28 @@ class FluAvatarGroup extends StatelessWidget {
     return Stack(
       alignment: Alignment.centerLeft,
       children: [
-        ...avatars.map((avatar) {
-          final int index = avatars.indexOf(avatar);
-          final double leftPos = index * ((avatar as FluAvatar).size * .85);
+        ...avatars.map((avr) {
+          final int index = avatars.indexOf(avr);
+          final double leftPos = index * ((avr as FluAvatar).size * .85);
 
-          return Positioned(left: leftPos, child: avatar);
+          return Positioned(left: leftPos, child: avatar(avr, index));
         }).toList(),
         Positioned(
           left: avatars.length * (avatars.last as FluAvatar).size,
-          child: FluAvatar(
-            text: '+${itemCount - visibleCount}',
-          ),
+          child: avatar(
+              FluAvatar(
+                text: '+${itemCount - visibleCount}',
+              ),
+              -1),
         ),
       ],
     );
   }
+
+  Widget avatar(Widget child, int index) => GestureDetector(
+        onTap: () => onTap?.call(index),
+        child: child,
+      );
 }
+
+enum FluAvatarGroupLayout { normal, grouped }
