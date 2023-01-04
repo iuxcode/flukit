@@ -16,7 +16,7 @@ dependencies:
   dio: ^4.0.4
   emojis: ^0.9.9
   flukit_icons:
-#     path: ../flukit_icons
+    # path: ../flukit_icons
     git:
       url: https://github.com/charles9904/flukit_icons.git
   flutter:
