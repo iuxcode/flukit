@@ -27,16 +27,20 @@ First at all, you need to make some modifications to your `android/app/build.gra
  // and another code
 ```
 
+Grant permissions in your `android/app/src/main/AndroidManifest.xml`
+
+```xml
+
+```
+
 then you can setup your app
 
 ```dart
-
 void main() => runApp(FlukitApp);
 
 class FlukitApp extends StatelessWidget {
  Widget build(BuildContext context) => FluMaterialApp();
 }
-
 ```
 
 ## Usage

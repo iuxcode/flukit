@@ -137,7 +137,6 @@ enum FluTextStyle {
   bodyBold,
   bodyNeptune,
   headline,
-  headlineSemibold,
   headlineBold,
 }
 
@@ -155,7 +154,6 @@ extension FluTextStyleExt on FluTextStyle {
         return Flu.textTheme.bodyText1!;
       case FluTextStyle.headline:
       case FluTextStyle.headlineBold:
-      case FluTextStyle.headlineSemibold:
         return Flu.textTheme.headline1!
             .copyWith(fontSize: Flu.appSettings.headlineFs);
     }
