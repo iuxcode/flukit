@@ -171,10 +171,13 @@ class _FluButtonState extends State<FluButton> {
 
     if (style.square) {
       if (style.height != null && style.width == null) {
+        height = style.height;
         width = style.height;
       } else if (style.height == null && style.width != null) {
         height = style.width;
+        width = style.width;
       } else if (style.height != null && style.width != null) {
+        height = style.height;
         width = style.height;
       } else {
         height = Flu.appSettings.defaultElSize;

@@ -18,22 +18,12 @@ typedef OnAuthGoingForwardFunction = Future<bool> Function(
     bool onLastPage);
 
 class FluAuthScreenParameters {
-  final bool canGetBack;
-
   FluAuthScreenParameters({this.canGetBack = true});
+
+  final bool canGetBack;
 }
 
 class FluSteppedAuthScreen extends StatefulWidget {
-  final Widget? headerAction;
-  final FluAuthScreenController? controller;
-  final OnAuthGoingBackFunction? onGoingBack;
-  final OnAuthGoingForwardFunction? onGoingForward;
-  final Duration? animationDuration;
-  final Curve? animationCurve;
-  final String? countrySelectorTitle,
-      countrySelectorDesc,
-      countrySelectorSearchInputHint;
-
   const FluSteppedAuthScreen({
     Key? key,
     this.controller,
@@ -45,21 +35,52 @@ class FluSteppedAuthScreen extends StatefulWidget {
     this.countrySelectorTitle,
     this.countrySelectorDesc,
     this.countrySelectorSearchInputHint,
+    this.bgGradient = true,
   }) : super(key: key);
+
+  final Curve? animationCurve;
+  final Duration? animationDuration;
+  final bool bgGradient;
+  final FluAuthScreenController? controller;
+  final String? countrySelectorTitle,
+      countrySelectorDesc,
+      countrySelectorSearchInputHint;
+
+  final Widget? headerAction;
+  final OnAuthGoingBackFunction? onGoingBack;
+  final OnAuthGoingForwardFunction? onGoingForward;
 
   @override
   State<FluSteppedAuthScreen> createState() => _AuthScreenState();
 }
 
 class _AuthScreenState extends State<FluSteppedAuthScreen> {
-  late FluAuthScreenController controller;
+  final Curve animationCurve = Curves.fastOutSlowIn;
+  final Duration animationDuration = const Duration(milliseconds: 300);
   late FluAuthScreenParameters args;
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late FluAuthScreenController controller;
   final TextEditingController inputController = TextEditingController();
   final PageController pageController = PageController();
-  final Duration animationDuration = const Duration(milliseconds: 300);
-  final Curve animationCurve = Curves.fastOutSlowIn;
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    /// initialize controller
+    controller = Get.put(
+        widget.controller ??
+            FluAuthScreenController(initialSteps: <FluAuthScreenStep>[]),
+        tag: 'AuthScreenController#${math.Random().nextInt(99999)}');
+
+    /// Get the arguments and set controller values;
+    args = (Get.arguments != null && Get.arguments is FluAuthScreenParameters)
+        ? Get.arguments as FluAuthScreenParameters
+        : FluAuthScreenParameters();
+    controller.canGetBack = args.canGetBack;
+
+    onInit();
+    super.initState();
+  }
 
   bool get onFirstPage => controller.stepIndex == 0;
   bool get onLastPage => controller.stepIndex == controller.steps.length - 1;
@@ -180,23 +201,13 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
             });
   }
 
-  @override
-  void initState() {
-    /// initialize controller
-    controller = Get.put(
-        widget.controller ??
-            FluAuthScreenController(initialSteps: <FluAuthScreenStep>[]),
-        tag: 'AuthScreenController#${math.Random().nextInt(99999)}');
-
-    /// Get the arguments and set controller values;
-    args = (Get.arguments != null && Get.arguments is FluAuthScreenParameters)
-        ? Get.arguments as FluAuthScreenParameters
-        : FluAuthScreenParameters();
-    controller.canGetBack = args.canGetBack;
-
-    onInit();
-    super.initState();
-  }
+  Widget text(String text, {bool isTitle = false}) => FluText(
+      text: text,
+      textAlign: TextAlign.center,
+      stylePreset: isTitle ? FluTextStyle.headlineBold : FluTextStyle.body,
+      style: TextStyle(
+          fontSize:
+              isTitle ? Flu.appSettings.headlineFs : Flu.appSettings.bodyFs));
 
   @override
   Widget build(BuildContext context) {
@@ -229,15 +240,17 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                   child: Container(
                                       width: double.infinity,
                                       decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                              colors: [
-                                            Flu.theme()
-                                                .primary
-                                                .withOpacity(.025),
-                                            Flu.theme().background
-                                          ],
-                                              begin: Alignment.topCenter,
-                                              end: Alignment.bottomCenter)),
+                                          gradient: widget.bgGradient
+                                              ? LinearGradient(
+                                                  colors: [
+                                                      Flu.theme()
+                                                          .primary
+                                                          .withOpacity(.025),
+                                                      Flu.theme().background
+                                                    ],
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomCenter)
+                                              : null),
 
                                       ///! TODO: add an images for each page
                                       child: controller
@@ -331,6 +344,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                                     step.inputRadius ??
                                                         Flu.appSettings
                                                             .defaultElRadius,
+                                                textAlign: TextAlign.center,
                                               ),
                                             );
                                           } else {
@@ -344,7 +358,6 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                           );
                         }),
                   ),
-                  // FluButton(child: Text('Hello world')),
                   AnimatedSwitcher(
                       duration: widget.animationDuration ?? animationDuration,
                       child: !Flu.isKeyboardHidden(context)
@@ -362,7 +375,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                         .buttonLabel,
                                     prefixIcon: controller
                                         .steps[controller.stepIndex].buttonIcon,
-                                    spacing: 2,
+                                    spacing: 5,
                                     textStyle: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -421,13 +434,16 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                   icon: FluIcons.arrowLeft,
                                   style: FluButtonStyle(
                                     height: Flu.appSettings.minElSize - 5,
-                                    width: Flu.appSettings.minElSize - 5,
+                                    square: true,
+                                    padding: EdgeInsets.zero,
                                     cornerRadius: Flu.appSettings.minElRadius,
                                     background:
                                         Flu.theme().background.withOpacity(.25),
                                     color: Flu.theme().accentText,
                                     boxShadow: Flu.boxShadow(
-                                        color: Flu.theme().primary,
+                                        color: widget.bgGradient
+                                            ? Flu.theme().primary
+                                            : Flu.theme().shadow,
                                         offset: const Offset(-15, 15),
                                         opacity: .1),
                                     iconSize: 20,
@@ -467,7 +483,9 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                             .background
                                             .withOpacity(.25),
                                         boxShadow: Flu.boxShadow(
-                                            color: Flu.theme().primary,
+                                            color: widget.bgGradient
+                                                ? Flu.theme().primary
+                                                : Flu.theme().shadow,
                                             offset: const Offset(15, 15),
                                             opacity: .1),
                                       ),
@@ -528,11 +546,4 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
           ),
         ));
   }
-
-  Widget text(String text, {bool isTitle = false}) => Text(text,
-      textAlign: TextAlign.center,
-      style: isTitle
-          ? Flu.textTheme.headline1
-              ?.copyWith(fontSize: Flu.appSettings.subHeadlineFs)
-          : Flu.textTheme.bodyText1);
 }
