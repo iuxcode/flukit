@@ -180,7 +180,8 @@ class _FluButtonState extends State<FluButton> {
         height = Flu.appSettings.defaultElSize;
         width = Flu.appSettings.defaultElSize;
       }
-    }
+    } else
+      height = style.height;
 
     /// TODO: remove either the container shadow or the textButton one.
     return AnimatedContainer(

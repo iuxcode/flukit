@@ -64,6 +64,7 @@ class FluMaterialApp extends GetMaterialApp {
     List<GetPage<dynamic>>? pages;
     String? initRoute;
 
+    /// Lets display default screen if there are no routes or home specified by the user
     if (home == null) {
       if (initialRoute != null && (routes != null || getPages != null)) {
         initRoute = initialRoute;
@@ -73,15 +74,23 @@ class FluMaterialApp extends GetMaterialApp {
 
       if (getPages != null) {
         pages = getPages;
-      } else if (getPages == null && home == null) {
+      } else {
         pages = [
-          FluGetPage(
+          GetPage(
             name: '/default',
             page: () => const FluDefaultScreen(),
           ),
         ];
       }
     }
+
+    /// Adding some default value to page such as default transition
+    pages = pages
+        ?.map((p) => GetPage(
+            name: p.name,
+            page: p.page,
+            transition: p.transition ?? Transition.rightToLeft))
+        .toList();
 
     return GetBuilder<FluAppController>(
         init: controller ?? FluAppController(),
@@ -172,8 +181,7 @@ class FluMaterialApp extends GetMaterialApp {
                   home: home,
                   routes: routes ?? <String, WidgetBuilder>{},
                   initialRoute: initRoute,
-                  onGenerateRoute:
-                      (pages != null ? generator : onGenerateRoute),
+                  onGenerateRoute: pages != null ? generator : onGenerateRoute,
                   onGenerateInitialRoutes: (pages == null || home != null)
                       ? onGenerateInitialRoutes
                       : initialRoutesGenerate,
