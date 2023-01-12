@@ -25,6 +25,7 @@ class FluAvatar extends StatelessWidget {
     this.package,
     this.memojiAsDefault = false,
     this.memoji,
+    this.circle = false,
   }) : super(key: key);
 
   /// The avatar's background fill color.
@@ -87,10 +88,14 @@ class FluAvatar extends StatelessWidget {
   /// Default is `True`
   final bool useCache;
 
+  /// Set to true, if you want the avatar to be a circle
+  final bool circle;
+
   @override
   Widget build(BuildContext context) {
     String? img, package;
     Widget avatar;
+    double _cornerRadius = circle ? 999 : cornerRadius;
 
     if (image != null && image!.isNotEmpty) {
       img = image!;
@@ -107,7 +112,7 @@ class FluAvatar extends StatelessWidget {
             : imageSource,
         height: size,
         width: size,
-        cornerRadius: cornerRadius,
+        cornerRadius: _cornerRadius,
         fit: BoxFit.cover,
         boxShadow: outlined ? null : boxShadow,
         package: package,
@@ -124,7 +129,7 @@ class FluAvatar extends StatelessWidget {
               ? background
               : Flu.theme().primary,
           gradient: backgroundGradient,
-          borderRadius: BorderRadius.circular(cornerRadius),
+          borderRadius: BorderRadius.circular(_cornerRadius),
           boxShadow: [if (boxShadow != null && !outlined) boxShadow!],
         ),
         child: FluText(
@@ -141,7 +146,7 @@ class FluAvatar extends StatelessWidget {
 
     return outlined
         ? FluOutline(
-            radius: cornerRadius + 2,
+            radius: _cornerRadius + 2,
             spacing: spacing,
             thickness: strokewidth,
             borderRadius: borderRadius,

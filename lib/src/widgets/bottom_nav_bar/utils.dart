@@ -50,7 +50,7 @@ class FluBottomNavBarIndicator extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         child: Container(
           height: double.infinity,
-          width: height * (height / 2),
+          width: height * 3,
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.only(

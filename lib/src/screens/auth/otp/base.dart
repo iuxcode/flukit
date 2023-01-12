@@ -7,22 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class FluBasicOtpScreen extends StatefulWidget {
-  final FluOtpScreenController? controller;
-  final int initialWaitTime;
-  final String image;
-  final FluImageSource? imageType;
-  final String? title,
-      desc,
-      buttonText,
-      codeAskButtonText,
-      inputHint,
-      inputErrorText;
-  final FluIcons? buttonIcon;
-  final String authRoute;
-  final OnAuthGoingForwardFunction onGoingForward;
-  final Future<int> Function(FluOtpScreenController controller,
-      TextEditingController inputController) onAskCode;
-
   const FluBasicOtpScreen(
       {Key? key,
       required this.authRoute,
@@ -41,28 +25,58 @@ class FluBasicOtpScreen extends StatefulWidget {
       this.initialWaitTime = 120})
       : super(key: key);
 
+  final Future<int> Function(FluOtpScreenController controller,
+      TextEditingController inputController) onAskCode;
+
+  final String authRoute;
+  final FluIcons? buttonIcon;
+  final FluOtpScreenController? controller;
+  final String image;
+  final FluImageSource? imageType;
+  final int initialWaitTime;
+  final String? title,
+      desc,
+      buttonText,
+      codeAskButtonText,
+      inputHint,
+      inputErrorText;
+
+  final OnAuthGoingForwardFunction onGoingForward;
+
   @override
   State<FluBasicOtpScreen> createState() => _FluBasicOtpScreenState();
 }
 
 class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
   late FluOtpScreenController controller;
-  late Timer _timer;
-
   final TextEditingController inputController = TextEditingController();
 
-  List<FluAuthScreenStep> buildSteps() => <FluAuthScreenStep>[
-        FluAuthScreenInputStep(
-          image: widget.image,
-          imageType: widget.imageType,
-          title: widget.title ?? 'Lorem ipsum dolor sit amet',
-          desc: widget.desc ??
-              'consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          inputHint: widget.inputHint ?? 'Enter the OTP code.',
-          buttonLabel: widget.buttonText ?? 'Verify',
-          buttonIcon: widget.buttonIcon ?? FluIcons.scan,
-        )
-      ];
+  late Timer _timer;
+
+  @override
+  void initState() {
+    /// initialize controller
+    controller = Get.put(
+        widget.controller ??
+            FluOtpScreenController(
+              initialSteps: <FluAuthScreenStep>[
+                FluAuthScreenInputStep(
+                  image: widget.image,
+                  imageType: widget.imageType,
+                  title: widget.title ?? 'Lorem ipsum dolor sit amet',
+                  desc: widget.desc ??
+                      'consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                  inputHint: widget.inputHint ?? 'Enter the OTP code.',
+                  buttonLabel: widget.buttonText ?? 'Verify',
+                  buttonIcon: widget.buttonIcon ?? FluIcons.scan,
+                )
+              ],
+            ),
+        tag: 'AuthScreenController_${math.Random().nextInt(99999)}');
+
+    onInit();
+    super.initState();
+  }
 
   /// time to wait before user will be able to ask for another OTP
   void startTimer(int seconds) {
@@ -88,20 +102,6 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
               stackTrace
             })
         .whenComplete(() => startTimer(widget.initialWaitTime));
-  }
-
-  @override
-  void initState() {
-    /// initialize controller
-    controller = Get.put(
-        widget.controller ??
-            FluOtpScreenController(
-              initialSteps: buildSteps(),
-            ),
-        tag: 'AuthScreenController_${math.Random().nextInt(99999)}');
-
-    onInit();
-    super.initState();
   }
 
   @override

@@ -98,10 +98,11 @@ class _FluTabScreenState extends State<FluTabScreen> {
       background: widget.background,
       appBar: widget.appBar,
       body: PageView(
-          controller: pageController,
-          onPageChanged: onPageChange,
-          physics: widget.physics ?? const NeverScrollableScrollPhysics(),
-          children: pages.map((page) => page.content).toList()),
+        controller: pageController,
+        onPageChanged: onPageChange,
+        physics: widget.physics ?? const NeverScrollableScrollPhysics(),
+        children: pages.map((page) => page.content).toList(),
+      ),
       bottomNavigationBar: Obx(
         () => FluBottomNavBar(
           selectedIndex: controller.currentIndex,
