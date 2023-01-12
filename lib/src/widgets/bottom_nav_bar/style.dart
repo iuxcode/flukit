@@ -30,6 +30,8 @@ class FluBottomNavBarStyle {
     this.glass = false,
     this.alwayShowItemLabel = false,
     this.itemLabelStyle,
+    this.borderColor,
+    this.borderTop = false,
   });
 
   static FluBottomNavBarStyle defaultt = FluBottomNavBarStyle(
@@ -54,7 +56,7 @@ class FluBottomNavBarStyle {
   final double gapWidth;
   final double iconSize;
   final FluIconStyles iconStyle;
-  final Color? background, color, activeColor, indicatorColor;
+  final Color? background, color, activeColor, indicatorColor, borderColor;
   final double height, indicatorHeight;
   final FluBottomNavBarIndicatorPosition indicatorPosition;
   final FluBottomNavBarIndicatorStyle indicatorStyle;
@@ -64,6 +66,7 @@ class FluBottomNavBarStyle {
   final NotchSmoothness notchSmoothness;
   final double radius;
   final FluBottomNavBarType type;
+  final bool borderTop;
 
   FluBottomNavBarStyle merge(FluBottomNavBarStyle? newStyle) =>
       FluBottomNavBarStyle(

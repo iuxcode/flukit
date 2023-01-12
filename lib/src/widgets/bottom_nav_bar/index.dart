@@ -86,9 +86,15 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
       height: style.height,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
-        color: style.background ?? Flu.theme().dark,
-        borderRadius: style.borderRadius ?? BorderRadius.circular(style.radius),
-      ),
+          color: style.background ?? Flu.theme().dark,
+          borderRadius: style.borderTop
+              ? null
+              : (style.borderRadius ?? BorderRadius.circular(style.radius)),
+          border: style.borderTop
+              ? Border(
+                  top: BorderSide(
+                      color: style.borderColor ?? Flu.theme().text, width: 1))
+              : null),
       child: Stack(
         alignment:
             style.indicatorPosition == FluBottomNavBarIndicatorPosition.top
