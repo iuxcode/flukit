@@ -31,6 +31,8 @@ class FluText extends StatelessWidget {
 
   final Widget? overflowReplacement;
 
+  final EdgeInsets? margin;
+
   const FluText({
     super.key,
     this.text,
@@ -51,6 +53,7 @@ class FluText extends StatelessWidget {
     this.stepGranularity = 1,
     this.presetFontSizes,
     this.overflowReplacement,
+    this.margin,
   });
 
   /// Build styles
@@ -102,7 +105,7 @@ class FluText extends StatelessWidget {
             )
           ];
 
-    return RichText(
+    Widget content = RichText(
       text: TextSpan(
         children: prefixs +
             (replaceEmojis
@@ -120,6 +123,9 @@ class FluText extends StatelessWidget {
       presetFontSizes: presetFontSizes,
       overflowReplacement: overflowReplacement, */
     );
+
+    if (margin != null) return Padding(padding: margin!, child: content);
+    return content;
   }
 }
 
