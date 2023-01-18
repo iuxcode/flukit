@@ -67,7 +67,7 @@ class FluDashedCirclePainter extends CustomPainter {
 
     for (int i = 0; i < dashes; i++) {
       final Paint paint = Paint()
-        ..color = color ?? Flu.theme().primary
+        ..color = color ?? Flu.theme.primary
         ..strokeWidth = strokewidth
         ..style = PaintingStyle.stroke;
 

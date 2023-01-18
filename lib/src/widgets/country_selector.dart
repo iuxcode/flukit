@@ -70,15 +70,14 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                 width: Flu.screenSize.width * .2,
                 margin: const EdgeInsets.only(bottom: 8),
                 decoration: BoxDecoration(
-                    color: Flu.theme().background.withOpacity(.5),
+                    color: Flu.theme.background.withOpacity(.5),
                     borderRadius: BorderRadius.circular(2)),
               ),
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.only(top: 5),
                   decoration: BoxDecoration(
-                      color: Flu.theme().background,
-                      borderRadius: borderRadius),
+                      color: Flu.theme.background, borderRadius: borderRadius),
                   child: ClipRRect(
                     borderRadius: borderRadius,
                     child: Scrollbar(
@@ -95,7 +94,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                               style: Flu.textTheme.bodyText1!.copyWith(
                                   fontSize: Flu.appSettings.headlineFs,
                                   fontWeight: FontWeight.bold,
-                                  color: Flu.theme().accentText)),
+                                  color: Flu.theme.accentText)),
                           const SizedBox(height: 5),
                           Text(
                             widget.desc ??
@@ -113,25 +112,25 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                               blurRadius: 30,
                               opacity: .045,
                               offset: const Offset(10, 10),
-                              color: Flu.theme().shadow,
+                              color: Flu.theme.shadow,
                             ),
                             child: FluTextField(
                               label: widget.searchInputHint ??
                                   'Search for a country.',
                               height: Flu.appSettings.defaultElSize,
                               cornerRadius: Flu.appSettings.defaultElRadius + 5,
-                              fillColor: Flu.theme().background,
+                              fillColor: Flu.theme.background,
                               textAlign: TextAlign.left,
                               prefixIcon: FluIcons.searchNormal,
                               iconSize: 18,
                               iconStrokeWidth: 2,
-                              iconColor: Flu.theme().text,
+                              iconColor: Flu.theme.text,
                               borderWidth: 1.2,
                               boxShadow: [
                                 Flu.boxShadow(
                                   opacity: .035,
                                   offset: const Offset(0, 5),
-                                  color: Flu.theme().primary,
+                                  color: Flu.theme.primary,
                                 )
                               ],
                               onChanged: (value) => filter(value),
@@ -148,14 +147,13 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                   padding: const EdgeInsets.all(8)
                                       .copyWith(right: 15),
                                   margin: const EdgeInsets.only(bottom: 10),
-                                  background: Flu.theme()
-                                      .surfaceBackground
+                                  background: Flu.theme.surfaceBackground
                                       .withOpacity(.45),
                                   cornerRadius: flagRadius + 2,
                                   boxShadow: Flu.boxShadow(
                                     opacity: .035,
                                     offset: const Offset(0, 5),
-                                    color: Flu.theme().primary,
+                                    color: Flu.theme.primary,
                                   )),
                               child: Row(
                                 children: [
@@ -167,7 +165,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                     boxShadow: Flu.boxShadow(
                                         offset: const Offset(0, 0),
                                         opacity: .15,
-                                        color: Flu.theme().primary),
+                                        color: Flu.theme.primary),
                                     child: Container(
                                       height: flagSize,
                                       width: flagSize,
@@ -195,7 +193,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                       textAlign: TextAlign.right,
                                       style: Flu.textTheme.bodyText1!.copyWith(
                                           fontWeight: FontWeight.normal,
-                                          color: Flu.theme().accentText))
+                                          color: Flu.theme.accentText))
                                 ],
                               ),
                             );

@@ -19,7 +19,7 @@ class FluDefaultScreen extends StatelessWidget {
                         package: 'flukit',
                         fontWeight: FontWeight.bold,
                         fontSize: Flu.appSettings.headlineFs + 15,
-                        color: Flu.theme().primary)),
+                        color: Flu.theme.primary)),
                 const SizedBox(height: 5),
                 const Text(
                   'Voluptates ut earum voluptatum dolore sed. Perferendis qui enim aut labore eos. Deleniti quasi possimus molestiae eligendi est et porro et voluptatem. Libero et sunt modi aut quas accusamus fuga excepturi.',

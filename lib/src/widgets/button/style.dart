@@ -39,14 +39,14 @@ class FluButtonStyle {
   /// Defining styles
   static FluButtonStyle flat = FluButtonStyle(
     background: Colors.transparent,
-    color: Flu.theme().accentText,
+    color: Flu.theme.accentText,
   );
 
   static FluButtonStyle primary = FluButtonStyle(
     height: Flu.appSettings.defaultElSize,
     cornerRadius: Flu.appSettings.defaultElRadius,
-    background: Flu.theme().primary,
-    color: Flu.theme().light,
+    background: Flu.theme.primary,
+    color: Flu.theme.light,
     padding: const EdgeInsets.symmetric(horizontal: 20),
   );
 

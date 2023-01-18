@@ -138,7 +138,7 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
                     height: Flu.appSettings.minElSize,
                     padding: EdgeInsets.zero,
                     background: Colors.transparent,
-                    color: Flu.theme().accentText,
+                    color: Flu.theme.accentText,
                     iconSize: 20,
                     iconStrokewidth: 1.8,
                   ))
@@ -146,7 +146,7 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
                   children: [
                     Text(Flu.timeLeft(controller.waitingTime),
                         style: Flu.textTheme.bodyText1!.copyWith(
-                            color: Flu.theme().accentText,
+                            color: Flu.theme.accentText,
                             fontSize: Flu.appSettings.bodyFs + 1,
                             fontWeight: FontWeight.bold)),
                     const SizedBox(width: 10),
@@ -154,7 +154,7 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
                       FluIcons.refresh,
                       size: 20,
                       strokewidth: 2.5,
-                      color: Flu.theme().primary,
+                      color: Flu.theme.primary,
                     )
                   ],
                 )),

@@ -75,7 +75,7 @@ class FluText extends StatelessWidget {
           stylePreset == FluTextStyle.bodyBold ||
           stylePreset == FluTextStyle.headlineBold) {
         return stylePreset.style.merge(TextStyle(
-            fontWeight: FontWeight.bold, color: Flu.theme().accentText));
+            fontWeight: FontWeight.bold, color: Flu.theme.accentText));
       }
 
       return defaultTextStyle;
@@ -101,7 +101,7 @@ class FluText extends StatelessWidget {
               text: hasText ? text : 'You have to add text or entities !',
               style: _style
                   .merge(style)
-                  .copyWith(color: hasText ? null : Flu.theme().danger),
+                  .copyWith(color: hasText ? null : Flu.theme.danger),
             )
           ];
 

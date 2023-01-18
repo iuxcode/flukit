@@ -212,8 +212,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
   @override
   Widget build(BuildContext context) {
     return FluScreen(
-        systemUiOverlayStyle: Flu.theme()
-            .systemUiOverlayStyle
+        systemUiOverlayStyle: Flu.theme.systemUiOverlayStyle
             .copyWith(statusBarColor: Colors.transparent),
         body: Form(
           key: _formKey,
@@ -243,10 +242,9 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                           gradient: widget.bgGradient
                                               ? LinearGradient(
                                                   colors: [
-                                                      Flu.theme()
-                                                          .primary
+                                                      Flu.theme.primary
                                                           .withOpacity(.025),
-                                                      Flu.theme().background
+                                                      Flu.theme.background
                                                     ],
                                                   begin: Alignment.topCenter,
                                                   end: Alignment.bottomCenter)
@@ -304,7 +302,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                                 blurRadius: 30,
                                                 opacity: .065,
                                                 offset: const Offset(0, 0),
-                                                color: Flu.theme().shadow,
+                                                color: Flu.theme.shadow,
                                               ),
                                               child: FluTextField(
                                                 inputController:
@@ -322,20 +320,18 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                                     TextInputType.text,
                                                 inputAction:
                                                     TextInputAction.done,
-                                                fillColor:
-                                                    Flu.theme().background,
-                                                borderColor:
-                                                    (controller.hasError
-                                                            ? Flu.theme().danger
-                                                            : Flu.theme()
-                                                                .background)
-                                                        .withOpacity(.015),
+                                                fillColor: Flu.theme.background,
+                                                borderColor: (controller
+                                                            .hasError
+                                                        ? Flu.theme.danger
+                                                        : Flu.theme.background)
+                                                    .withOpacity(.015),
                                                 labelColor: controller.hasError
-                                                    ? Flu.theme().danger
-                                                    : Flu.theme().text,
+                                                    ? Flu.theme.danger
+                                                    : Flu.theme.text,
                                                 color: controller.hasError
-                                                    ? Flu.theme().danger
-                                                    : Flu.theme().accentText,
+                                                    ? Flu.theme.danger
+                                                    : Flu.theme.accentText,
                                                 height: step.inputHeight ??
                                                     Flu.appSettings
                                                             .defaultElSize -
@@ -395,13 +391,13 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                                   .defaultPaddingSize)
                                           .copyWith(bottom: 25),
                                       color: controller.canSubmit
-                                          ? Flu.theme().onPrimary
-                                          : Flu.theme().accentText,
+                                          ? Flu.theme.onPrimary
+                                          : Flu.theme.accentText,
                                       background: controller.canSubmit
-                                          ? Flu.theme().primary
-                                          : Flu.theme().primary.withOpacity(.1),
+                                          ? Flu.theme.primary
+                                          : Flu.theme.primary.withOpacity(.1),
                                       boxShadow: Flu.boxShadow(
-                                          color: Flu.theme().shadow,
+                                          color: Flu.theme.shadow,
                                           opacity: controller.canSubmit
                                               ? .085
                                               : .085,
@@ -443,12 +439,12 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                     padding: EdgeInsets.zero,
                                     cornerRadius: Flu.appSettings.minElRadius,
                                     background:
-                                        Flu.theme().background.withOpacity(.25),
-                                    color: Flu.theme().accentText,
+                                        Flu.theme.background.withOpacity(.25),
+                                    color: Flu.theme.accentText,
                                     boxShadow: Flu.boxShadow(
                                         color: widget.bgGradient
-                                            ? Flu.theme().primary
-                                            : Flu.theme().shadow,
+                                            ? Flu.theme.primary
+                                            : Flu.theme.shadow,
                                         offset: const Offset(-15, 15),
                                         opacity: .1),
                                     iconSize: 20,
@@ -484,13 +480,12 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                             Flu.appSettings.minElRadius,
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 15),
-                                        background: Flu.theme()
-                                            .background
+                                        background: Flu.theme.background
                                             .withOpacity(.25),
                                         boxShadow: Flu.boxShadow(
                                             color: widget.bgGradient
-                                                ? Flu.theme().primary
-                                                : Flu.theme().shadow,
+                                                ? Flu.theme.primary
+                                                : Flu.theme.shadow,
                                             offset: const Offset(15, 15),
                                             opacity: .1),
                                       ),
@@ -506,7 +501,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                                   valueColor:
                                                       AlwaysStoppedAnimation<
                                                           Color>(
-                                                    Flu.theme().accentText,
+                                                    Flu.theme.accentText,
                                                   ),
                                                   strokeWidth: 2,
                                                 ),
@@ -519,8 +514,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                                   style: Flu
                                                       .textTheme.bodyText1!
                                                       .copyWith(
-                                                    color:
-                                                        Flu.theme().accentText,
+                                                    color: Flu.theme.accentText,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),

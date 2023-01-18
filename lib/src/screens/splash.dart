@@ -99,7 +99,7 @@ class _FluSplashScreenState extends State<FluSplashScreen> {
                               package: 'flukit',
                               fontSize: Flu.appSettings.subHeadlineFs,
                               fontWeight: FontWeight.bold,
-                              color: Flu.theme().accentText,
+                              color: Flu.theme.accentText,
                             ),
                       ),
                     ),

@@ -86,14 +86,14 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
       height: style.height,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
-          color: style.background ?? Flu.theme().dark,
+          color: style.background ?? Flu.theme.dark,
           borderRadius: style.borderTop
               ? null
               : (style.borderRadius ?? BorderRadius.circular(style.radius)),
           border: style.borderTop
               ? Border(
                   top: BorderSide(
-                      color: style.borderColor ?? Flu.theme().text, width: 1))
+                      color: style.borderColor ?? Flu.theme.text, width: 1))
               : null),
       child: Stack(
         alignment:
@@ -123,8 +123,8 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
                         () => animationController.forward(from: 0.0));
                   },
                   data: widget.items[i],
-                  color: style.color ?? Flu.theme().text,
-                  activeColor: style.activeColor ?? Flu.theme().primary,
+                  color: style.color ?? Flu.theme.text,
+                  activeColor: style.activeColor ?? Flu.theme.primary,
                   animationDuration: style.animationDuration,
                   animationCurve: style.animationCurve,
                   showLabel: style.showItemLabelOnSelected,
@@ -147,10 +147,9 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
             maxWidth: itemWidth,
             duration: style.animationDuration,
             curve: style.animationCurve,
-            color: style.indicatorColor ??
-                style.activeColor ??
-                Flu.theme().primary,
-            activeColor: style.activeColor ?? Flu.theme().primary,
+            color:
+                style.indicatorColor ?? style.activeColor ?? Flu.theme.primary,
+            activeColor: style.activeColor ?? Flu.theme.primary,
             style: style.indicatorStyle,
             position: style.indicatorPosition,
             gapWidth: style.gapWidth,
@@ -206,7 +205,7 @@ class FluBottomNavBarState extends State<FluBottomNavBar>
                           (style.type == FluBottomNavBarType.curved ? .5 : 1)) +
                       (style.floating ? style.margin.bottom : 0),
                   decoration: BoxDecoration(
-                    color: Flu.theme().background,
+                    color: Flu.theme.background,
                   ),
                 ),
               ),

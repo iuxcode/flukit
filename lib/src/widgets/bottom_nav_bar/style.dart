@@ -35,15 +35,15 @@ class FluBottomNavBarStyle {
   });
 
   static FluBottomNavBarStyle defaultt = FluBottomNavBarStyle(
-    background: Flu.theme().dark,
-    color: Flu.theme().text,
-    activeColor: Flu.theme().primary,
+    background: Flu.theme.dark,
+    color: Flu.theme.text,
+    activeColor: Flu.theme.primary,
   );
 
   static FluBottomNavBarStyle secondary = FluBottomNavBarStyle(
-    background: Flu.theme().secondary,
-    color: Flu.theme().text,
-    activeColor: Flu.theme().primary,
+    background: Flu.theme.secondary,
+    color: Flu.theme.text,
+    activeColor: Flu.theme.primary,
   );
 
   final FluIconStyles? activeIconStyle;

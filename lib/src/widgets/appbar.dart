@@ -54,7 +54,7 @@ class FluAppbar extends StatelessWidget {
                           (floating && shrinkOnFloating ? 8 : 0))
               .copyWith(top: Flu.statusBarHeight),
           decoration: BoxDecoration(
-              color: (backgroundColor ?? Flu.theme().background)
+              color: (backgroundColor ?? Flu.theme.background)
                   .withOpacity(backgroundOpacity ?? .5)),
           child: SizedBox(
             height: Flu.appSettings.defaultAppBarSize,

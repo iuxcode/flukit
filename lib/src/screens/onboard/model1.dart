@@ -51,7 +51,7 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                             page.buttonIcon ??
                                 parameters.mainButtonIcon ??
                                 FluIcons.flash,
-                            color: Flu.theme().light,
+                            color: Flu.theme.light,
                             size: 20,
                           );
 
@@ -111,24 +111,23 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                                                             parameters
                                                                 .mainButtonIcon ??
                                                             FluIcons.flash,
-                                                        color:
-                                                            Flu.theme().light,
+                                                        color: Flu.theme.light,
                                                         size: 20,
                                                       ),
                                                       const SizedBox(width: 6),
                                                       Text(
-                                                          page.buttonText ??
-                                                              parameters
-                                                                  .mainButtonText,
-                                                          style: Flu.textTheme
-                                                              .bodyText1!
-                                                              .copyWith(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  color: Flu
-                                                                          .theme()
-                                                                      .light)),
+                                                        page.buttonText ??
+                                                            parameters
+                                                                .mainButtonText,
+                                                        style: Flu.textTheme
+                                                            .bodyText1!
+                                                            .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color:
+                                                              Flu.theme.light,
+                                                        ),
+                                                      ),
                                                     ],
                                                   ),
                                                 ),

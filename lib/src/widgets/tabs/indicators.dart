@@ -69,7 +69,7 @@ class FluDotTabIndicator extends Decoration {
   FluDotTabIndicator({
     Color? color,
     double? radius,
-  }) : _painter = FluCirclePainter(color ?? Flu.theme().primary, radius ?? 3);
+  }) : _painter = FluCirclePainter(color ?? Flu.theme.primary, radius ?? 3);
 
   final BoxPainter _painter;
 
@@ -126,7 +126,7 @@ class FluMaterialIndicator extends Decoration {
     return FluMaterialIndicatorPainter(
       this,
       onChanged,
-      color: color ?? Flu.theme().primary,
+      color: color ?? Flu.theme.primary,
       height: height,
       horizontalPadding: horizontalPadding,
       tabPosition: tabPosition,

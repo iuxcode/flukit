@@ -33,22 +33,22 @@ class FluScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => AnnotatedRegion<SystemUiOverlayStyle>(
-        value: Flu.theme().systemUiOverlayStyle.copyWith(
-              statusBarColor: systemUiOverlayStyle?.statusBarColor,
-              statusBarIconBrightness:
-                  systemUiOverlayStyle?.statusBarIconBrightness,
-              statusBarBrightness: systemUiOverlayStyle?.statusBarBrightness,
-              systemNavigationBarColor:
-                  systemUiOverlayStyle?.systemNavigationBarColor,
-              systemNavigationBarDividerColor:
-                  systemUiOverlayStyle?.systemNavigationBarDividerColor,
-              systemNavigationBarIconBrightness:
-                  systemUiOverlayStyle?.systemNavigationBarIconBrightness,
-              systemStatusBarContrastEnforced:
-                  systemUiOverlayStyle?.systemStatusBarContrastEnforced,
-              systemNavigationBarContrastEnforced:
-                  systemUiOverlayStyle?.systemNavigationBarContrastEnforced,
-            ),
+        value: Flu.theme.systemUiOverlayStyle.copyWith(
+          statusBarColor: systemUiOverlayStyle?.statusBarColor,
+          statusBarIconBrightness:
+              systemUiOverlayStyle?.statusBarIconBrightness,
+          statusBarBrightness: systemUiOverlayStyle?.statusBarBrightness,
+          systemNavigationBarColor:
+              systemUiOverlayStyle?.systemNavigationBarColor,
+          systemNavigationBarDividerColor:
+              systemUiOverlayStyle?.systemNavigationBarDividerColor,
+          systemNavigationBarIconBrightness:
+              systemUiOverlayStyle?.systemNavigationBarIconBrightness,
+          systemStatusBarContrastEnforced:
+              systemUiOverlayStyle?.systemStatusBarContrastEnforced,
+          systemNavigationBarContrastEnforced:
+              systemUiOverlayStyle?.systemNavigationBarContrastEnforced,
+        ),
         child: Scaffold(
           key: scaffoldKey,
           backgroundColor: background,

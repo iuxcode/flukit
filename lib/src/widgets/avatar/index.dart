@@ -127,7 +127,7 @@ class FluAvatar extends StatelessWidget {
         decoration: BoxDecoration(
           color: backgroundGradient == null && background != null
               ? background
-              : Flu.theme().primary,
+              : Flu.theme.primary,
           gradient: backgroundGradient,
           borderRadius: BorderRadius.circular(_cornerRadius),
           boxShadow: [if (boxShadow != null && !outlined) boxShadow!],
@@ -139,7 +139,7 @@ class FluAvatar extends StatelessWidget {
                       : 'Flu')
                   .trim()),
           stylePreset: FluTextStyle.bodyNeptune,
-          style: textStyle ?? TextStyle(color: Flu.theme().light),
+          style: textStyle ?? TextStyle(color: Flu.theme.light),
         ),
       );
     }

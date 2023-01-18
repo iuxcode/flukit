@@ -28,7 +28,7 @@ class FluAppbarAction {
   static Widget get separationLine => FluLine(
         height: 8,
         width: 1,
-        color: Flu.theme().text.withOpacity(.65),
+        color: Flu.theme.text.withOpacity(.65),
       );
 
   static List<Widget> build(List<FluAppbarAction> actions,
@@ -57,7 +57,7 @@ class FluAppbarAction {
               children: [
                 FluIcon(
                   action.icon,
-                  color: Flu.theme().text,
+                  color: Flu.theme.text,
                   size: action.iconSize,
                   strokewidth: action.iconStrokeWidth,
                   style: action.iconStyle ?? FluIconStyles.twotone,
@@ -75,10 +75,10 @@ class FluAppbarAction {
                       height: 8,
                       width: 8,
                       decoration: BoxDecoration(
-                          color: Flu.theme().primary,
+                          color: Flu.theme.primary,
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: Flu.theme().background.withOpacity(.8),
+                            color: Flu.theme.background.withOpacity(.8),
                             width: 1.5,
                           ),
                           boxShadow: [
@@ -86,7 +86,7 @@ class FluAppbarAction {
                               blurRadius: 12,
                               offset: const Offset(0, 0),
                               opacity: 1,
-                              color: Flu.theme().primary,
+                              color: Flu.theme.primary,
                             )
                           ]),
                     ),

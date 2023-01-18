@@ -43,7 +43,7 @@ class FluModalBottomSheet extends StatelessWidget {
                     duration: animationDuration,
                     curve: animationCurve,
                     decoration: BoxDecoration(
-                        color: Flu.theme().background.withOpacity(.9),
+                        color: Flu.theme.background.withOpacity(.9),
                         borderRadius: BorderRadius.circular(10)),
                   ),
                   Flexible(
@@ -54,7 +54,7 @@ class FluModalBottomSheet extends StatelessWidget {
                       duration: animationDuration,
                       curve: animationCurve,
                       decoration: BoxDecoration(
-                        color: Flu.theme().background,
+                        color: Flu.theme.background,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(radius ?? defaultRadius),
                             topRight: Radius.circular(radius ?? defaultRadius)),

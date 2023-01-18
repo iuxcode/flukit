@@ -15,13 +15,13 @@ extension FluUI on FluInterface {
 
   /// return the current [FluTheme].
   /// If [BuildContext] isn't provided, [Get.context] is used.
-  FluTheme theme([BuildContext? context]) => FluTheme(context ?? this.context);
+  FluTheme get theme => FluTheme(context);
 
   /// return the current theme textThemes
-  TextTheme get textTheme => theme().textTheme;
+  TextTheme get textTheme => theme.textTheme;
 
   /// return the current theme [SystemOverlayStyle]
-  SystemUiOverlayStyle get systemUIOverlayStyle => theme().systemUiOverlayStyle;
+  SystemUiOverlayStyle get systemUIOverlayStyle => theme.systemUiOverlayStyle;
 
   /// Set new [SystemOverlayStyle]
   void setSystemUiOverlayStyle(SystemUiOverlayStyle style) =>
@@ -65,7 +65,7 @@ extension FluUI on FluInterface {
           blurRadius: blurRadius,
           spreadRadius: spreadRadius,
           offset: offset,
-          color: (color ?? theme().shadow).withOpacity(opacity));
+          color: (color ?? theme.shadow).withOpacity(opacity));
 
   /// display theme based or custom snackbar
   void showSnackbar(String message,
@@ -86,29 +86,29 @@ extension FluUI on FluInterface {
       double blur = 7}) {
     switch (type) {
       case FluSnackbarType.danger:
-        background = background ?? theme().danger;
-        textColor = textColor ?? theme().danger;
-        iconColor = iconColor ?? theme().danger;
+        background = background ?? theme.danger;
+        textColor = textColor ?? theme.danger;
+        iconColor = iconColor ?? theme.danger;
         break;
       case FluSnackbarType.success:
-        background = background ?? theme().success;
-        textColor = textColor ?? theme().success;
-        iconColor = iconColor ?? theme().success;
+        background = background ?? theme.success;
+        textColor = textColor ?? theme.success;
+        iconColor = iconColor ?? theme.success;
         break;
       case FluSnackbarType.warning:
-        background = background ?? theme().warning;
-        textColor = textColor ?? theme().warning;
-        iconColor = iconColor ?? theme().warning;
+        background = background ?? theme.warning;
+        textColor = textColor ?? theme.warning;
+        iconColor = iconColor ?? theme.warning;
         break;
       case FluSnackbarType.primary:
-        background = background ?? theme().primary;
-        textColor = textColor ?? theme().primary;
-        iconColor = iconColor ?? theme().primary;
+        background = background ?? theme.primary;
+        textColor = textColor ?? theme.primary;
+        iconColor = iconColor ?? theme.primary;
         break;
       case FluSnackbarType.light:
-        background = background ?? theme().light;
-        textColor = textColor ?? theme().light;
-        iconColor = iconColor ?? theme().light;
+        background = background ?? theme.light;
+        textColor = textColor ?? theme.light;
+        iconColor = iconColor ?? theme.light;
         break;
     }
 
@@ -137,7 +137,7 @@ extension FluUI on FluInterface {
             .replaceAll('_', ' '),
         type: FluSnackbarType.danger,
         position: SnackPosition.TOP,
-        textColor: theme().danger,
+        textColor: theme.danger,
         opacity: .065,
         blur: 45,
         duration: 10);

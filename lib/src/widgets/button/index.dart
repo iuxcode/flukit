@@ -32,8 +32,8 @@ class FluButton extends StatefulWidget {
         style: FluButtonStyle(
             iconSize: iconSize,
             iconStrokewidth: iconStrokewidth,
-            color: color ?? Flu.theme().text,
-            background: Flu.theme().background,
+            color: color ?? Flu.theme.text,
+            background: Flu.theme.background,
             boxShadow: boxShadow ??
                 Flu.boxShadow(
                   offset: const Offset(15, 15),
@@ -57,7 +57,7 @@ class FluButton extends StatefulWidget {
           cornerRadius: Flu.appSettings.minElRadius,
           padding: EdgeInsets.zero,
           margin: EdgeInsets.zero,
-          background: Flu.theme().background,
+          background: Flu.theme.background,
         )
         .merge(style);
 
@@ -104,7 +104,7 @@ class FluButton extends StatefulWidget {
           icon,
           size: style!.iconSize,
           strokewidth: style.iconStrokewidth,
-          color: style.color ?? Flu.theme().light,
+          color: style.color ?? Flu.theme.light,
           style: style.iconStyle,
           margin: EdgeInsets.only(
             right: prefixIcon != null ? spacing : 0,
@@ -212,8 +212,8 @@ class _FluButtonState extends State<FluButton> {
           overlayColor: MaterialStateProperty.all(Colors.transparent),
           fixedSize: MaterialStateProperty.all(
               const Size(double.infinity, double.infinity)),
-          backgroundColor: MaterialStateProperty.all(
-              style.background ?? Flu.theme().primary),
+          backgroundColor:
+              MaterialStateProperty.all(style.background ?? Flu.theme.primary),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: style.borderRadius ??
@@ -235,7 +235,7 @@ class _FluButtonState extends State<FluButton> {
                       width: 20,
                       child: CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation<Color>(
-                            style.color ?? Flu.theme().dark),
+                            style.color ?? Flu.theme.dark),
                         strokeWidth: 2,
                       ),
                     ),

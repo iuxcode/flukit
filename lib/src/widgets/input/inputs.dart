@@ -130,7 +130,7 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
       .merge(widget.textStyle);
 
   Color get _fillColor => widget.fillColor ?? _theme.surfaceBackground;
-  FluTheme get _theme => Flu.theme();
+  FluTheme get _theme => Flu.theme;
 
   Widget? _icon(FluIcons? icon) {
     if (icon != null) {

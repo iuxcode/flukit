@@ -78,7 +78,7 @@ class _FluTermsScreenState extends State<FluTermsScreen> {
                               const TextStyle(fontWeight: FontWeight.w600),
                           style: FluButtonStyle(
                             background: Colors.transparent,
-                            color: Flu.theme().danger,
+                            color: Flu.theme.danger,
                           )),
                       Hero(
                         tag: '</mainButton>',
@@ -92,11 +92,11 @@ class _FluTermsScreenState extends State<FluTermsScreen> {
                             cornerRadius: Flu.appSettings.minElRadius,
                             padding: const EdgeInsets.symmetric(horizontal: 18),
                             background: canAgree
-                                ? Flu.theme().primary
-                                : Flu.theme().primary.withOpacity(.1),
+                                ? Flu.theme.primary
+                                : Flu.theme.primary.withOpacity(.1),
                             color: canAgree
-                                ? Flu.theme().light
-                                : Flu.theme().accentText,
+                                ? Flu.theme.light
+                                : Flu.theme.accentText,
                           ),
                         ),
                       ),
