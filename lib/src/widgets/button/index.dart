@@ -185,6 +185,7 @@ class _FluButtonState extends State<FluButton> {
       }
     } else
       height = style.height;
+    width = style.width;
 
     /// TODO: remove either the container shadow or the textButton one.
     return AnimatedContainer(

@@ -77,6 +77,26 @@ extension FluTextUtils on FluInterface {
     return text.toLowerCase();
   }
 
+  /// Duration to formatted strint
+  String formatDuration(Duration duration,
+      {bool withHours = false, bool withMilliseconds = false}) {
+    final int hours = duration.inHours;
+    final int minutes = duration.inMinutes;
+    final int seconds = duration.inSeconds % 60;
+    final String milliseconds = withMilliseconds
+        ? ',${(duration.inMilliseconds % 1000).toString()[0]}'
+        : '';
+
+    String h = withHours && hours > 0
+        ? '${hours < 10 ? "$hours" : hours.toString()}:'
+        : '';
+    String min =
+        minutes < 10 && minutes != 0 ? '0$minutes' : minutes.toString();
+    String sec = seconds < 10 ? '0$seconds' : seconds.toString();
+
+    return "$h$min:$sec$milliseconds";
+  }
+
   /// Replace all emojis in text with [Joypixels] emojis.
   TextSpan replaceEmojis(TextSpan span) {
     final children = <TextSpan>[];

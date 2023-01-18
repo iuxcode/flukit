@@ -340,11 +340,16 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                                     Flu.appSettings
                                                             .defaultElSize -
                                                         2,
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 15),
                                                 cornerRadius:
                                                     step.inputRadius ??
                                                         Flu.appSettings
                                                             .defaultElRadius,
                                                 textAlign: TextAlign.center,
+                                                textAlignVertical:
+                                                    TextAlignVertical.center,
                                               ),
                                             );
                                           } else {

@@ -2,6 +2,13 @@
 
 A package for quick flutter developpement app
 
+## TODO
+
+* Add Map widget
+* Add offline/online getter
+* Get connectivity
+* Optimize screens
+
 ## Features
 
 * Screens: There are plenty screens that are designed to help you go faster

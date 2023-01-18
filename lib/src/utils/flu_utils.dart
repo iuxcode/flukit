@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:flukit/src/configs/theme/index.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +33,7 @@ part './extensions/get.dart';
 part './helpers/core.dart';
 part './helpers/text.dart';
 part './helpers/ui.dart';
+part './helpers/connectivity.dart';
 part './services/api.dart';
 part './services/location.dart';
 part './services/secure_storage.dart';
