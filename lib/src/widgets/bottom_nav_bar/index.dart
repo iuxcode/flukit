@@ -259,7 +259,7 @@ class _Item extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 10),
             child: FittedBox(
                 child: FluText(
-              text: data.label,
+              data.label,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,

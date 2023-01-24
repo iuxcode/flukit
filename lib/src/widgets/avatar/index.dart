@@ -133,7 +133,7 @@ class FluAvatar extends StatelessWidget {
           boxShadow: [if (boxShadow != null && !outlined) boxShadow!],
         ),
         child: FluText(
-          text: Flu.textToAvatarFormat(
+          Flu.textToAvatarFormat(
               ((text != null && text!.isNotEmpty && !memojiAsDefault)
                       ? text!
                       : 'Flu')

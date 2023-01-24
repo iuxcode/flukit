@@ -206,7 +206,7 @@ class FluChip extends StatelessWidget {
             width: double.infinity,
           )
         : FluText(
-            text: chip.text,
+            chip.text,
             style: textStyle?.merge(chip.textStyle) ?? chip.textStyle,
           );
 
@@ -226,11 +226,11 @@ class FluChip extends StatelessWidget {
         decoration: BoxDecoration(
           color: chip.outlined
               ? Colors.transparent
-              : chip.color ?? Flu.theme.surfaceBackground50,
+              : chip.color ?? Flu.theme.surfaceBackground,
           border: chip.outlined
               ? Border.all(
                   width: chip.strokeWidth,
-                  color: chip.color ?? Flu.theme.surfaceBackground50,
+                  color: chip.color ?? Flu.theme.surfaceBackground,
                 )
               : null,
           borderRadius: BorderRadius.circular(

@@ -250,7 +250,7 @@ class FluOnboardingScreenTexts extends StatelessWidget {
             Hero(
               tag: '</title>',
               child: FluText(
-                text: title,
+                title,
                 textAlign: TextAlign.center,
                 stylePreset: FluTextStyle.headlineBold,
               ),
@@ -259,7 +259,7 @@ class FluOnboardingScreenTexts extends StatelessWidget {
             Hero(
                 tag: '</description>',
                 child: FluText(
-                  text: desc,
+                  desc,
                   textAlign: TextAlign.center,
                   stylePreset: FluTextStyle.body,
                 )),

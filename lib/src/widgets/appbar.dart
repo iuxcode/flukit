@@ -67,7 +67,7 @@ class FluAppbar extends StatelessWidget {
                         duration: animationDuration,
                         curve: animationCurve,
                         child: FluText(
-                          text: titleTextEntities == null ? title : null,
+                          titleTextEntities == null ? title : null,
                           entities: titleTextEntities,
                           stylePreset: FluTextStyle.headlineBold,
                           style: titleStyle,

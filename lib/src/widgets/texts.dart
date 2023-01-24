@@ -33,9 +33,10 @@ class FluText extends StatelessWidget {
 
   final EdgeInsets? margin;
 
-  const FluText({
+  const FluText(
+    this.text, {
     super.key,
-    this.text,
+    // this.text,
     this.entities,
     this.stylePreset = FluTextStyle.body,
     this.style,

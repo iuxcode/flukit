@@ -201,8 +201,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
             });
   }
 
-  Widget text(String text, {bool isTitle = false}) => FluText(
-      text: text,
+  Widget text(String text, {bool isTitle = false}) => FluText(text,
       textAlign: TextAlign.center,
       stylePreset: isTitle ? FluTextStyle.headlineBold : FluTextStyle.body,
       style: TextStyle(
