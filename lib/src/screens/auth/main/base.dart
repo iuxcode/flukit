@@ -511,7 +511,7 @@ class _AuthScreenState extends State<FluSteppedAuthScreen> {
                                                       ? 'Togo'
                                                       : controller.region!.name,
                                                   style: Flu
-                                                      .textTheme.bodyText1!
+                                                      .textTheme.bodySmall!
                                                       .copyWith(
                                                     color: Flu.theme.accentText,
                                                     fontWeight: FontWeight.bold,

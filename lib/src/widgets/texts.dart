@@ -59,7 +59,7 @@ class FluText extends StatelessWidget {
 
   /// Build styles
   TextStyle get _style {
-    TextStyle defaultTextStyle = Flu.textTheme.bodyText1!;
+    TextStyle defaultTextStyle = Flu.textTheme.bodySmall!;
 
     if (applicationMethod == FluTextStyleApplicationMethod.override) {
       return style ?? defaultTextStyle;
@@ -153,15 +153,15 @@ extension FluTextStyleExt on FluTextStyle {
       case FluTextStyle.small:
       case FluTextStyle.smallBold:
       case FluTextStyle.smallNeptune:
-        return Flu.textTheme.bodyText1!
+        return Flu.textTheme.bodySmall!
             .copyWith(fontSize: Flu.appSettings.smallFs);
       case FluTextStyle.body:
       case FluTextStyle.bodyBold:
       case FluTextStyle.bodyNeptune:
-        return Flu.textTheme.bodyText1!;
+        return Flu.textTheme.bodySmall!;
       case FluTextStyle.headline:
       case FluTextStyle.headlineBold:
-        return Flu.textTheme.headline1!
+        return Flu.textTheme.headlineLarge!
             .copyWith(fontSize: Flu.appSettings.headlineFs);
     }
   }

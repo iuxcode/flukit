@@ -91,7 +91,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                           Text(
                               widget.title ??
                                   'Select your country ${Emojis.compass}',
-                              style: Flu.textTheme.bodyText1!.copyWith(
+                              style: Flu.textTheme.bodySmall!.copyWith(
                                   fontSize: Flu.appSettings.headlineFs,
                                   fontWeight: FontWeight.bold,
                                   color: Flu.theme.accentText)),
@@ -99,7 +99,7 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                           Text(
                             widget.desc ??
                                 'Select your country in order to get authentified or to get the best deals in your area.',
-                            style: Flu.textTheme.bodyText1,
+                            style: Flu.textTheme.bodySmall,
                           ),
                           FluOutline(
                             radius: Flu.appSettings.defaultElRadius + 7,
@@ -184,14 +184,14 @@ class FluCountrySelectState extends State<FluCountrySelect> {
                                   Expanded(
                                       child: Text(country.name,
                                           overflow: TextOverflow.ellipsis,
-                                          style: Flu.textTheme.bodyText1!
+                                          style: Flu.textTheme.bodySmall!
                                               .copyWith(
                                                   fontWeight:
                                                       FontWeight.w600))),
                                   const SizedBox(width: 5),
                                   Text('+${country.phoneCode}',
                                       textAlign: TextAlign.right,
-                                      style: Flu.textTheme.bodyText1!.copyWith(
+                                      style: Flu.textTheme.bodySmall!.copyWith(
                                           fontWeight: FontWeight.normal,
                                           color: Flu.theme.accentText))
                                 ],

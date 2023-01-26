@@ -95,7 +95,6 @@ class FluThemeBuilder {
 
     return theme.copyWith(
       brightness: darkColorScheme.brightness,
-      backgroundColor: darkColorScheme.background,
       scaffoldBackgroundColor: darkColorScheme.background,
       dividerColor: darkColors.divider,
       colorScheme: darkColorScheme,
@@ -111,7 +110,6 @@ class FluThemeBuilder {
     return ThemeData(
       brightness: colorScheme.brightness,
       primaryColor: primary,
-      backgroundColor: colorScheme.background,
       scaffoldBackgroundColor: colorScheme.background,
       dividerColor: colors.divider,
       colorScheme: colorScheme,
@@ -175,37 +173,72 @@ class FluThemeBuilder {
 
   TextTheme _buildTextTheme(FluColorPalette colors) {
     return TextTheme(
+      displayLarge: headingTextStyle.copyWith(
+        fontWeight: FontWeight.bold,
+        fontSize: Flu.appSettings.extraHeadlineFs,
+        color: colors.accentText,
+      ),
+      displaySmall: headingTextStyle.copyWith(
+        fontWeight: FontWeight.bold,
+        fontSize: Flu.appSettings.extraHeadlineFs,
+        color: colors.accentText,
+      ),
       headlineLarge: headingTextStyle.copyWith(
         fontWeight: FontWeight.bold,
         fontSize: Flu.appSettings.headlineFs,
         color: colors.accentText,
       ),
-      headline1: headingTextStyle.copyWith(
+      headlineMedium: headingTextStyle.copyWith(
         fontSize: Flu.appSettings.titleFs,
         fontWeight: FontWeight.bold,
         color: colors.accentText,
       ),
-      headline2: headingTextStyle.copyWith(
+      headlineSmall: headingTextStyle.copyWith(
         fontSize: Flu.appSettings.titleFs,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.bold,
         color: colors.accentText,
       ),
-      subtitle1: bodyTextStyle.copyWith(
+      titleLarge: bodyTextStyle.copyWith(
         fontSize: Flu.appSettings.subtitleFs,
         fontWeight: FontWeight.w600,
         color: colors.accentText,
       ),
-      subtitle2: bodyTextStyle.copyWith(
+      titleMedium: bodyTextStyle.copyWith(
         fontSize: Flu.appSettings.subtitleFs,
         fontWeight: FontWeight.w600,
         color: colors.accentText,
       ),
-      bodyText1: bodyTextStyle.copyWith(
+      titleSmall: bodyTextStyle.copyWith(
+        fontSize: Flu.appSettings.subtitleFs,
+        fontWeight: FontWeight.w600,
+        color: colors.accentText,
+      ),
+      labelLarge: bodyTextStyle.copyWith(
         fontSize: Flu.appSettings.bodyFs,
         fontWeight: FontWeight.normal,
         color: colors.text,
       ),
-      bodyText2: bodyTextStyle.copyWith(
+      labelMedium: bodyTextStyle.copyWith(
+        fontSize: Flu.appSettings.bodyFs,
+        fontWeight: FontWeight.normal,
+        color: colors.text,
+      ),
+      labelSmall: bodyTextStyle.copyWith(
+        fontSize: Flu.appSettings.bodyFs,
+        fontWeight: FontWeight.normal,
+        color: colors.text,
+      ),
+      bodyLarge: bodyTextStyle.copyWith(
+        fontSize: Flu.appSettings.bodyFs,
+        fontWeight: FontWeight.normal,
+        color: colors.text,
+      ),
+      bodyMedium: bodyTextStyle.copyWith(
+        fontSize: Flu.appSettings.bodyFs,
+        fontWeight: FontWeight.normal,
+        color: colors.text,
+      ),
+      bodySmall: bodyTextStyle.copyWith(
         fontSize: Flu.appSettings.bodyFs,
         fontWeight: FontWeight.normal,
         color: colors.text,

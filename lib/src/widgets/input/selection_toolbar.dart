@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 typedef OffsetValue = void Function(int start, int end);
 
@@ -51,13 +50,13 @@ class FluTextSelectionControls extends MaterialTextSelectionControls {
       anchorAbove: anchorAbove,
       anchorBelow: anchorBelow,
       clipboardStatus: clipboardStatus,
-      handleCopy: canCopy(delegate)
+      /* handleCopy: canCopy(delegate)
           ? () => handleCopy(delegate, clipboardStatus)
           : null,
       handleCut: canCut(delegate) ? () => handleCut(delegate) : null,
       handlePaste: canPaste(delegate) ? () => handlePaste(delegate) : null,
       handleSelectAll:
-          canSelectAll(delegate) ? () => handleSelectAll(delegate) : null,
+          canSelectAll(delegate) ? () => handleSelectAll(delegate) : null, */
       customActions: customActions?.map((action) {
             return FluTextSelectionToolbarItemData(
                 label: action.label,

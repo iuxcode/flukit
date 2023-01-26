@@ -91,7 +91,7 @@ class FluOptionsList extends StatelessWidget {
                   : label != null
                       ? Center(
                           child: Text(label,
-                              style: Flu.textTheme.bodyText1!.copyWith(
+                              style: Flu.textTheme.bodySmall!.copyWith(
                                 fontSize: iconSize ?? 24,
                               )),
                         )
@@ -100,7 +100,7 @@ class FluOptionsList extends StatelessWidget {
 
         Widget titleText = Text(option.title,
             overflow: TextOverflow.ellipsis,
-            style: Flu.textTheme.bodyText1
+            style: Flu.textTheme.bodySmall
                 ?.copyWith(color: color, fontWeight: FontWeight.w600)
                 .merge(titleTextStyle?.copyWith(color: option.color)));
 
@@ -136,7 +136,7 @@ class FluOptionsList extends StatelessWidget {
                         Text(option.description!,
                             overflow: TextOverflow.ellipsis,
                             style:
-                                Flu.textTheme.bodyText1?.merge(descTextStyle))
+                                Flu.textTheme.bodySmall?.merge(descTextStyle))
                       ],
                     ),
                   )

@@ -120,7 +120,7 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                                                             parameters
                                                                 .mainButtonText,
                                                         style: Flu.textTheme
-                                                            .bodyText1!
+                                                            .bodySmall!
                                                             .copyWith(
                                                           fontWeight:
                                                               FontWeight.w600,
@@ -141,7 +141,7 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                   child: Hero(
                     tag: '</brand>',
                     child: Text(Flu.appInfos.name,
-                        style: Flu.textTheme.bodyText1!.copyWith(
+                        style: Flu.textTheme.bodySmall!.copyWith(
                             fontFamily: FluFonts.neptune.name, package: 'Flu')),
                   ),
                 )

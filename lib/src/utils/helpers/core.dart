@@ -51,7 +51,7 @@ extension FluCore on FluInterface {
 
   /// Verify if the [value] is a correct phone number based on the selected region.
   Future<bool> validatePhoneNumber(String value, String countryCode) async {
-    return await phoneNumber.validate(value, countryCode);
+    return await phoneNumber.validate(value, regionCode: countryCode);
     // .catchError((error, stackTrace) => Future.error('Invalid phone number'));
   }
 

@@ -145,7 +145,7 @@ class _FluBasicOtpScreenState extends State<FluBasicOtpScreen> {
               : Row(
                   children: [
                     Text(Flu.timeLeft(controller.waitingTime),
-                        style: Flu.textTheme.bodyText1!.copyWith(
+                        style: Flu.textTheme.bodySmall!.copyWith(
                             color: Flu.theme.accentText,
                             fontSize: Flu.appSettings.bodyFs + 1,
                             fontWeight: FontWeight.bold)),

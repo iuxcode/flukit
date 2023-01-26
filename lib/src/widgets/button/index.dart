@@ -121,7 +121,7 @@ class FluButton extends StatefulWidget {
           children: [
             if (prefixIcon != null) buildIcon(prefixIcon),
             Text(text,
-                style: Flu.textTheme.bodyText1
+                style: Flu.textTheme.bodySmall
                     ?.copyWith(
                       color: style.color,
                     )
@@ -183,9 +183,10 @@ class _FluButtonState extends State<FluButton> {
         height = Flu.appSettings.defaultElSize;
         width = Flu.appSettings.defaultElSize;
       }
-    } else
+    } else {
       height = style.height;
-    width = style.width;
+      width = style.width;
+    }
 
     /// TODO: remove either the container shadow or the textButton one.
     return AnimatedContainer(

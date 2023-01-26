@@ -55,7 +55,7 @@ extension ExtensionSnackbar on GetInterface {
             (title != null
                 ? Text(
                     title,
-                    style: t.textTheme.bodyText1!.copyWith(
+                    style: t.textTheme.bodySmall!.copyWith(
                       color: colorText ?? iconColor ?? Colors.black,
                       fontSize: 16,
                     ),
@@ -65,7 +65,7 @@ extension ExtensionSnackbar on GetInterface {
             Text(
               message,
               textAlign: TextAlign.center,
-              style: t.textTheme.bodyText1!.copyWith(
+              style: t.textTheme.bodySmall!.copyWith(
                 color: colorText ?? iconColor ?? Colors.black,
                 fontSize: 14,
               ),

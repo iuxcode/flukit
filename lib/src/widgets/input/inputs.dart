@@ -1,14 +1,8 @@
-import 'dart:math' as math;
-
 import 'package:flukit/src/configs/theme/index.dart';
 import 'package:flukit/src/utils/flu_utils.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-
-import 'base_text_field.dart';
-import 'controller.dart';
 
 export 'controller.dart';
 export 'replacements.dart';
@@ -28,7 +22,7 @@ class FluTextField extends StatefulWidget {
     this.onChanged,
     this.expand = false,
     this.textStyle,
-    this.toolbarOptions,
+    // this.toolbarOptions,
     this.selectionControls,
     this.onTap,
     this.height,
@@ -96,7 +90,7 @@ class FluTextField extends StatefulWidget {
   final TextAlign textAlign;
   final TextAlignVertical textAlignVertical;
   final TextStyle? textStyle;
-  final ToolbarOptions? toolbarOptions;
+  // final ToolbarOptions? toolbarOptions;
   final bool obscureText;
 
   @override
@@ -125,7 +119,7 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
         contentPadding: widget.padding,
       );
 
-  TextStyle get _defaultTextStyle => _theme.textTheme.bodyText1!
+  TextStyle get _defaultTextStyle => _theme.textTheme.bodySmall!
       .copyWith(color: widget.color ?? _theme.text)
       .merge(widget.textStyle);
 
@@ -179,7 +173,7 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
         keyboardType: widget.keyboardType,
         inputFormatters: widget.inputFormatters,
         textInputAction: widget.inputAction,
-        toolbarOptions: widget.toolbarOptions,
+        // toolbarOptions: widget.toolbarOptions,
         selectionControls: widget.selectionControls,
         style: _defaultTextStyle,
         cursorColor: widget.cursorColor ?? _theme.primary,
@@ -197,7 +191,7 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
 
 /// A [Flukit] rich [TextField].
 /// Offer more options.
-class FluRichTextField extends FluTextField {
+/* class FluRichTextField extends FluTextField {
   const FluRichTextField({
     super.key,
     super.inputController,
@@ -305,3 +299,4 @@ class _FluRichTextFieldState extends _FluTextFieldState<FluRichTextField> {
     );
   }
 }
+ */
