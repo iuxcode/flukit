@@ -32,7 +32,9 @@ class FluAppbarAction {
       );
 
   static List<Widget> build(List<FluAppbarAction> actions,
-      {bool lineBetween = true, double? spaceBetween}) {
+      {bool lineBetween = true,
+      double? spaceBetween,
+      Color? actionIndicatorColor}) {
     List<Widget> widgets = [];
 
     for (FluAppbarAction action in actions) {
@@ -75,7 +77,7 @@ class FluAppbarAction {
                       height: 8,
                       width: 8,
                       decoration: BoxDecoration(
-                          color: Flu.theme.primary,
+                          color: actionIndicatorColor ?? Flu.theme.primary,
                           shape: BoxShape.circle,
                           border: Border.all(
                             color: Flu.theme.background.withOpacity(.8),
@@ -86,7 +88,7 @@ class FluAppbarAction {
                               blurRadius: 12,
                               offset: const Offset(0, 0),
                               opacity: 1,
-                              color: Flu.theme.primary,
+                              color: actionIndicatorColor ?? Flu.theme.primary,
                             )
                           ]),
                     ),

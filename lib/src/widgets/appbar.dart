@@ -15,6 +15,7 @@ class FluAppbar extends StatelessWidget {
     this.backgroundOpacity,
     this.blurIntensity,
     this.backgroundColor,
+    this.actionIndicatorColor,
     this.padding,
     this.title = 'Flukit',
     this.titleTextEntities,
@@ -32,6 +33,7 @@ class FluAppbar extends StatelessWidget {
   final Curve animationCurve;
   final Duration animationDuration;
   final Color? backgroundColor;
+  final Color? actionIndicatorColor;
   final double? blurIntensity, backgroundOpacity;
   final Widget? child;
   final bool floating;
@@ -73,10 +75,9 @@ class FluAppbar extends StatelessWidget {
                           style: titleStyle,
                         )),
                     const Spacer(),
-                    ...FluAppbarAction.build(
-                      actions,
-                      spaceBetween: 15,
-                    ),
+                    ...FluAppbarAction.build(actions,
+                        spaceBetween: 15,
+                        actionIndicatorColor: actionIndicatorColor),
                   ],
                 ),
           ),
