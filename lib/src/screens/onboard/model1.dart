@@ -89,9 +89,8 @@ class FluOnboardingScreenModel1 extends StatelessWidget {
                                             ? icon
                                             : FluCollapsible(
                                                 collapse: mustCollapse,
-                                                axis: FluCollapsibleAxis
-                                                    .horizontal,
-                                                animDuration: parameters
+                                                axis: Axis.horizontal,
+                                                duration: parameters
                                                     .animationDuration,
 
                                                 /// i use [SingleChildScrollView] to avoid overflow error

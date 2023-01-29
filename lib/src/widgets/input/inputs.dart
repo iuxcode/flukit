@@ -13,47 +13,47 @@ export 'selection_toolbar.dart';
 /// This is a convenience widget that wraps a [TextField] widget in a
 /// [Container] for more styling options.
 class FluTextField extends StatefulWidget {
-  const FluTextField({
-    super.key,
-    this.inputController,
-    this.focusNode,
-    this.inputFormatters,
-    this.validator,
-    this.onChanged,
-    this.expand = false,
-    this.textStyle,
-    // this.toolbarOptions,
-    this.selectionControls,
-    this.onTap,
-    this.height,
-    this.margin = EdgeInsets.zero,
-    this.padding = EdgeInsets.zero,
-    this.fillColor,
-    this.boxShadow,
-    this.borderWidth,
-    this.prefixIcon,
-    this.suffixIcon,
-    this.iconColor,
-    this.iconSize = 20,
-    this.iconStrokeWidth = 1.6,
-    this.iconStyle = FluIconStyles.twotone,
-    this.textAlign = TextAlign.start,
-    this.textAlignVertical = TextAlignVertical.center,
-    this.keyboardType,
-    this.color,
-    this.cursorColor,
-    this.cursorHeight,
-    this.cursorWidth = 2.0,
-    required this.label,
-    this.labelStyle,
-    this.borderColor,
-    this.borderRadius,
-    this.cornerRadius,
-    this.labelColor,
-    this.inputAction = TextInputAction.done,
-    this.maxlines,
-    this.obscureText = false,
-  });
+  const FluTextField(
+      {super.key,
+      this.inputController,
+      this.focusNode,
+      this.inputFormatters,
+      this.validator,
+      this.onChanged,
+      this.expand = false,
+      this.textStyle,
+      // this.toolbarOptions,
+      this.selectionControls,
+      this.onTap,
+      this.height,
+      this.margin = EdgeInsets.zero,
+      this.padding,
+      this.fillColor,
+      this.boxShadow,
+      this.borderWidth,
+      this.prefixIcon,
+      this.suffixIcon,
+      this.iconColor,
+      this.iconSize = 20,
+      this.iconStrokeWidth = 1.6,
+      this.iconStyle = FluIconStyles.twotone,
+      this.textAlign = TextAlign.start,
+      this.textAlignVertical = TextAlignVertical.center,
+      this.keyboardType,
+      this.color,
+      this.cursorColor,
+      this.cursorHeight,
+      this.cursorWidth = 2.0,
+      required this.label,
+      this.labelStyle,
+      this.borderColor,
+      this.borderRadius,
+      this.cornerRadius,
+      this.labelColor,
+      this.inputAction = TextInputAction.done,
+      this.maxlines,
+      this.obscureText = false,
+      this.maxHeight});
 
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
@@ -84,7 +84,7 @@ class FluTextField extends StatefulWidget {
   final EdgeInsets margin;
   final int? maxlines;
   final VoidCallback? onTap;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
   final TextSelectionControls? selectionControls;
   final FluIcons? prefixIcon, suffixIcon;
   final TextAlign textAlign;
@@ -92,6 +92,7 @@ class FluTextField extends StatefulWidget {
   final TextStyle? textStyle;
   // final ToolbarOptions? toolbarOptions;
   final bool obscureText;
+  final double? maxHeight;
 
   @override
   State<FluTextField> createState() => _FluTextFieldState();
@@ -107,17 +108,29 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
     _focusNode = widget.focusNode ?? FocusNode();
   }
 
+  double? get height {
+    if (widget.expand && widget.maxHeight == null) {
+      return double.infinity;
+    } else if (widget.maxHeight != null) {
+      return null;
+    }
+
+    return widget.height ?? Flu.appSettings.defaultElSize;
+  }
+
   InputDecoration get _decoration => InputDecoration(
-        border: InputBorder.none,
-        hintText: widget.label,
-        hintStyle: _defaultTextStyle
-            .copyWith(color: widget.labelColor ?? _theme.text)
-            .merge(widget.labelStyle),
-        errorStyle: const TextStyle(height: 0, color: Colors.transparent),
-        prefixIcon: _icon(widget.prefixIcon),
-        suffixIcon: _icon(widget.suffixIcon),
-        contentPadding: widget.padding,
-      );
+      border: InputBorder.none,
+      hintText: widget.label,
+      hintStyle: _defaultTextStyle
+          .copyWith(color: widget.labelColor ?? _theme.text)
+          .merge(widget.labelStyle),
+      errorStyle: const TextStyle(height: 0, color: Colors.transparent),
+      prefixIcon: _icon(widget.prefixIcon),
+      suffixIcon: _icon(widget.suffixIcon),
+      contentPadding: widget.padding ??
+          (height == null
+              ? EdgeInsets.symmetric(vertical: 20)
+              : EdgeInsets.zero));
 
   TextStyle get _defaultTextStyle => _theme.textTheme.bodySmall!
       .copyWith(color: widget.color ?? _theme.text)
@@ -142,10 +155,8 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: widget.expand
-          ? double.infinity
-          : (widget.height ?? Flu.appSettings.defaultElSize),
+    Widget field = Container(
+      height: height,
       margin: widget.margin,
       clipBehavior: Clip.hardEdge,
       alignment: Alignment.center,
@@ -166,7 +177,7 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
       child: TextFormField(
         controller: widget.inputController,
         focusNode: _focusNode,
-        expands: true,
+        expands: height != null,
         maxLines: widget.maxlines,
         textAlign: widget.textAlign,
         textAlignVertical: widget.textAlignVertical,
@@ -186,6 +197,19 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
         obscureText: widget.obscureText,
       ),
     );
+
+    if (widget.maxHeight != null) {
+      return Container(
+          color: _fillColor,
+          constraints: BoxConstraints(maxHeight: widget.maxHeight!),
+          child: Scrollbar(
+              child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  physics: const BouncingScrollPhysics(),
+                  child: field)));
+    }
+
+    return field;
   }
 }
 
