@@ -20,6 +20,8 @@ class FluImage extends StatelessWidget {
     this.cornerRadius = 0,
     this.borderRadius,
     this.package,
+    this.circle = false,
+    this.square = false,
     super.key,
   });
 
@@ -65,9 +67,22 @@ class FluImage extends StatelessWidget {
   /// Image width
   final double? width;
 
+  /// Set to true, if you want the image to be a circle
+  final bool circle;
+
+  /// Set to true, if you want the image height to be equal to its width
+  final bool square;
+
   @override
   Widget build(BuildContext context) {
     Widget child;
+    double? height = this.height, width = this.width;
+
+    if (square) {
+      double? size = _dimensionsToSquare(this.height, this.width);
+      height = size;
+      width = size;
+    }
 
     switch (imageSource) {
       case ImageSources.network:
@@ -129,7 +144,11 @@ class FluImage extends StatelessWidget {
     if (cornerRadius > 0 || borderRadius != null) {
       child = Container(
         decoration: BoxDecoration(
-            borderRadius: borderRadius ?? BorderRadius.circular(cornerRadius)),
+          shape: circle ? BoxShape.circle : BoxShape.rectangle,
+          borderRadius: !circle
+              ? (borderRadius ?? BorderRadius.circular(cornerRadius))
+              : null,
+        ),
         clipBehavior: Clip.antiAlias,
         child: child,
       );
@@ -140,3 +159,15 @@ class FluImage extends StatelessWidget {
 }
 
 enum ImageSources { network, asset, system }
+
+double? _dimensionsToSquare(double? height, double? width) {
+  if (height != null && width == null) {
+    return height;
+  } else if (height == null && width != null) {
+    return width;
+  } else if (height != null && width != null) {
+    return height;
+  }
+
+  return null;
+}

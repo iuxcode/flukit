@@ -1,4 +1,5 @@
 export 'helpers/ui.dart';
+export 'helpers/text.dart';
 
 /// FluInterface allows any auxiliary package to be merged into the "Flu"
 /// class through extensions

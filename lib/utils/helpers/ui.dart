@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-extension T on FluInterface {
+extension U on FluInterface {
   /// give access to currentContext
   BuildContext get context => Get.context!;
 
