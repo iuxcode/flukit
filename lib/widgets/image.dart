@@ -8,6 +8,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 class FluImage extends StatelessWidget {
   const FluImage(
     this.image, {
+    this.imageSource = ImageSources.network,
     this.overlayOpacity = 0.0,
     this.overlayColor,
     this.gradientOverlay = false,
@@ -56,159 +57,45 @@ class FluImage extends StatelessWidget {
   /// If non-null, the corners of this box are rounded by this [BorderRadius].
   final BorderRadius? borderRadius;
 
-  /// Display an image from assets
-  factory FluImage.asset(String name,
-      {double overlayOpacity = 0.0,
-      Color? overlayColor,
-      bool gradientOverlay = false,
-      Alignment gradientOverlayBegin = Alignment.topCenter,
-      Alignment gradientOverlayEnd = Alignment.bottomCenter,
-      double? height,
-      double? width,
-      BoxFit fit = BoxFit.cover,
-      double cornerRadius = 0.0,
-      BorderRadius? borderRadius,
-      Key? key}) {
-    return _FluImageFrom(
-      name,
-      overlayOpacity: overlayOpacity,
-      overlayColor: overlayColor,
-      gradientOverlay: gradientOverlay,
-      gradientOverlayBegin: gradientOverlayBegin,
-      gradientOverlayEnd: gradientOverlayEnd,
-      cornerRadius: cornerRadius,
-      borderRadius: borderRadius,
-      height: height,
-      width: width,
-      fit: fit,
-      child: Image.asset(
-        name,
-        fit: fit,
-        height: height,
-        width: width,
-      ),
-    );
-  }
-
-  /// Display an image file
-  factory FluImage.file(String path,
-      {double overlayOpacity = 0.0,
-      Color? overlayColor,
-      bool gradientOverlay = false,
-      Alignment gradientOverlayBegin = Alignment.topCenter,
-      Alignment gradientOverlayEnd = Alignment.bottomCenter,
-      double? height,
-      double? width,
-      BoxFit fit = BoxFit.cover,
-      double cornerRadius = 0.0,
-      BorderRadius? borderRadius,
-      Key? key}) {
-    return _FluImageFrom(
-      path,
-      overlayOpacity: overlayOpacity,
-      overlayColor: overlayColor,
-      gradientOverlay: gradientOverlay,
-      gradientOverlayBegin: gradientOverlayBegin,
-      gradientOverlayEnd: gradientOverlayEnd,
-      cornerRadius: cornerRadius,
-      borderRadius: borderRadius,
-      height: height,
-      width: width,
-      fit: fit,
-      child: Image.file(
-        io.File(path),
-        fit: fit,
-        height: height,
-        width: width,
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return _Image(
-      key: key,
-      overlayOpacity: overlayOpacity,
-      overlayColor: overlayColor,
-      gradientOverlay: gradientOverlay,
-      gradientOverlayBegin: gradientOverlayBegin,
-      gradientOverlayEnd: gradientOverlayEnd,
-      cornerRadius: cornerRadius,
-      borderRadius: borderRadius,
-      child: CachedNetworkImage(
-        imageUrl: image,
-        fit: fit,
-        height: height,
-        width: width,
-      ),
-    );
-  }
-}
-
-class _FluImageFrom extends FluImage {
-  const _FluImageFrom(
-    this.image, {
-    required this.child,
-    super.key,
-    super.overlayColor,
-    super.overlayOpacity,
-    super.gradientOverlay,
-    super.gradientOverlayBegin,
-    super.gradientOverlayEnd,
-    super.height,
-    super.width,
-    super.fit,
-    super.cornerRadius,
-    super.borderRadius,
-  }) : super(image);
-
-  final String image;
-  final Image child;
-
-  @override
-  Widget build(BuildContext context) {
-    return _Image(
-      key: key,
-      overlayOpacity: overlayOpacity,
-      overlayColor: overlayColor,
-      gradientOverlay: gradientOverlay,
-      gradientOverlayBegin: gradientOverlayBegin,
-      gradientOverlayEnd: gradientOverlayEnd,
-      cornerRadius: cornerRadius,
-      borderRadius: borderRadius,
-      child: child,
-    );
-  }
-}
-
-class _Image extends StatelessWidget {
-  const _Image(
-      {required this.child,
-      this.overlayOpacity = 0.0,
-      this.overlayColor,
-      this.gradientOverlay = false,
-      this.gradientOverlayBegin = Alignment.topCenter,
-      this.gradientOverlayEnd = Alignment.bottomCenter,
-      this.cornerRadius = 0.0,
-      this.borderRadius,
-      super.key});
-
-  final Widget child;
-  final double overlayOpacity;
-  final Color? overlayColor;
-  final bool gradientOverlay;
-  final Alignment gradientOverlayBegin;
-  final Alignment gradientOverlayEnd;
-  final double cornerRadius;
-  final BorderRadius? borderRadius;
+  /// Image source.
+  /// Can be from `asset`, `network` or `system`.
+  final ImageSources imageSource;
 
   @override
   Widget build(BuildContext context) {
     Widget child;
 
+    switch (imageSource) {
+      case ImageSources.network:
+        child = CachedNetworkImage(
+          imageUrl: this.image,
+          fit: fit,
+          height: height,
+          width: width,
+        );
+        break;
+      case ImageSources.asset:
+        child = Image.asset(
+          this.image,
+          fit: fit,
+          height: height,
+          width: width,
+        );
+        break;
+      case ImageSources.system:
+        child = Image.file(
+          io.File(this.image),
+          fit: fit,
+          height: height,
+          width: width,
+        );
+        break;
+    }
+
+    /// Add overlay if the opacity is > 0
     if (overlayOpacity > 0) {
       child = Stack(children: [
-        this.child,
+        child,
         Positioned(
             top: 0,
             bottom: 0,
@@ -231,12 +118,11 @@ class _Image extends StatelessWidget {
               ),
             ))
       ]);
-    } else {
-      child = this.child;
     }
 
+    /// Add cornerRadius or borderRadius
     if (cornerRadius > 0 || borderRadius != null) {
-      return Container(
+      child = Container(
         decoration: BoxDecoration(
             borderRadius: borderRadius ?? BorderRadius.circular(cornerRadius)),
         clipBehavior: Clip.antiAlias,
@@ -247,3 +133,5 @@ class _Image extends StatelessWidget {
     return child;
   }
 }
+
+enum ImageSources { network, asset, system }
