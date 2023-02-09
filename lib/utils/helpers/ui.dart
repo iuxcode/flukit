@@ -7,6 +7,9 @@ extension T on FluInterface {
   /// give access to currentContext
   BuildContext get context => Get.context!;
 
+  /// give access to current theme data
+  ThemeData get theme => Theme.of(context);
+
   /// Get the screen size
   Size get screenSize => Get.size;
 

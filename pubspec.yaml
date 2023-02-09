@@ -11,6 +11,8 @@ dependencies:
   dynamic_color: ^1.6.2
   flutter:
     sdk: flutter
+  flukit_icons:
+    path: ../flukit_icons
   get: ^4.6.5
 
 dev_dependencies:
