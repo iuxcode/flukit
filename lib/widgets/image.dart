@@ -1,3 +1,4 @@
+import 'dart:io' as io;
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -56,18 +57,72 @@ class FluImage extends StatelessWidget {
   final BorderRadius? borderRadius;
 
   /// Display an image from assets
-  const factory FluImage.asset(String image,
-      {double overlayOpacity,
+  factory FluImage.asset(String name,
+      {double overlayOpacity = 0.0,
       Color? overlayColor,
-      bool gradientOverlay,
-      Alignment gradientOverlayBegin,
-      Alignment gradientOverlayEnd,
+      bool gradientOverlay = false,
+      Alignment gradientOverlayBegin = Alignment.topCenter,
+      Alignment gradientOverlayEnd = Alignment.bottomCenter,
       double? height,
       double? width,
-      BoxFit fit,
-      double cornerRadius,
+      BoxFit fit = BoxFit.cover,
+      double cornerRadius = 0.0,
       BorderRadius? borderRadius,
-      Key? key}) = _FluImageFromAsset;
+      Key? key}) {
+    return _FluImageFrom(
+      name,
+      overlayOpacity: overlayOpacity,
+      overlayColor: overlayColor,
+      gradientOverlay: gradientOverlay,
+      gradientOverlayBegin: gradientOverlayBegin,
+      gradientOverlayEnd: gradientOverlayEnd,
+      cornerRadius: cornerRadius,
+      borderRadius: borderRadius,
+      height: height,
+      width: width,
+      fit: fit,
+      child: Image.asset(
+        name,
+        fit: fit,
+        height: height,
+        width: width,
+      ),
+    );
+  }
+
+  /// Display an image file
+  factory FluImage.file(String path,
+      {double overlayOpacity = 0.0,
+      Color? overlayColor,
+      bool gradientOverlay = false,
+      Alignment gradientOverlayBegin = Alignment.topCenter,
+      Alignment gradientOverlayEnd = Alignment.bottomCenter,
+      double? height,
+      double? width,
+      BoxFit fit = BoxFit.cover,
+      double cornerRadius = 0.0,
+      BorderRadius? borderRadius,
+      Key? key}) {
+    return _FluImageFrom(
+      path,
+      overlayOpacity: overlayOpacity,
+      overlayColor: overlayColor,
+      gradientOverlay: gradientOverlay,
+      gradientOverlayBegin: gradientOverlayBegin,
+      gradientOverlayEnd: gradientOverlayEnd,
+      cornerRadius: cornerRadius,
+      borderRadius: borderRadius,
+      height: height,
+      width: width,
+      fit: fit,
+      child: Image.file(
+        io.File(path),
+        fit: fit,
+        height: height,
+        width: width,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,9 +145,10 @@ class FluImage extends StatelessWidget {
   }
 }
 
-class _FluImageFromAsset extends FluImage {
-  const _FluImageFromAsset(
-    this.name, {
+class _FluImageFrom extends FluImage {
+  const _FluImageFrom(
+    this.image, {
+    required this.child,
     super.key,
     super.overlayColor,
     super.overlayOpacity,
@@ -104,9 +160,10 @@ class _FluImageFromAsset extends FluImage {
     super.fit,
     super.cornerRadius,
     super.borderRadius,
-  }) : super(name);
+  }) : super(image);
 
-  final String name;
+  final String image;
+  final Image child;
 
   @override
   Widget build(BuildContext context) {
@@ -119,12 +176,7 @@ class _FluImageFromAsset extends FluImage {
       gradientOverlayEnd: gradientOverlayEnd,
       cornerRadius: cornerRadius,
       borderRadius: borderRadius,
-      child: Image.asset(
-        name,
-        fit: fit,
-        height: height,
-        width: width,
-      ),
+      child: child,
     );
   }
 }
