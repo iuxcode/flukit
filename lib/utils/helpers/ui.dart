@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flukit/utils/flu_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,4 +36,22 @@ extension T on FluInterface {
   void showKeyboard() {
     SystemChannels.textInput.invokeMethod('TextInput.show');
   }
+
+  /// Get available avatars
+  String getAvatar({FluAvatarTypes type = FluAvatarTypes.material3D, int? id}) {
+    final bool getMaterial3DAvatars = type == FluAvatarTypes.material3D;
+    int number;
+
+    if (id != null) {
+      number = id;
+    } else {
+      number = math.Random().nextInt(getMaterial3DAvatars ? 29 : 35);
+
+      /// 29 and 35 are the numbers of available avatars
+    }
+
+    return 'assets/${getMaterial3DAvatars ? 'Material3D/3d_avatar_' : 'Memojis/'}${number == 0 || getMaterial3DAvatars ? '' : '-$number'}.png';
+  }
 }
+
+enum FluAvatarTypes { material3D, memojis }

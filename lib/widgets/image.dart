@@ -19,18 +19,19 @@ class FluImage extends StatelessWidget {
     this.fit = BoxFit.cover,
     this.cornerRadius = 0,
     this.borderRadius,
+    this.package,
     super.key,
   });
 
-  /// Image url
-  final String image;
+  /// If non-null, the corners of this box are rounded by this [BorderRadius].
+  final BorderRadius? borderRadius;
 
-  /// OverlayOpacity. If this is upper than 0, an overlay of color specified by [overlayColor] will be display on the
-  /// top of the image.
-  final double overlayOpacity;
+  /// Round all image corner with the value defined.
+  final double cornerRadius;
 
-  /// Modify the image overlay color.
-  final Color? overlayColor;
+  /// How to inscribe the picture into the space allocated during layout.
+  /// The default value is [BoxFit.cover].
+  final BoxFit fit;
 
   /// Display the overlay as a gradient.
   final bool gradientOverlay;
@@ -44,22 +45,25 @@ class FluImage extends StatelessWidget {
   /// Image height
   final double? height;
 
-  /// Image width
-  final double? width;
-
-  /// How to inscribe the picture into the space allocated during layout.
-  /// The default value is [BoxFit.cover].
-  final BoxFit fit;
-
-  /// Round all image corner with the value defined.
-  final double cornerRadius;
-
-  /// If non-null, the corners of this box are rounded by this [BorderRadius].
-  final BorderRadius? borderRadius;
+  /// Image url
+  final String image;
 
   /// Image source.
   /// Can be from `asset`, `network` or `system`.
   final ImageSources imageSource;
+
+  /// Modify the image overlay color.
+  final Color? overlayColor;
+
+  /// OverlayOpacity. If this is upper than 0, an overlay of color specified by [overlayColor] will be display on the
+  /// top of the image.
+  final double overlayOpacity;
+
+  /// The package argument must be non-null when displaying an image from a `package` and null otherwise. See the `Assets in packages` section for details.
+  final String? package;
+
+  /// Image width
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +72,7 @@ class FluImage extends StatelessWidget {
     switch (imageSource) {
       case ImageSources.network:
         child = CachedNetworkImage(
-          imageUrl: this.image,
+          imageUrl: image,
           fit: fit,
           height: height,
           width: width,
@@ -76,15 +80,16 @@ class FluImage extends StatelessWidget {
         break;
       case ImageSources.asset:
         child = Image.asset(
-          this.image,
+          image,
           fit: fit,
           height: height,
           width: width,
+          package: package,
         );
         break;
       case ImageSources.system:
         child = Image.file(
-          io.File(this.image),
+          io.File(image),
           fit: fit,
           height: height,
           width: width,
