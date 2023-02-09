@@ -8,11 +8,12 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  cached_network_image: ^3.2.3
   dynamic_color: ^1.6.2
-  flutter:
-    sdk: flutter
   flukit_icons:
     path: ../flukit_icons
+  flutter:
+    sdk: flutter
   get: ^4.6.5
 
 dev_dependencies:
@@ -24,6 +25,7 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
 flutter: null
+
 # To add assets to your package, add an assets section, like this:
 # assets:
 #   - images/a_dot_burr.jpeg
