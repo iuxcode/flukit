@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 class FluArc extends StatelessWidget {
   const FluArc({
     super.key,
-    required this.child,
     this.color,
     this.disabledDashColor,
     this.strokeWidth = 4,
@@ -13,9 +12,16 @@ class FluArc extends StatelessWidget {
     this.gapSize = 5,
     this.angle = 360,
     this.disableDashStart = -1,
+    this.startOfArc = 0,
+    this.strokeCap = StrokeCap.square,
+    this.size = 62,
+    this.child,
   });
 
-  final Widget child;
+  final Widget? child;
+
+  /// size
+  final double size;
 
   /// Arc color
   final Color? color;
@@ -41,6 +47,13 @@ class FluArc extends StatelessWidget {
   /// Eg. you're building a story circle and you want to highlight viewed stories
   final int disableDashStart;
 
+  /// Where the arc start in degree
+  final double startOfArc;
+
+  /// The kind of finish to place on the end of lines drawn when [style] is set to [PaintingStyle.stroke].
+  /// Defaults to [StrokeCap.square]
+  final StrokeCap strokeCap;
+
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -54,8 +67,14 @@ class FluArc extends StatelessWidget {
           gapSize: gapSize,
           angle: angle,
           disableDashStart: disableDashStart,
-          dashed: numberOfDashes > 0),
-      child: child,
+          dashed: numberOfDashes > 0,
+          startOfArc: startOfArc,
+          strokeCap: strokeCap),
+      child: child ??
+          SizedBox(
+            width: size,
+            height: size,
+          ),
     );
   }
 }
@@ -69,17 +88,20 @@ class _ArcPainter extends CustomPainter {
   final int gapSize;
   final int angle;
   final int disableDashStart;
-  double startOfArcInDegree = 0;
+  final double startOfArc;
+  final StrokeCap strokeCap;
 
   _ArcPainter({
     required this.color,
     required this.disabledDashColor,
-    this.strokeWidth = 4.0,
-    this.dashed = false,
-    this.numberOfDashes = 5,
-    this.gapSize = 10,
-    this.angle = 180,
-    this.disableDashStart = -1,
+    required this.strokeWidth,
+    required this.dashed,
+    required this.numberOfDashes,
+    required this.gapSize,
+    required this.angle,
+    required this.disableDashStart,
+    required this.startOfArc,
+    required this.strokeCap,
   });
 
   //drawArc deals with rads, easier for me to use degrees
@@ -90,22 +112,22 @@ class _ArcPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    const double baseAngle = 0, radius = 65;
+    final Rect rect = Rect.fromLTWH(0, 0, size.width, size.height);
 
     if (!dashed) {
-      Rect rect = Rect.fromCircle(
-          center: Offset(size.width / 2, size.height / 2), radius: radius);
       canvas.drawArc(
           rect,
-          baseAngle,
-          pi,
+          inRads(startOfArc),
+          inRads(angle.toDouble()),
           false,
           Paint()
-            ..strokeCap = StrokeCap.round
+            ..strokeCap = strokeCap
             ..strokeWidth = strokeWidth
             ..style = PaintingStyle.stroke
             ..color = color);
     } else {
+      double startOfArc = this.startOfArc;
+
       //circle angle is 360, remove all space arcs between the main story arc (the number of spaces(stories) times the  space length
       //then subtract the number from 360 to get ALL arcs length
       //then divide the ALL arcs length by number of Arc (number of stories) to get the exact length of one arc
@@ -119,14 +141,12 @@ class _ArcPainter extends CustomPainter {
         arcLength = angle / gapSize - 1;
       }
 
-      Rect rect = Rect.fromLTWH(0, 0, size.width, size.height);
-
       //looping for number of stories to draw every story arc
       for (int i = 0; i < numberOfDashes; i++) {
         //printing the arc
         canvas.drawArc(
           rect,
-          inRads(startOfArcInDegree),
+          inRads(startOfArc),
           //be careful here is:  "double sweepAngle", not "end"
           inRads(arcLength),
           false,
@@ -138,7 +158,7 @@ class _ArcPainter extends CustomPainter {
         );
 
         //the logic of spaces between the arcs is to start the next arc after jumping the length of space
-        startOfArcInDegree += arcLength + gapSize;
+        startOfArc += arcLength + gapSize;
       }
     }
   }
