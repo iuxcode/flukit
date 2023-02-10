@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import '../flu_utils.dart';
 
 extension T on FluInterface {

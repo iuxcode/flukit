@@ -45,12 +45,15 @@ extension U on FluInterface {
     if (id != null) {
       number = id;
     } else {
-      number = math.Random().nextInt(getMaterial3DAvatars ? 29 : 35);
-
-      /// 29 and 35 are the numbers of available avatars
+      number = math.Random().nextInt(getMaterial3DAvatars
+          ? 29
+          : 35); // 29 and 35 are the numbers of available avatars
     }
 
-    return 'assets/${getMaterial3DAvatars ? 'Material3D/3d_avatar_' : 'Memojis/'}${number == 0 || getMaterial3DAvatars ? '' : '-$number'}.png';
+    if (getMaterial3DAvatars) {
+      return 'assets/Images/Avatars/Material3D/3d_avatar_${number == 0 ? number + 1 : number}.png';
+    }
+    return 'assets/Images/Avatars/Memojis/avatar${number == 0 ? '' : '-$number'}.png';
   }
 }
 

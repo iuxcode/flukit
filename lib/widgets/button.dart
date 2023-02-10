@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flukit_icons/flukit_icons.dart';
-import 'package:get/get.dart';
-import '../utils/flu_utils.dart';
 
 /// Create a button
 class FluButton extends StatelessWidget {
@@ -180,14 +178,15 @@ Color _getButtonForegroundColor(BuildContext context,
     double elevation = 0.0}) {
   ColorScheme colorScheme = Theme.of(context).colorScheme;
 
-  if (disabled)
+  if (disabled) {
     return colorScheme.onSurface;
-  else if (elevation > 0 && !flat && !filled)
+  } else if (elevation > 0 && !flat && !filled) {
     return colorScheme.onBackground;
-  else if (flat)
+  } else if (flat) {
     return colorScheme.primary;
-  else if (filled)
+  } else if (filled) {
     return colorScheme.onPrimary;
-  else
+  } else {
     return colorScheme.onSecondaryContainer;
+  }
 }

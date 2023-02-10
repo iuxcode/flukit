@@ -22,6 +22,7 @@ class FluImage extends StatelessWidget {
     this.package,
     this.circle = false,
     this.square = false,
+    this.margin = EdgeInsets.zero,
     super.key,
   });
 
@@ -72,6 +73,9 @@ class FluImage extends StatelessWidget {
 
   /// Set to true, if you want the image height to be equal to its width
   final bool square;
+
+  /// Empty space to surround the avatar and [child].
+  final EdgeInsets margin;
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +136,8 @@ class FluImage extends StatelessWidget {
                 gradient: gradientOverlay
                     ? LinearGradient(colors: [
                         Colors.transparent,
-                        overlayColor ?? Colors.black,
+                        (overlayColor ?? Colors.black)
+                            .withOpacity(overlayOpacity),
                       ], begin: gradientOverlayBegin, end: gradientOverlayEnd)
                     : null,
               ),
@@ -141,8 +146,9 @@ class FluImage extends StatelessWidget {
     }
 
     /// Add cornerRadius or borderRadius
-    if (cornerRadius > 0 || borderRadius != null) {
+    if (cornerRadius > 0 || borderRadius != null || margin != EdgeInsets.zero) {
       child = Container(
+        margin: margin,
         decoration: BoxDecoration(
           shape: circle ? BoxShape.circle : BoxShape.rectangle,
           borderRadius: !circle
