@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../flukit.dart';
 import 'image.dart';
 
-class FluAvatar extends StatelessWidget {
+class FluAvatar extends StatefulWidget {
   const FluAvatar({
     super.key,
     this.image,
@@ -20,14 +20,19 @@ class FluAvatar extends StatelessWidget {
     this.illustrationsAsDefault = true,
     this.badge = false,
     this.badgeSize = 8,
-    this.badgeOffset = const Offset(5, 5),
+    this.badgeCountLimit = 99,
+    this.badgeCount,
+    this.badgeOffset = const Offset(0, 0),
     this.badgePosition = BadgePosition.topLeft,
     this.badgeColor,
+    this.badgeOutlineColor,
     this.badgeForegroundColor,
+    this.badgeOutlined = false,
+    this.badgeOutlineThickness = 2,
     this.margin = EdgeInsets.zero,
     this.outlined = false,
     this.outlineColor,
-    this.outlineThickness = 2,
+    this.outlineThickness = 1.25,
   });
 
   /// Avatar image like a user profile photo.
@@ -73,11 +78,26 @@ class FluAvatar extends StatelessWidget {
   /// Badge size
   final double badgeSize;
 
+  /// Is the badge outlined
+  final bool badgeOutlined;
+
+  /// Badge outline color
+  final Color? badgeOutlineColor;
+
+  /// Badge thickness
+  final double badgeOutlineThickness;
+
   /// Badge position x, y coordinates
   final Offset badgeOffset;
 
-  /// Badge positotion
+  /// Badge position
   final BadgePosition badgePosition;
+
+  /// Badge count
+  final int? badgeCount;
+
+  /// Badge count limit
+  final int badgeCountLimit;
 
   /// Empty space to surround the avatar and [child].
   final EdgeInsets margin;
@@ -92,22 +112,38 @@ class FluAvatar extends StatelessWidget {
   final double outlineThickness;
 
   @override
+  State<FluAvatar> createState() => _FluAvatarState();
+}
+
+class _FluAvatarState extends State<FluAvatar> {
+  late String defaultAvatar;
+
+  @override
+  void initState() {
+    defaultAvatar = Flu.getAvatar(type: widget.defaultAvatarType);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
-    String image = this.image ?? Flu.getAvatar(type: defaultAvatarType);
-    bool circle = this.circle || defaultAvatarType == FluAvatarTypes.material3D;
+    String image = widget.image ?? defaultAvatar;
+    bool circle =
+        widget.circle || widget.defaultAvatarType == FluAvatarTypes.material3D;
     BoxShape shape = circle ? BoxShape.circle : BoxShape.rectangle;
     BorderRadius? borderRadius = !circle
-        ? (this.borderRadius ?? BorderRadius.circular(cornerRadius))
+        ? (widget.borderRadius ?? BorderRadius.circular(widget.cornerRadius))
         : null;
+    Offset defaultBadgeOffset =
+        circle ? const Offset(5, 5) : const Offset(0, 0);
     Widget child;
 
-    if ((label != null || icon != null) &&
-        this.image == null &&
-        !illustrationsAsDefault) {
+    if ((widget.label != null || widget.icon != null) &&
+        widget.image == null &&
+        !widget.illustrationsAsDefault) {
       child = Container(
-        height: size,
-        width: size,
+        height: widget.size,
+        width: widget.size,
         clipBehavior: Clip.hardEdge,
         alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -115,50 +151,60 @@ class FluAvatar extends StatelessWidget {
           shape: shape,
           borderRadius: borderRadius,
         ),
-        child: label != null
-            ? Text(Flu.textToAvatarFormat(label ?? 'Flukit'),
+        child: widget.label != null
+            ? Text(
+                Flu.textToAvatarFormat(widget.label ?? 'Flukit').toUpperCase(),
                 style: TextStyle(
                     color: colorScheme.onPrimaryContainer,
                     fontWeight: FontWeight.bold))
             : FluIcon(
-                icon!,
+                widget.icon!,
                 size: 20,
+                strokewidth: 1.8,
                 color: colorScheme.onPrimaryContainer,
               ),
       );
     } else {
       child = FluImage(
         image,
-        imageSource: this.image != null ? imageSource : ImageSources.asset,
+        imageSource:
+            widget.image != null ? widget.imageSource : ImageSources.asset,
         package: 'flukit',
         circle: circle,
-        cornerRadius: cornerRadius,
-        height: size,
+        cornerRadius: widget.cornerRadius,
+        height: widget.size,
         square: true,
       );
     }
 
-    if (badge) {
+    if (widget.badge) {
       child = FluBadge(
-        color: badgeColor,
-        foregroundColor: badgeForegroundColor,
-        size: badgeSize,
-        offset: badgeOffset,
-        position: badgePosition,
+        color: widget.badgeColor,
+        foregroundColor: widget.badgeForegroundColor,
+        size: widget.badgeSize,
+        offset: widget.badgeOffset != const Offset(0, 0)
+            ? widget.badgeOffset
+            : defaultBadgeOffset,
+        position: widget.badgePosition,
+        count: widget.badgeCount,
+        countLimit: widget.badgeCountLimit,
+        outlined: widget.badgeOutlined,
+        outlineThickness: widget.badgeOutlineThickness,
+        outlineColor: widget.badgeOutlineColor,
         child: child,
       );
     }
 
-    if (margin != EdgeInsets.zero || outlined) {
+    if (widget.margin != EdgeInsets.zero || widget.outlined) {
       child = Container(
-        margin: margin,
+        margin: widget.margin,
         decoration: BoxDecoration(
           shape: shape,
           borderRadius: borderRadius,
-          border: outlined
+          border: widget.outlined
               ? Border.all(
-                  width: outlineThickness,
-                  color: outlineColor ?? colorScheme.primaryContainer,
+                  width: widget.outlineThickness,
+                  color: widget.outlineColor ?? colorScheme.primaryContainer,
                 )
               : null,
         ),
