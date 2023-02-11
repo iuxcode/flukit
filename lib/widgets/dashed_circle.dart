@@ -7,7 +7,7 @@ class FluArc extends StatelessWidget {
     super.key,
     this.color,
     this.disabledDashColor,
-    this.strokeWidth = 4,
+    this.strokeWidth = 3,
     this.numberOfDashes = 0,
     this.gapSize = 5,
     this.angle = 360,

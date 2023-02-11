@@ -7,13 +7,20 @@ import 'dashed_circle.dart';
 /// Creates a circular progress indicator.
 /// Inspired by https://vuesax.com/docs/components/Loading.html#type
 class FluLoader extends StatefulWidget {
-  const FluLoader(
-      {super.key,
-      this.size = 35,
-      this.animationDuration = const Duration(milliseconds: 800)});
+  const FluLoader({
+    super.key,
+    this.size = 35,
+    this.strokeWidth = 4,
+    this.animationDuration = const Duration(milliseconds: 800),
+    this.margin = EdgeInsets.zero,
+  });
 
   final double size;
+  final double strokeWidth;
   final Duration animationDuration;
+
+  /// Empty space to surround the avatar and [child].
+  final EdgeInsets margin;
 
   @override
   State<FluLoader> createState() => _FluLoaderState();
@@ -53,22 +60,18 @@ class _FluLoaderState extends State<FluLoader>
         numberOfDashes: 4,
         angle: layerAngle,
         color: colorScheme.primaryContainer,
-        child: SizedBox(
-          height: widget.size,
-          width: widget.size,
-        ),
+        size: widget.size,
+        strokeWidth: widget.strokeWidth,
       ),
       FluArc(
         angle: layerAngle,
         strokeCap: StrokeCap.round,
-        child: SizedBox(
-          width: widget.size,
-          height: widget.size,
-        ),
+        size: widget.size,
+        strokeWidth: widget.strokeWidth,
       ),
     ];
 
-    return Stack(
+    final Widget loader = Stack(
       alignment: Alignment.center,
       children: layers
           .map(
@@ -79,6 +82,15 @@ class _FluLoaderState extends State<FluLoader>
           )
           .toList(),
     );
+
+    if (widget.margin != EdgeInsets.zero) {
+      return Padding(
+        padding: widget.margin,
+        child: loader,
+      );
+    }
+
+    return loader;
   }
 
   Widget _animatedArc(Widget child, Curve curve) => RotationTransition(

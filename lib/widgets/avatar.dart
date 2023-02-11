@@ -17,7 +17,6 @@ class FluAvatar extends StatefulWidget {
     this.size = 62,
     this.cornerRadius = 24,
     this.borderRadius,
-    this.illustrationsAsDefault = true,
     this.badge = false,
     this.badgeSize = 8,
     this.badgeCountLimit = 99,
@@ -33,6 +32,7 @@ class FluAvatar extends StatefulWidget {
     this.outlined = false,
     this.outlineColor,
     this.outlineThickness = 1.25,
+    this.package,
   });
 
   /// Avatar image like a user profile photo.
@@ -62,9 +62,6 @@ class FluAvatar extends StatefulWidget {
 
   /// Avatar size.
   final double size;
-
-  /// Set to true if you want avatars to be displayed instead of [label] when image is not set.
-  final bool illustrationsAsDefault;
 
   /// Set to true if you want to display a badge
   final bool badge;
@@ -111,6 +108,10 @@ class FluAvatar extends StatefulWidget {
   /// Outline thickness
   final double outlineThickness;
 
+  /// The package argument must be non-null when displaying an image from a package and null otherwise.
+  /// See the Assets in packages section for details.
+  final String? package;
+
   @override
   State<FluAvatar> createState() => _FluAvatarState();
 }
@@ -127,7 +128,6 @@ class _FluAvatarState extends State<FluAvatar> {
   @override
   Widget build(BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
-    String image = widget.image ?? defaultAvatar;
     bool circle =
         widget.circle || widget.defaultAvatarType == FluAvatarTypes.material3D;
     BoxShape shape = circle ? BoxShape.circle : BoxShape.rectangle;
@@ -136,11 +136,10 @@ class _FluAvatarState extends State<FluAvatar> {
         : null;
     Offset defaultBadgeOffset =
         circle ? const Offset(5, 5) : const Offset(0, 0);
+    String image = widget.image ?? defaultAvatar;
     Widget child;
 
-    if ((widget.label != null || widget.icon != null) &&
-        widget.image == null &&
-        !widget.illustrationsAsDefault) {
+    if ((widget.label != null || widget.icon != null) && widget.image == null) {
       child = Container(
         height: widget.size,
         width: widget.size,
@@ -165,11 +164,13 @@ class _FluAvatarState extends State<FluAvatar> {
               ),
       );
     } else {
+      final mustLoadDefaultAvatar = widget.image != image;
+
       child = FluImage(
         image,
         imageSource:
-            widget.image != null ? widget.imageSource : ImageSources.asset,
-        package: 'flukit',
+            mustLoadDefaultAvatar ? ImageSources.asset : widget.imageSource,
+        package: mustLoadDefaultAvatar ? 'flukit' : widget.package,
         circle: circle,
         cornerRadius: widget.cornerRadius,
         height: widget.size,
