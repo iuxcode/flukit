@@ -75,10 +75,8 @@ class _FluLoaderState extends State<FluLoader>
       alignment: Alignment.center,
       children: layers
           .map(
-            (layer) => _animatedArc(
-              layer,
-              layers.indexOf(layer) == 1 ? Curves.ease : Curves.linear,
-            ),
+            (layer) => _animatedArc(layer,
+                layers.indexOf(layer) == 1 ? Curves.ease : Curves.linear),
           )
           .toList(),
     );

@@ -31,7 +31,7 @@ class FluAvatar extends StatefulWidget {
     this.margin = EdgeInsets.zero,
     this.outlined = false,
     this.outlineColor,
-    this.outlineThickness = 1.25,
+    this.outlineThickness = 2,
     this.package,
   });
 
