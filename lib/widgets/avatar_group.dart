@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import '../flukit.dart';
 import 'avatar.dart';
 
-/// Creates a group of stacked avatar, linear array of `FluAvatar` that are created on demand.
-/// TODO: Build avatar group.
+/// Creates a group of stacked avatar
 class FluAvatarGroup extends StatelessWidget {
   const FluAvatarGroup({
     super.key,

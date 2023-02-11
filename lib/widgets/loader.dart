@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-
 import 'dashed_circle.dart';
 
 /// Creates a circular progress indicator.
@@ -9,18 +6,28 @@ import 'dashed_circle.dart';
 class FluLoader extends StatefulWidget {
   const FluLoader({
     super.key,
-    this.size = 35,
-    this.strokeWidth = 4,
+    this.size = 30,
+    this.strokeWidth = 3,
     this.animationDuration = const Duration(milliseconds: 800),
     this.margin = EdgeInsets.zero,
+    this.color,
   });
 
+  /// loader size
   final double size;
+
+  /// loader thickness
   final double strokeWidth;
+
+  /// loader animation duration
+  /// time to take to make one rotation
   final Duration animationDuration;
 
   /// Empty space to surround the avatar and [child].
   final EdgeInsets margin;
+
+  /// loader color
+  final Color? color;
 
   @override
   State<FluLoader> createState() => _FluLoaderState();
@@ -54,12 +61,13 @@ class _FluLoaderState extends State<FluLoader>
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    const layerAngle = 90;
+    final color = widget.color ?? colorScheme.primary;
+    const layerAngle = 80;
     final layers = [
       FluArc(
         numberOfDashes: 4,
         angle: layerAngle,
-        color: colorScheme.primaryContainer,
+        color: color.withOpacity(.35),
         size: widget.size,
         strokeWidth: widget.strokeWidth,
       ),
@@ -68,6 +76,7 @@ class _FluLoaderState extends State<FluLoader>
         strokeCap: StrokeCap.round,
         size: widget.size,
         strokeWidth: widget.strokeWidth,
+        color: color,
       ),
     ];
 
