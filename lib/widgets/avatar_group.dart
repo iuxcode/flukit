@@ -45,7 +45,10 @@ class FluAvatarGroup extends StatelessWidget {
           left: _getAvatarLeftPosition(i, avatar.size),
           child: _buildAvatar(i, avatar)));
 
-      if (avatarSize == 0) avatarSize = avatar.size;
+      if (avatarSize == 0) {
+        avatarSize =
+            avatar.size + (avatar.outlined ? avatar.outlineThickness : 0);
+      }
     }
 
     return SizedBox(

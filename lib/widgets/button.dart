@@ -197,21 +197,17 @@ class FluButton extends StatelessWidget {
                 ),
               )
             : null);
-    final Color defaultForeground = _getButtonForegroundColor(colorScheme,
+    final Color defaultForegroundColor = _getButtonForegroundColor(colorScheme,
+        disabled: onPressed == null, flat: flat, filled: filled);
+    final Color defaultOverlayColor = _getButtonOverlayColor(colorScheme,
         disabled: onPressed == null, flat: flat, filled: filled);
 
     Widget loader = this.loader ??
         FluLoader(
           size: loadingText != null ? 14 : 18,
           strokeWidth: loadingText != null ? 1.5 : 2,
-          color: loaderColor ??
-              foregroundColor ??
-              (replaceContentOnLoading
-                  ? defaultForeground
-                  : filled
-                      ? colorScheme.onPrimary
-                      : colorScheme.onSurface),
-          label: loadingText,
+          color: loaderColor ?? foregroundColor ?? defaultForegroundColor,
+          label: replaceContentOnLoading ? loadingText : null,
           labelStyle: TextStyle(color: foregroundColor),
         );
     Widget child;
@@ -257,9 +253,10 @@ class FluButton extends StatelessWidget {
           child: FluGlass(
             borderRadius: borderRadius,
             cornerRadius: cornerRadius ?? 99,
-            intensity: 1.5,
+            intensity: 1,
             child: Container(
-              color: loaderOverlayColor ?? colorScheme.surface.withOpacity(.5),
+              color: loaderOverlayColor ??
+                  defaultOverlayColor.withOpacity(filled ? .15 : .55),
               child: loader,
             ),
           ),
@@ -280,7 +277,7 @@ class FluButton extends StatelessWidget {
 
 /// Return background color according to M3 button specs
 /// https://m3.material.io/components/buttons/specs
-Color _getButtonBackgroundColor(ColorScheme colorScheme,
+Color _getButtonOverlayColor(ColorScheme colorScheme,
     {required bool flat,
     required bool filled,
     required bool disabled,
@@ -294,7 +291,7 @@ Color _getButtonBackgroundColor(ColorScheme colorScheme,
   } else if (filled) {
     return colorScheme.primary;
   } else {
-    return colorScheme.secondary;
+    return colorScheme.secondaryContainer;
   }
 }
 

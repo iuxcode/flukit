@@ -205,7 +205,7 @@ class _FluAvatarState extends State<FluAvatar> {
           border: widget.outlined
               ? Border.all(
                   width: widget.outlineThickness,
-                  color: widget.outlineColor ?? colorScheme.primaryContainer,
+                  color: widget.outlineColor ?? colorScheme.background,
                 )
               : null,
         ),
