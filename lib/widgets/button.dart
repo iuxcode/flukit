@@ -2,6 +2,7 @@ import 'package:flukit/widgets/flu_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 
+import '../utils/flu_utils.dart';
 import 'glass.dart';
 
 /// Create a button
@@ -9,7 +10,6 @@ class FluButton extends StatelessWidget {
   const FluButton({
     required this.child,
     required this.onPressed,
-    this.builder,
     this.backgroundColor,
     this.foregroundColor,
     this.padding = EdgeInsets.zero,
@@ -26,31 +26,29 @@ class FluButton extends StatelessWidget {
     this.loaderOverlayColor,
     this.loaderColor,
     super.key,
-  }) : assert(child != null || builder != null);
+  });
 
   /// Create a button with icon content
-  factory FluButton.icon(
-    FluIcons icon, {
-    double iconSize = 20,
-    double iconStrokeWidth = 1.5,
-    FluIconStyles iconStyle = FluIconStyles.twotone,
-    VoidCallback? onPressed,
-    Color? backgroundColor,
-    Color? foregroundColor,
-    EdgeInsets padding = EdgeInsets.zero,
-    EdgeInsets margin = EdgeInsets.zero,
-    double elevation = 0.0,
-    bool filled = false,
-    bool flat = false,
-    bool loading = false,
-    bool replaceContentOnLoading = true,
-    String? loadingText,
-    BorderRadius? borderRadius,
-    double? cornerRadius,
-    Widget? loader,
-    Color? loaderOverlayColor,
-    Color? loaderColor,
-  }) =>
+  factory FluButton.icon(FluIcons icon,
+          {double iconSize = 20,
+          double iconStrokeWidth = 1.5,
+          FluIconStyles iconStyle = FluIconStyles.twotone,
+          VoidCallback? onPressed,
+          Color? backgroundColor,
+          Color? foregroundColor,
+          EdgeInsets padding = EdgeInsets.zero,
+          EdgeInsets margin = EdgeInsets.zero,
+          double elevation = 0.0,
+          bool filled = false,
+          bool flat = false,
+          bool loading = false,
+          bool replaceContentOnLoading = true,
+          String? loadingText,
+          BorderRadius? borderRadius,
+          double? cornerRadius,
+          Widget? loader,
+          Color? loaderOverlayColor,
+          Color? loaderColor}) =>
       FluButton(
         onPressed: onPressed,
         backgroundColor: backgroundColor,
@@ -68,15 +66,14 @@ class FluButton extends StatelessWidget {
         loader: loader,
         loaderOverlayColor: loaderOverlayColor,
         loaderColor: loaderColor,
-        builder: (context) => FluIcon(
+        child: FluIcon(
           icon,
           size: iconSize,
           style: iconStyle,
           strokewidth: iconStrokeWidth,
-          color: _getButtonForegroundColor(Theme.of(context).colorScheme,
+          color: _getButtonForegroundColor(Flu.colorScheme,
               flat: flat, filled: filled, disabled: onPressed == null),
         ),
-        child: null,
       );
 
   /// Create a button with text content
@@ -84,32 +81,45 @@ class FluButton extends StatelessWidget {
   /// Control icons sizes with [iconSize], [prefixIconSize] and [suffixIconSize].
   /// use [iconStyle] to choose your icon style. refer to [https://github.com/charles9904/flukit_icons] to learn more.
   /// [spacing] determine the space available between text and icon.
-  factory FluButton.text(
-    String text, {
-    FluIcons? prefixIcon,
-    FluIcons? suffixIcon,
-    double iconSize = 20,
-    double? prefixIconSize,
-    double? suffixIconSize,
-    FluIconStyles iconStyle = FluIconStyles.twotone,
-    double gap = 6.0,
-    VoidCallback? onPressed,
-    Color? backgroundColor,
-    Color? foregroundColor,
-    EdgeInsets padding = EdgeInsets.zero,
-    EdgeInsets margin = EdgeInsets.zero,
-    double elevation = 0.0,
-    bool filled = false,
-    bool flat = false,
-    bool loading = false,
-    bool replaceContentOnLoading = true,
-    String? loadingText,
-    BorderRadius? borderRadius,
-    double? cornerRadius,
-    Widget? loader,
-    Color? loaderOverlayColor,
-    Color? loaderColor,
-  }) {
+  factory FluButton.text(String text,
+      {FluIcons? prefixIcon,
+      FluIcons? suffixIcon,
+      double iconSize = 20,
+      double? prefixIconSize,
+      double? suffixIconSize,
+      FluIconStyles iconStyle = FluIconStyles.twotone,
+      double gap = 6.0,
+      VoidCallback? onPressed,
+      Color? backgroundColor,
+      Color? foregroundColor,
+      EdgeInsets padding = EdgeInsets.zero,
+      EdgeInsets margin = EdgeInsets.zero,
+      double elevation = 0.0,
+      bool filled = false,
+      bool flat = false,
+      bool loading = false,
+      bool replaceContentOnLoading = true,
+      String? loadingText,
+      BorderRadius? borderRadius,
+      double? cornerRadius,
+      Widget? loader,
+      Color? loaderOverlayColor,
+      Color? loaderColor}) {
+    Color foregroundColor = _getButtonForegroundColor(Flu.colorScheme,
+        flat: flat, filled: filled, disabled: onPressed == null);
+    Widget buildIcon(FluIcons icon, [double? size]) => FluIcon(
+          icon,
+          style: iconStyle,
+          size: size ?? iconSize,
+          color: foregroundColor,
+          margin: EdgeInsets.only(
+            right: prefixIcon != null ? gap : 0,
+            left: suffixIcon != null ? gap : 0,
+          ),
+        );
+
+    Widget textWidget = Text(text, style: TextStyle(color: foregroundColor));
+
     return FluButton(
       onPressed: onPressed,
       backgroundColor: backgroundColor,
@@ -127,45 +137,22 @@ class FluButton extends StatelessWidget {
       loader: loader,
       loaderOverlayColor: loaderOverlayColor,
       loaderColor: loaderColor,
-      builder: (context) {
-        Color foregroundColor = _getButtonForegroundColor(
-            Theme.of(context).colorScheme,
-            flat: flat,
-            filled: filled,
-            disabled: onPressed == null);
-        Widget buildIcon(FluIcons icon, [double? size]) => FluIcon(
-              icon,
-              style: iconStyle,
-              size: size ?? iconSize,
-              color: foregroundColor,
-              margin: EdgeInsets.only(
-                right: prefixIcon != null ? gap : 0,
-                left: suffixIcon != null ? gap : 0,
-              ),
-            );
-
-        Widget textWidget =
-            Text(text, style: TextStyle(color: foregroundColor));
-
-        return (prefixIcon != null || suffixIcon != null)
-            ? Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (prefixIcon != null) buildIcon(prefixIcon, prefixIconSize),
-                  textWidget,
-                  if (suffixIcon != null) buildIcon(suffixIcon, suffixIconSize),
-                ],
-              )
-            : textWidget;
-      },
-      child: null,
+      child: (prefixIcon != null || suffixIcon != null)
+          ? Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (prefixIcon != null) buildIcon(prefixIcon, prefixIconSize),
+                textWidget,
+                if (suffixIcon != null) buildIcon(suffixIcon, suffixIconSize),
+              ],
+            )
+          : textWidget,
     );
   }
 
-  final Widget Function(BuildContext)? builder;
   final Color? backgroundColor;
   final BorderRadius? borderRadius;
-  final Widget? child;
+  final Widget child;
   final double? cornerRadius;
   final double elevation;
   final bool filled;
@@ -183,7 +170,7 @@ class FluButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final colorScheme = Flu.getColorSchemeOf(context);
     final ButtonStyle buttonStyle = ButtonStyle(
         backgroundColor: MaterialStateProperty.all(backgroundColor),
         foregroundColor: MaterialStatePropertyAll(foregroundColor),
@@ -215,10 +202,8 @@ class FluButton extends StatelessWidget {
 
     if (loading && replaceContentOnLoading) {
       child = loader;
-    } else if (this.child != null) {
-      child = this.child!;
     } else {
-      child = builder!.call(context);
+      child = this.child;
     }
 
     if (loading && !replaceContentOnLoading) {

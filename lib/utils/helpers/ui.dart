@@ -17,11 +17,11 @@ extension U on FluInterface {
   ColorScheme get colorScheme => Theme.of(context).colorScheme;
 
   /// give access to current theme data
-  ThemeData getCurrentTheme(BuildContext context) => Theme.of(context);
+  ThemeData getThemeOf(BuildContext context) => Theme.of(context);
 
   /// give access to current [ColorScheme]
-  ColorScheme getCurrentColorScheme(BuildContext context) =>
-      getCurrentTheme(context).colorScheme;
+  ColorScheme getColorSchemeOf(BuildContext context) =>
+      getThemeOf(context).colorScheme;
 
   /// Get the screen size
   Size get screenSize => Get.size;

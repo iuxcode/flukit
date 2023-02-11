@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../utils/flu_utils.dart';
+
 /// Create a layout with styled system overlay
 class FluScreen extends StatelessWidget {
   final PreferredSizeWidget? appBar;
@@ -33,7 +35,7 @@ class FluScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ColorScheme colorScheme = Theme.of(context).colorScheme;
+    ColorScheme colorScheme = Flu.getColorSchemeOf(context);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(

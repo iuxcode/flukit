@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
+import '../utils/flu_utils.dart';
+
 /// Draw an arc
 class FluArc extends StatelessWidget {
   const FluArc({
@@ -56,7 +58,7 @@ class FluArc extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final colorScheme = Flu.getColorSchemeOf(context);
 
     return CustomPaint(
       painter: _ArcPainter(

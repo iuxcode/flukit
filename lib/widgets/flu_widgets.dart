@@ -5,3 +5,5 @@ export 'avatar_group.dart';
 export 'badge.dart';
 export 'loader.dart';
 export 'glass.dart';
+export 'tabs.dart';
+export 'app.dart';

@@ -127,7 +127,7 @@ class _FluAvatarState extends State<FluAvatar> {
 
   @override
   Widget build(BuildContext context) {
-    ColorScheme colorScheme = Theme.of(context).colorScheme;
+    ColorScheme colorScheme = Flu.getColorSchemeOf(context);
     bool circle =
         widget.circle || widget.defaultAvatarType == FluAvatarTypes.material3D;
     BoxShape shape = circle ? BoxShape.circle : BoxShape.rectangle;

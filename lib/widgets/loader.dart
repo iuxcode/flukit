@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/flu_utils.dart';
 import 'dashed_circle.dart';
 
 /// Creates a circular progress indicator.
@@ -78,7 +79,7 @@ class _FluLoaderState extends State<FluLoader>
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final colorScheme = Flu.getColorSchemeOf(context);
     final color = widget.color ?? colorScheme.primary;
     const layerAngle = 80;
     final layers = [

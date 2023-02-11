@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/flu_utils.dart';
+
 /// Add badge to a widget
 class FluBadge extends StatelessWidget {
   final Widget child;
@@ -31,7 +33,7 @@ class FluBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final colorScheme = Flu.getColorSchemeOf(context);
     final isLargeBadge = count != null;
     final limitReached = (count ?? 0) > countLimit;
     double? top, left, right, bottom;

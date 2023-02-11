@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/flu_utils.dart';
 import 'avatar.dart';
 
 /// Creates a group of stacked avatar
@@ -30,7 +31,7 @@ class FluAvatarGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ColorScheme colorScheme = Theme.of(context).colorScheme;
+    ColorScheme colorScheme = Flu.getColorSchemeOf(context);
     double avatarSize = 0.0;
     List<Widget> avatars = [];
 
