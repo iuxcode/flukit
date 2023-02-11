@@ -13,15 +13,20 @@ class FluAvatarGroup extends StatelessWidget {
     this.onTap,
   }) : assert(visibleItemCount <= itemCount);
 
-  final int itemCount;
-  final int visibleItemCount;
   final FluAvatar Function(int index)? itemBuilder;
-  final double overlapSize;
-  final FluAvatarGroupLayout layout;
   final void Function(int index)? onTap;
+  final int itemCount;
+  final FluAvatarGroupLayout layout;
+  final double overlapSize;
+  final int visibleItemCount;
 
   double _getAvatarLeftPosition(int index, double size) =>
       index * (size * overlapSize);
+
+  Widget _buildAvatar(int index, Widget child) => GestureDetector(
+        onTap: () => onTap?.call(index),
+        child: child,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -65,11 +70,6 @@ class FluAvatarGroup extends StatelessWidget {
       ),
     );
   }
-
-  Widget _buildAvatar(int index, Widget child) => GestureDetector(
-        onTap: () => onTap?.call(index),
-        child: child,
-      );
 }
 
 enum FluAvatarGroupLayout { overlap, triangle, square }

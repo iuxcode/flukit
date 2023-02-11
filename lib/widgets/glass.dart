@@ -9,7 +9,7 @@ class FluGlass extends StatelessWidget {
     this.borderRadius,
     this.margin,
     required this.child,
-    this.intensity = 7.0,
+    this.intensity = 5.0,
     this.cornerRadius = 0,
   }) : super(key: key);
 

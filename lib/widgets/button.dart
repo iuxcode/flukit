@@ -2,6 +2,8 @@ import 'package:flukit/widgets/flu_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 
+import 'glass.dart';
+
 /// Create a button
 class FluButton extends StatelessWidget {
   const FluButton({
@@ -18,22 +20,13 @@ class FluButton extends StatelessWidget {
     this.loading = false,
     this.borderRadius,
     this.cornerRadius,
+    this.replaceContentOnLoading = true,
+    this.loadingText,
+    this.loader,
+    this.loaderOverlayColor,
+    this.loaderColor,
     super.key,
   }) : assert(child != null || builder != null);
-
-  final VoidCallback? onPressed;
-  final Color? backgroundColor;
-  final Color? foregroundColor;
-  final EdgeInsets padding;
-  final EdgeInsets margin;
-  final double elevation;
-  final bool filled;
-  final bool flat;
-  final bool loading;
-  final Widget? child;
-  final BorderRadius? borderRadius;
-  final double? cornerRadius;
-  final Widget Function(BuildContext)? builder;
 
   /// Create a button with icon content
   factory FluButton.icon(
@@ -50,8 +43,13 @@ class FluButton extends StatelessWidget {
     bool filled = false,
     bool flat = false,
     bool loading = false,
+    bool replaceContentOnLoading = true,
+    String? loadingText,
     BorderRadius? borderRadius,
     double? cornerRadius,
+    Widget? loader,
+    Color? loaderOverlayColor,
+    Color? loaderColor,
   }) =>
       FluButton(
         onPressed: onPressed,
@@ -65,12 +63,17 @@ class FluButton extends StatelessWidget {
         loading: loading,
         borderRadius: borderRadius,
         cornerRadius: cornerRadius,
+        replaceContentOnLoading: replaceContentOnLoading,
+        loadingText: loadingText,
+        loader: loader,
+        loaderOverlayColor: loaderOverlayColor,
+        loaderColor: loaderColor,
         builder: (context) => FluIcon(
           icon,
           size: iconSize,
           style: iconStyle,
           strokewidth: iconStrokeWidth,
-          color: _getButtonForegroundColor(context,
+          color: _getButtonForegroundColor(Theme.of(context).colorScheme,
               flat: flat, filled: filled, disabled: onPressed == null),
         ),
         child: null,
@@ -99,8 +102,13 @@ class FluButton extends StatelessWidget {
     bool filled = false,
     bool flat = false,
     bool loading = false,
+    bool replaceContentOnLoading = true,
+    String? loadingText,
     BorderRadius? borderRadius,
     double? cornerRadius,
+    Widget? loader,
+    Color? loaderOverlayColor,
+    Color? loaderColor,
   }) {
     return FluButton(
       onPressed: onPressed,
@@ -114,9 +122,17 @@ class FluButton extends StatelessWidget {
       loading: loading,
       borderRadius: borderRadius,
       cornerRadius: cornerRadius,
+      replaceContentOnLoading: replaceContentOnLoading,
+      loadingText: loadingText,
+      loader: loader,
+      loaderOverlayColor: loaderOverlayColor,
+      loaderColor: loaderColor,
       builder: (context) {
-        Color foregroundColor = _getButtonForegroundColor(context,
-            flat: flat, filled: filled, disabled: onPressed == null);
+        Color foregroundColor = _getButtonForegroundColor(
+            Theme.of(context).colorScheme,
+            flat: flat,
+            filled: filled,
+            disabled: onPressed == null);
         Widget buildIcon(FluIcons icon, [double? size]) => FluIcon(
               icon,
               style: iconStyle,
@@ -146,10 +162,29 @@ class FluButton extends StatelessWidget {
     );
   }
 
+  final Widget Function(BuildContext)? builder;
+  final Color? backgroundColor;
+  final BorderRadius? borderRadius;
+  final Widget? child;
+  final double? cornerRadius;
+  final double elevation;
+  final bool filled;
+  final bool flat;
+  final Color? foregroundColor;
+  final Widget? loader;
+  final Color? loaderOverlayColor;
+  final Color? loaderColor;
+  final bool loading;
+  final String? loadingText;
+  final EdgeInsets margin;
+  final VoidCallback? onPressed;
+  final EdgeInsets padding;
+  final bool replaceContentOnLoading;
+
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    ButtonStyle buttonStyle = ButtonStyle(
+    final ButtonStyle buttonStyle = ButtonStyle(
         backgroundColor: MaterialStateProperty.all(backgroundColor),
         foregroundColor: MaterialStatePropertyAll(foregroundColor),
         padding: MaterialStatePropertyAll(padding),
@@ -162,13 +197,36 @@ class FluButton extends StatelessWidget {
                 ),
               )
             : null);
+    final Color defaultForeground = _getButtonForegroundColor(colorScheme,
+        disabled: onPressed == null, flat: flat, filled: filled);
+
+    Widget loader = this.loader ??
+        FluLoader(
+          size: loadingText != null ? 14 : 18,
+          strokeWidth: loadingText != null ? 1.5 : 2,
+          color: loaderColor ??
+              foregroundColor ??
+              (replaceContentOnLoading
+                  ? defaultForeground
+                  : filled
+                      ? colorScheme.onPrimary
+                      : colorScheme.onSurface),
+          label: loadingText,
+          labelStyle: TextStyle(color: foregroundColor),
+        );
     Widget child;
     Widget button;
 
-    if (this.child != null) {
+    if (loading && replaceContentOnLoading) {
+      child = loader;
+    } else if (this.child != null) {
       child = this.child!;
     } else {
       child = builder!.call(context);
+    }
+
+    if (loading && !replaceContentOnLoading) {
+      child = Opacity(opacity: .45, child: child);
     }
 
     if (elevation > 0 && !flat && !filled) {
@@ -191,29 +249,25 @@ class FluButton extends StatelessWidget {
       );
     }
 
-    if (loading) {
+    if (loading && !replaceContentOnLoading) {
       button = Stack(alignment: AlignmentDirectional.center, children: [
         button,
         Positioned.fill(
-          child: IntrinsicHeight(
+          // Todo: Fix sizing issue
+          child: FluGlass(
+            borderRadius: borderRadius,
+            cornerRadius: cornerRadius ?? 99,
+            intensity: 1.5,
             child: Container(
-                decoration: BoxDecoration(
-                  color: colorScheme.primaryContainer.withOpacity(.65),
-                  borderRadius:
-                      borderRadius ?? BorderRadius.circular(cornerRadius ?? 99),
-                ),
-                child: FluLoader(
-                  size: 18,
-                  strokeWidth: 2,
-                  color: colorScheme.onPrimaryContainer,
-                )),
+              color: loaderOverlayColor ?? colorScheme.surface.withOpacity(.5),
+              child: loader,
+            ),
           ),
         ),
       ]);
     }
 
     if (margin != EdgeInsets.zero) {
-      print('margin -> $margin');
       return Container(
         margin: margin,
         child: button,
@@ -224,15 +278,33 @@ class FluButton extends StatelessWidget {
   }
 }
 
-/// Return foreground color according to M3 button specs
+/// Return background color according to M3 button specs
 /// https://m3.material.io/components/buttons/specs
-Color _getButtonForegroundColor(BuildContext context,
+Color _getButtonBackgroundColor(ColorScheme colorScheme,
     {required bool flat,
     required bool filled,
     required bool disabled,
     double elevation = 0.0}) {
-  ColorScheme colorScheme = Theme.of(context).colorScheme;
+  if (disabled) {
+    return colorScheme.surface;
+  } else if (elevation > 0 && !flat && !filled) {
+    return colorScheme.background;
+  } else if (flat) {
+    return colorScheme.background;
+  } else if (filled) {
+    return colorScheme.primary;
+  } else {
+    return colorScheme.secondary;
+  }
+}
 
+/// Return foreground color according to M3 button specs
+/// https://m3.material.io/components/buttons/specs
+Color _getButtonForegroundColor(ColorScheme colorScheme,
+    {required bool flat,
+    required bool filled,
+    required bool disabled,
+    double elevation = 0.0}) {
   if (disabled) {
     return colorScheme.onSurface;
   } else if (elevation > 0 && !flat && !filled) {

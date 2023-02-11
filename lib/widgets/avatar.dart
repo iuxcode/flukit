@@ -35,60 +35,11 @@ class FluAvatar extends StatefulWidget {
     this.package,
   });
 
-  /// Avatar image like a user profile photo.
-  final String? image;
-
-  /// Text to display when there is not an image.
-  final String? label;
-
-  /// Display icon instead of label or image.
-  final FluIcons? icon;
-
-  /// Image source.
-  /// Can be from `asset`, `network` or `system`.
-  final ImageSources imageSource;
-
-  /// Set to true, if you want the avatar to be a circle
-  final bool circle;
-
-  /// Default avatars types
-  final FluAvatarTypes defaultAvatarType;
-
-  /// If non-null, the corners of this box are rounded by this [BorderRadius].
-  final BorderRadius? borderRadius;
-
-  /// Round all avatar corner with the value defined.
-  final double cornerRadius;
-
-  /// Avatar size.
-  final double size;
-
   /// Set to true if you want to display a badge
   final bool badge;
 
   /// Badge color
   final Color? badgeColor;
-
-  /// Badge foreground color
-  final Color? badgeForegroundColor;
-
-  /// Badge size
-  final double badgeSize;
-
-  /// Is the badge outlined
-  final bool badgeOutlined;
-
-  /// Badge outline color
-  final Color? badgeOutlineColor;
-
-  /// Badge thickness
-  final double badgeOutlineThickness;
-
-  /// Badge position x, y coordinates
-  final Offset badgeOffset;
-
-  /// Badge position
-  final BadgePosition badgePosition;
 
   /// Badge count
   final int? badgeCount;
@@ -96,11 +47,54 @@ class FluAvatar extends StatefulWidget {
   /// Badge count limit
   final int badgeCountLimit;
 
+  /// Badge foreground color
+  final Color? badgeForegroundColor;
+
+  /// Badge position x, y coordinates
+  final Offset badgeOffset;
+
+  /// Badge outline color
+  final Color? badgeOutlineColor;
+
+  /// Badge thickness
+  final double badgeOutlineThickness;
+
+  /// Is the badge outlined
+  final bool badgeOutlined;
+
+  /// Badge position
+  final BadgePosition badgePosition;
+
+  /// Badge size
+  final double badgeSize;
+
+  /// If non-null, the corners of this box are rounded by this [BorderRadius].
+  final BorderRadius? borderRadius;
+
+  /// Set to true, if you want the avatar to be a circle
+  final bool circle;
+
+  /// Round all avatar corner with the value defined.
+  final double cornerRadius;
+
+  /// Default avatars types
+  final FluAvatarTypes defaultAvatarType;
+
+  /// Display icon instead of label or image.
+  final FluIcons? icon;
+
+  /// Avatar image like a user profile photo.
+  final String? image;
+
+  /// Image source.
+  /// Can be from `asset`, `network` or `system`.
+  final ImageSources imageSource;
+
+  /// Text to display when there is not an image.
+  final String? label;
+
   /// Empty space to surround the avatar and [child].
   final EdgeInsets margin;
-
-  /// set to true to enable outline
-  final bool outlined;
 
   /// Outline color
   final Color? outlineColor;
@@ -108,9 +102,15 @@ class FluAvatar extends StatefulWidget {
   /// Outline thickness
   final double outlineThickness;
 
+  /// set to true to enable outline
+  final bool outlined;
+
   /// The package argument must be non-null when displaying an image from a package and null otherwise.
   /// See the Assets in packages section for details.
   final String? package;
+
+  /// Avatar size.
+  final double size;
 
   @override
   State<FluAvatar> createState() => _FluAvatarState();
