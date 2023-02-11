@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../../widgets/app.dart';
-
 extension U on FluInterface {
   /// give access to currentContext
-  BuildContext get context => navigatorKey.currentState!.overlay!.context;
+  BuildContext get context => Get.key.currentState!.overlay!.context;
 
   /// give access to current theme data
   ThemeData get theme => Theme.of(context);

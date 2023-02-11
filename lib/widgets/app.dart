@@ -1,21 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class FluMaterialApp extends StatelessWidget {
-  const FluMaterialApp(
-      {super.key, required this.home, this.theme, this.darkTheme});
-
-  final Widget home;
-  final ThemeData? theme;
-  final ThemeData? darkTheme;
-
-  @override
-  Widget build(BuildContext context) => GetMaterialApp(
-        navigatorKey: navigatorKey,
-        theme: theme,
-        darkTheme: darkTheme,
-        home: home,
-      );
+class FluMaterialApp extends GetMaterialApp {
+  const FluMaterialApp({
+    super.key,
+    super.navigatorKey,
+    super.scaffoldMessengerKey,
+    super.home,
+    super.routes = const <String, WidgetBuilder>{},
+    super.initialRoute,
+    super.onGenerateRoute,
+    super.onGenerateInitialRoutes,
+    super.onUnknownRoute,
+    super.useInheritedMediaQuery = false,
+    super.navigatorObservers = const <NavigatorObserver>[],
+    super.builder,
+    super.textDirection,
+    super.onGenerateTitle,
+    super.themeMode = ThemeMode.system,
+    super.locale,
+    super.fallbackLocale,
+    super.localizationsDelegates,
+    super.localeListResolutionCallback,
+    super.localeResolutionCallback,
+    super.supportedLocales = const <Locale>[Locale('en', 'US')],
+    super.debugShowMaterialGrid = false,
+    super.showPerformanceOverlay = false,
+    super.checkerboardRasterCacheImages = false,
+    super.checkerboardOffscreenLayers = false,
+    super.showSemanticsDebugger = false,
+    super.debugShowCheckedModeBanner = false,
+    super.shortcuts,
+    super.scrollBehavior,
+    super.customTransition,
+    super.translationsKeys,
+    super.translations,
+    super.onInit,
+    super.onReady,
+    super.onDispose,
+    super.routingCallback,
+    super.defaultTransition,
+    super.getPages,
+    super.opaqueRoute,
+    super.enableLog,
+    super.logWriterCallback,
+    super.popGesture,
+    super.transitionDuration,
+    super.defaultGlobalState,
+    super.smartManagement = SmartManagement.full,
+    super.initialBinding,
+    super.unknownRoute,
+    super.highContrastTheme,
+    super.highContrastDarkTheme,
+    super.actions,
+    super.theme,
+    super.darkTheme,
+    super.color,
+    super.title,
+  });
 }
-
-final navigatorKey = GlobalKey<NavigatorState>();
