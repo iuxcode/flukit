@@ -4,12 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../widgets/app.dart';
+
 extension U on FluInterface {
   /// give access to currentContext
-  BuildContext get context => Get.context!;
+  BuildContext get context => navigatorKey.currentState!.overlay!.context;
 
   /// give access to current theme data
   ThemeData get theme => Theme.of(context);
+
+  /// give access to current [ColorScheme]
+  ColorScheme get colorScheme => Theme.of(context).colorScheme;
+
+  /// give access to current theme data
+  ThemeData getCurrentTheme(BuildContext context) => Theme.of(context);
+
+  /// give access to current [ColorScheme]
+  ColorScheme getCurrentColorScheme(BuildContext context) =>
+      getCurrentTheme(context).colorScheme;
 
   /// Get the screen size
   Size get screenSize => Get.size;
