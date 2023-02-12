@@ -48,7 +48,7 @@ class FluGrid extends StatelessWidget {
         );
       case FluGridType.masonry:
         assert(itemCount != null && itemBuilder != null,
-            'itemCount and itemBuilder can\'t be null when you are builing a masonry grid.');
+            'itemCount and itemBuilder can\'t be null when you are building a masonry grid.');
 
         return MasonryGridView.count(
           shrinkWrap: shrinkWrap,

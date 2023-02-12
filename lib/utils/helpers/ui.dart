@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../widgets/bottom_sheet.dart';
+
 extension U on FluInterface {
   /// give access to currentContext
   BuildContext get context => Get.key.currentState!.overlay!.context;
@@ -20,6 +22,12 @@ extension U on FluInterface {
   /// give access to current [ColorScheme]
   ColorScheme getColorSchemeOf(BuildContext context) =>
       getThemeOf(context).colorScheme;
+
+  /// switch theme
+  void changeTheme(ThemeData theme) => Get.changeTheme(theme);
+
+  /// switch theme mode
+  void changeThemeMode(ThemeMode themeMode) => Get.changeThemeMode(themeMode);
 
   /// Get the screen size
   Size get screenSize => Get.size;
@@ -64,6 +72,27 @@ extension U on FluInterface {
       return 'assets/Images/Avatars/Material3D/3d_avatar_${number == 0 ? number + 1 : number}.png';
     }
     return 'assets/Images/Avatars/Memojis/avatar${number == 0 ? '' : '-$number'}.png';
+  }
+
+  /// Show a [FluModalBottomSheet]
+  void showFluModalBottomSheet(
+      {required Widget child,
+      EdgeInsets padding = EdgeInsets.zero,
+      double? cornerRadius,
+      double? maxChildSize}) {
+    showModalBottomSheet(
+      context: Flu.context,
+      isScrollControlled: true,
+      isDismissible: true,
+      backgroundColor: Colors.transparent,
+      elevation: 10,
+      builder: (context) => FluModalBottomSheet(
+        maxChildSize: maxChildSize ?? .85,
+        cornerRadius: cornerRadius,
+        padding: padding,
+        child: child,
+      ),
+    );
   }
 }
 
