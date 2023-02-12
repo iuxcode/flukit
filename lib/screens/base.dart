@@ -62,7 +62,7 @@ class FluScreen extends StatelessWidget {
       ),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: background,
+        backgroundColor: background ?? colorScheme.background,
         extendBody: extendBody,
         appBar: appBar,
         body: body,

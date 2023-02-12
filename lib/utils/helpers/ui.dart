@@ -13,8 +13,11 @@ extension U on FluInterface {
   /// give access to current theme data
   ThemeData get theme => Theme.of(context);
 
-  /// give access to current [ColorScheme]
+  /// give access to current theme [ColorScheme]
   ColorScheme get colorScheme => Theme.of(context).colorScheme;
+
+  /// give access to current theme [TextTheme]
+  TextTheme get textTheme => Theme.of(context).textTheme;
 
   /// give access to current theme data
   ThemeData getThemeOf(BuildContext context) => Theme.of(context);
@@ -27,7 +30,8 @@ extension U on FluInterface {
   void changeTheme(ThemeData theme) => Get.changeTheme(theme);
 
   /// switch theme mode
-  void changeThemeMode(ThemeMode themeMode) => Get.changeThemeMode(themeMode);
+  void changeThemeMode() =>
+      Get.changeThemeMode(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
 
   /// Get the screen size
   Size get screenSize => Get.size;
