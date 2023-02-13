@@ -1,6 +1,7 @@
 import 'dart:io' as io;
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 /// Display an image
 /// By default this will call the image from network.
@@ -26,8 +27,14 @@ class FluImage extends StatelessWidget {
     super.key,
   });
 
+  const factory FluImage.svg(String svg,
+      {Color? color, ImageSources source, BoxFit fit}) = _FluSvgImage;
+
   /// If non-null, the corners of this box are rounded by this [BorderRadius].
   final BorderRadius? borderRadius;
+
+  /// Set to true, if you want the image to be a circle
+  final bool circle;
 
   /// Round all image corner with the value defined.
   final double cornerRadius;
@@ -55,6 +62,9 @@ class FluImage extends StatelessWidget {
   /// Can be from `asset`, `network` or `system`.
   final ImageSources imageSource;
 
+  /// Empty space to surround the avatar and [child].
+  final EdgeInsets margin;
+
   /// Modify the image overlay color.
   final Color? overlayColor;
 
@@ -65,17 +75,11 @@ class FluImage extends StatelessWidget {
   /// The package argument must be non-null when displaying an image from a `package` and null otherwise. See the `Assets in packages` section for details.
   final String? package;
 
-  /// Image width
-  final double? width;
-
-  /// Set to true, if you want the image to be a circle
-  final bool circle;
-
   /// Set to true, if you want the image height to be equal to its width
   final bool square;
 
-  /// Empty space to surround the avatar and [child].
-  final EdgeInsets margin;
+  /// Image width
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
@@ -161,6 +165,42 @@ class FluImage extends StatelessWidget {
     }
 
     return child;
+  }
+}
+
+class _FluSvgImage extends FluImage {
+  const _FluSvgImage(
+    super.image, {
+    this.color,
+    ImageSources source = ImageSources.asset,
+    super.fit = BoxFit.contain,
+  }) : super(imageSource: source);
+
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) {
+    switch (imageSource) {
+      case ImageSources.network:
+        return SvgPicture.network(
+          image,
+          height: height,
+          width: width,
+          fit: fit,
+          // headers: httpHeaders,
+          color: color,
+        );
+      case ImageSources.asset:
+      case ImageSources.system:
+        return SvgPicture.asset(
+          image,
+          height: height,
+          width: width,
+          fit: fit,
+          color: color,
+          package: package,
+        );
+    }
   }
 }
 

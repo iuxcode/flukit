@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+import 'package:timeago/timeago.dart' as time;
 import '../flu_utils.dart';
 
 extension T on FluInterface {
@@ -6,23 +8,23 @@ extension T on FluInterface {
       DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
 
   /// Get only the time from a datetime.
-  /* String timeFromDateTime(DateTime date,
+  String timeFromDateTime(DateTime date,
           {bool withSeconds = false, String? locale}) =>
       formatDate(date,
-          pattern: 'HH:mm${withSeconds ? ':ss' : ''}', locale: locale); */
+          pattern: 'HH:mm${withSeconds ? ':ss' : ''}', locale: locale);
 
   /// Creates a new DateFormat, using the format specified by [pattern].
-  /* String formatDate(DateTime date,
+  String formatDate(DateTime date,
           {String pattern = 'EEEE, MMM dd', String? locale}) =>
-      DateFormat(pattern, locale).format(date); */
+      DateFormat(pattern, locale).format(date);
 
   /// Formats provided [date] to a fuzzy time like 'a moment ago'
-  /* String timeago(DateTime dateTime, {String locale = 'en'}) =>
-      tmago.format(dateTime, locale: locale, allowFromNow: false); */
+  String timeago(DateTime dateTime, {String locale = 'en'}) =>
+      time.format(dateTime, locale: locale, allowFromNow: false);
 
   /// A number format for compact representations, e.g. "1.2M" instead of "1,200,000".
-  /* String numberToCompactFormat(double number) =>
-      NumberFormat.compact().format(number); */
+  String numberToCompactFormat(double number) =>
+      NumberFormat.compact().format(number);
 
   /// Get time from seconds || must be integer
   String timeFromSeconds(int seconds) {

@@ -21,6 +21,7 @@ dependencies:
   intl: ^0.17.0
   phone_number: ^1.0.0
   timeago: ^3.3.0
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_lints: ^2.0.0
