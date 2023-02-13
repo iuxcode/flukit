@@ -28,7 +28,11 @@ class FluImage extends StatelessWidget {
   });
 
   const factory FluImage.svg(String svg,
-      {Color? color, ImageSources source, BoxFit fit}) = _FluSvgImage;
+      {Color? color,
+      ImageSources source,
+      BoxFit fit,
+      double? height,
+      double? width}) = _FluSvgImage;
 
   /// If non-null, the corners of this box are rounded by this [BorderRadius].
   final BorderRadius? borderRadius;
@@ -174,6 +178,8 @@ class _FluSvgImage extends FluImage {
     this.color,
     ImageSources source = ImageSources.asset,
     super.fit = BoxFit.contain,
+    super.height,
+    super.width,
   }) : super(imageSource: source);
 
   final Color? color;

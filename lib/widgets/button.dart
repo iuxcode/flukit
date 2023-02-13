@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 
 import '../utils/flu_utils.dart';
-import 'glass.dart';
 
 /// Create a button
 class FluButton extends StatelessWidget {
@@ -25,6 +24,10 @@ class FluButton extends StatelessWidget {
     this.loader,
     this.loaderOverlayColor,
     this.loaderColor,
+    this.height,
+    this.width,
+    this.block = false,
+    this.expand = false,
     super.key,
   });
 
@@ -48,7 +51,11 @@ class FluButton extends StatelessWidget {
           double? cornerRadius,
           Widget? loader,
           Color? loaderOverlayColor,
-          Color? loaderColor}) =>
+          Color? loaderColor,
+          double? height,
+          double? width,
+          bool block = false,
+          bool expand = false}) =>
       FluButton(
         onPressed: onPressed,
         backgroundColor: backgroundColor,
@@ -66,6 +73,10 @@ class FluButton extends StatelessWidget {
         loader: loader,
         loaderOverlayColor: loaderOverlayColor,
         loaderColor: loaderColor,
+        height: height,
+        width: width,
+        block: block,
+        expand: expand,
         child: FluIcon(
           icon,
           size: iconSize,
@@ -104,7 +115,11 @@ class FluButton extends StatelessWidget {
       double? cornerRadius,
       Widget? loader,
       Color? loaderOverlayColor,
-      Color? loaderColor}) {
+      Color? loaderColor,
+      double? height,
+      double? width,
+      bool block = false,
+      bool expand = false}) {
     Color foregroundColor = _getButtonForegroundColor(Flu.colorScheme,
         flat: flat, filled: filled, disabled: onPressed == null);
     Widget buildIcon(FluIcons icon, [double? size]) => FluIcon(
@@ -137,6 +152,10 @@ class FluButton extends StatelessWidget {
       loader: loader,
       loaderOverlayColor: loaderOverlayColor,
       loaderColor: loaderColor,
+      height: height,
+      width: width,
+      block: block,
+      expand: expand,
       child: (prefixIcon != null || suffixIcon != null)
           ? Row(
               mainAxisSize: MainAxisSize.min,
@@ -167,23 +186,33 @@ class FluButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final EdgeInsets padding;
   final bool replaceContentOnLoading;
+  final double? height;
+  final double? width;
+  final bool block;
+  final bool expand;
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Flu.getColorSchemeOf(context);
+    final bool hasCustomSize =
+        expand || block || height != null || width != null;
+
     final ButtonStyle buttonStyle = ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(backgroundColor),
-        foregroundColor: MaterialStatePropertyAll(foregroundColor),
-        padding: MaterialStatePropertyAll(padding),
-        elevation: MaterialStatePropertyAll(elevation),
-        shape: borderRadius != null || cornerRadius != null
-            ? MaterialStatePropertyAll(
-                RoundedRectangleBorder(
-                  borderRadius:
-                      borderRadius ?? BorderRadius.circular(cornerRadius!),
-                ),
-              )
-            : null);
+      fixedSize: MaterialStatePropertyAll(
+          hasCustomSize ? const Size(double.infinity, double.infinity) : null),
+      backgroundColor: MaterialStatePropertyAll(backgroundColor),
+      foregroundColor: MaterialStatePropertyAll(foregroundColor),
+      padding: MaterialStatePropertyAll(padding),
+      elevation: MaterialStatePropertyAll(elevation),
+      shape: borderRadius != null || cornerRadius != null
+          ? MaterialStatePropertyAll(
+              RoundedRectangleBorder(
+                borderRadius:
+                    borderRadius ?? BorderRadius.circular(cornerRadius!),
+              ),
+            )
+          : null,
+    );
     final Color defaultForegroundColor = _getButtonForegroundColor(colorScheme,
         disabled: onPressed == null, flat: flat, filled: filled);
     final Color defaultOverlayColor = _getButtonOverlayColor(colorScheme,
@@ -249,8 +278,10 @@ class FluButton extends StatelessWidget {
       ]);
     }
 
-    if (margin != EdgeInsets.zero) {
+    if (margin != EdgeInsets.zero || hasCustomSize) {
       return Container(
+        height: expand ? double.infinity : height,
+        width: expand || block ? double.infinity : width,
         margin: margin,
         child: button,
       );
