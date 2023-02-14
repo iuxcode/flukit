@@ -28,6 +28,7 @@ class FluButton extends StatelessWidget {
     this.width,
     this.block = false,
     this.expand = false,
+    this.boxShadow,
     super.key,
   });
 
@@ -52,10 +53,8 @@ class FluButton extends StatelessWidget {
           Widget? loader,
           Color? loaderOverlayColor,
           Color? loaderColor,
-          double? height,
-          double? width,
-          bool block = false,
-          bool expand = false}) =>
+          double? size,
+          List<BoxShadow>? boxShadow}) =>
       FluButton(
         onPressed: onPressed,
         backgroundColor: backgroundColor,
@@ -73,10 +72,9 @@ class FluButton extends StatelessWidget {
         loader: loader,
         loaderOverlayColor: loaderOverlayColor,
         loaderColor: loaderColor,
-        height: height,
-        width: width,
-        block: block,
-        expand: expand,
+        height: size,
+        width: size,
+        boxShadow: boxShadow,
         child: FluIcon(
           icon,
           size: iconSize,
@@ -119,7 +117,8 @@ class FluButton extends StatelessWidget {
       double? height,
       double? width,
       bool block = false,
-      bool expand = false}) {
+      bool expand = false,
+      List<BoxShadow>? boxShadow}) {
     Color foregroundColor = _getButtonForegroundColor(Flu.colorScheme,
         flat: flat, filled: filled, disabled: onPressed == null);
     Widget buildIcon(FluIcons icon, [double? size]) => FluIcon(
@@ -156,6 +155,7 @@ class FluButton extends StatelessWidget {
       width: width,
       block: block,
       expand: expand,
+      boxShadow: boxShadow,
       child: (prefixIcon != null || suffixIcon != null)
           ? Row(
               mainAxisSize: MainAxisSize.min,
@@ -190,6 +190,7 @@ class FluButton extends StatelessWidget {
   final double? width;
   final bool block;
   final bool expand;
+  final List<BoxShadow>? boxShadow;
 
   @override
   Widget build(BuildContext context) {
@@ -203,7 +204,7 @@ class FluButton extends StatelessWidget {
       backgroundColor: MaterialStatePropertyAll(backgroundColor),
       foregroundColor: MaterialStatePropertyAll(foregroundColor),
       padding: MaterialStatePropertyAll(padding),
-      elevation: MaterialStatePropertyAll(elevation),
+      elevation: MaterialStatePropertyAll(boxShadow == null ? elevation : null),
       shape: borderRadius != null || cornerRadius != null
           ? MaterialStatePropertyAll(
               RoundedRectangleBorder(
@@ -278,11 +279,23 @@ class FluButton extends StatelessWidget {
       ]);
     }
 
-    if (margin != EdgeInsets.zero || hasCustomSize) {
+    if (margin != EdgeInsets.zero || hasCustomSize || boxShadow != null) {
+      BoxDecoration? decoration;
+
+      if (boxShadow != null) {
+        decoration = BoxDecoration(
+          boxShadow: boxShadow,
+          borderRadius:
+              borderRadius ?? BorderRadius.circular(cornerRadius ?? 999),
+        );
+      }
+
       return Container(
         height: expand ? double.infinity : height,
         width: expand || block ? double.infinity : width,
         margin: margin,
+        decoration: decoration,
+        clipBehavior: decoration != null ? Clip.antiAlias : Clip.none,
         child: button,
       );
     }

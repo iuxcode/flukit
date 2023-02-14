@@ -26,6 +26,10 @@ extension U on FluInterface {
   ColorScheme getColorSchemeOf(BuildContext context) =>
       getThemeOf(context).colorScheme;
 
+  /// give access to current theme [TextTheme]
+  TextTheme getTextThemeOf(BuildContext context) =>
+      getThemeOf(context).textTheme;
+
   /// switch theme
   void changeTheme(ThemeData theme) => Get.changeTheme(theme);
 

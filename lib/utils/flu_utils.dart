@@ -1,3 +1,5 @@
+export '../extensions/num.dart';
+
 export 'helpers/ui.dart';
 export 'helpers/text.dart';
 export 'helpers/connectivity.dart';
