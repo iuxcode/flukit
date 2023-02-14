@@ -118,7 +118,8 @@ class FluButton extends StatelessWidget {
       double? width,
       bool block = false,
       bool expand = false,
-      List<BoxShadow>? boxShadow}) {
+      List<BoxShadow>? boxShadow,
+      TextStyle? textStyle}) {
     Color foregroundColor = _getButtonForegroundColor(Flu.colorScheme,
         flat: flat, filled: filled, disabled: onPressed == null);
     Widget buildIcon(FluIcons icon, [double? size]) => FluIcon(
@@ -132,7 +133,10 @@ class FluButton extends StatelessWidget {
           ),
         );
 
-    Widget textWidget = Text(text, style: TextStyle(color: foregroundColor));
+    Widget textWidget = Text(text,
+        style: Flu.textTheme.bodyMedium
+            ?.copyWith(color: foregroundColor, fontWeight: FontWeight.w600)
+            .merge(textStyle));
 
     return FluButton(
       onPressed: onPressed,
@@ -194,6 +198,12 @@ class FluButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final VoidCallback? onPressed = this.onPressed != null
+        ? () {
+            Flu.lightImpactHaptic();
+            this.onPressed?.call();
+          }
+        : this.onPressed;
     final colorScheme = Flu.getColorSchemeOf(context);
     final bool hasCustomSize =
         expand || block || height != null || width != null;
