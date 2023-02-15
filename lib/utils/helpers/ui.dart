@@ -30,6 +30,18 @@ extension U on FluInterface {
   TextTheme getTextThemeOf(BuildContext context) =>
       getThemeOf(context).textTheme;
 
+  /// SystemUIOverlayStyle
+  SystemUiOverlayStyle getDefaultSystemUiOverlayStyle(BuildContext context) {
+    final ColorScheme colorScheme = getColorSchemeOf(context);
+    return SystemUiOverlayStyle(
+        statusBarColor: colorScheme.background,
+        statusBarIconBrightness:
+            Get.isDarkMode ? Brightness.light : Brightness.dark,
+        systemNavigationBarColor: colorScheme.background,
+        systemNavigationBarIconBrightness:
+            Get.isDarkMode ? Brightness.light : Brightness.dark);
+  }
+
   /// switch theme
   void changeTheme(ThemeData theme) => Get.changeTheme(theme);
 

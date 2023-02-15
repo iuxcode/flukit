@@ -7,3 +7,4 @@ export 'loader.dart';
 export 'glass.dart';
 export 'tabs.dart';
 export 'app.dart';
+export 'divider.dart';
