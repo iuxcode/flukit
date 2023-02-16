@@ -29,6 +29,7 @@ class FluButton extends StatelessWidget {
     this.block = false,
     this.expand = false,
     this.boxShadow,
+    this.alignment,
     super.key,
   });
 
@@ -54,7 +55,8 @@ class FluButton extends StatelessWidget {
           Color? loaderOverlayColor,
           Color? loaderColor,
           double? size,
-          List<BoxShadow>? boxShadow}) =>
+          List<BoxShadow>? boxShadow,
+          Alignment? alignment}) =>
       FluButton(
         onPressed: onPressed,
         backgroundColor: backgroundColor,
@@ -75,6 +77,7 @@ class FluButton extends StatelessWidget {
         height: size,
         width: size,
         boxShadow: boxShadow,
+        alignment: alignment,
         child: FluIcon(
           icon,
           size: iconSize,
@@ -119,7 +122,8 @@ class FluButton extends StatelessWidget {
       bool block = false,
       bool expand = false,
       List<BoxShadow>? boxShadow,
-      TextStyle? textStyle}) {
+      TextStyle? textStyle,
+      Alignment? alignment}) {
     Color foregroundColor = _getButtonForegroundColor(Flu.colorScheme,
         flat: flat, filled: filled, disabled: onPressed == null);
     Widget buildIcon(FluIcons icon, [double? size]) => FluIcon(
@@ -160,6 +164,7 @@ class FluButton extends StatelessWidget {
       block: block,
       expand: expand,
       boxShadow: boxShadow,
+      alignment: alignment,
       child: (prefixIcon != null || suffixIcon != null)
           ? Row(
               mainAxisSize: MainAxisSize.min,
@@ -195,6 +200,7 @@ class FluButton extends StatelessWidget {
   final bool block;
   final bool expand;
   final List<BoxShadow>? boxShadow;
+  final AlignmentGeometry? alignment;
 
   @override
   Widget build(BuildContext context) {
@@ -223,6 +229,7 @@ class FluButton extends StatelessWidget {
               ),
             )
           : null,
+      alignment: alignment,
     );
     final Color defaultForegroundColor = _getButtonForegroundColor(colorScheme,
         disabled: onPressed == null, flat: flat, filled: filled);

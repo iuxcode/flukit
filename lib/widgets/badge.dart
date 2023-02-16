@@ -15,21 +15,22 @@ class FluBadge extends StatelessWidget {
   final bool outlined;
   final double outlineThickness;
   final Color? outlineColor;
+  final List<BoxShadow>? boxShadow;
 
-  const FluBadge({
-    super.key,
-    required this.child,
-    this.color,
-    this.foregroundColor,
-    this.offset = const Offset(2, 2),
-    this.position = BadgePosition.topLeft,
-    this.size = 8,
-    this.count,
-    this.countLimit = 99,
-    this.outlined = false,
-    this.outlineThickness = 1.25,
-    this.outlineColor,
-  });
+  const FluBadge(
+      {super.key,
+      required this.child,
+      this.color,
+      this.foregroundColor,
+      this.offset = const Offset(2, 2),
+      this.position = BadgePosition.topLeft,
+      this.size = 8,
+      this.count,
+      this.countLimit = 99,
+      this.outlined = false,
+      this.outlineThickness = 1.25,
+      this.outlineColor,
+      this.boxShadow});
 
   @override
   Widget build(BuildContext context) {
@@ -73,14 +74,16 @@ class FluBadge extends StatelessWidget {
                 vertical: isLargeBadge ? 4 : 0,
                 horizontal: isLargeBadge ? 8 : 0),
             decoration: BoxDecoration(
-                color: color ?? colorScheme.primary,
-                shape: isLargeBadge ? BoxShape.rectangle : BoxShape.circle,
-                borderRadius: isLargeBadge ? BorderRadius.circular(999) : null,
-                border: outlined
-                    ? Border.all(
-                        width: outlineThickness,
-                        color: outlineColor ?? colorScheme.background)
-                    : null),
+              color: color ?? colorScheme.primary,
+              shape: isLargeBadge ? BoxShape.rectangle : BoxShape.circle,
+              borderRadius: isLargeBadge ? BorderRadius.circular(999) : null,
+              border: outlined
+                  ? Border.all(
+                      width: outlineThickness,
+                      color: outlineColor ?? colorScheme.background)
+                  : null,
+              boxShadow: boxShadow,
+            ),
             child: isLargeBadge
                 ? Text(
                     (count! > countLimit ? countLimit : count).toString() +
