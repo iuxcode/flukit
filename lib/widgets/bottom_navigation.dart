@@ -91,8 +91,8 @@ class _FluBottomNavBarState extends State<FluBottomNavBar> {
             key: widget.items.indexOf(item) == 0 ? _itemKey : null,
             item,
             onTap: () {
-              widget.onItemTap?.call(index);
               setState(() => _currentIndex = index);
+              widget.onItemTap?.call(index);
             },
             color: isSelected ? foregroundColor : unSelectedForegroundColor,
             iconSize: widget.iconSize,

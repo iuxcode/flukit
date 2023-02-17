@@ -42,13 +42,16 @@ class _FluScreenWithBottomNavState extends State<FluScreenWithBottomNav> {
   int _currentPage = 0;
 
   void _onItemTap(int index) {
-    if (widget.pages[index].content != null) {
-      var diff = index - _currentPage;
+    final page = widget.pages[index];
+
+    if (_pages.contains(page)) {
+      final pageIndex = _pages.indexOf(page);
+      var diff = pageIndex - _currentPage;
 
       if (diff >= 2 || diff <= -2) {
-        _pageController.jumpToPage(index);
+        _pageController.jumpToPage(pageIndex);
       } else {
-        _pageController.animateToPage(index,
+        _pageController.animateToPage(pageIndex,
             duration: widget.animationDuration, curve: widget.animationCurve);
       }
     } else {
@@ -57,9 +60,6 @@ class _FluScreenWithBottomNavState extends State<FluScreenWithBottomNav> {
   }
 
   void loadPages() {
-    for (var page in widget.pages) {
-      _pages.addIf(page.content != null, page);
-    }
     for (var page in widget.pages) {
       _pages.addIf(page.content != null, page);
     }
@@ -87,7 +87,10 @@ class _FluScreenWithBottomNavState extends State<FluScreenWithBottomNav> {
         physics: const NeverScrollableScrollPhysics(),
         onPageChanged: (value) => setState(() => _currentPage = value),
         itemCount: _pages.length,
-        itemBuilder: (context, index) => _pages[index].content,
+        itemBuilder: (context, index) {
+          print('$index ${_pages[index].content}');
+          return _pages[index].content;
+        },
       ),
       bottomNavigationBar: FluBottomNavBar(
         type: widget.bottomNavBarType,
