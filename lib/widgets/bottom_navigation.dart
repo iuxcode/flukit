@@ -34,17 +34,17 @@ class FluBottomNavBar extends StatefulWidget {
   });
 
   final void Function(int)? onItemTap;
+  final Curve animationCurve;
+  final Duration animationDuration;
+  final Color? foregroundColor;
   final double? height;
+  final double iconSize;
+  final double iconStrokeWidth;
   final double indicatorSize;
   final List<FluBottomNavBarItem> items;
   final EdgeInsets? padding;
   final FluBottomNavBarTypes type;
-  final Duration animationDuration;
-  final Curve animationCurve;
-  final Color? foregroundColor;
   final Color? unSelectedForegroundColor;
-  final double iconSize;
-  final double iconStrokeWidth;
 
   @override
   State<FluBottomNavBar> createState() => _FluBottomNavBarState();
@@ -53,19 +53,19 @@ class FluBottomNavBar extends StatefulWidget {
 class _FluBottomNavBarState extends State<FluBottomNavBar> {
   final GlobalKey _itemKey = GlobalKey();
 
-  double _itemWidth = 0.0;
   int _currentIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => getItemWidth());
-  }
+  double _itemWidth = 0.0;
 
   @override
   void didUpdateWidget(covariant FluBottomNavBar oldWidget) {
     getItemWidth();
     super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => getItemWidth());
   }
 
   void getItemWidth() => setState(() => _itemWidth =
@@ -174,11 +174,11 @@ class _NavItem extends StatelessWidget {
     required this.iconStrokeWidth,
   });
 
-  final FluBottomNavBarItem item;
-  final VoidCallback onTap;
   final Color color;
   final double iconSize;
   final double iconStrokeWidth;
+  final FluBottomNavBarItem item;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -207,12 +207,12 @@ class _NavIndicator extends StatelessWidget {
     required this.color,
   });
 
+  final Curve animationCurve;
+  final Duration animationDuration;
+  final Color color;
+  final double itemWidth;
   final double position;
   final double size;
-  final double itemWidth;
-  final Duration animationDuration;
-  final Curve animationCurve;
-  final Color color;
 
   @override
   Widget build(BuildContext context) {

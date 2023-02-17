@@ -4,13 +4,6 @@ import '../utils/flu_utils.dart';
 
 /// Todo add dashes and dots
 class FluLine extends StatelessWidget {
-  final double height, width, radius;
-  final Color? color;
-  final EdgeInsets? margin;
-  final Duration animationDuration;
-  final Curve animationCurve;
-  final BoxShadow? boxShadow;
-
   const FluLine({
     super.key,
     this.height = 1,
@@ -22,6 +15,13 @@ class FluLine extends StatelessWidget {
     this.animationCurve = Curves.linear,
     this.boxShadow,
   });
+
+  final Curve animationCurve;
+  final Duration animationDuration;
+  final BoxShadow? boxShadow;
+  final Color? color;
+  final EdgeInsets? margin;
+  final double height, width, radius;
 
   @override
   Widget build(BuildContext context) => AnimatedContainer(
@@ -39,10 +39,6 @@ class FluLine extends StatelessWidget {
 }
 
 class _DashedLineVerticalPainter extends CustomPainter {
-  final Color color;
-  final double strokeWidth, dashHeight, dashSpace;
-  final bool rounded;
-
   _DashedLineVerticalPainter({
     required this.color,
     this.strokeWidth = 1.5,
@@ -50,6 +46,10 @@ class _DashedLineVerticalPainter extends CustomPainter {
     this.dashSpace = 3,
     this.rounded = false,
   });
+
+  final Color color;
+  final double strokeWidth, dashHeight, dashSpace;
+  final bool rounded;
 
   @override
   void paint(Canvas canvas, Size size) {

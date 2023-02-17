@@ -17,9 +17,9 @@ class FluModalBottomSheet extends StatelessWidget {
   final Curve animationCurve;
   final Duration animationDuration;
   final Widget child;
+  final double? cornerRadius;
   final double maxChildSize;
   final EdgeInsets padding;
-  final double? cornerRadius;
 
   @override
   Widget build(BuildContext context) {

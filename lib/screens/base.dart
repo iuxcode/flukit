@@ -6,16 +6,6 @@ import '../utils/flu_utils.dart';
 
 /// Create a layout with styled system overlay
 class FluScreen extends StatelessWidget {
-  final PreferredSizeWidget? appBar;
-  final Widget body;
-  final SystemUiOverlayStyle? overlayStyle;
-  final bool extendBody;
-  final Widget? floatingActionButton, bottomNavigationBar;
-  final Color? background, drawerScrimColor;
-  final FloatingActionButtonLocation floatingActionButtonLocation;
-  final Widget? drawer, endDrawer;
-  final GlobalKey<ScaffoldState>? scaffoldKey;
-
   const FluScreen({
     Key? key,
     required this.body,
@@ -32,6 +22,16 @@ class FluScreen extends StatelessWidget {
     this.scaffoldKey,
     this.drawerScrimColor,
   }) : super(key: key);
+
+  final PreferredSizeWidget? appBar;
+  final Widget body;
+  final Widget? floatingActionButton, bottomNavigationBar;
+  final Color? background, drawerScrimColor;
+  final Widget? drawer, endDrawer;
+  final bool extendBody;
+  final FloatingActionButtonLocation floatingActionButtonLocation;
+  final SystemUiOverlayStyle? overlayStyle;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
 
   @override
   Widget build(BuildContext context) {

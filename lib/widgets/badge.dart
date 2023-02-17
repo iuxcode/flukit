@@ -4,19 +4,6 @@ import '../utils/flu_utils.dart';
 
 /// Add badge to a widget
 class FluBadge extends StatelessWidget {
-  final Widget child;
-  final Color? color;
-  final Color? foregroundColor;
-  final Offset offset;
-  final BadgePosition position;
-  final double size;
-  final int? count;
-  final int countLimit;
-  final bool outlined;
-  final double outlineThickness;
-  final Color? outlineColor;
-  final List<BoxShadow>? boxShadow;
-
   const FluBadge(
       {super.key,
       required this.child,
@@ -31,6 +18,19 @@ class FluBadge extends StatelessWidget {
       this.outlineThickness = 1.25,
       this.outlineColor,
       this.boxShadow});
+
+  final List<BoxShadow>? boxShadow;
+  final Widget child;
+  final Color? color;
+  final int? count;
+  final int countLimit;
+  final Color? foregroundColor;
+  final Offset offset;
+  final Color? outlineColor;
+  final double outlineThickness;
+  final bool outlined;
+  final BadgePosition position;
+  final double size;
 
   @override
   Widget build(BuildContext context) {

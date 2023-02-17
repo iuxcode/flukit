@@ -180,29 +180,29 @@ class FluButton extends StatelessWidget {
     );
   }
 
+  final AlignmentGeometry? alignment;
   final Color? backgroundColor;
+  final bool block;
   final BorderRadius? borderRadius;
+  final List<BoxShadow>? boxShadow;
   final Widget child;
   final double? cornerRadius;
   final double elevation;
+  final bool expand;
   final bool filled;
   final bool flat;
   final Color? foregroundColor;
+  final double? height;
   final Widget? loader;
-  final Color? loaderOverlayColor;
   final Color? loaderColor;
+  final Color? loaderOverlayColor;
   final bool loading;
   final String? loadingText;
   final EdgeInsets margin;
   final VoidCallback? onPressed;
   final EdgeInsets padding;
   final bool replaceContentOnLoading;
-  final double? height;
   final double? width;
-  final bool block;
-  final bool expand;
-  final List<BoxShadow>? boxShadow;
-  final AlignmentGeometry? alignment;
 
   @override
   Widget build(BuildContext context) {

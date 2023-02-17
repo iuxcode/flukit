@@ -22,32 +22,29 @@ class FluArc extends StatelessWidget {
 
   final Widget? child;
 
-  /// size
-  final double size;
+  /// Arc angle. Eg: 360 for full circle
+  final int angle;
 
   /// Arc color
   final Color? color;
+
+  /// Index at which some dashes will look disabled
+  /// Eg. you're building a story circle and you want to highlight viewed stories
+  final int disableDashStart;
 
   /// If [numberOfDashes] > 0 and [disableDashStart] != -1, this color specify the color
   /// of dashes that index will be under [disableDashStart]
   final Color? disabledDashColor;
 
-  /// Arc strokeWidth
-  final double strokeWidth;
+  /// Space between dashes
+  final int gapSize;
 
   /// Number of dashes
   /// If > 0, the arc will sliced into [numberOfDashes] parts.
   final int numberOfDashes;
 
-  /// Space between dashes
-  final int gapSize;
-
-  /// Arc angle. Eg: 360 for full circle
-  final int angle;
-
-  /// Index at which some dashes will look disabled
-  /// Eg. you're building a story circle and you want to highlight viewed stories
-  final int disableDashStart;
+  /// size
+  final double size;
 
   /// Where the arc start in degree
   final double startOfArc;
@@ -55,6 +52,9 @@ class FluArc extends StatelessWidget {
   /// The kind of finish to place on the end of lines drawn when [style] is set to [PaintingStyle.stroke].
   /// Defaults to [StrokeCap.square]
   final StrokeCap strokeCap;
+
+  /// Arc strokeWidth
+  final double strokeWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -82,17 +82,6 @@ class FluArc extends StatelessWidget {
 }
 
 class _ArcPainter extends CustomPainter {
-  final Color color;
-  final Color disabledDashColor;
-  final double strokeWidth;
-  final bool dashed;
-  final int numberOfDashes;
-  final int gapSize;
-  final int angle;
-  final int disableDashStart;
-  final double startOfArc;
-  final StrokeCap strokeCap;
-
   _ArcPainter({
     required this.color,
     required this.disabledDashColor,
@@ -106,11 +95,16 @@ class _ArcPainter extends CustomPainter {
     required this.strokeCap,
   });
 
-  //drawArc deals with rads, easier for me to use degrees
-  //so this takes a degree and change it to rad
-  double inRads(double degree) {
-    return (degree * pi) / 180;
-  }
+  final int angle;
+  final Color color;
+  final bool dashed;
+  final int disableDashStart;
+  final Color disabledDashColor;
+  final int gapSize;
+  final int numberOfDashes;
+  final double startOfArc;
+  final StrokeCap strokeCap;
+  final double strokeWidth;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -168,5 +162,11 @@ class _ArcPainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     return true;
+  }
+
+  //drawArc deals with rads, easier for me to use degrees
+  //so this takes a degree and change it to rad
+  double inRads(double degree) {
+    return (degree * pi) / 180;
   }
 }

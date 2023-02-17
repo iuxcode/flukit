@@ -44,6 +44,9 @@ class FluImage extends StatelessWidget {
   /// Round all image corner with the value defined.
   final double cornerRadius;
 
+  /// Fill
+  final bool expand;
+
   /// How to inscribe the picture into the space allocated during layout.
   /// The default value is [BoxFit.cover].
   final BoxFit fit;
@@ -85,9 +88,6 @@ class FluImage extends StatelessWidget {
 
   /// Image width
   final double? width;
-
-  /// Fill
-  final bool expand;
 
   @override
   Widget build(BuildContext context) {

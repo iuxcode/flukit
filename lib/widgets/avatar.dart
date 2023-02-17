@@ -18,16 +18,10 @@ class FluAvatar extends StatefulWidget {
     this.cornerRadius = 24,
     this.borderRadius,
     this.badge = false,
-    this.badgeSize = 8,
     this.badgeCountLimit = 99,
     this.badgeCount,
-    this.badgeOffset = const Offset(0, 0),
-    this.badgePosition = BadgePosition.topLeft,
     this.badgeColor,
-    this.badgeOutlineColor,
     this.badgeForegroundColor,
-    this.badgeOutlined = false,
-    this.badgeOutlineThickness = 2,
     this.margin = EdgeInsets.zero,
     this.outlined = false,
     this.outlineColor,
@@ -49,24 +43,6 @@ class FluAvatar extends StatefulWidget {
 
   /// Badge foreground color
   final Color? badgeForegroundColor;
-
-  /// Badge position x, y coordinates
-  final Offset badgeOffset;
-
-  /// Badge outline color
-  final Color? badgeOutlineColor;
-
-  /// Badge thickness
-  final double badgeOutlineThickness;
-
-  /// Is the badge outlined
-  final bool badgeOutlined;
-
-  /// Badge position
-  final BadgePosition badgePosition;
-
-  /// Badge size
-  final double badgeSize;
 
   /// If non-null, the corners of this box are rounded by this [BorderRadius].
   final BorderRadius? borderRadius;
@@ -176,24 +152,6 @@ class _FluAvatarState extends State<FluAvatar> {
         cornerRadius: widget.cornerRadius,
         height: widget.size,
         square: true,
-      );
-    }
-
-    if (widget.badge) {
-      child = FluBadge(
-        color: widget.badgeColor,
-        foregroundColor: widget.badgeForegroundColor,
-        size: widget.badgeSize,
-        offset: widget.badgeOffset != const Offset(0, 0)
-            ? widget.badgeOffset
-            : defaultBadgeOffset,
-        position: widget.badgePosition,
-        count: widget.badgeCount,
-        countLimit: widget.badgeCountLimit,
-        outlined: widget.badgeOutlined,
-        outlineThickness: widget.badgeOutlineThickness,
-        outlineColor: widget.badgeOutlineColor,
-        child: child,
       );
     }
 

@@ -9,19 +9,6 @@ enum FluGridType {
 /// Use [flutter_staggered_grid_view] to create scrollable,
 /// 2D array of widgets with a fixed number of tiles in the cross axis.
 class FluGrid extends StatelessWidget {
-  /// Grid type. Define a layout for the grid.
-  /// It can be [normal], [masonry] or [Staggered]
-  final FluGridType type;
-  final int crossAxisCount;
-  final double mainAxisSpacing;
-  final double crossAxisSpacing;
-  final List<Widget> children;
-  final int? itemCount;
-  final Widget Function(BuildContext, int)? itemBuilder;
-  final bool shrinkWrap;
-  final bool reverse;
-  final ScrollPhysics physics;
-
   const FluGrid({
     super.key,
     this.type = FluGridType.masonry,
@@ -35,6 +22,20 @@ class FluGrid extends StatelessWidget {
     this.reverse = false,
     this.physics = const NeverScrollableScrollPhysics(),
   });
+
+  final Widget Function(BuildContext, int)? itemBuilder;
+  final List<Widget> children;
+  final int crossAxisCount;
+  final double crossAxisSpacing;
+  final int? itemCount;
+  final double mainAxisSpacing;
+  final ScrollPhysics physics;
+  final bool reverse;
+  final bool shrinkWrap;
+
+  /// Grid type. Define a layout for the grid.
+  /// It can be [normal], [masonry] or [Staggered]
+  final FluGridType type;
 
   @override
   Widget build(BuildContext context) {

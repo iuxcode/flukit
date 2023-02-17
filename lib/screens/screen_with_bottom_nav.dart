@@ -17,19 +17,23 @@ class FluScreenWithBottomNav extends StatefulWidget {
     this.overlayStyle,
     this.bottomNavPadding,
     this.bottomNavHeight,
+    this.floatingActionButtonLocation =
+        FloatingActionButtonLocation.centerDocked,
+    this.floatingActionButton,
   });
 
   final void Function(int)? onPageChange;
   final Curve animationCurve;
   final Duration animationDuration;
   final FluBottomNavBarTypes bottomNavBarType;
+  final double? bottomNavHeight;
+  final EdgeInsets? bottomNavPadding;
+  final Widget? floatingActionButton;
+  final FloatingActionButtonLocation floatingActionButtonLocation;
   final int initialPage;
+  final SystemUiOverlayStyle? overlayStyle;
   final List<FluScreenPage> pages;
   final ScrollPhysics? physics;
-  final SystemUiOverlayStyle? overlayStyle;
-
-  final EdgeInsets? bottomNavPadding;
-  final double? bottomNavHeight;
 
   @override
   State<FluScreenWithBottomNav> createState() => _FluScreenWithBottomNavState();
@@ -37,9 +41,28 @@ class FluScreenWithBottomNav extends StatefulWidget {
 
 class _FluScreenWithBottomNavState extends State<FluScreenWithBottomNav> {
   late final PageController _pageController;
-
   final List<FluScreenPage> _pages = [];
+
   int _currentPage = 0;
+
+  @override
+  void didUpdateWidget(covariant FluScreenWithBottomNav oldWidget) {
+    loadPages();
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void initState() {
+    loadPages();
+    _pageController = PageController(initialPage: widget.initialPage);
+    super.initState();
+  }
+
+  void loadPages() {
+    for (var page in widget.pages) {
+      _pages.addIf(page.content != null, page);
+    }
+  }
 
   void _onItemTap(int index) {
     final page = widget.pages[index];
@@ -59,29 +82,12 @@ class _FluScreenWithBottomNavState extends State<FluScreenWithBottomNav> {
     }
   }
 
-  void loadPages() {
-    for (var page in widget.pages) {
-      _pages.addIf(page.content != null, page);
-    }
-  }
-
-  @override
-  void initState() {
-    loadPages();
-    _pageController = PageController(initialPage: widget.initialPage);
-    super.initState();
-  }
-
-  @override
-  void didUpdateWidget(covariant FluScreenWithBottomNav oldWidget) {
-    loadPages();
-    super.didUpdateWidget(oldWidget);
-  }
-
   @override
   Widget build(BuildContext context) {
     return FluScreen(
       overlayStyle: widget.overlayStyle,
+      floatingActionButton: widget.floatingActionButton,
+      floatingActionButtonLocation: widget.floatingActionButtonLocation,
       body: PageView.builder(
         controller: _pageController,
         physics: const NeverScrollableScrollPhysics(),
@@ -115,7 +121,7 @@ class FluScreenPage {
   }) : assert(content != null || onNavigateTo != null);
 
   final Widget? content;
-  final VoidCallback? onNavigateTo;
   final FluIcons icon;
   final String label;
+  final VoidCallback? onNavigateTo;
 }
