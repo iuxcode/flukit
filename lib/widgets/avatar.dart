@@ -132,7 +132,8 @@ class _FluAvatarState extends State<FluAvatar> {
         widget.circle || widget.defaultAvatarType == FluAvatarTypes.material3D;
     BoxShape shape = circle ? BoxShape.circle : BoxShape.rectangle;
     BorderRadius? borderRadius = !circle
-        ? (widget.borderRadius ?? BorderRadius.circular(widget.cornerRadius))
+        ? (widget.borderRadius ??
+            BorderRadius.circular(widget.cornerRadius + 2))
         : null;
     Offset defaultBadgeOffset =
         circle ? const Offset(5, 5) : const Offset(0, 0);

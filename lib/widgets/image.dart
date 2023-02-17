@@ -23,6 +23,7 @@ class FluImage extends StatelessWidget {
     this.package,
     this.circle = false,
     this.square = false,
+    this.expand = false,
     this.margin = EdgeInsets.zero,
     super.key,
   });
@@ -85,10 +86,14 @@ class FluImage extends StatelessWidget {
   /// Image width
   final double? width;
 
+  /// Fill
+  final bool expand;
+
   @override
   Widget build(BuildContext context) {
     Widget child;
-    double? height = this.height, width = this.width;
+    double? height = expand ? double.infinity : this.height,
+        width = expand ? double.infinity : this.width;
 
     if (square) {
       double? size = _dimensionsToSquare(this.height, this.width);

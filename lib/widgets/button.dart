@@ -125,8 +125,9 @@ class FluButton extends StatelessWidget {
       List<BoxShadow>? boxShadow,
       TextStyle? textStyle,
       Alignment? alignment}) {
-    Color foregroundColor = _getButtonForegroundColor(Flu.colorScheme,
-        flat: flat, filled: filled, disabled: onPressed == null);
+    Color _foregroundColor = foregroundColor ??
+        _getButtonForegroundColor(Flu.colorScheme,
+            flat: flat, filled: filled, disabled: onPressed == null);
     Widget buildIcon(FluIcons icon, [double? size]) => FluIcon(
           icon,
           style: iconStyle,
@@ -146,7 +147,7 @@ class FluButton extends StatelessWidget {
     return FluButton(
       onPressed: onPressed,
       backgroundColor: backgroundColor,
-      foregroundColor: foregroundColor,
+      foregroundColor: _foregroundColor,
       padding: padding,
       margin: margin,
       elevation: elevation,
