@@ -15,6 +15,8 @@ class FluScreenWithBottomNav extends StatefulWidget {
     this.initialPage = 0,
     this.physics,
     this.overlayStyle,
+    this.bottomNavPadding,
+    this.bottomNavHeight,
   });
 
   final void Function(int)? onPageChange;
@@ -26,6 +28,9 @@ class FluScreenWithBottomNav extends StatefulWidget {
   final ScrollPhysics? physics;
   final SystemUiOverlayStyle? overlayStyle;
 
+  final EdgeInsets? bottomNavPadding;
+  final double? bottomNavHeight;
+
   @override
   State<FluScreenWithBottomNav> createState() => _FluScreenWithBottomNavState();
 }
@@ -33,10 +38,26 @@ class FluScreenWithBottomNav extends StatefulWidget {
 class _FluScreenWithBottomNavState extends State<FluScreenWithBottomNav> {
   late final PageController _pageController;
 
+  List<FluScreenPage> _pages = [];
   int _currentPage = 0;
+
+  void _onItemTap(int index) {
+    if (widget.pages[index].content != null) {
+      _pageController.animateToPage(
+        index,
+        duration: widget.animationDuration,
+        curve: widget.animationCurve,
+      );
+    } else {
+      widget.pages[index].onNavigateTo?.call();
+    }
+  }
 
   @override
   void initState() {
+    for (var page in widget.pages) {
+      _pages.addIf(page.content != null, page);
+    }
     _pageController = PageController(initialPage: widget.initialPage);
     super.initState();
   }
@@ -46,20 +67,19 @@ class _FluScreenWithBottomNavState extends State<FluScreenWithBottomNav> {
     return FluScreen(
       overlayStyle: widget.overlayStyle,
       body: PageView.builder(
+        physics: const NeverScrollableScrollPhysics(),
         onPageChanged: (value) => setState(() => _currentPage = value),
-        itemCount: widget.pages.length,
-        itemBuilder: (context, index) => widget.pages[index].content,
+        itemCount: _pages.length,
+        itemBuilder: (context, index) => _pages[index].content,
       ),
       bottomNavigationBar: FluBottomNavBar(
         type: widget.bottomNavBarType,
+        padding: widget.bottomNavPadding,
+        height: widget.bottomNavHeight,
         items: widget.pages
             .map((page) => FluBottomNavBarItem(page.icon, page.label))
             .toList(),
-        onItemTap: (index) => _pageController.animateToPage(
-          index,
-          duration: widget.animationDuration,
-          curve: widget.animationCurve,
-        ),
+        onItemTap: _onItemTap,
       ),
     );
   }
@@ -70,10 +90,12 @@ class FluScreenPage {
   FluScreenPage({
     required this.icon,
     required this.label,
-    required this.content,
-  });
+    this.content,
+    this.onNavigateTo,
+  }) : assert(content != null || onNavigateTo != null);
 
-  final Widget content;
+  final Widget? content;
+  final VoidCallback? onNavigateTo;
   final FluIcons icon;
   final String label;
 }

@@ -1,53 +1,100 @@
 import 'dart:math' as math;
+import 'package:flukit/flukit.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import 'button.dart';
+
 /// Creates an item that is used with [FluBottomNavBar.items].
 class FluBottomNavBarItem {
+  FluBottomNavBarItem(this.icon, this.label);
+
   final FluIcons icon;
   final String label;
-
-  FluBottomNavBarItem(this.icon, this.label);
 }
 
 /// Creates a bottom navigation bar which is typically used as a [Scaffold]'s [Scaffold.bottomNavigationBar] argument.
 /// The length of [items] must be at least two and each item's icon and label must not be null.
-class FluBottomNavBar extends StatelessWidget {
+class FluBottomNavBar extends StatefulWidget {
   const FluBottomNavBar({
     super.key,
     required this.items,
     this.type = FluBottomNavBarTypes.flat,
     this.onItemTap,
+    this.padding,
+    this.height,
+    this.animationDuration = const Duration(milliseconds: 400),
+    this.animationCurve = Curves.fastOutSlowIn,
+    this.foregroundColor,
+    this.unSelectedForegroundColor,
+    this.indicatorSize = 5,
   });
 
-  final FluBottomNavBarTypes type;
-  final List<FluBottomNavBarItem> items;
   final void Function(int)? onItemTap;
+  final double? height;
+  final double indicatorSize;
+  final List<FluBottomNavBarItem> items;
+  final EdgeInsets? padding;
+  final FluBottomNavBarTypes type;
+  final Duration animationDuration;
+  final Curve animationCurve;
+  final Color? foregroundColor;
+  final Color? unSelectedForegroundColor;
 
   @override
-  Widget build(BuildContext context) {
-    switch (type) {
-      case FluBottomNavBarTypes.flat:
-        return const _CurvedBottomNav();
-      case FluBottomNavBarTypes.curved:
-        return const _CurvedBottomNav();
-    }
-  }
+  State<FluBottomNavBar> createState() => _FluBottomNavBarState();
 }
 
-/// Create basic bottom navigation bar
-class _FlatBottomNavBar extends StatelessWidget {
-  const _FlatBottomNavBar(this.items, {super.key});
-  final List<FluBottomNavBarItem> items;
+class _FluBottomNavBarState extends State<FluBottomNavBar> {
+  double _itemWidth = 0.0;
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final colorScheme = Flu.getColorSchemeOf(context);
+    final Color foregroundColor = widget.foregroundColor ?? colorScheme.primary,
+        unSelectedForegroundColor =
+            widget.unSelectedForegroundColor ?? colorScheme.onBackground;
+
+    Widget bottomNav = Container(
+      height: widget.height,
+      width: double.infinity,
+      padding: widget.padding,
       child: Row(
-        children: items.map((item) => _BottomNavBarItem(item)).toList(),
+        children: widget.items.map((item) {
+          final index = widget.items.indexOf(item);
+          final bool isSelected = index == _currentIndex;
+
+          return _NavItem(
+            item,
+            onTap: () => widget.onItemTap?.call(index),
+            color: isSelected ? foregroundColor : unSelectedForegroundColor,
+          );
+        }).toList(),
       ),
     );
+
+    bottomNav = Stack(
+      children: [
+        bottomNav,
+        _NavIndicator(
+          animationDuration: widget.animationDuration,
+          animationCurve: widget.animationCurve,
+          size: widget.indicatorSize,
+          itemWidth: _itemWidth,
+          position: _currentIndex * _itemWidth,
+          color: foregroundColor,
+        ),
+      ],
+    );
+
+    switch (widget.type) {
+      case FluBottomNavBarTypes.curved:
+        return _CurvedBottomNav(child: bottomNav);
+      default:
+        return bottomNav;
+    }
   }
 }
 
@@ -59,14 +106,14 @@ class _CurvedBottomNav extends StatelessWidget {
     this.gapLocation = GapLocation.center,
     this.notchSmoothness = NotchSmoothness.softEdge,
     this.borderRadius = BorderRadius.zero,
-    this.onItemTap,
+    required this.child,
   });
 
-  final double notchMargin;
-  final GapLocation gapLocation;
-  final NotchSmoothness notchSmoothness;
   final BorderRadius borderRadius;
-  final void Function(int)? onItemTap;
+  final Widget child;
+  final GapLocation gapLocation;
+  final double notchMargin;
+  final NotchSmoothness notchSmoothness;
 
   @override
   Widget build(BuildContext context) {
@@ -83,33 +130,86 @@ class _CurvedBottomNav extends StatelessWidget {
           margin: 0,
         ),
       ),
-      child: Container(),
+      child: child,
     );
   }
 }
 
 /// [FluBottomNavBar] item.
-class _BottomNavBarItem extends StatelessWidget {
-  const _BottomNavBarItem(this.item, {super.key});
+class _NavItem extends StatelessWidget {
+  const _NavItem(this.item, {this.onTap, super.key, this.color});
+
   final FluBottomNavBarItem item;
+  final VoidCallback? onTap;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
-    return FluIcon(item.icon);
+    return Expanded(
+        child: FluButton.icon(
+      item.icon,
+      onPressed: onTap,
+      backgroundColor: Colors.transparent,
+      foregroundColor: color,
+    ));
+  }
+}
+
+/// [FluBottomNavBar] indicator.
+class _NavIndicator extends StatelessWidget {
+  const _NavIndicator({
+    super.key,
+    required this.size,
+    required this.itemWidth,
+    required this.position,
+    required this.animationDuration,
+    required this.animationCurve,
+    required this.color,
+  });
+
+  final double position;
+  final double size;
+  final double itemWidth;
+  final Duration animationDuration;
+  final Curve animationCurve;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedPositioned(
+      left: position,
+      duration: animationDuration,
+      curve: animationCurve,
+      child: Container(
+        height: size,
+        width: itemWidth,
+        alignment: Alignment.center,
+        child: Container(
+          height: size,
+          width: size * 2,
+          decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(size),
+                topRight: Radius.circular(size),
+              )),
+        ),
+      ),
+    );
   }
 }
 
 /// [FluBottomNavBarTypes.curved] clipper
 class _CircularNotchedAndCorneredRectangleClipper extends CustomClipper<Path> {
-  final ValueListenable<ScaffoldGeometry> geometry;
-  final NotchedShape shape;
-  final double notchMargin;
-
   _CircularNotchedAndCorneredRectangleClipper({
     required this.geometry,
     required this.shape,
     required this.notchMargin,
   }) : super(reclip: geometry);
+
+  final ValueListenable<ScaffoldGeometry> geometry;
+  final double notchMargin;
+  final NotchedShape shape;
 
   @override
   Path getClip(Size size) {
@@ -129,17 +229,17 @@ class _CircularNotchedAndCorneredRectangleClipper extends CustomClipper<Path> {
 
 /// A rectangle with a smooth circular notch and rounded corners.
 class _CircularNotchedAndCorneredRectangle extends NotchedShape {
-  final NotchSmoothness notchSmoothness;
-  final GapLocation gapLocation;
-  final BorderRadius borderRadius;
-  final double margin;
-
   _CircularNotchedAndCorneredRectangle({
     required this.notchSmoothness,
     required this.gapLocation,
     required this.borderRadius,
     this.margin = 0,
   });
+
+  final BorderRadius borderRadius;
+  final GapLocation gapLocation;
+  final double margin;
+  final NotchSmoothness notchSmoothness;
 
   @override
   Path getOuterPath(Rect host, Rect? guest) {
