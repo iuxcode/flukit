@@ -83,8 +83,9 @@ class FluButton extends StatelessWidget {
           size: iconSize,
           style: iconStyle,
           strokewidth: iconStrokeWidth,
-          color: _getButtonForegroundColor(Flu.colorScheme,
-              flat: flat, filled: filled, disabled: onPressed == null),
+          color: foregroundColor ??
+              _getButtonForegroundColor(Flu.colorScheme,
+                  flat: flat, filled: filled, disabled: onPressed == null),
         ),
       );
 
