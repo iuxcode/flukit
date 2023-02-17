@@ -29,6 +29,8 @@ class FluBottomNavBar extends StatefulWidget {
     this.foregroundColor,
     this.unSelectedForegroundColor,
     this.indicatorSize = 5,
+    this.iconSize = 22,
+    this.iconStrokeWidth = 1.8,
   });
 
   final void Function(int)? onItemTap;
@@ -41,14 +43,33 @@ class FluBottomNavBar extends StatefulWidget {
   final Curve animationCurve;
   final Color? foregroundColor;
   final Color? unSelectedForegroundColor;
+  final double iconSize;
+  final double iconStrokeWidth;
 
   @override
   State<FluBottomNavBar> createState() => _FluBottomNavBarState();
 }
 
 class _FluBottomNavBarState extends State<FluBottomNavBar> {
+  final GlobalKey _itemKey = GlobalKey();
+
   double _itemWidth = 0.0;
   int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => getItemWidth());
+  }
+
+  @override
+  void didUpdateWidget(covariant FluBottomNavBar oldWidget) {
+    getItemWidth();
+    super.didUpdateWidget(oldWidget);
+  }
+
+  void getItemWidth() => setState(() => _itemWidth =
+      (_itemKey.currentContext?.findRenderObject() as RenderBox).size.width);
 
   @override
   Widget build(BuildContext context) {
@@ -67,9 +88,15 @@ class _FluBottomNavBarState extends State<FluBottomNavBar> {
           final bool isSelected = index == _currentIndex;
 
           return _NavItem(
+            key: widget.items.indexOf(item) == 0 ? _itemKey : null,
             item,
-            onTap: () => widget.onItemTap?.call(index),
+            onTap: () {
+              widget.onItemTap?.call(index);
+              setState(() => _currentIndex = index);
+            },
             color: isSelected ? foregroundColor : unSelectedForegroundColor,
+            iconSize: widget.iconSize,
+            iconStrokeWidth: widget.iconStrokeWidth,
           );
         }).toList(),
       ),
@@ -83,7 +110,8 @@ class _FluBottomNavBarState extends State<FluBottomNavBar> {
           animationCurve: widget.animationCurve,
           size: widget.indicatorSize,
           itemWidth: _itemWidth,
-          position: _currentIndex * _itemWidth,
+          position: (_currentIndex * _itemWidth) +
+              (widget.padding?.horizontal ?? 0) / 2,
           color: foregroundColor,
         ),
       ],
@@ -137,11 +165,20 @@ class _CurvedBottomNav extends StatelessWidget {
 
 /// [FluBottomNavBar] item.
 class _NavItem extends StatelessWidget {
-  const _NavItem(this.item, {this.onTap, super.key, this.color});
+  const _NavItem(
+    this.item, {
+    required this.onTap,
+    super.key,
+    required this.color,
+    required this.iconSize,
+    required this.iconStrokeWidth,
+  });
 
   final FluBottomNavBarItem item;
-  final VoidCallback? onTap;
-  final Color? color;
+  final VoidCallback onTap;
+  final Color color;
+  final double iconSize;
+  final double iconStrokeWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -149,8 +186,11 @@ class _NavItem extends StatelessWidget {
         child: FluButton.icon(
       item.icon,
       onPressed: onTap,
+      iconSize: iconSize,
+      iconStrokeWidth: iconStrokeWidth,
       backgroundColor: Colors.transparent,
       foregroundColor: color,
+      size: double.infinity,
     ));
   }
 }
@@ -178,6 +218,7 @@ class _NavIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedPositioned(
       left: position,
+      bottom: 0,
       duration: animationDuration,
       curve: animationCurve,
       child: Container(
@@ -186,7 +227,7 @@ class _NavIndicator extends StatelessWidget {
         alignment: Alignment.center,
         child: Container(
           height: size,
-          width: size * 2,
+          width: size * 3,
           decoration: BoxDecoration(
               color: color,
               borderRadius: BorderRadius.only(

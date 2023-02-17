@@ -38,28 +38,44 @@ class FluScreenWithBottomNav extends StatefulWidget {
 class _FluScreenWithBottomNavState extends State<FluScreenWithBottomNav> {
   late final PageController _pageController;
 
-  List<FluScreenPage> _pages = [];
+  final List<FluScreenPage> _pages = [];
   int _currentPage = 0;
 
   void _onItemTap(int index) {
     if (widget.pages[index].content != null) {
-      _pageController.animateToPage(
-        index,
-        duration: widget.animationDuration,
-        curve: widget.animationCurve,
-      );
+      var diff = index - _currentPage;
+
+      if (diff >= 2 || diff <= -2) {
+        _pageController.jumpToPage(index);
+      } else {
+        _pageController.animateToPage(index,
+            duration: widget.animationDuration, curve: widget.animationCurve);
+      }
     } else {
       widget.pages[index].onNavigateTo?.call();
     }
   }
 
-  @override
-  void initState() {
+  void loadPages() {
     for (var page in widget.pages) {
       _pages.addIf(page.content != null, page);
     }
+    for (var page in widget.pages) {
+      _pages.addIf(page.content != null, page);
+    }
+  }
+
+  @override
+  void initState() {
+    loadPages();
     _pageController = PageController(initialPage: widget.initialPage);
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant FluScreenWithBottomNav oldWidget) {
+    loadPages();
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -67,6 +83,7 @@ class _FluScreenWithBottomNavState extends State<FluScreenWithBottomNav> {
     return FluScreen(
       overlayStyle: widget.overlayStyle,
       body: PageView.builder(
+        controller: _pageController,
         physics: const NeverScrollableScrollPhysics(),
         onPageChanged: (value) => setState(() => _currentPage = value),
         itemCount: _pages.length,
