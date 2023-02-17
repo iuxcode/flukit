@@ -8,7 +8,7 @@ import '../utils/flu_utils.dart';
 class FluScreen extends StatelessWidget {
   final PreferredSizeWidget? appBar;
   final Widget body;
-  final SystemUiOverlayStyle? systemUiOverlayStyle;
+  final SystemUiOverlayStyle? overlayStyle;
   final bool extendBody;
   final Widget? floatingActionButton, bottomNavigationBar;
   final Color? background, drawerScrimColor;
@@ -20,7 +20,7 @@ class FluScreen extends StatelessWidget {
     Key? key,
     required this.body,
     this.appBar,
-    this.systemUiOverlayStyle,
+    this.overlayStyle,
     this.bottomNavigationBar,
     this.floatingActionButton,
     this.extendBody = false,
@@ -46,20 +46,18 @@ class FluScreen extends StatelessWidget {
               systemNavigationBarIconBrightness:
                   Get.isDarkMode ? Brightness.light : Brightness.dark)
           .copyWith(
-        statusBarColor: systemUiOverlayStyle?.statusBarColor,
-        statusBarIconBrightness: systemUiOverlayStyle?.statusBarIconBrightness,
-        statusBarBrightness: systemUiOverlayStyle?.statusBarBrightness,
-        systemNavigationBarColor:
-            systemUiOverlayStyle?.systemNavigationBarColor,
-        systemNavigationBarDividerColor:
-            systemUiOverlayStyle?.systemNavigationBarDividerColor,
-        systemNavigationBarIconBrightness:
-            systemUiOverlayStyle?.systemNavigationBarIconBrightness,
-        systemStatusBarContrastEnforced:
-            systemUiOverlayStyle?.systemStatusBarContrastEnforced,
-        systemNavigationBarContrastEnforced:
-            systemUiOverlayStyle?.systemNavigationBarContrastEnforced,
-      ),
+              statusBarColor: overlayStyle?.statusBarColor,
+              statusBarIconBrightness: overlayStyle?.statusBarIconBrightness,
+              statusBarBrightness: overlayStyle?.statusBarBrightness,
+              systemNavigationBarColor: overlayStyle?.systemNavigationBarColor,
+              systemNavigationBarDividerColor:
+                  overlayStyle?.systemNavigationBarDividerColor,
+              systemNavigationBarIconBrightness:
+                  overlayStyle?.systemNavigationBarIconBrightness,
+              systemStatusBarContrastEnforced:
+                  overlayStyle?.systemStatusBarContrastEnforced,
+              systemNavigationBarContrastEnforced:
+                  overlayStyle?.systemNavigationBarContrastEnforced),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: background ?? colorScheme.background,

@@ -17,7 +17,7 @@ class FluBottomNavBar extends StatelessWidget {
   const FluBottomNavBar({
     super.key,
     required this.items,
-    this.type = FluBottomNavBarTypes.curved,
+    this.type = FluBottomNavBarTypes.flat,
     this.onItemTap,
   });
 
@@ -28,15 +28,32 @@ class FluBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (type) {
+      case FluBottomNavBarTypes.flat:
+        return const _CurvedBottomNav();
       case FluBottomNavBarTypes.curved:
-        return const _FluCurvedBottomNav();
+        return const _CurvedBottomNav();
     }
   }
 }
 
+/// Create basic bottom navigation bar
+class _FlatBottomNavBar extends StatelessWidget {
+  const _FlatBottomNavBar(this.items, {super.key});
+  final List<FluBottomNavBarItem> items;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        children: items.map((item) => _BottomNavBarItem(item)).toList(),
+      ),
+    );
+  }
+}
+
 /// Create a Bottom navigation bar with a notch
-class _FluCurvedBottomNav extends StatelessWidget {
-  const _FluCurvedBottomNav({
+class _CurvedBottomNav extends StatelessWidget {
+  const _CurvedBottomNav({
     super.key,
     this.notchMargin = 8.0,
     this.gapLocation = GapLocation.center,
@@ -68,6 +85,17 @@ class _FluCurvedBottomNav extends StatelessWidget {
       ),
       child: Container(),
     );
+  }
+}
+
+/// [FluBottomNavBar] item.
+class _BottomNavBarItem extends StatelessWidget {
+  const _BottomNavBarItem(this.item, {super.key});
+  final FluBottomNavBarItem item;
+
+  @override
+  Widget build(BuildContext context) {
+    return FluIcon(item.icon);
   }
 }
 
@@ -192,7 +220,7 @@ class _CircularNotchedAndCorneredRectangle extends NotchedShape {
 }
 
 /// [FluBottomNavBar] types.
-enum FluBottomNavBarTypes { curved }
+enum FluBottomNavBarTypes { flat, curved }
 
 /// Where to position the [FluBottomNavBarTypes.curved] gap
 enum GapLocation { none, center, end }

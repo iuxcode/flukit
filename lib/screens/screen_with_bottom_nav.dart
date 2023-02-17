@@ -2,17 +2,19 @@ import 'package:flukit/flukit.dart';
 import 'package:flukit/widgets/bottom_navigation.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class FluScreenWithBottomNav extends StatefulWidget {
   const FluScreenWithBottomNav({
     super.key,
-    required this.bottomNavBarType,
+    this.bottomNavBarType = FluBottomNavBarTypes.flat,
     required this.pages,
     this.onPageChange,
     this.animationDuration = const Duration(milliseconds: 400),
     this.animationCurve = Curves.decelerate,
     this.initialPage = 0,
     this.physics,
+    this.overlayStyle,
   });
 
   final void Function(int)? onPageChange;
@@ -22,6 +24,7 @@ class FluScreenWithBottomNav extends StatefulWidget {
   final int initialPage;
   final List<FluScreenPage> pages;
   final ScrollPhysics? physics;
+  final SystemUiOverlayStyle? overlayStyle;
 
   @override
   State<FluScreenWithBottomNav> createState() => _FluScreenWithBottomNavState();
@@ -41,6 +44,7 @@ class _FluScreenWithBottomNavState extends State<FluScreenWithBottomNav> {
   @override
   Widget build(BuildContext context) {
     return FluScreen(
+      overlayStyle: widget.overlayStyle,
       body: PageView.builder(
         onPageChanged: (value) => setState(() => _currentPage = value),
         itemCount: widget.pages.length,
