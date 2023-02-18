@@ -4,8 +4,6 @@ import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'button.dart';
-
 /// Creates an item that is used with [FluBottomNavBar.items].
 class FluBottomNavBarItem {
   FluBottomNavBarItem(this.icon, this.label);

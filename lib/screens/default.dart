@@ -10,7 +10,7 @@ class FluDefaultScreen extends StatelessWidget {
     return FluScreen(
       body: SafeArea(
           child: Column(
-        children: [Text('Flukit')],
+        children: const [Text('Flukit')],
       )),
     );
   }

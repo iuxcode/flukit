@@ -94,7 +94,6 @@ class _FluScreenWithBottomNavState extends State<FluScreenWithBottomNav> {
         onPageChanged: (value) => setState(() => _currentPage = value),
         itemCount: _pages.length,
         itemBuilder: (context, index) {
-          print('$index ${_pages[index].content}');
           return _pages[index].content;
         },
       ),

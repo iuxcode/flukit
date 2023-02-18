@@ -8,16 +8,7 @@ import '../../widgets/bottom_sheet.dart';
 
 extension U on FluInterface {
   /// give access to currentContext
-  BuildContext get context => Get.key.currentState!.overlay!.context;
-
-  /// give access to current theme data
-  ThemeData get theme => Theme.of(context);
-
-  /// give access to current theme [ColorScheme]
-  ColorScheme get colorScheme => Theme.of(context).colorScheme;
-
-  /// give access to current theme [TextTheme]
-  TextTheme get textTheme => Theme.of(context).textTheme;
+  BuildContext? get context => Get.context;
 
   /// give access to current theme data
   ThemeData getThemeOf(BuildContext context) => Theme.of(context);
@@ -59,7 +50,7 @@ extension U on FluInterface {
   double get screenHeight => screenSize.height;
 
   /// return the status bar height
-  double get statusBarHeight => MediaQuery.of(context).padding.top;
+  double get statusBarHeight => MediaQuery.of(context!).padding.top;
 
   /// Detect if the keyboard is visible or not
   bool isKeyboardHidden(BuildContext context) =>
@@ -95,13 +86,13 @@ extension U on FluInterface {
   }
 
   /// Show a [FluModalBottomSheet]
-  void showFluModalBottomSheet(
+  void showFluModalBottomSheet(BuildContext context,
       {required Widget child,
       EdgeInsets padding = EdgeInsets.zero,
       double? cornerRadius,
       double? maxChildSize}) {
     showModalBottomSheet(
-      context: Flu.context,
+      context: context,
       isScrollControlled: true,
       isDismissible: true,
       backgroundColor: Colors.transparent,

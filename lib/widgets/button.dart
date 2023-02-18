@@ -8,7 +8,7 @@ import '../utils/flu_utils.dart';
 class FluButton extends StatelessWidget {
   const FluButton({
     required this.child,
-    required this.onPressed,
+    this.onPressed,
     this.backgroundColor,
     this.foregroundColor,
     this.padding = EdgeInsets.zero,
@@ -34,151 +34,70 @@ class FluButton extends StatelessWidget {
   });
 
   /// Create a button with icon content
-  factory FluButton.icon(FluIcons icon,
-          {double iconSize = 20,
-          double iconStrokeWidth = 1.5,
-          FluIconStyles iconStyle = FluIconStyles.twotone,
-          VoidCallback? onPressed,
-          Color? backgroundColor,
-          Color? foregroundColor,
-          EdgeInsets padding = EdgeInsets.zero,
-          EdgeInsets margin = EdgeInsets.zero,
-          double elevation = 0.0,
-          bool filled = false,
-          bool flat = false,
-          bool loading = false,
-          bool replaceContentOnLoading = true,
-          String? loadingText,
-          BorderRadius? borderRadius,
-          double? cornerRadius,
-          Widget? loader,
-          Color? loaderOverlayColor,
-          Color? loaderColor,
-          double? size,
-          List<BoxShadow>? boxShadow,
-          Alignment? alignment}) =>
-      FluButton(
-        onPressed: onPressed,
-        backgroundColor: backgroundColor,
-        foregroundColor: foregroundColor,
-        padding: padding,
-        margin: margin,
-        elevation: elevation,
-        filled: filled,
-        flat: flat,
-        loading: loading,
-        borderRadius: borderRadius,
-        cornerRadius: cornerRadius,
-        replaceContentOnLoading: replaceContentOnLoading,
-        loadingText: loadingText,
-        loader: loader,
-        loaderOverlayColor: loaderOverlayColor,
-        loaderColor: loaderColor,
-        height: size,
-        width: size,
-        boxShadow: boxShadow,
-        alignment: alignment,
-        child: FluIcon(
-          icon,
-          size: iconSize,
-          style: iconStyle,
-          strokewidth: iconStrokeWidth,
-          color: foregroundColor ??
-              _getButtonForegroundColor(Flu.colorScheme,
-                  flat: flat, filled: filled, disabled: onPressed == null),
-        ),
-      );
+  const factory FluButton.icon(
+    FluIcons icon, {
+    double iconSize,
+    double iconStrokeWidth,
+    FluIconStyles iconStyle,
+    VoidCallback? onPressed,
+    Color? backgroundColor,
+    Color? foregroundColor,
+    EdgeInsets padding,
+    EdgeInsets margin,
+    double elevation,
+    bool filled,
+    bool flat,
+    bool loading,
+    bool replaceContentOnLoading,
+    String? loadingText,
+    BorderRadius? borderRadius,
+    double? cornerRadius,
+    Widget? loader,
+    Color? loaderOverlayColor,
+    Color? loaderColor,
+    double? size,
+    List<BoxShadow>? boxShadow,
+    Alignment? alignment,
+  }) = _FluIconButton;
 
   /// Create a button with text content
   /// You can also add an icon before or after the text using [prefixIcon] and [suffixIcon].
   /// Control icons sizes with [iconSize], [prefixIconSize] and [suffixIconSize].
   /// use [iconStyle] to choose your icon style. refer to [https://github.com/charles9904/flukit_icons] to learn more.
   /// [spacing] determine the space available between text and icon.
-  factory FluButton.text(String text,
-      {FluIcons? prefixIcon,
-      FluIcons? suffixIcon,
-      double iconSize = 20,
-      double? prefixIconSize,
-      double? suffixIconSize,
-      FluIconStyles iconStyle = FluIconStyles.twotone,
-      double gap = 6.0,
-      VoidCallback? onPressed,
-      Color? backgroundColor,
-      Color? foregroundColor,
-      EdgeInsets padding = EdgeInsets.zero,
-      EdgeInsets margin = EdgeInsets.zero,
-      double elevation = 0.0,
-      bool filled = false,
-      bool flat = false,
-      bool loading = false,
-      bool replaceContentOnLoading = true,
-      String? loadingText,
-      BorderRadius? borderRadius,
-      double? cornerRadius,
-      Widget? loader,
-      Color? loaderOverlayColor,
-      Color? loaderColor,
-      double? height,
-      double? width,
-      bool block = false,
-      bool expand = false,
-      List<BoxShadow>? boxShadow,
-      TextStyle? textStyle,
-      Alignment? alignment}) {
-    Color _foregroundColor = foregroundColor ??
-        _getButtonForegroundColor(Flu.colorScheme,
-            flat: flat, filled: filled, disabled: onPressed == null);
-    Widget buildIcon(FluIcons icon, [double? size]) => FluIcon(
-          icon,
-          style: iconStyle,
-          size: size ?? iconSize,
-          color: foregroundColor,
-          margin: EdgeInsets.only(
-            right: prefixIcon != null ? gap : 0,
-            left: suffixIcon != null ? gap : 0,
-          ),
-        );
-
-    Widget textWidget = Text(text,
-        style: Flu.textTheme.bodyMedium
-            ?.copyWith(color: foregroundColor, fontWeight: FontWeight.w600)
-            .merge(textStyle));
-
-    return FluButton(
-      onPressed: onPressed,
-      backgroundColor: backgroundColor,
-      foregroundColor: _foregroundColor,
-      padding: padding,
-      margin: margin,
-      elevation: elevation,
-      filled: filled,
-      flat: flat,
-      loading: loading,
-      borderRadius: borderRadius,
-      cornerRadius: cornerRadius,
-      replaceContentOnLoading: replaceContentOnLoading,
-      loadingText: loadingText,
-      loader: loader,
-      loaderOverlayColor: loaderOverlayColor,
-      loaderColor: loaderColor,
-      height: height,
-      width: width,
-      block: block,
-      expand: expand,
-      boxShadow: boxShadow,
-      alignment: alignment,
-      child: (prefixIcon != null || suffixIcon != null)
-          ? Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (prefixIcon != null) buildIcon(prefixIcon, prefixIconSize),
-                textWidget,
-                if (suffixIcon != null) buildIcon(suffixIcon, suffixIconSize),
-              ],
-            )
-          : textWidget,
-    );
-  }
+  const factory FluButton.text(
+    String text, {
+    FluIcons? prefixIcon,
+    FluIcons? suffixIcon,
+    double iconSize,
+    double? prefixIconSize,
+    double? suffixIconSize,
+    FluIconStyles iconStyle,
+    double gap,
+    VoidCallback? onPressed,
+    Color? backgroundColor,
+    Color? foregroundColor,
+    EdgeInsets padding,
+    EdgeInsets margin,
+    double elevation,
+    bool filled,
+    bool flat,
+    bool loading,
+    bool replaceContentOnLoading,
+    String? loadingText,
+    BorderRadius? borderRadius,
+    double? cornerRadius,
+    Widget? loader,
+    Color? loaderOverlayColor,
+    Color? loaderColor,
+    double? height,
+    double? width,
+    bool block,
+    bool expand,
+    List<BoxShadow>? boxShadow,
+    TextStyle? textStyle,
+    Alignment? alignment,
+  }) = _FluTextButton;
 
   final AlignmentGeometry? alignment;
   final Color? backgroundColor;
@@ -203,6 +122,10 @@ class FluButton extends StatelessWidget {
   final EdgeInsets padding;
   final bool replaceContentOnLoading;
   final double? width;
+
+  Widget _getChild(BuildContext context) {
+    return child;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -252,7 +175,7 @@ class FluButton extends StatelessWidget {
     if (loading && replaceContentOnLoading) {
       child = loader;
     } else {
-      child = this.child;
+      child = _getChild(context);
     }
 
     if (loading && !replaceContentOnLoading) {
@@ -321,6 +244,139 @@ class FluButton extends StatelessWidget {
 
     return button;
   }
+}
+
+class _FluIconButton extends FluButton {
+  const _FluIconButton(
+    this.icon, {
+    this.iconSize = 20,
+    this.iconStrokeWidth = 1.5,
+    this.iconStyle = FluIconStyles.twotone,
+    super.onPressed,
+    super.backgroundColor,
+    super.foregroundColor,
+    super.padding = EdgeInsets.zero,
+    super.margin = EdgeInsets.zero,
+    super.elevation = 0.0,
+    super.filled = false,
+    super.flat = false,
+    super.loading = false,
+    super.replaceContentOnLoading = true,
+    super.loadingText,
+    super.borderRadius,
+    super.cornerRadius,
+    super.loader,
+    super.loaderOverlayColor,
+    super.loaderColor,
+    this.size,
+    super.boxShadow,
+    super.alignment,
+  }) : super(child: const SizedBox(), height: size, width: size);
+
+  final FluIcons icon;
+  final double iconSize;
+  final double iconStrokeWidth;
+  final FluIconStyles iconStyle;
+  final double? size;
+
+  @override
+  Widget _getChild(BuildContext context) {
+    return FluIcon(
+      icon,
+      size: iconSize,
+      style: iconStyle,
+      strokeWidth: iconStrokeWidth,
+      color: foregroundColor ??
+          _getButtonForegroundColor(Flu.getColorSchemeOf(context),
+              flat: flat, filled: filled, disabled: onPressed == null),
+    );
+  }
+}
+
+class _FluTextButton extends FluButton {
+  const _FluTextButton(
+    this.text, {
+    super.onPressed,
+    super.backgroundColor,
+    super.foregroundColor,
+    super.padding = EdgeInsets.zero,
+    super.margin = EdgeInsets.zero,
+    super.elevation = 0.0,
+    super.filled = false,
+    super.flat = false,
+    super.loading = false,
+    super.replaceContentOnLoading = true,
+    super.loadingText,
+    super.borderRadius,
+    super.cornerRadius,
+    super.loader,
+    super.loaderOverlayColor,
+    super.loaderColor,
+    super.height,
+    super.width,
+    super.block = false,
+    super.expand = false,
+    super.boxShadow,
+    super.alignment,
+    this.iconSize = 20,
+    this.iconStyle = FluIconStyles.twotone,
+    this.gap = 6.0,
+    this.textStyle,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.prefixIconSize,
+    this.suffixIconSize,
+  }) : super(child: const SizedBox());
+
+  final double gap;
+  final double iconSize;
+  final FluIconStyles iconStyle;
+  final FluIcons? prefixIcon;
+  final double? prefixIconSize;
+  final FluIcons? suffixIcon;
+  final double? suffixIconSize;
+  final String text;
+  final TextStyle? textStyle;
+
+  @override
+  Widget _getChild(BuildContext context) {
+    Color foregroundColor = this.foregroundColor ??
+        _getButtonForegroundColor(Flu.getColorSchemeOf(context),
+            flat: flat, filled: filled, disabled: onPressed == null);
+
+    Widget textWidget = Text(
+      text,
+      style: Flu.getTextThemeOf(context)
+          .bodyMedium
+          ?.copyWith(color: foregroundColor, fontWeight: FontWeight.w600)
+          .merge(textStyle),
+    );
+
+    if (prefixIcon != null || suffixIcon != null) {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (prefixIcon != null)
+            _buildIcon(prefixIcon!, foregroundColor, prefixIconSize),
+          textWidget,
+          if (suffixIcon != null)
+            _buildIcon(suffixIcon!, foregroundColor, suffixIconSize),
+        ],
+      );
+    }
+
+    return textWidget;
+  }
+
+  Widget _buildIcon(FluIcons icon, Color color, double? size) => FluIcon(
+        icon,
+        style: iconStyle,
+        size: size ?? iconSize,
+        color: color,
+        margin: EdgeInsets.only(
+            right: prefixIcon != null ? gap : 0,
+            left: suffixIcon != null ? gap : 0),
+      );
 }
 
 /// Return background color according to M3 button specs

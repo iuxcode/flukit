@@ -79,7 +79,7 @@ extension T on FluInterface {
     return text.toLowerCase();
   }
 
-  /// Duration to formatted strint
+  /// Duration to formatted string
   String formatDuration(Duration duration,
       {bool withHours = false, bool withMilliseconds = false}) {
     final int hours = duration.inHours;
@@ -98,43 +98,4 @@ extension T on FluInterface {
 
     return "$h$min:$sec$milliseconds";
   }
-
-  /// Replace all emojis in text with [Joypixels] emojis.
-  /* TextSpan replaceEmojis(TextSpan span) {
-    final children = <TextSpan>[];
-    final runes = span.text?.runes;
-
-    if (runes != null) {
-      for (int i = 0; i < runes.length; /* empty */) {
-        int current = runes.elementAt(i);
-
-        // we assume that everything that is not
-        // in Extended-ASCII set is an emoji...
-        final isEmoji = current > 255;
-        final shouldBreak = isEmoji ? (x) => x <= 255 : (x) => x > 255;
-
-        final chunk = <int>[];
-        while (!shouldBreak(current)) {
-          chunk.add(current);
-          if (++i >= runes.length) break;
-          current = runes.elementAt(i);
-        }
-
-        children.add(
-          TextSpan(
-            text: String.fromCharCodes(chunk),
-            recognizer: span.recognizer,
-            style: span.style?.copyWith(
-              fontFamily: isEmoji
-                  ? (Flu.appSettings.emojiFont ?? FluFonts.joypixels.name)
-                  : null,
-              package: isEmoji ? 'Flu' : null,
-            ),
-          ),
-        );
-      }
-    }
-
-    return TextSpan(children: children);
-  } */
 }

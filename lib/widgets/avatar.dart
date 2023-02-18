@@ -1,9 +1,7 @@
-import 'package:flukit/widgets/badge.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
 
 import '../flukit.dart';
-import 'image.dart';
 
 class FluAvatar extends StatefulWidget {
   const FluAvatar({
@@ -111,8 +109,6 @@ class _FluAvatarState extends State<FluAvatar> {
         ? (widget.borderRadius ??
             BorderRadius.circular(widget.cornerRadius + 2))
         : null;
-    Offset defaultBadgeOffset =
-        circle ? const Offset(5, 5) : const Offset(0, 0);
     String image = widget.image ?? defaultAvatar;
     Widget child;
 
@@ -136,7 +132,7 @@ class _FluAvatarState extends State<FluAvatar> {
             : FluIcon(
                 widget.icon!,
                 size: 20,
-                strokewidth: 1.8,
+                strokeWidth: 1.8,
                 color: colorScheme.onPrimaryContainer,
               ),
       );

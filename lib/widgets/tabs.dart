@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../utils/flu_utils.dart';
-
 class RectangularIndicator extends Decoration {
   const RectangularIndicator({
     this.cornerRadius = 25,
@@ -68,7 +66,7 @@ class DotTabIndicator extends Decoration {
   DotTabIndicator({
     Color? color,
     double? radius,
-  }) : _painter = CirclePainter(color ?? Flu.colorScheme.primary, radius ?? 3);
+  }) : _painter = CirclePainter(color ?? Colors.blue, radius ?? 3);
 
   final BoxPainter _painter;
 
@@ -125,7 +123,7 @@ class MaterialIndicator extends Decoration {
     return MaterialIndicatorPainter(
       this,
       onChanged,
-      color: color ?? Flu.colorScheme.primary,
+      color: color ?? Colors.blue,
       height: height,
       horizontalPadding: horizontalPadding,
       tabPosition: tabPosition,
