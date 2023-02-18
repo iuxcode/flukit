@@ -33,12 +33,15 @@ extension U on FluInterface {
             Get.isDarkMode ? Brightness.light : Brightness.dark);
   }
 
+  /// Does the current theme [Brightness] is dark
+  bool get isDarkMode => Get.isDarkMode;
+
   /// switch theme
   void changeTheme(ThemeData theme) => Get.changeTheme(theme);
 
   /// switch theme mode
   void changeThemeMode() =>
-      Get.changeThemeMode(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+      Get.changeThemeMode(isDarkMode ? ThemeMode.light : ThemeMode.dark);
 
   /// Get the screen size
   Size get screenSize => Get.size;
