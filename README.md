@@ -1,4 +1,4 @@
-# Flukit <span style="color: red">**`Pre-alpha`**</span>
+# Flukit **`pre-alpha`**
 
 Welcome to **Flukit**, a collection of beautiful and customizable UI widgets and helping tools for Flutter. **Flukit** is designed to make it easy for developers to create stunning user interfaces with minimal effort.
 
@@ -24,6 +24,8 @@ dependencies:
 Once you've added the dependency, run `flutter packages get` to install it.
 You're ready to start using **Flukit** in your app! Check out the next section to learn how to get started.
 That's it! You should now have **Flukit** installed and ready to use in your Flutter project. If you have any issues with the installation process, please refer to the Support and Troubleshooting section below.
+<br/>
+<br/>
 
 ## Usage
 
@@ -42,10 +44,14 @@ FluAvatar(size: 25); /// Yes, it's as simple as that :)
 This will create an avatar with a default illustration since an image or label is not provided.
 
 **Flukit** provides a wide range of customizable widgets and features that you can use to build complex and beautiful user interfaces. The next section will show you all available UI widgets.
+<br/>
+<br/>
 
 ## Documentation
 
 The documencation will be available soon.
+<br/>
+<br/>
 
 ## Support
 
@@ -54,6 +60,8 @@ If you need help using **Flukit**, there are several resources available to you:
 - [Documentation](_): We've provided detailed documentation for each of the widgets and features included in our library.
 - [GitHub](_) Issues: If you encounter a bug or have a feature request, you can open an issue on our GitHub repository.
 - [Email](_) Support: If you have a question or need more personalized help, you can contact us directly via email.
+<br/>
+<br/>
 
 ## Troubleshooting
 
@@ -72,6 +80,8 @@ If you're seeing an error message that says "Dependency not found" when you try 
 If you're experiencing performance issues with your app, it's possible that you're using too many expensive widgets or features at once. Try optimizing your app by removing unnecessary widgets, using the const keyword to make your widgets more efficient, or using the ListView.builder method instead of ListView to lazy-load content.
 
 If you're still experiencing issues after trying these troubleshooting steps, please don't hesitate to reach out for support. We're always happy to help!
+<br/>
+<br/>
 
 ## Contribution Guide
 
