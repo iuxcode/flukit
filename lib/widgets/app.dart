@@ -171,7 +171,9 @@ class FluMaterialApp extends StatelessWidget {
         highContrastDarkTheme: highContrastDarkTheme,
         theme: fluTheme?.light ?? theme,
         darkTheme: fluTheme?.dark ?? darkTheme,
-        color: color,
+        color: color ??
+            fluTheme?.light.colorScheme.primary ??
+            theme?.colorScheme.primary,
         title: title,
       );
 

@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 class FluScreenWithBottomNav extends StatefulWidget {
   const FluScreenWithBottomNav({
     super.key,
-    this.bottomNavBarType = FluBottomNavBarTypes.flat,
+    this.bottomNavBarStyle = const FluBottomNavBarStyle(),
     required this.pages,
     this.onPageChange,
     this.animationDuration = const Duration(milliseconds: 400),
@@ -16,8 +16,6 @@ class FluScreenWithBottomNav extends StatefulWidget {
     this.initialPage = 0,
     this.physics,
     this.overlayStyle,
-    this.bottomNavPadding,
-    this.bottomNavHeight,
     this.floatingActionButtonLocation =
         FloatingActionButtonLocation.centerDocked,
     this.floatingActionButton,
@@ -26,15 +24,13 @@ class FluScreenWithBottomNav extends StatefulWidget {
   final void Function(int)? onPageChange;
   final Curve animationCurve;
   final Duration animationDuration;
-  final FluBottomNavBarTypes bottomNavBarType;
-  final double? bottomNavHeight;
-  final EdgeInsets? bottomNavPadding;
   final Widget? floatingActionButton;
   final FloatingActionButtonLocation floatingActionButtonLocation;
   final int initialPage;
   final SystemUiOverlayStyle? overlayStyle;
   final List<FluScreenPage> pages;
   final ScrollPhysics? physics;
+  final FluBottomNavBarStyle bottomNavBarStyle;
 
   @override
   State<FluScreenWithBottomNav> createState() => _FluScreenWithBottomNavState();
@@ -99,9 +95,7 @@ class _FluScreenWithBottomNavState extends State<FluScreenWithBottomNav> {
         },
       ),
       bottomNavigationBar: FluBottomNavBar(
-        type: widget.bottomNavBarType,
-        padding: widget.bottomNavPadding,
-        height: widget.bottomNavHeight,
+        style: widget.bottomNavBarStyle,
         items: widget.pages
             .map((page) => FluBottomNavBarItem(page.icon, page.label))
             .toList(),

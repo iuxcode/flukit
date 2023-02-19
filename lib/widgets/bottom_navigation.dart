@@ -12,37 +12,48 @@ class FluBottomNavBarItem {
   final String label;
 }
 
+/// Define a style for [FluBottomNavBar]
+class FluBottomNavBarStyle {
+  const FluBottomNavBarStyle({
+    this.foregroundColor,
+    this.backgroundColor,
+    this.height,
+    this.indicatorSize = 5,
+    this.iconSize = 22,
+    this.iconStrokeWidth = 1.8,
+    this.padding,
+    this.type = FluBottomNavBarTypes.flat,
+    this.unSelectedForegroundColor,
+  });
+
+  final Color? backgroundColor;
+  final Color? foregroundColor;
+  final double? height;
+  final double iconSize;
+  final double iconStrokeWidth;
+  final double indicatorSize;
+  final EdgeInsets? padding;
+  final FluBottomNavBarTypes type;
+  final Color? unSelectedForegroundColor;
+}
+
 /// Creates a bottom navigation bar which is typically used as a [Scaffold]'s [Scaffold.bottomNavigationBar] argument.
 /// The length of [items] must be at least two and each item's icon and label must not be null.
 class FluBottomNavBar extends StatefulWidget {
   const FluBottomNavBar({
     super.key,
     required this.items,
-    this.type = FluBottomNavBarTypes.flat,
     this.onItemTap,
-    this.padding,
-    this.height,
+    this.style = const FluBottomNavBarStyle(),
     this.animationDuration = const Duration(milliseconds: 400),
     this.animationCurve = Curves.fastOutSlowIn,
-    this.foregroundColor,
-    this.unSelectedForegroundColor,
-    this.indicatorSize = 5,
-    this.iconSize = 22,
-    this.iconStrokeWidth = 1.8,
   });
 
   final void Function(int)? onItemTap;
   final Curve animationCurve;
   final Duration animationDuration;
-  final Color? foregroundColor;
-  final double? height;
-  final double iconSize;
-  final double iconStrokeWidth;
-  final double indicatorSize;
   final List<FluBottomNavBarItem> items;
-  final EdgeInsets? padding;
-  final FluBottomNavBarTypes type;
-  final Color? unSelectedForegroundColor;
+  final FluBottomNavBarStyle style;
 
   @override
   State<FluBottomNavBar> createState() => _FluBottomNavBarState();
@@ -72,14 +83,17 @@ class _FluBottomNavBarState extends State<FluBottomNavBar> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Flu.getColorSchemeOf(context);
-    final Color foregroundColor = widget.foregroundColor ?? colorScheme.primary,
+    final Color foregroundColor =
+            widget.style.foregroundColor ?? colorScheme.primary,
         unSelectedForegroundColor =
-            widget.unSelectedForegroundColor ?? colorScheme.onBackground;
+            widget.style.unSelectedForegroundColor ?? colorScheme.onBackground;
+    final double height = widget.style.height ?? Flu.screenHeight * .1;
 
     Widget bottomNav = Container(
-      height: widget.height,
+      height: height,
       width: double.infinity,
-      padding: widget.padding,
+      padding: widget.style.padding,
+      decoration: BoxDecoration(color: widget.style.backgroundColor),
       child: Row(
         children: widget.items.map((item) {
           final index = widget.items.indexOf(item);
@@ -93,8 +107,8 @@ class _FluBottomNavBarState extends State<FluBottomNavBar> {
               widget.onItemTap?.call(index);
             },
             color: isSelected ? foregroundColor : unSelectedForegroundColor,
-            iconSize: widget.iconSize,
-            iconStrokeWidth: widget.iconStrokeWidth,
+            iconSize: widget.style.iconSize,
+            iconStrokeWidth: widget.style.iconStrokeWidth,
           );
         }).toList(),
       ),
@@ -106,16 +120,16 @@ class _FluBottomNavBarState extends State<FluBottomNavBar> {
         _NavIndicator(
           animationDuration: widget.animationDuration,
           animationCurve: widget.animationCurve,
-          size: widget.indicatorSize,
+          size: widget.style.indicatorSize,
           itemWidth: _itemWidth,
           position: (_currentIndex * _itemWidth) +
-              (widget.padding?.horizontal ?? 0) / 2,
+              (widget.style.padding?.horizontal ?? 0) / 2,
           color: foregroundColor,
         ),
       ],
     );
 
-    switch (widget.type) {
+    switch (widget.style.type) {
       case FluBottomNavBarTypes.curved:
         return _CurvedBottomNav(child: bottomNav);
       default:
