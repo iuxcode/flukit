@@ -1,3 +1,4 @@
+import 'package:flukit/widgets/outline.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
 
@@ -14,36 +15,15 @@ class FluAvatar extends StatefulWidget {
     this.circle = false,
     this.size = 62,
     this.cornerRadius = 24,
-    this.borderRadius,
-    this.badge = false,
-    this.badgeCountLimit = 99,
-    this.badgeCount,
-    this.badgeColor,
-    this.badgeForegroundColor,
     this.margin = EdgeInsets.zero,
     this.outlined = false,
     this.outlineColor,
     this.outlineThickness = 2,
+    this.outlineGap = 0,
     this.package,
+    this.gradientBegin = Alignment.topLeft,
+    this.gradientEnd = Alignment.bottomRight,
   });
-
-  /// Set to true if you want to display a badge
-  final bool badge;
-
-  /// Badge color
-  final Color? badgeColor;
-
-  /// Badge count
-  final int? badgeCount;
-
-  /// Badge count limit
-  final int badgeCountLimit;
-
-  /// Badge foreground color
-  final Color? badgeForegroundColor;
-
-  /// If non-null, the corners of this box are rounded by this [BorderRadius].
-  final BorderRadius? borderRadius;
 
   /// Set to true, if you want the avatar to be a circle
   final bool circle;
@@ -71,13 +51,22 @@ class FluAvatar extends StatefulWidget {
   final EdgeInsets margin;
 
   /// Outline color
-  final Color? outlineColor;
+  final List<Color>? outlineColor;
 
   /// Outline thickness
   final double outlineThickness;
 
   /// set to true to enable outline
   final bool outlined;
+
+  /// Space between outline and the avatar
+  final double outlineGap;
+
+  /// The offset at which stop 0.0 of the [outline] gradient is placed
+  final Alignment gradientBegin;
+
+  /// The offset at which stop 1.0 of the [outline] gradient is placed.
+  final Alignment gradientEnd;
 
   /// The package argument must be non-null when displaying an image from a package and null otherwise.
   /// See the Assets in packages section for details.
@@ -99,19 +88,27 @@ class _FluAvatarState extends State<FluAvatar> {
     super.initState();
   }
 
+  /// Compute avatar [BorderRadius]
+  BorderRadius? get _borderRadius =>
+      !_isCircle ? BorderRadius.circular(widget.cornerRadius) : null;
+
+  /// Define if the [FluAvatar] shape must be a circle.
+  bool get _isCircle =>
+      widget.circle || widget.defaultAvatarType == FluAvatarTypes.material3D;
+
+  /// For [FluAvatarTypes.material3D] for example, the avatar need to be a circle.
+  BoxShape get _shape => _isCircle ? BoxShape.circle : BoxShape.rectangle;
+
+  /// If an image is not provided, default avatar is displayed.
+  String get image => widget.image ?? defaultAvatar;
+
   @override
   Widget build(BuildContext context) {
     ColorScheme colorScheme = Flu.getColorSchemeOf(context);
-    bool circle =
-        widget.circle || widget.defaultAvatarType == FluAvatarTypes.material3D;
-    BoxShape shape = circle ? BoxShape.circle : BoxShape.rectangle;
-    BorderRadius? borderRadius = !circle
-        ? (widget.borderRadius ??
-            BorderRadius.circular(widget.cornerRadius + 2))
-        : null;
-    String image = widget.image ?? defaultAvatar;
     Widget child;
 
+    /// An image is not provided, so we only display the [label] or [icon] if they are provided,
+    /// or display provided image or default one.
     if ((widget.label != null || widget.icon != null) && widget.image == null) {
       child = Container(
         height: widget.size,
@@ -120,15 +117,16 @@ class _FluAvatarState extends State<FluAvatar> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: colorScheme.primaryContainer,
-          shape: shape,
-          borderRadius: borderRadius,
+          shape: _shape,
+          borderRadius: _borderRadius,
         ),
         child: widget.label != null
             ? Text(
                 Flu.textToAvatarFormat(widget.label ?? 'Flukit').toUpperCase(),
                 style: TextStyle(
                     color: colorScheme.onPrimaryContainer,
-                    fontWeight: FontWeight.bold))
+                    fontWeight: FontWeight.bold),
+              )
             : FluIcon(
                 widget.icon!,
                 size: 20,
@@ -144,7 +142,7 @@ class _FluAvatarState extends State<FluAvatar> {
         imageSource:
             mustLoadDefaultAvatar ? ImageSources.asset : widget.imageSource,
         package: mustLoadDefaultAvatar ? 'flukit' : widget.package,
-        circle: circle,
+        circle: _isCircle,
         cornerRadius: widget.cornerRadius,
         height: widget.size,
         square: true,
@@ -152,20 +150,24 @@ class _FluAvatarState extends State<FluAvatar> {
     }
 
     if (widget.margin != EdgeInsets.zero || widget.outlined) {
-      child = Container(
-        margin: widget.margin,
-        decoration: BoxDecoration(
-          shape: shape,
-          borderRadius: borderRadius,
-          border: widget.outlined
-              ? Border.all(
-                  width: widget.outlineThickness,
-                  color: widget.outlineColor ?? colorScheme.background,
-                )
-              : null,
-        ),
-        child: child,
-      );
+      if (widget.margin != EdgeInsets.zero && !widget.outlined) {
+        child = Padding(
+          padding: widget.margin,
+          child: child,
+        );
+      }
+
+      if (widget.outlined) {
+        child = FluOutline(
+          margin: widget.margin,
+          thickness: widget.outlineThickness,
+          gap: widget.outlineGap,
+          colors: widget.outlineColor ?? [colorScheme.surfaceVariant],
+          circle: _isCircle,
+          cornerRadius: widget.cornerRadius + widget.outlineGap,
+          child: child,
+        );
+      }
     }
 
     return child;
