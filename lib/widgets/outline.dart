@@ -57,7 +57,7 @@ class FluOutline extends StatelessWidget {
       margin: margin,
       decoration: BoxDecoration(
         shape: circle ? BoxShape.circle : BoxShape.rectangle,
-        borderRadius: circle
+        borderRadius: !circle
             ? (borderRadius ?? BorderRadius.circular(cornerRadius))
             : null,
         border: border,

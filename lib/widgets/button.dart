@@ -30,74 +30,74 @@ class FluButton extends StatelessWidget {
     this.expand = false,
     this.boxShadow,
     this.alignment,
+    this.splashColor,
     super.key,
   });
 
   /// Create a button with icon content
-  const factory FluButton.icon(
-    FluIcons icon, {
-    double iconSize,
-    double iconStrokeWidth,
-    FluIconStyles iconStyle,
-    VoidCallback? onPressed,
-    Color? backgroundColor,
-    Color? foregroundColor,
-    EdgeInsets padding,
-    EdgeInsets margin,
-    double elevation,
-    bool filled,
-    bool flat,
-    bool loading,
-    bool replaceContentOnLoading,
-    String? loadingText,
-    BorderRadius? borderRadius,
-    double? cornerRadius,
-    Widget? loader,
-    Color? loaderOverlayColor,
-    Color? loaderColor,
-    double? size,
-    List<BoxShadow>? boxShadow,
-    Alignment? alignment,
-  }) = _FluIconButton;
+  const factory FluButton.icon(FluIcons icon,
+      {double iconSize,
+      double iconStrokeWidth,
+      FluIconStyles iconStyle,
+      VoidCallback? onPressed,
+      Color? backgroundColor,
+      Color? foregroundColor,
+      EdgeInsets padding,
+      EdgeInsets margin,
+      double elevation,
+      bool filled,
+      bool flat,
+      bool loading,
+      bool replaceContentOnLoading,
+      String? loadingText,
+      BorderRadius? borderRadius,
+      double? cornerRadius,
+      Widget? loader,
+      Color? loaderOverlayColor,
+      Color? loaderColor,
+      double? size,
+      List<BoxShadow>? boxShadow,
+      Alignment? alignment,
+      Color? splashColor}) = _FluIconButton;
 
   /// Create a button with text content
   /// You can also add an icon before or after the text using [prefixIcon] and [suffixIcon].
   /// Control icons sizes with [iconSize], [prefixIconSize] and [suffixIconSize].
   /// use [iconStyle] to choose your icon style. refer to [https://github.com/charles9904/flukit_icons] to learn more.
   /// [spacing] determine the space available between text and icon.
-  const factory FluButton.text(
-    String text, {
-    FluIcons? prefixIcon,
-    FluIcons? suffixIcon,
-    double iconSize,
-    double? prefixIconSize,
-    double? suffixIconSize,
-    FluIconStyles iconStyle,
-    double gap,
-    VoidCallback? onPressed,
-    Color? backgroundColor,
-    Color? foregroundColor,
-    EdgeInsets padding,
-    EdgeInsets margin,
-    double elevation,
-    bool filled,
-    bool flat,
-    bool loading,
-    bool replaceContentOnLoading,
-    String? loadingText,
-    BorderRadius? borderRadius,
-    double? cornerRadius,
-    Widget? loader,
-    Color? loaderOverlayColor,
-    Color? loaderColor,
-    double? height,
-    double? width,
-    bool block,
-    bool expand,
-    List<BoxShadow>? boxShadow,
-    TextStyle? textStyle,
-    Alignment? alignment,
-  }) = _FluTextButton;
+  const factory FluButton.text(String text,
+      {FluIcons? prefixIcon,
+      FluIcons? suffixIcon,
+      double iconSize,
+      double iconStrokeWidth,
+      double? prefixIconSize,
+      double? suffixIconSize,
+      FluIconStyles iconStyle,
+      double gap,
+      VoidCallback? onPressed,
+      Color? backgroundColor,
+      Color? foregroundColor,
+      EdgeInsets padding,
+      EdgeInsets margin,
+      double elevation,
+      bool filled,
+      bool flat,
+      bool loading,
+      bool replaceContentOnLoading,
+      String? loadingText,
+      BorderRadius? borderRadius,
+      double? cornerRadius,
+      Widget? loader,
+      Color? loaderOverlayColor,
+      Color? loaderColor,
+      double? height,
+      double? width,
+      bool block,
+      bool expand,
+      List<BoxShadow>? boxShadow,
+      TextStyle? textStyle,
+      Alignment? alignment,
+      Color? splashColor}) = _FluTextButton;
 
   final AlignmentGeometry? alignment;
   final Color? backgroundColor;
@@ -122,6 +122,7 @@ class FluButton extends StatelessWidget {
   final EdgeInsets padding;
   final bool replaceContentOnLoading;
   final double? width;
+  final Color? splashColor;
 
   Widget _getChild(BuildContext context) {
     return child;
@@ -144,6 +145,7 @@ class FluButton extends StatelessWidget {
           hasCustomSize ? const Size(double.infinity, double.infinity) : null),
       backgroundColor: MaterialStatePropertyAll(backgroundColor),
       foregroundColor: MaterialStatePropertyAll(foregroundColor),
+      overlayColor: MaterialStatePropertyAll(splashColor),
       padding: MaterialStatePropertyAll(padding),
       elevation: MaterialStatePropertyAll(boxShadow == null ? elevation : null),
       shape: borderRadius != null || cornerRadius != null
@@ -271,6 +273,7 @@ class _FluIconButton extends FluButton {
     this.size,
     super.boxShadow,
     super.alignment,
+    super.splashColor,
   }) : super(child: const SizedBox(), height: size, width: size);
 
   final FluIcons icon;
@@ -318,6 +321,7 @@ class _FluTextButton extends FluButton {
     super.expand = false,
     super.boxShadow,
     super.alignment,
+    super.splashColor,
     this.iconSize = 20,
     this.iconStyle = FluIconStyles.twotone,
     this.gap = 6.0,
@@ -326,10 +330,12 @@ class _FluTextButton extends FluButton {
     this.suffixIcon,
     this.prefixIconSize,
     this.suffixIconSize,
+    this.iconStrokeWidth = 1.5,
   }) : super(child: const SizedBox());
 
   final double gap;
   final double iconSize;
+  final double iconStrokeWidth;
   final FluIconStyles iconStyle;
   final FluIcons? prefixIcon;
   final double? prefixIconSize;
@@ -372,6 +378,7 @@ class _FluTextButton extends FluButton {
         icon,
         style: iconStyle,
         size: size ?? iconSize,
+        strokeWidth: iconStrokeWidth,
         color: color,
         margin: EdgeInsets.only(
             right: prefixIcon != null ? gap : 0,

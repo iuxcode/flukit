@@ -131,13 +131,10 @@ class FluImage extends StatelessWidget {
 
     /// Add overlay if the opacity is > 0
     if (overlayOpacity > 0) {
-      child = Stack(children: [
-        child,
-        Positioned(
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
+      child = Stack(
+        children: [
+          child,
+          Positioned.fill(
             child: Container(
               height: double.infinity,
               width: double.infinity,
@@ -154,8 +151,10 @@ class FluImage extends StatelessWidget {
                       ], begin: gradientOverlayBegin, end: gradientOverlayEnd)
                     : null,
               ),
-            ))
-      ]);
+            ),
+          )
+        ],
+      );
     }
 
     /// Add cornerRadius or borderRadius

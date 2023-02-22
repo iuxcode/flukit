@@ -40,7 +40,7 @@ class FluAvatarGroup extends StatelessWidget {
           FluAvatar(
             key: ObjectKey(i),
             outlined: true,
-            outlineColor: colorScheme.background,
+            outlineColor: [colorScheme.background],
           );
       avatars.add(Positioned(
           left: _getAvatarLeftPosition(i, avatar.size),

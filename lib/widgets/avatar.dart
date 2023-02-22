@@ -23,6 +23,7 @@ class FluAvatar extends StatefulWidget {
     this.package,
     this.gradientBegin = Alignment.topLeft,
     this.gradientEnd = Alignment.bottomRight,
+    this.fillColor,
   });
 
   /// Set to true, if you want the avatar to be a circle
@@ -75,6 +76,9 @@ class FluAvatar extends StatefulWidget {
   /// Avatar size.
   final double size;
 
+  /// BackgroundColor
+  final Color? fillColor;
+
   @override
   State<FluAvatar> createState() => _FluAvatarState();
 }
@@ -116,7 +120,7 @@ class _FluAvatarState extends State<FluAvatar> {
         clipBehavior: Clip.hardEdge,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: colorScheme.primaryContainer,
+          color: widget.fillColor ?? colorScheme.primary,
           shape: _shape,
           borderRadius: _borderRadius,
         ),
