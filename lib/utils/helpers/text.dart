@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as time;
 import '../flu_utils.dart';
 
@@ -17,6 +18,10 @@ extension T on FluInterface {
   String formatDate(DateTime date,
           {String pattern = 'EEEE, MMM dd', String? locale}) =>
       DateFormat(pattern, locale).format(date);
+
+  /// Get system time format.
+  bool getSystemUse24HourFormat(BuildContext context) =>
+      MediaQuery.of(context).alwaysUse24HourFormat;
 
   /// Formats provided [date] to a fuzzy time like 'a moment ago'
   String timeago(DateTime dateTime, {String locale = 'en'}) =>

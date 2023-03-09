@@ -8,6 +8,7 @@ export 'collapsible.dart';
 export 'dashed_circle.dart';
 export 'divider.dart';
 export 'glass.dart';
+export 'grid.dart';
 export 'image.dart';
 export 'loader.dart';
 export 'tabs.dart';
