@@ -3,6 +3,7 @@
 		"datetime",
 		"Memojis",
 		"reclip",
+		"riverpod",
 		"timeago",
 		"twotone",
 		"vsync"
