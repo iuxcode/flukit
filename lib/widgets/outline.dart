@@ -38,7 +38,7 @@ class FluOutline extends StatelessWidget {
     if (colors.length <= 1) {
       border = Border.all(
           color: colors.isEmpty
-              ? Flu.getColorSchemeOf(context).surfaceVariant
+              ? context.colorScheme.surfaceVariant
               : colors.first,
           width: thickness);
     } else {

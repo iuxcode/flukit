@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:phone_number/phone_number.dart';
-import '../flu_utils.dart';
+
+import 'flu_utils.dart';
 
 extension C on FluInterface {
   /// Phone number validator plugin

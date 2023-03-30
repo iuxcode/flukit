@@ -137,7 +137,6 @@ class FluButton extends StatelessWidget {
             this.onPressed?.call();
           }
         : this.onPressed;
-    final colorScheme = Flu.getColorSchemeOf(context);
     final bool hasCustomSize =
         expand || block || height != null || width != null;
 
@@ -159,10 +158,16 @@ class FluButton extends StatelessWidget {
           : null,
       alignment: alignment,
     );
-    final Color defaultForegroundColor = _getButtonForegroundColor(colorScheme,
-        disabled: onPressed == null, flat: flat, filled: filled);
-    final Color defaultOverlayColor = _getButtonOverlayColor(colorScheme,
-        disabled: onPressed == null, flat: flat, filled: filled);
+    final Color defaultForegroundColor = _getButtonForegroundColor(
+        context.colorScheme,
+        disabled: onPressed == null,
+        flat: flat,
+        filled: filled);
+    final Color defaultOverlayColor = _getButtonOverlayColor(
+        context.colorScheme,
+        disabled: onPressed == null,
+        flat: flat,
+        filled: filled);
 
     Widget loader = this.loader ??
         FluLoader(
@@ -291,7 +296,7 @@ class _FluIconButton extends FluButton {
       style: iconStyle,
       strokeWidth: iconStrokeWidth,
       color: foregroundColor ??
-          _getButtonForegroundColor(Flu.getColorSchemeOf(context),
+          _getButtonForegroundColor(context.colorScheme,
               flat: flat, filled: filled, disabled: onPressed == null),
     );
   }
@@ -348,13 +353,12 @@ class _FluTextButton extends FluButton {
   @override
   Widget _getChild(BuildContext context) {
     Color foregroundColor = this.foregroundColor ??
-        _getButtonForegroundColor(Flu.getColorSchemeOf(context),
+        _getButtonForegroundColor(context.colorScheme,
             flat: flat, filled: filled, disabled: onPressed == null);
 
     Widget textWidget = Text(
       text,
-      style: Flu.getTextThemeOf(context)
-          .bodyMedium
+      style: context.textTheme.bodyMedium
           ?.copyWith(color: foregroundColor, fontWeight: FontWeight.w600)
           .merge(textStyle),
     );

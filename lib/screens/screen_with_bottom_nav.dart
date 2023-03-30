@@ -1,8 +1,8 @@
+import 'package:flukit/utils/flu_utils.dart';
 import 'package:flukit/widgets/bottom_navigation.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 
 import 'base.dart';
 

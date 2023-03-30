@@ -58,12 +58,11 @@ class FluArc extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Flu.getColorSchemeOf(context);
-
     return CustomPaint(
       painter: _ArcPainter(
-          color: color ?? colorScheme.primary,
-          disabledDashColor: disabledDashColor ?? colorScheme.surfaceVariant,
+          color: color ?? context.colorScheme.primary,
+          disabledDashColor:
+              disabledDashColor ?? context.colorScheme.surfaceVariant,
           strokeWidth: strokeWidth,
           numberOfDashes: numberOfDashes,
           gapSize: gapSize,

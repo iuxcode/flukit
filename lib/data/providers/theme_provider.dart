@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
 
-import '../../utils/theme_utils.dart';
+import '../../utils/theme.dart';
 import '../repositories/theme_repository.dart';
 
 final themeProvider =

@@ -186,7 +186,6 @@ class FluChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Flu.getColorSchemeOf(context);
     final double? width =
         (chip.image != null && chip.text == null) ? height * 2 : null;
     late final Widget child;
@@ -219,12 +218,13 @@ class FluChip extends StatelessWidget {
         decoration: BoxDecoration(
           color: chip.outlined
               ? Colors.transparent
-              : chip.color ?? colorScheme.surfaceVariant.withOpacity(.65),
+              : chip.color ??
+                  context.colorScheme.surfaceVariant.withOpacity(.65),
           border: chip.outlined
               ? Border.all(
                   width: chip.strokeWidth,
-                  color:
-                      chip.color ?? colorScheme.surfaceVariant.withOpacity(.65),
+                  color: chip.color ??
+                      context.colorScheme.surfaceVariant.withOpacity(.65),
                 )
               : null,
           borderRadius: BorderRadius.circular(height * 2),

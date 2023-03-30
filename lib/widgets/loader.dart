@@ -79,8 +79,7 @@ class _FluLoaderState extends State<FluLoader>
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Flu.getColorSchemeOf(context);
-    final color = widget.color ?? colorScheme.primary;
+    final color = widget.color ?? context.colorScheme.primary;
     const layerAngle = 80;
     final layers = [
       FluArc(

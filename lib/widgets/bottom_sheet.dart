@@ -24,7 +24,7 @@ class FluModalBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Radius defaultCornerRadius =
-        Radius.circular(cornerRadius ?? Flu.screenSize.width * .085);
+        Radius.circular(cornerRadius ?? context.width * .085);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light

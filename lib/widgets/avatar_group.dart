@@ -31,7 +31,6 @@ class FluAvatarGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ColorScheme colorScheme = Flu.getColorSchemeOf(context);
     double avatarSize = 0.0;
     List<Widget> avatars = [];
 
@@ -40,7 +39,7 @@ class FluAvatarGroup extends StatelessWidget {
           FluAvatar(
             key: ObjectKey(i),
             outlined: true,
-            outlineColor: [colorScheme.background],
+            outlineColor: [context.colorScheme.background],
           );
       avatars.add(Positioned(
           left: _getAvatarLeftPosition(i, avatar.size),

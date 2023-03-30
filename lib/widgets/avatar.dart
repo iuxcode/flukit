@@ -109,7 +109,6 @@ class _FluAvatarState extends State<FluAvatar> {
 
   @override
   Widget build(BuildContext context) {
-    ColorScheme colorScheme = Flu.getColorSchemeOf(context);
     Widget child;
 
     /// An image is not provided, so we only display the [label] or [icon] if they are provided,
@@ -121,7 +120,7 @@ class _FluAvatarState extends State<FluAvatar> {
         clipBehavior: Clip.hardEdge,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: widget.fillColor ?? colorScheme.primary,
+          color: widget.fillColor ?? context.colorScheme.primary,
           shape: _shape,
           borderRadius: _borderRadius,
         ),
@@ -129,14 +128,14 @@ class _FluAvatarState extends State<FluAvatar> {
             ? Text(
                 Flu.textToAvatarFormat(widget.label ?? 'Flukit').toUpperCase(),
                 style: TextStyle(
-                    color: colorScheme.onPrimaryContainer,
+                    color: context.colorScheme.onPrimaryContainer,
                     fontWeight: FontWeight.bold),
               )
             : FluIcon(
                 widget.icon!,
                 size: 20,
                 strokeWidth: 1.8,
-                color: colorScheme.onPrimaryContainer,
+                color: context.colorScheme.onPrimaryContainer,
               ),
       );
     } else {
@@ -167,7 +166,7 @@ class _FluAvatarState extends State<FluAvatar> {
           margin: widget.margin,
           thickness: widget.outlineThickness,
           gap: widget.outlineGap,
-          colors: widget.outlineColor ?? [colorScheme.surfaceVariant],
+          colors: widget.outlineColor ?? [context.colorScheme.surfaceVariant],
           circle: _isCircle,
           cornerRadius: widget.cornerRadius + widget.outlineGap,
           child: child,

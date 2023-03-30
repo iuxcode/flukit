@@ -34,7 +34,6 @@ class FluBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Flu.getColorSchemeOf(context);
     final isLargeBadge = count != null;
     final limitReached = (count ?? 0) > countLimit;
     double? top, left, right, bottom;
@@ -74,13 +73,13 @@ class FluBadge extends StatelessWidget {
                 vertical: isLargeBadge ? 4 : 0,
                 horizontal: isLargeBadge ? 8 : 0),
             decoration: BoxDecoration(
-              color: color ?? colorScheme.primary,
+              color: color ?? context.colorScheme.primary,
               shape: isLargeBadge ? BoxShape.rectangle : BoxShape.circle,
               borderRadius: isLargeBadge ? BorderRadius.circular(999) : null,
               border: outlined
                   ? Border.all(
                       width: outlineThickness,
-                      color: outlineColor ?? colorScheme.background)
+                      color: outlineColor ?? context.colorScheme.background)
                   : null,
               boxShadow: boxShadow,
             ),
@@ -91,7 +90,7 @@ class FluBadge extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.bold,
-                      color: colorScheme.onPrimary,
+                      color: context.colorScheme.onPrimary,
                     ),
                   )
                 : null,

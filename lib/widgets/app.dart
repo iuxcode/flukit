@@ -9,7 +9,7 @@ import '../data/providers/theme_provider.dart';
 import '../data/repositories/theme_repository.dart';
 import '../navigation/router.dart';
 import '../screens/default.dart';
-import '../utils/theme_utils.dart';
+import '../utils/theme.dart';
 
 class FluApp extends StatelessWidget {
   const FluApp({

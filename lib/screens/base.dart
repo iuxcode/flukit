@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 
 import '../utils/flu_utils.dart';
 
@@ -35,16 +34,12 @@ class FluScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ColorScheme colorScheme = Flu.getColorSchemeOf(context);
-
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
-              statusBarColor: colorScheme.background,
-              statusBarIconBrightness:
-                  Get.isDarkMode ? Brightness.light : Brightness.dark,
-              systemNavigationBarColor: colorScheme.background,
-              systemNavigationBarIconBrightness:
-                  Get.isDarkMode ? Brightness.light : Brightness.dark)
+              statusBarColor: context.colorScheme.background,
+              statusBarIconBrightness: context.colorScheme.brightness,
+              systemNavigationBarColor: context.colorScheme.background,
+              systemNavigationBarIconBrightness: context.colorScheme.brightness)
           .copyWith(
               statusBarColor: overlayStyle?.statusBarColor,
               statusBarIconBrightness: overlayStyle?.statusBarIconBrightness,
@@ -60,7 +55,7 @@ class FluScreen extends StatelessWidget {
                   overlayStyle?.systemNavigationBarContrastEnforced),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: background ?? colorScheme.background,
+        backgroundColor: background ?? context.colorScheme.background,
         extendBody: extendBody,
         appBar: appBar,
         body: body,
