@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
 
-class FlukitDefaultScreen extends StatelessWidget {
-  const FlukitDefaultScreen({super.key});
+import 'base.dart';
+
+class FluDefaultScreen extends StatelessWidget {
+  const FluDefaultScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return FluScreen(
       body: SafeArea(
           child: Column(
-        children: [
-          Text('Flukit',
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25)),
-          const Text('Est consectetur dolor ut eaque quia nihil natus.')
-        ],
+        children: const [Text('Flukit')],
       )),
     );
   }

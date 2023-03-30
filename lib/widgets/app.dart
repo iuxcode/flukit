@@ -45,7 +45,7 @@ class FluApp extends StatelessWidget {
         FluRoute(
           name: "flukit_default",
           path: "/flukit_default",
-          builder: (context, state) => const FlukitDefaultScreen(),
+          builder: (context, state) => const FluDefaultScreen(),
         )
       ];
     }
