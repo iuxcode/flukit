@@ -1,8 +1,9 @@
-import 'package:flukit/widgets/flu_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 
 import '../utils/flu_utils.dart';
+import 'glass.dart';
+import 'loader.dart';
 
 /// Create a button
 class FluButton extends StatelessWidget {
