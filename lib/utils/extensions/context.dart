@@ -71,7 +71,9 @@ extension ContextExt on BuildContext {
   /// SystemUIOverlayStyle
   SystemUiOverlayStyle get systemUiOverlayStyle => SystemUiOverlayStyle(
       statusBarColor: colorScheme.background,
-      statusBarIconBrightness: colorScheme.brightness,
+      statusBarIconBrightness: colorScheme.brightness == Brightness.light
+          ? Brightness.dark
+          : Brightness.light,
       systemNavigationBarColor: colorScheme.background,
       systemNavigationBarIconBrightness: colorScheme.brightness);
 

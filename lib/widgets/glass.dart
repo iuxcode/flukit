@@ -7,7 +7,7 @@ class FluGlass extends StatelessWidget {
   const FluGlass({
     Key? key,
     this.borderRadius,
-    this.margin,
+    this.margin = EdgeInsets.zero,
     required this.child,
     this.intensity = 5.0,
     this.cornerRadius = 0,
@@ -17,7 +17,7 @@ class FluGlass extends StatelessWidget {
   final Widget child;
   final double cornerRadius;
   final double intensity;
-  final EdgeInsets? margin;
+  final EdgeInsets margin;
 
   @override
   Widget build(BuildContext context) => Container(
