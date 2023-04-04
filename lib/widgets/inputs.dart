@@ -1,4 +1,5 @@
-/* import 'package:flukit_icons/flukit_icons.dart';
+import 'package:flukit/flukit.dart';
+import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -16,7 +17,6 @@ class FluTextField extends StatefulWidget {
       this.onChanged,
       this.expand = false,
       this.textStyle,
-      // this.toolbarOptions,
       this.selectionControls,
       this.onTap,
       this.height,
@@ -38,7 +38,7 @@ class FluTextField extends StatefulWidget {
       this.cursorColor,
       this.cursorHeight,
       this.cursorWidth = 2.0,
-      required this.label,
+      required this.hint,
       this.labelStyle,
       this.borderColor,
       this.borderRadius,
@@ -64,6 +64,7 @@ class FluTextField extends StatefulWidget {
   final Color? fillColor;
   final FocusNode? focusNode;
   final double? height;
+  final String hint;
   final Color? iconColor;
   final double iconSize;
   final double iconStrokeWidth;
@@ -72,11 +73,12 @@ class FluTextField extends StatefulWidget {
   final TextEditingController? inputController;
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
-  final String label;
   final Color? labelColor;
   final TextStyle? labelStyle;
   final EdgeInsets margin;
+  final double? maxHeight;
   final int? maxlines;
+  final bool obscureText;
   final VoidCallback? onTap;
   final EdgeInsets? padding;
   final TextSelectionControls? selectionControls;
@@ -84,9 +86,6 @@ class FluTextField extends StatefulWidget {
   final TextAlign textAlign;
   final TextAlignVertical textAlignVertical;
   final TextStyle? textStyle;
-  // final ToolbarOptions? toolbarOptions;
-  final bool obscureText;
-  final double? maxHeight;
 
   @override
   State<FluTextField> createState() => _FluTextFieldState();
@@ -101,6 +100,29 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
     super.initState();
   }
 
+  InputDecoration get _decoration => InputDecoration(
+      border: InputBorder.none,
+      hintText: widget.hint,
+      hintStyle: _defaultTextStyle
+          .copyWith(
+              color: widget.labelColor ?? context.colorScheme.onSurfaceVariant)
+          .merge(widget.labelStyle),
+      errorStyle: const TextStyle(height: 0, color: Colors.transparent),
+      prefixIcon: _icon(widget.prefixIcon),
+      suffixIcon: _icon(widget.suffixIcon),
+      contentPadding: widget.padding ??
+          (height == null
+                  ? const EdgeInsets.symmetric(vertical: 20)
+                  : EdgeInsets.zero)
+              .copyWith(left: 15, right: 15));
+
+  TextStyle get _defaultTextStyle => context.textTheme.bodySmall!
+      .copyWith(color: widget.color ?? context.colorScheme.onSurfaceVariant)
+      .merge(widget.textStyle);
+
+  Color get _fillColor =>
+      widget.fillColor ?? context.colorScheme.surfaceVariant;
+
   double? get height {
     if (widget.expand && widget.maxHeight == null) {
       return double.infinity;
@@ -111,34 +133,13 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
     return widget.height ?? 55; // Flu.appSettings.defaultElSize;
   }
 
-  InputDecoration get _decoration => InputDecoration(
-      border: InputBorder.none,
-      hintText: widget.label,
-      hintStyle: _defaultTextStyle
-          .copyWith(color: widget.labelColor ?? _theme.text)
-          .merge(widget.labelStyle),
-      errorStyle: const TextStyle(height: 0, color: Colors.transparent),
-      prefixIcon: _icon(widget.prefixIcon),
-      suffixIcon: _icon(widget.suffixIcon),
-      contentPadding: widget.padding ??
-          (height == null
-              ? EdgeInsets.symmetric(vertical: 20)
-              : EdgeInsets.zero));
-
-  TextStyle get _defaultTextStyle => _theme.textTheme.bodySmall!
-      .copyWith(color: widget.color ?? _theme.text)
-      .merge(widget.textStyle);
-
-  Color get _fillColor => widget.fillColor ?? _theme.surfaceBackground;
-  // FluTheme get _theme => Flu.theme;
-
   Widget? _icon(FluIcons? icon) {
     if (icon != null) {
       return FluIcon(
         icon,
-        color: widget.iconColor ?? _theme.accentText,
+        color: widget.iconColor ?? context.colorScheme.onSurface,
         size: widget.iconSize,
-        strokewidth: widget.iconStrokeWidth,
+        strokeWidth: widget.iconStrokeWidth,
         style: widget.iconStyle,
       );
     }
@@ -158,13 +159,14 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
         boxShadow: widget.boxShadow,
         border: widget.borderWidth != null
             ? Border.all(
-                color: widget.borderColor ?? _theme.background.withOpacity(.05),
+                color: widget.borderColor ??
+                    context.colorScheme.background.withOpacity(.05),
                 width: widget.borderWidth!,
               )
             : null,
         borderRadius: widget.borderRadius ??
             BorderRadius.circular(
-              widget.cornerRadius ?? Flu.appSettings.defaultElRadius,
+              widget.cornerRadius ?? 99,
             ),
       ),
       child: TextFormField(
@@ -177,10 +179,9 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
         keyboardType: widget.keyboardType,
         inputFormatters: widget.inputFormatters,
         textInputAction: widget.inputAction,
-        // toolbarOptions: widget.toolbarOptions,
         selectionControls: widget.selectionControls,
         style: _defaultTextStyle,
-        cursorColor: widget.cursorColor ?? _theme.primary,
+        cursorColor: widget.cursorColor ?? context.colorScheme.primary,
         cursorHeight: widget.cursorHeight,
         cursorWidth: widget.cursorWidth,
         decoration: _decoration,
@@ -205,4 +206,3 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
     return field;
   }
 }
- */

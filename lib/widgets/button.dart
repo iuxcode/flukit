@@ -32,6 +32,7 @@ class FluButton extends StatelessWidget {
     this.boxShadow,
     this.alignment,
     this.splashColor,
+    this.border,
     super.key,
   });
 
@@ -59,7 +60,8 @@ class FluButton extends StatelessWidget {
       double? size,
       List<BoxShadow>? boxShadow,
       Alignment? alignment,
-      Color? splashColor}) = _FluIconButton;
+      Color? splashColor,
+      BorderSide? border}) = _FluIconButton;
 
   /// Create a button with text content
   /// You can also add an icon before or after the text using [prefixIcon] and [suffixIcon].
@@ -98,7 +100,8 @@ class FluButton extends StatelessWidget {
       List<BoxShadow>? boxShadow,
       TextStyle? textStyle,
       Alignment? alignment,
-      Color? splashColor}) = _FluTextButton;
+      Color? splashColor,
+      BorderSide? border}) = _FluTextButton;
 
   final AlignmentGeometry? alignment;
   final Color? backgroundColor;
@@ -124,6 +127,7 @@ class FluButton extends StatelessWidget {
   final bool replaceContentOnLoading;
   final double? width;
   final Color? splashColor;
+  final BorderSide? border;
 
   Widget _getChild(BuildContext context) {
     return child;
@@ -148,11 +152,12 @@ class FluButton extends StatelessWidget {
       overlayColor: MaterialStatePropertyAll(splashColor),
       padding: MaterialStatePropertyAll(padding),
       elevation: MaterialStatePropertyAll(boxShadow == null ? elevation : null),
-      shape: borderRadius != null || cornerRadius != null
+      shape: borderRadius != null || cornerRadius != null || border != null
           ? MaterialStatePropertyAll(
               RoundedRectangleBorder(
+                side: border ?? BorderSide.none,
                 borderRadius:
-                    borderRadius ?? BorderRadius.circular(cornerRadius!),
+                    borderRadius ?? BorderRadius.circular(cornerRadius ?? 99),
               ),
             )
           : null,
@@ -280,6 +285,7 @@ class _FluIconButton extends FluButton {
     super.boxShadow,
     super.alignment,
     super.splashColor,
+    super.border,
   }) : super(child: const SizedBox(), height: size, width: size);
 
   final FluIcons icon;
@@ -328,6 +334,7 @@ class _FluTextButton extends FluButton {
     super.boxShadow,
     super.alignment,
     super.splashColor,
+    super.border,
     this.iconSize = 20,
     this.iconStyle = FluIconStyles.twotone,
     this.gap = 6.0,
