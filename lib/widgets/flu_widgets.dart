@@ -7,6 +7,7 @@ export 'bottom_sheet.dart';
 export 'button.dart';
 export 'chip.dart';
 export 'collapsible.dart';
+export 'divider.dart';
 export 'dashed_circle.dart';
 export 'glass.dart';
 export 'grid.dart';
