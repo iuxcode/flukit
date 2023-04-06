@@ -39,11 +39,11 @@ class FluTextField extends StatefulWidget {
     this.cursorHeight,
     this.cursorWidth = 2.0,
     required this.hint,
-    this.labelStyle,
+    this.hintStyle,
     this.borderColor,
     this.borderRadius,
     this.cornerRadius,
-    this.labelColor,
+    this.hintColor,
     this.inputAction = TextInputAction.done,
     this.maxlines,
     this.obscureText = false,
@@ -76,8 +76,8 @@ class FluTextField extends StatefulWidget {
   final TextEditingController? inputController;
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
-  final Color? labelColor;
-  final TextStyle? labelStyle;
+  final Color? hintColor;
+  final TextStyle? hintStyle;
   final EdgeInsets margin;
   final double? maxHeight;
   final int? maxlines;
@@ -110,8 +110,8 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
       hintText: widget.hint,
       hintStyle: _defaultTextStyle
           .copyWith(
-              color: widget.labelColor ?? context.colorScheme.onSurfaceVariant)
-          .merge(widget.labelStyle),
+              color: widget.hintColor ?? context.colorScheme.onSurfaceVariant)
+          .merge(widget.hintStyle),
       errorStyle: const TextStyle(height: 0, color: Colors.transparent),
       prefixIcon: widget.prefix ?? _icon(widget.prefixIcon),
       suffixIcon: widget.suffix ?? _icon(widget.suffixIcon),

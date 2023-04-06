@@ -100,7 +100,7 @@ extension ContextExt on BuildContext {
 
   /// Detect if the keyboard is visible or not
   /// true if [MediaQuery.of(context).viewInsets.bottom] == 0
-  bool get isKeyboardHidden => !(MediaQuery.of(this).viewInsets.bottom == 0);
+  bool get isKeyboardHidden => MediaQuery.of(this).viewInsets.bottom == 0;
 
   /// similar to [MediaQuery.of(context).alwaysUse24HourFormat]
   bool get alwaysUse24HourFormat => MediaQuery.of(this).alwaysUse24HourFormat;
