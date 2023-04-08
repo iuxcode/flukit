@@ -50,6 +50,7 @@ class FluTextField extends StatefulWidget {
     this.maxHeight,
     this.prefix,
     this.suffix,
+    this.onFieldSubmitted,
   });
 
   final String? Function(String?)? validator;
@@ -91,6 +92,7 @@ class FluTextField extends StatefulWidget {
   final TextStyle? textStyle;
   final Widget? suffix;
   final Widget? prefix;
+  final void Function(String)? onFieldSubmitted;
 
   @override
   State<FluTextField> createState() => _FluTextFieldState();
@@ -193,6 +195,7 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
         validator: widget.validator,
         onChanged: widget.onChanged,
         onTap: widget.onTap,
+        onFieldSubmitted: widget.onFieldSubmitted,
         obscureText: widget.obscureText,
       ),
     );
