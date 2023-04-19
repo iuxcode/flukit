@@ -25,6 +25,7 @@ class FluAvatar extends StatefulWidget {
     this.gradientBegin = Alignment.topLeft,
     this.gradientEnd = Alignment.bottomRight,
     this.fillColor,
+    this.overlayOpacity = 0,
   });
 
   /// Set to true, if you want the avatar to be a circle
@@ -79,6 +80,8 @@ class FluAvatar extends StatefulWidget {
 
   /// BackgroundColor
   final Color? fillColor;
+
+  final double overlayOpacity;
 
   @override
   State<FluAvatar> createState() => _FluAvatarState();
@@ -150,6 +153,7 @@ class _FluAvatarState extends State<FluAvatar> {
         cornerRadius: widget.cornerRadius,
         height: widget.size,
         square: true,
+        overlayOpacity: widget.overlayOpacity,
       );
     }
 

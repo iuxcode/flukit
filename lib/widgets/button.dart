@@ -376,6 +376,8 @@ class _FluTextButton extends FluButton {
 
     Widget textWidget = Text(
       text,
+      overflow: TextOverflow.ellipsis,
+      maxLines: 1,
       style: context.textTheme.bodyMedium
           ?.copyWith(color: foregroundColor, fontWeight: FontWeight.w600)
           .merge(textStyle),
@@ -387,7 +389,7 @@ class _FluTextButton extends FluButton {
         children: [
           if (prefixIcon != null)
             _buildIcon(prefixIcon!, foregroundColor, prefixIconSize),
-          textWidget,
+          Flexible(child: textWidget),
           if (suffixIcon != null)
             _buildIcon(suffixIcon!, foregroundColor, suffixIconSize),
         ],
