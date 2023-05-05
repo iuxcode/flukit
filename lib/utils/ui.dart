@@ -36,24 +36,26 @@ extension U on FluInterface {
 
   /// Show a [FluModalBottomSheet]
   void showFluModalBottomSheet(BuildContext context,
-      {required Widget child,
-      EdgeInsets padding = EdgeInsets.zero,
-      double? cornerRadius,
-      double? maxChildSize}) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      isDismissible: true,
-      backgroundColor: Colors.transparent,
-      elevation: 10,
-      builder: (context) => FluModalBottomSheet(
-        maxChildSize: maxChildSize ?? .85,
-        cornerRadius: cornerRadius,
-        padding: padding,
-        child: child,
-      ),
-    );
-  }
+          {required Widget child,
+          EdgeInsets padding = EdgeInsets.zero,
+          double? cornerRadius,
+          double? maxHeight,
+          Color? barrierColor}) =>
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        // isDismissible: true,
+        // enableDrag: true,
+        elevation: 0,
+        barrierColor: barrierColor,
+        backgroundColor: Colors.transparent,
+        builder: (context) => FluModalBottomSheet(
+          maxHeight: maxHeight,
+          cornerRadius: cornerRadius,
+          padding: padding,
+          child: child,
+        ),
+      );
 }
 
 enum FluAvatarTypes { material3D, memojis }

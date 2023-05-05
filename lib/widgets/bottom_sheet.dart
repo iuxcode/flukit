@@ -1,3 +1,4 @@
+import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -9,7 +10,7 @@ class FluModalBottomSheet extends StatelessWidget {
     required this.child,
     this.padding = EdgeInsets.zero,
     this.cornerRadius,
-    this.maxChildSize = .85,
+    this.maxHeight,
     this.animationDuration = const Duration(milliseconds: 300),
     this.animationCurve = Curves.easeInOut,
   });
@@ -18,60 +19,53 @@ class FluModalBottomSheet extends StatelessWidget {
   final Duration animationDuration;
   final Widget child;
   final double? cornerRadius;
-  final double maxChildSize;
+  final double? maxHeight;
   final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
     final Radius defaultCornerRadius =
-        Radius.circular(cornerRadius ?? context.width * .085);
+        Radius.circular(cornerRadius ?? context.width * .05);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.light
-          .copyWith(statusBarColor: Colors.transparent),
-      child: /* Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+      value: SystemUiOverlayStyle.light.copyWith(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarColor: context.colorScheme.background,
+      ),
+      child: Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Flexible(
-                child: GestureDetector(onTap: () => Navigator.pop(context))),
-            Container(
+            FluLine(
               height: 4,
-              width: Flu.screenWidth * .15,
-              margin: EdgeInsets.only(bottom: 10),
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(99)),
+              width: context.width * .22,
+              radius: 5,
+              color: context.colorScheme.background,
+              margin: const EdgeInsets.only(bottom: 8),
             ),
             Flexible(
-                flex: 0,
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: defaultCornerRadius,
-                          topRight: defaultCornerRadius)),
+              child: Container(
+                constraints:
+                    BoxConstraints(maxHeight: maxHeight ?? double.infinity),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: defaultCornerRadius,
+                    topRight: defaultCornerRadius,
+                  ),
+                  color: context.colorScheme.background,
+                ),
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  padding: padding,
                   child: child,
-                ))
-          ],
-        ), */
-          DraggableScrollableSheet(
-        expand: false,
-        initialChildSize: .0,
-        minChildSize: .0,
-        maxChildSize: maxChildSize,
-        builder: (context, scrollController) {
-          return Container(
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: defaultCornerRadius,
-                topRight: defaultCornerRadius,
+                ),
               ),
             ),
-            child: SingleChildScrollView(
-                controller: scrollController, child: child),
-          );
-        },
+          ],
+        ),
       ),
     );
   }

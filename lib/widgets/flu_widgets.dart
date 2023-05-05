@@ -1,4 +1,3 @@
-export 'app.dart';
 export 'avatar_group.dart';
 export 'avatar.dart';
 export 'badge.dart';

@@ -1,5 +1,4 @@
 import 'package:intl/intl.dart';
-import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as time;
 import 'flu_utils.dart';
 
