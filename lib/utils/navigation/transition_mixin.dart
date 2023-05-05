@@ -6,9 +6,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import '../platform/platform.dart';
-import 'default_route.dart';
-import '../../flu_nav.dart';
+import 'package:flukit/flukit.dart';
+
 import 'transitions/transitions.dart';
 
 const double _kBackGestureWidth = 20.0;
@@ -23,8 +22,6 @@ const int _kMaxPageBackAnimationTime = 300; // Milliseconds.
 // The maximum time for a page to get reset to it's original position if the
 // user releases a page mid swipe.
 const double _kMinFlingVelocity = 1.0; // Milliseconds.
-
-final defaultPopGesture = FluPlatform.isIOS;
 
 class CupertinoBackGestureController<T> {
   final AnimationController controller;
@@ -383,8 +380,8 @@ Cannot read the previousTitle for a route that has not yet been installed''',
             ? CurvedAnimation(parent: animation, curve: finalCurve)
             : animation,
         secondaryRouteAnimation: secondaryAnimation,
-        child: child,
         linearTransition: linearTransition,
+        child: child,
       );
     } else {
       if (route.customTransition != null) {
@@ -394,7 +391,7 @@ Cannot read the previousTitle for a route that has not yet been installed''',
           route.alignment,
           animation,
           secondaryAnimation,
-          route.popGesture ?? defaultPopGesture
+          route.popGesture ?? Flu.defaultPopGesture
               ? CupertinoBackGestureDetector<T>(
                   gestureWidth:
                       route.gestureWidth?.call(context) ?? _kBackGestureWidth,
@@ -409,7 +406,7 @@ Cannot read the previousTitle for a route that has not yet been installed''',
       final iosAnimation = animation;
       animation = CurvedAnimation(parent: animation, curve: finalCurve);
 
-      switch (route.transition ?? Transition.leftToRight) {
+      switch (route.transition ?? Flu.defaultTransition) {
         case Transition.leftToRight:
           return SlideLeftTransition().buildTransitions(
               context,
@@ -417,7 +414,7 @@ Cannot read the previousTitle for a route that has not yet been installed''',
               route.alignment,
               animation,
               secondaryAnimation,
-              route.popGesture ?? defaultPopGesture
+              route.popGesture ?? Flu.defaultPopGesture
                   ? CupertinoBackGestureDetector<T>(
                       gestureWidth: route.gestureWidth?.call(context) ??
                           _kBackGestureWidth,
@@ -433,7 +430,7 @@ Cannot read the previousTitle for a route that has not yet been installed''',
               route.alignment,
               animation,
               secondaryAnimation,
-              route.popGesture ?? defaultPopGesture
+              route.popGesture ?? Flu.defaultPopGesture
                   ? CupertinoBackGestureDetector<T>(
                       gestureWidth: route.gestureWidth?.call(context) ??
                           _kBackGestureWidth,
@@ -449,7 +446,7 @@ Cannot read the previousTitle for a route that has not yet been installed''',
             route.alignment,
             animation,
             secondaryAnimation,
-            route.popGesture ?? defaultPopGesture
+            route.popGesture ?? Flu.defaultPopGesture
                 ? CupertinoBackGestureDetector<T>(
                     gestureWidth:
                         route.gestureWidth?.call(context) ?? _kBackGestureWidth,
@@ -461,7 +458,7 @@ Cannot read the previousTitle for a route that has not yet been installed''',
           );
 
         case Transition.noTransition:
-          return route.popGesture ?? defaultPopGesture
+          return route.popGesture ?? Flu.defaultPopGesture
               ? CupertinoBackGestureDetector<T>(
                   gestureWidth:
                       route.gestureWidth?.call(context) ?? _kBackGestureWidth,
@@ -478,7 +475,7 @@ Cannot read the previousTitle for a route that has not yet been installed''',
             route.alignment,
             animation,
             secondaryAnimation,
-            route.popGesture ?? defaultPopGesture
+            route.popGesture ?? Flu.defaultPopGesture
                 ? CupertinoBackGestureDetector<T>(
                     gestureWidth:
                         route.gestureWidth?.call(context) ?? _kBackGestureWidth,
@@ -495,7 +492,7 @@ Cannot read the previousTitle for a route that has not yet been installed''',
             route.alignment,
             animation,
             secondaryAnimation,
-            route.popGesture ?? defaultPopGesture
+            route.popGesture ?? Flu.defaultPopGesture
                 ? CupertinoBackGestureDetector<T>(
                     gestureWidth:
                         route.gestureWidth?.call(context) ?? _kBackGestureWidth,
@@ -512,7 +509,7 @@ Cannot read the previousTitle for a route that has not yet been installed''',
               route.alignment,
               animation,
               secondaryAnimation,
-              route.popGesture ?? defaultPopGesture
+              route.popGesture ?? Flu.defaultPopGesture
                   ? CupertinoBackGestureDetector<T>(
                       gestureWidth: route.gestureWidth?.call(context) ??
                           _kBackGestureWidth,
@@ -528,7 +525,7 @@ Cannot read the previousTitle for a route that has not yet been installed''',
               route.alignment,
               animation,
               secondaryAnimation,
-              route.popGesture ?? defaultPopGesture
+              route.popGesture ?? Flu.defaultPopGesture
                   ? CupertinoBackGestureDetector<T>(
                       gestureWidth: route.gestureWidth?.call(context) ??
                           _kBackGestureWidth,
@@ -544,7 +541,7 @@ Cannot read the previousTitle for a route that has not yet been installed''',
             route.alignment,
             animation,
             secondaryAnimation,
-            route.popGesture ?? defaultPopGesture
+            route.popGesture ?? Flu.defaultPopGesture
                 ? CupertinoBackGestureDetector<T>(
                     gestureWidth:
                         route.gestureWidth?.call(context) ?? _kBackGestureWidth,
@@ -575,7 +572,7 @@ Cannot read the previousTitle for a route that has not yet been installed''',
             route.alignment,
             animation,
             secondaryAnimation,
-            route.popGesture ?? defaultPopGesture
+            route.popGesture ?? Flu.defaultPopGesture
                 ? CupertinoBackGestureDetector<T>(
                     gestureWidth:
                         route.gestureWidth?.call(context) ?? _kBackGestureWidth,
@@ -586,12 +583,12 @@ Cannot read the previousTitle for a route that has not yet been installed''',
           );
 
         case Transition.fade:
-          return FadeUpwardsPageTransitionsBuilder().buildTransitions(
+          return const FadeUpwardsPageTransitionsBuilder().buildTransitions(
             route,
             context,
             animation,
             secondaryAnimation,
-            route.popGesture ?? defaultPopGesture
+            route.popGesture ?? Flu.defaultPopGesture
                 ? CupertinoBackGestureDetector<T>(
                     gestureWidth:
                         route.gestureWidth?.call(context) ?? _kBackGestureWidth,
@@ -602,12 +599,12 @@ Cannot read the previousTitle for a route that has not yet been installed''',
           );
 
         case Transition.topLevel:
-          return ZoomPageTransitionsBuilder().buildTransitions(
+          return const ZoomPageTransitionsBuilder().buildTransitions(
             route,
             context,
             animation,
             secondaryAnimation,
-            route.popGesture ?? defaultPopGesture
+            route.popGesture ?? Flu.defaultPopGesture
                 ? CupertinoBackGestureDetector<T>(
                     gestureWidth:
                         route.gestureWidth?.call(context) ?? _kBackGestureWidth,
@@ -618,12 +615,12 @@ Cannot read the previousTitle for a route that has not yet been installed''',
           );
 
         case Transition.native:
-          return PageTransitionsTheme().buildTransitions(
+          return const PageTransitionsTheme().buildTransitions(
             route,
             context,
             iosAnimation,
             secondaryAnimation,
-            route.popGesture ?? defaultPopGesture
+            route.popGesture ?? Flu.defaultPopGesture
                 ? CupertinoBackGestureDetector<T>(
                     gestureWidth:
                         route.gestureWidth?.call(context) ?? _kBackGestureWidth,
@@ -640,7 +637,7 @@ Cannot read the previousTitle for a route that has not yet been installed''',
             route.alignment,
             animation,
             secondaryAnimation,
-            route.popGesture ?? defaultPopGesture
+            route.popGesture ?? Flu.defaultPopGesture
                 ? CupertinoBackGestureDetector<T>(
                     gestureWidth:
                         route.gestureWidth?.call(context) ?? _kBackGestureWidth,
@@ -656,7 +653,7 @@ Cannot read the previousTitle for a route that has not yet been installed''',
             context,
             iosAnimation,
             secondaryAnimation,
-            route.popGesture ?? defaultPopGesture
+            route.popGesture ?? Flu.defaultPopGesture
                 ? CupertinoBackGestureDetector<T>(
                     gestureWidth:
                         route.gestureWidth?.call(context) ?? _kBackGestureWidth,

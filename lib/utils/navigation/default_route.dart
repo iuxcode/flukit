@@ -31,29 +31,22 @@ class FluPageRoute<T> extends PageRoute<T> with FluPageRouteTransitionMixin<T> {
     bool fullscreenDialog = false,
   }) : super(settings: settings, fullscreenDialog: fullscreenDialog);
 
-  @override
-  final Duration transitionDuration;
+  final Alignment? alignment;
+  final Curve? curve;
   final FluPageBuilder page;
+  final Map<String, String>? parameter;
+  final bool? popGesture;
   final String? routeName;
+  final Transition? transition;
+
   //final String reference;
   final CustomTransition? customTransition;
-  final Map<String, String>? parameter;
-
-  @override
-  final bool showCupertinoParallax;
-
-  @override
-  final bool opaque;
-  final bool? popGesture;
-
-  @override
-  final bool barrierDismissible;
-  final Transition? transition;
-  final Curve? curve;
-  final Alignment? alignment;
 
   @override
   final Color? barrierColor;
+
+  @override
+  final bool barrierDismissible;
 
   @override
   final String? barrierLabel;
@@ -62,16 +55,25 @@ class FluPageRoute<T> extends PageRoute<T> with FluPageRouteTransitionMixin<T> {
   final bool maintainState;
 
   @override
-  Widget buildContent(BuildContext context) {
-    return page();
-  }
+  final bool opaque;
+
+  @override
+  final bool showCupertinoParallax;
 
   @override
   final String? title;
 
   @override
-  String get debugLabel => '${super.debugLabel}(${settings.name})';
+  final Duration transitionDuration;
 
   @override
   final double Function(BuildContext context)? gestureWidth;
+
+  @override
+  Widget buildContent(BuildContext context) {
+    return page();
+  }
+
+  @override
+  String get debugLabel => '${super.debugLabel}(${settings.name})';
 }

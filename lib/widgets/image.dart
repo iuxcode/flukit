@@ -198,7 +198,7 @@ class _FluSvgImage extends FluImage {
           width: width,
           fit: fit,
           // headers: httpHeaders,
-          color: color,
+          // color: color,
         );
       case ImageSources.asset:
       case ImageSources.system:
@@ -208,7 +208,7 @@ class _FluSvgImage extends FluImage {
           width: width,
           fit: fit,
           package: package,
-          color: color,
+          // color: color,
         );
     }
   }

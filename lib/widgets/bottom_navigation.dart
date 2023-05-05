@@ -118,7 +118,7 @@ class _FluBottomNavBarState extends State<FluBottomNavBar> {
     bottomNav = Stack(
       children: [
         bottomNav,
-        _NavIndicator(
+        NavIndicator(
           animationDuration: widget.animationDuration,
           animationCurve: widget.animationCurve,
           size: widget.style.indicatorSize,
@@ -132,7 +132,7 @@ class _FluBottomNavBarState extends State<FluBottomNavBar> {
 
     switch (widget.style.type) {
       case FluBottomNavBarTypes.curved:
-        return _CurvedBottomNav(child: bottomNav);
+        return CurvedBottomNav(child: bottomNav);
       default:
         return bottomNav;
     }
@@ -140,8 +140,8 @@ class _FluBottomNavBarState extends State<FluBottomNavBar> {
 }
 
 /// Create a Bottom navigation bar with a notch
-class _CurvedBottomNav extends StatelessWidget {
-  const _CurvedBottomNav({
+class CurvedBottomNav extends StatelessWidget {
+  const CurvedBottomNav({
     super.key,
     this.notchMargin = 8.0,
     this.gapLocation = GapLocation.center,
@@ -209,8 +209,8 @@ class _NavItem extends StatelessWidget {
 }
 
 /// [FluBottomNavBar] indicator.
-class _NavIndicator extends StatelessWidget {
-  const _NavIndicator({
+class NavIndicator extends StatelessWidget {
+  const NavIndicator({
     super.key,
     required this.size,
     required this.itemWidth,

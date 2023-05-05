@@ -1,6 +1,4 @@
-import 'package:flukit/utils/navigation/route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../flukit.dart';
 
@@ -8,11 +6,12 @@ class FluMaterialApp extends MaterialApp {
   FluMaterialApp({
     required this.pages,
     required String initialRoute,
+    this.unknownRoute,
     super.key,
-    super.navigatorKey,
+    GlobalKey<NavigatorState>? navigatorKey,
     super.scaffoldMessengerKey,
     super.home,
-    super.onGenerateRoute,
+    Route<dynamic>? Function(RouteSettings)? onGenerateRoute,
     super.onGenerateInitialRoutes,
     super.onUnknownRoute,
     super.navigatorObservers,
@@ -44,23 +43,27 @@ class FluMaterialApp extends MaterialApp {
     super.scrollBehavior,
     super.useInheritedMediaQuery = false,
   }) : super(
-          initialRoute: _initialRoute(initialRoute),
-          routes: _buildRoutesFrom(pages),
-        );
+            navigatorKey: navigatorKey ?? Flu.navigatorKey,
+            initialRoute: _initialRoute(initialRoute),
+            routes: _buildRoutesFrom(pages),
+            onGenerateRoute: onGenerateRoute ??
+                (settings) => _onGenerateRoute(settings, unknownRoute));
 
   final List<FluPage> pages;
+  final FluPage<dynamic>? unknownRoute;
 
-  static String _getRoutePath(PathDecoded path) => path.regex.pattern;
-
-  static String _initialRoute(String route) =>
-      _getRoutePath(FluPage.nameToRegex(route));
+  static String _initialRoute(String route) => FluPage.generatePath(route);
 
   static Map<String, Widget Function(BuildContext)> _buildRoutesFrom(
           List<FluPage> pages) =>
       {
-        for (var page in pages)
-          _getRoutePath(page.path): (BuildContext context) => page.page()
+        for (var page in pages) page.path: (BuildContext context) => page.page()
       };
 
-  static Route<dynamic>? _onGenerateRoute(RouteSettings settings) {}
+  static Route<dynamic>? _onGenerateRoute(
+      RouteSettings settings, FluPage<dynamic>? unknownRoute) {
+    final page =
+        PageRedirect(settings: settings, unknownRoute: unknownRoute).page();
+    return page;
+  }
 }

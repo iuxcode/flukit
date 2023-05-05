@@ -2,8 +2,6 @@ import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../flu_utils.dart';
-
 class FluModalBottomSheet extends StatelessWidget {
   const FluModalBottomSheet({
     super.key,

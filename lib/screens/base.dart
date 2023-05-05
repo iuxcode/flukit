@@ -35,24 +35,19 @@ class FluScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
-              statusBarColor: context.colorScheme.background,
-              statusBarIconBrightness: context.colorScheme.brightness,
-              systemNavigationBarColor: context.colorScheme.background,
-              systemNavigationBarIconBrightness: context.colorScheme.brightness)
-          .copyWith(
-              statusBarColor: overlayStyle?.statusBarColor,
-              statusBarIconBrightness: overlayStyle?.statusBarIconBrightness,
-              statusBarBrightness: overlayStyle?.statusBarBrightness,
-              systemNavigationBarColor: overlayStyle?.systemNavigationBarColor,
-              systemNavigationBarDividerColor:
-                  overlayStyle?.systemNavigationBarDividerColor,
-              systemNavigationBarIconBrightness:
-                  overlayStyle?.systemNavigationBarIconBrightness,
-              systemStatusBarContrastEnforced:
-                  overlayStyle?.systemStatusBarContrastEnforced,
-              systemNavigationBarContrastEnforced:
-                  overlayStyle?.systemNavigationBarContrastEnforced),
+      value: context.systemUiOverlayStyle.copyWith(
+          statusBarColor: overlayStyle?.statusBarColor,
+          statusBarIconBrightness: overlayStyle?.statusBarIconBrightness,
+          statusBarBrightness: overlayStyle?.statusBarBrightness,
+          systemNavigationBarColor: overlayStyle?.systemNavigationBarColor,
+          systemNavigationBarDividerColor:
+              overlayStyle?.systemNavigationBarDividerColor,
+          systemNavigationBarIconBrightness:
+              overlayStyle?.systemNavigationBarIconBrightness,
+          systemStatusBarContrastEnforced:
+              overlayStyle?.systemStatusBarContrastEnforced,
+          systemNavigationBarContrastEnforced:
+              overlayStyle?.systemNavigationBarContrastEnforced),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: background ?? context.colorScheme.background,

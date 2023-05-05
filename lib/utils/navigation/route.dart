@@ -1,35 +1,10 @@
+import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'default_route.dart';
-import '../../flu_nav.dart';
 import 'transitions/custom_transition.dart';
 
-const Duration _defaultTransitionDuration = Duration(milliseconds: 300);
-const Curve _defaultTransitionCurve = Curves.easeOutQuad;
-
 class FluPage<T> extends Page<T> {
-  final FluPageBuilder page;
-  final bool? popGesture;
-  final Map<String, String>? parameters;
-  final String? title;
-  final Transition? transition;
-  final Curve curve;
-  final bool? participatesInRootNavigator;
-  final Alignment? alignment;
-  final bool maintainState;
-  final bool opaque;
-  final double Function(BuildContext context)? gestureWidth;
-  final CustomTransition? customTransition;
-  final Duration? transitionDuration;
-  final bool fullscreenDialog;
-  final bool preventDuplicates;
-
-  final List<FluPage> children;
-  final PathDecoded path;
-  final FluPage? unknownRoute;
-  final bool showCupertinoParallax;
-
   FluPage({
     required super.name,
     required this.page,
@@ -52,12 +27,44 @@ class FluPage<T> extends Page<T> {
     super.arguments,
     this.showCupertinoParallax = true,
     this.preventDuplicates = true,
-  })  : path = nameToRegex(name!),
+  })  : path = generatePath(name!),
+        pathDecoded = nameToRegex(name),
         assert(name.startsWith('/'),
             'It is necessary to start route name [$name] with a slash: /$name'),
         super(key: ValueKey(name));
-  // settings = RouteSettings(name: name, arguments: Get.arguments);
 
+  final double Function(BuildContext context)? gestureWidth;
+  final Alignment? alignment;
+  final List<FluPage> children;
+  final Curve curve;
+  final CustomTransition? customTransition;
+  final bool fullscreenDialog;
+  final bool maintainState;
+  final bool opaque;
+  final FluPageBuilder page;
+  final Map<String, String>? parameters;
+  final bool? participatesInRootNavigator;
+  final PathDecoded pathDecoded;
+  final String path;
+  final bool? popGesture;
+  final bool preventDuplicates;
+  final bool showCupertinoParallax;
+  final String? title;
+  final Transition? transition;
+  final Duration? transitionDuration;
+  final FluPage? unknownRoute;
+
+  @override
+  Route<T> createRoute(BuildContext context) {
+    /// return FluPageRoute<T>(settings: this, page: page);
+    return PageRedirect(
+      route: this,
+      settings: this,
+      unknownRoute: unknownRoute,
+    ).fluPageToRoute<T>(this, unknownRoute);
+  }
+
+  /// settings = RouteSettings(name: name, arguments: Get.arguments);
   FluPage<T> copy({
     String? name,
     FluPageBuilder? page,
@@ -107,24 +114,7 @@ class FluPage<T> extends Page<T> {
     );
   }
 
-  @override
-  Route<T> createRoute(BuildContext context) {
-    // return FluPageRoute<T>(settings: this, page: page);
-    return FluPageRoute<T>(
-      page: page,
-      parameter: parameters,
-      settings: this,
-      curve: curve,
-      opaque: opaque,
-      showCupertinoParallax: showCupertinoParallax,
-      gestureWidth: gestureWidth,
-      customTransition: customTransition,
-      transitionDuration: transitionDuration ?? _defaultTransitionDuration,
-      transition: transition,
-      popGesture: popGesture,
-      fullscreenDialog: fullscreenDialog,
-    );
-  }
+  static String generatePath(String path) => nameToRegex(path).regex.pattern;
 
   static PathDecoded nameToRegex(String path) {
     var keys = <String?>[];
@@ -132,6 +122,7 @@ class FluPage<T> extends Page<T> {
     String replace(Match pattern) {
       var buffer = StringBuffer('(?:');
 
+      // ignore: unnecessary_string_escapes
       if (pattern[1] != null) buffer.write('\.');
       buffer.write('([\\w%+-._~!\$&\'()*,;=:@]+))');
       if (pattern[3] != null) buffer.write('?');
@@ -150,12 +141,10 @@ class FluPage<T> extends Page<T> {
 
 @immutable
 class PathDecoded {
-  final RegExp regex;
-  final List<String?> keys;
   const PathDecoded(this.regex, this.keys);
 
-  @override
-  int get hashCode => regex.hashCode;
+  final List<String?> keys;
+  final RegExp regex;
 
   @override
   bool operator ==(Object other) {
@@ -163,5 +152,69 @@ class PathDecoded {
 
     return other is PathDecoded &&
         other.regex == regex; // && listEquals(other.keys, keys);
+  }
+
+  @override
+  int get hashCode => regex.hashCode;
+}
+
+class PageRedirect {
+  FluPage? route;
+  FluPage? unknownRoute;
+  RouteSettings? settings;
+  bool isUnknown;
+
+  PageRedirect({
+    this.route,
+    this.unknownRoute,
+    this.isUnknown = false,
+    this.settings,
+  });
+
+  /// redirect all pages that needs redirecting
+  FluPageRoute<T> page<T>() {
+    final r = (isUnknown ? unknownRoute : route)!;
+    return FluPageRoute<T>(
+      page: r.page,
+      parameter: r.parameters,
+      settings: isUnknown
+          ? RouteSettings(
+              name: r.name,
+              arguments: settings!.arguments,
+            )
+          : settings,
+      curve: r.curve,
+      opaque: r.opaque,
+      showCupertinoParallax: r.showCupertinoParallax,
+      gestureWidth: r.gestureWidth,
+      customTransition: r.customTransition,
+      transitionDuration: r.transitionDuration ?? Flu.defaultTransitionDuration,
+      transition: r.transition,
+      popGesture: r.popGesture,
+      fullscreenDialog: r.fullscreenDialog,
+    );
+  }
+
+  FluPageRoute<T> fluPageToRoute<T>(FluPage rou, FluPage? unk) {
+    final r = (isUnknown ? unk : rou)!;
+
+    return FluPageRoute<T>(
+      page: r.page,
+      parameter: r.parameters,
+      alignment: r.alignment,
+      title: r.title,
+      maintainState: r.maintainState,
+      routeName: r.name,
+      settings: r,
+      curve: r.curve,
+      showCupertinoParallax: r.showCupertinoParallax,
+      gestureWidth: r.gestureWidth,
+      opaque: r.opaque,
+      customTransition: r.customTransition,
+      transitionDuration: r.transitionDuration ?? Flu.defaultTransitionDuration,
+      transition: r.transition,
+      popGesture: r.popGesture,
+      fullscreenDialog: r.fullscreenDialog,
+    );
   }
 }

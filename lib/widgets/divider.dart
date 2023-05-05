@@ -38,7 +38,7 @@ class FluLine extends StatelessWidget {
       );
 }
 
-class _DashedLineVerticalPainter extends CustomPainter {
+/* class _DashedLineVerticalPainter extends CustomPainter {
   _DashedLineVerticalPainter({
     required this.color,
     this.strokeWidth = 1.5,
@@ -70,3 +70,4 @@ class _DashedLineVerticalPainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
+ */

@@ -1,10 +1,36 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phone_number/phone_number.dart';
 
 import '../flu_utils.dart';
 
-extension C on FluInterface {
+extension CoreExt on FluInterface {
+  /// change default config of Flukit
+  void config() {}
+
+  /// As a rule, Flutter knows which widget to update,
+  /// so this command is rarely needed. We can mention situations
+  /// where you use const so that widgets are not updated with setState,
+  /// but you want it to be forcefully updated when an event like
+  /// language change happens. using context to make the widget dirty
+  /// for performRebuild() is a viable solution.
+  /// However, in situations where this is not possible, or at least,
+  /// is not desired by the developer, the only solution for updating
+  /// widgets that Flutter does not want to update is to use reassemble
+  /// to forcibly rebuild all widgets. Attention: calling this function will
+  /// reconstruct the application from the sketch, use this with caution.
+  /// Your entire application will be rebuilt, and touch events will not
+  /// work until the end of rendering.
+  Future<void> forceAppUpdate() async {
+    await engine.performReassemble();
+  }
+
+  ///The current [WidgetsBinding]
+  WidgetsBinding get engine {
+    return WidgetsFlutterBinding.ensureInitialized();
+  }
+
   /// Phone number validator plugin
   PhoneNumberUtil get phoneNumber => PhoneNumberUtil();
 
