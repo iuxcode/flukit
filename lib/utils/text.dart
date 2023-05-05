@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as time;
-import 'flu_utils.dart';
+import '../flu_utils.dart';
 
 extension T on FluInterface {
   /// Generate DateTime from timestamp || must be integer

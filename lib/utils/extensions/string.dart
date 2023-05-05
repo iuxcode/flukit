@@ -1,4 +1,4 @@
-import '../flu_utils.dart';
+import '../../flu_utils.dart';
 
 extension StringUtils on String {
   /// Discover if the String is a valid number

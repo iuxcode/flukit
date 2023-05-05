@@ -1,10 +1,11 @@
-export 'extensions/export.dart';
-export 'ui.dart';
-export 'text.dart';
-export 'connectivity.dart';
-export 'core.dart';
-export 'countries.dart';
-export 'theme.dart';
+export 'utils/extensions/export.dart';
+export 'utils/ui.dart';
+export 'utils/text.dart';
+export 'utils/connectivity.dart';
+export 'utils/core.dart';
+export 'utils/countries.dart';
+export 'utils/theme.dart';
+export 'utils/platform/platform.dart';
 
 // ignore: non_constant_identifier_names
 final FluInterface Flu = _FluImpl();

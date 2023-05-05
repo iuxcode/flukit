@@ -3,7 +3,7 @@ import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/flu_utils.dart';
+import '../flu_utils.dart';
 import 'button.dart';
 
 /// Creates an item that is used with [FluBottomNavBar.items].

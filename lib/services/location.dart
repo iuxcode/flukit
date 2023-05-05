@@ -1,4 +1,4 @@
-import 'package:flukit/utils/flu_utils.dart';
+import 'package:flukit/flu_utils.dart';
 import 'package:geolocator/geolocator.dart';
 
 extension FluLocationUtils on FluInterface {

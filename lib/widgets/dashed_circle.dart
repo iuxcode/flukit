@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
-import '../utils/flu_utils.dart';
+import '../flu_utils.dart';
 
 /// Draw an arc
 class FluArc extends StatelessWidget {

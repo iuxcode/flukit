@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../utils/flu_utils.dart';
+import '../flu_utils.dart';
 import 'avatar.dart';
 
 /// Creates a group of stacked avatar

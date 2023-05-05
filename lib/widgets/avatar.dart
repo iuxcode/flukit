@@ -2,7 +2,7 @@ import 'package:flukit/widgets/outline.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/flu_utils.dart';
+import '../flu_utils.dart';
 import 'image.dart';
 
 class FluAvatar extends StatefulWidget {

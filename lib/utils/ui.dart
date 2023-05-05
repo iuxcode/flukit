@@ -1,5 +1,5 @@
 import 'dart:math' as math;
-import 'package:flukit/utils/flu_utils.dart';
+import 'package:flukit/flu_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../widgets/bottom_sheet.dart';

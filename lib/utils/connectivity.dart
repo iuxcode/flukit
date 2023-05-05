@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flukit/utils/flu_utils.dart';
+import 'package:flukit/flu_utils.dart';
 
 extension CT on FluInterface {
   Future<bool> deviceIsOnline() async {
