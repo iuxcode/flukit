@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../utils.dart';
+import '../../utils.dart';
 
 /// Create a layout with styled system overlay
 class FluScreen extends StatelessWidget {

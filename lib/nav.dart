@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../flukit.dart';
 
-export 'utils/navigation/route.dart';
-export 'utils/navigation/page.dart';
-export 'utils/navigation/transitions.dart';
+export 'src/utils/navigation/route.dart';
+export 'src/utils/navigation/page.dart';
+export 'src/utils/navigation/observers.dart';
+export 'src/utils/navigation/transitions.dart';
 
 extension NavExt on FluInterface {
   String get _unmountedKeyException =>

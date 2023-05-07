@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../utils.dart';
+import '../../utils.dart';
 import 'dashed_circle.dart';
 
 /// Creates a circular progress indicator.

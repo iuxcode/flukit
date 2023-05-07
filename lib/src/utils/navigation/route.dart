@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flukit/src/nav.dart';
+import 'package:flukit/nav.dart';
 
+import '../../screens/not_found.dart';
 import 'transitions_builders/defaults.dart';
 
-const PageTransitions fluDefaultPageTransition = PageTransitions.rightToLeft;
+const PageTransitions fluDefaultPageTransition = PageTransitions.noTransition;
 const Curve fluDefaultTransitionCurve = Curves.easeOutQuad;
 const Duration fluDefaultTransitionDuration = Duration(milliseconds: 300);
 
@@ -233,4 +234,10 @@ class FluPageRoute<T> extends PageRoute<T> {
         );
     }
   }
+}
+
+FluPageRoute buildUnknownRoute(FluPage? route, String? exceptedRouteName) {
+  return route?.toRoute() ??
+      FluPage(name: '/404', page: () => Flu404(exceptedRouteName ?? "Unknown."))
+          .toRoute();
 }

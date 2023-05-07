@@ -4,13 +4,13 @@ import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
 
-export 'src/nav.dart';
+export 'nav.dart';
 export 'package:flukit_icons/flukit_icons.dart';
 export 'package:geolocator/geolocator.dart' show Position, LocationPermission;
-export 'src/screens.dart';
-export 'src/services.dart';
-export 'src/utils.dart';
-export 'src/widgets.dart';
+export 'screens.dart';
+export 'services.dart';
+export 'utils.dart';
+export 'widgets.dart';
 
 typedef LogWriterCallback = void Function(String text, {bool isError});
 

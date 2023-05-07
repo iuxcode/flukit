@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import '../../utils.dart';
+import '../../../utils.dart';
 
 extension NumUtils on num {
   bool isLowerThan(num b) => FluUtils.isLowerThan(this, b);

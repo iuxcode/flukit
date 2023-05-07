@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../flukit.dart';
+import '../utils/navigation/observers.dart';
 
 class FluMaterialApp extends MaterialApp {
   FluMaterialApp({
@@ -15,7 +16,7 @@ class FluMaterialApp extends MaterialApp {
     Route<dynamic>? Function(RouteSettings)? onGenerateRoute,
     List<Route<dynamic>> Function(String)? onGenerateInitialRoutes,
     super.onUnknownRoute,
-    super.navigatorObservers,
+    List<NavigatorObserver> navigatorObservers = const [],
     super.builder,
     super.title = '',
     super.onGenerateTitle,
@@ -44,40 +45,32 @@ class FluMaterialApp extends MaterialApp {
     super.scrollBehavior,
     super.useInheritedMediaQuery = false,
   }) : super(
-          navigatorKey: (() {
+          navigatorKey: () {
             Flu.navigatorKey = navigatorKey ?? GlobalKey<NavigatorState>();
             return Flu.navigatorKey;
-          }).call(),
+          }(),
           onGenerateInitialRoutes: (pages == null || home != null)
               ? onGenerateInitialRoutes
-              : (String route) =>
-                  [_findPageAndReturnRoute(route, pages, unknownRoute)],
+              : (String route) => [
+                    _findPageAndReturnRoute(
+                        RouteSettings(name: route), pages, unknownRoute)
+                  ],
           onGenerateRoute: (pages == null)
               ? onGenerateRoute
-              : (RouteSettings settings) {
-                  Flu.routeArgs = settings.arguments;
-                  return _findPageAndReturnRoute(
-                      settings.name, pages, unknownRoute);
-                },
+              : (RouteSettings settings) =>
+                  _findPageAndReturnRoute(settings, pages, unknownRoute),
+          navigatorObservers: [FluNavObserver(), ...navigatorObservers],
         );
 
   final List<FluPage>? pages;
   final FluPage? unknownRoute;
 
   static FluPageRoute _findPageAndReturnRoute(
-      String? name, List<FluPage> pages, FluPage? unknownRoute) {
-    final index = pages.indexWhere((page) => page.name == name);
+      RouteSettings settings, List<FluPage> pages, FluPage? unknownRoute) {
+    final index = pages.indexWhere((page) => page.name == settings.name);
 
-    return index > 0
-        ? pages[index].toRoute()
-        : _buildUnknownRoute(unknownRoute, name);
-  }
-
-  static FluPageRoute _buildUnknownRoute(
-      FluPage? route, String? exceptedRouteName) {
-    return route?.toRoute() ??
-        FluPage(
-            name: '/404',
-            page: () => Flu404(exceptedRouteName ?? "Unknown.")).toRoute();
+    return index > -1
+        ? pages[index].copyWith(arguments: settings.arguments).toRoute()
+        : buildUnknownRoute(unknownRoute, settings.name);
   }
 }

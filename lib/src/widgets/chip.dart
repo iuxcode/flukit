@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/chip.model.dart';
-import '../utils.dart';
+import '../../utils.dart';
 import 'image.dart';
 
 const double _defaultChipHeight = 62;

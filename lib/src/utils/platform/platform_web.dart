@@ -2,7 +2,7 @@
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
 
-import '../../utils.dart';
+import '../../../utils.dart';
 
 html.Navigator _navigator = html.window.navigator;
 

@@ -46,4 +46,34 @@ class FluPage<T> extends Page<T> {
         transitionCurve: transitionCurve,
         fullscreenDialog: fullscreenDialog,
       );
+
+  FluPage<T> copyWith({
+    String? name,
+    Widget Function()? page,
+    PageTransitions? transition,
+    Curve? transitionCurve,
+    Alignment? alignment,
+    bool? maintainState,
+    bool? opaque,
+    Duration? transitionDuration,
+    bool? fullscreenDialog,
+    RouteSettings? settings,
+    bool? participatesInRootNavigator,
+    Object? arguments,
+  }) {
+    return FluPage(
+      participatesInRootNavigator:
+          participatesInRootNavigator ?? this.participatesInRootNavigator,
+      name: name ?? this.name,
+      page: page ?? this.page,
+      transition: transition ?? this.transition,
+      transitionCurve: transitionCurve ?? this.transitionCurve,
+      alignment: alignment ?? this.alignment,
+      maintainState: maintainState ?? this.maintainState,
+      opaque: opaque ?? this.opaque,
+      transitionDuration: transitionDuration ?? this.transitionDuration,
+      fullscreenDialog: fullscreenDialog ?? this.fullscreenDialog,
+      arguments: arguments ?? this.arguments,
+    );
+  }
 }

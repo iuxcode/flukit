@@ -1,11 +1,11 @@
-export 'utils/connectivity.dart';
-export 'utils/core.dart';
-export 'utils/countries.dart';
-export 'utils/extensions/extensions.dart';
-export 'utils/platform/platform.dart';
-export 'utils/text.dart';
-export 'utils/theme.dart';
-export 'utils/ui.dart';
+export 'src/utils/connectivity.dart';
+export 'src/utils/core.dart';
+export 'src/utils/countries.dart';
+export 'src/utils/extensions/extensions.dart';
+export 'src/utils/platform/platform.dart';
+export 'src/utils/text.dart';
+export 'src/utils/theme.dart';
+export 'src/utils/ui.dart';
 
 /// Returns whether a dynamic value PROBABLY
 /// has the isEmpty getter/method by checking
