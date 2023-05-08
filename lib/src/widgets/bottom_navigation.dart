@@ -49,12 +49,14 @@ class FluBottomNavBar extends StatefulWidget {
     this.style = const FluBottomNavBarStyle(),
     this.animationDuration = const Duration(milliseconds: 400),
     this.animationCurve = Curves.fastOutSlowIn,
+    this.index = 0,
   });
 
   final void Function(int)? onItemTap;
   final Curve animationCurve;
   final Duration animationDuration;
   final List<FluBottomNavBarItem> items;
+  final int index;
   final FluBottomNavBarStyle style;
 
   @override
@@ -64,17 +66,19 @@ class FluBottomNavBar extends StatefulWidget {
 class _FluBottomNavBarState extends State<FluBottomNavBar> {
   final GlobalKey _itemKey = GlobalKey();
 
-  int _currentIndex = 0;
+  late int _currentIndex;
   double _itemWidth = 0.0;
 
   @override
   void didUpdateWidget(covariant FluBottomNavBar oldWidget) {
+    _currentIndex = widget.index;
     getItemWidth();
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   void initState() {
+    _currentIndex = widget.index;
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => getItemWidth());
   }

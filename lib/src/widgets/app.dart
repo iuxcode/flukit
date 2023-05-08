@@ -482,7 +482,8 @@ class _FluMaterialAppState extends State<FluMaterialApp> {
 
   @override
   void initState() {
-    _navigatorKey = widget.navigatorKey ?? GlobalKey<NavigatorState>();
+    _navigatorKey =
+        Flu.navigatorKey = widget.navigatorKey ?? GlobalKey<NavigatorState>();
     super.initState();
   }
 

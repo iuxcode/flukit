@@ -1,40 +1,75 @@
 import 'package:flukit/flukit.dart';
 import 'package:flukit_icons/icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../widgets/bottom_navigation.dart';
 
-class FluNavScreen extends StatelessWidget {
-  FluNavScreen({
+class FluNavScreen extends StatefulWidget {
+  const FluNavScreen({
     super.key,
     required this.pages,
     this.initialPage = 0,
-    GlobalKey<NavigatorState>? navigatorKey,
+    this.navigatorKey,
     this.onNav,
-  }) : navigatorKey = navigatorKey ?? GlobalKey<NavigatorState>();
+    this.canPop = false,
+    this.bottomNavBarStyle = const FluBottomNavBarStyle(),
+    this.appBar,
+    this.overlayStyle,
+    this.floatingActionButton,
+    this.extendBody = false,
+    this.background,
+    this.floatingActionButtonLocation =
+        FloatingActionButtonLocation.centerDocked,
+    this.drawer,
+    this.endDrawer,
+    this.scaffoldKey,
+    this.drawerScrimColor,
+  });
 
   final void Function(int)? onNav;
   final List<FluNavPage> pages;
   final int initialPage;
-  GlobalKey<NavigatorState> navigatorKey;
+  final GlobalKey<NavigatorState>? navigatorKey;
+  final bool canPop;
+  final FluBottomNavBarStyle bottomNavBarStyle;
+  final PreferredSizeWidget? appBar;
+  final Widget? floatingActionButton;
+  final Color? background, drawerScrimColor;
+  final Widget? drawer, endDrawer;
+  final bool extendBody;
+  final FloatingActionButtonLocation floatingActionButtonLocation;
+  final SystemUiOverlayStyle? overlayStyle;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
 
-  List<FluNavPage> get validPages =>
-      pages..removeWhere((p) => p.content == null);
+  @override
+  State<FluNavScreen> createState() => _FluNavScreenState();
+}
 
-  Map<String, Widget Function(BuildContext)> get _routes => {
-        for (var page in validPages)
-          page.path: (BuildContext context) => page.content!
-      };
+class _FluNavScreenState extends State<FluNavScreen> {
+  late final GlobalKey<NavigatorState> _navigatorKey;
+  late int _currentPage;
+
+  @override
+  void initState() {
+    _navigatorKey = widget.navigatorKey ?? GlobalKey<NavigatorState>();
+    _currentPage = widget.initialPage;
+    super.initState();
+  }
 
   Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
     final String? name = settings.name;
-    final index = validPages.indexWhere((page) => page.path == name);
+    final index = widget.pages
+        .indexWhere((page) => page.path == name && page.content != null);
 
     if (index > -1) {
       return FluPage(
         name: name,
         arguments: settings.arguments,
-        page: () => validPages[index].content!,
+        page: () => widget.pages[index].content!,
+        transition: index > _currentPage
+            ? PageTransitions.rightToLeft
+            : PageTransitions.leftToRight,
       ).toRoute();
     }
 
@@ -42,34 +77,60 @@ class FluNavScreen extends StatelessWidget {
   }
 
   void _navigateTo(BuildContext context, int index) {
-    FluNavPage page = pages[index];
+    FluNavPage page = widget.pages[index];
 
-    if (page.content != null && navigatorKey.currentState != null) {
-      navigatorKey.currentState!.pushReplacementNamed(page.path);
-      onNav?.call(index);
+    if (index != _currentPage && page.content != null) {
+      _navigatorKey.currentState?.pushNamed(page.path);
     }
+    setState(() => _currentPage = index);
+    widget.onNav?.call(index);
+  }
+
+  Future<bool> _onWillPop(BuildContext context) {
+    if (!widget.canPop && _currentPage != 0) {
+      for (var i = (_currentPage - 1); i >= 0; i--) {
+        if (widget.pages[i].content != null) {
+          _navigateTo(context, i);
+          break;
+        }
+      }
+      return Future.value(false);
+    }
+
+    return Future.value(true);
   }
 
   @override
   Widget build(BuildContext context) {
-    return FluScreen(
-      overlayStyle: context.systemUiOverlayStyle
-          .copyWith(statusBarColor: Colors.transparent),
-      body: SafeArea(
-        child: Navigator(
-          key: navigatorKey,
+    return WillPopScope(
+      onWillPop: () => _onWillPop(context),
+      child: FluScreen(
+        overlayStyle: context.systemUiOverlayStyle
+            .copyWith(statusBarColor: Colors.transparent),
+        key: widget.scaffoldKey,
+        background: widget.background,
+        extendBody: widget.extendBody,
+        appBar: widget.appBar,
+        floatingActionButtonLocation: widget.floatingActionButtonLocation,
+        floatingActionButton: widget.floatingActionButton,
+        drawer: widget.drawer,
+        endDrawer: widget.endDrawer,
+        drawerScrimColor: widget.drawerScrimColor,
+        body: Navigator(
+          key: _navigatorKey,
           restorationScopeId: 'MainScreenNav',
-          initialRoute: pages[0].path,
+          initialRoute: widget.pages[0].path,
           onGenerateRoute: _onGenerateRoute,
           onUnknownRoute: (settings) => buildUnknownRoute(null, settings.name),
         ),
-      ),
-      bottomNavigationBar: FluBottomNavBar(
-        onItemTap: (index) => _navigateTo(context, index),
-        items: pages
-            .map((page) => FluBottomNavBarItem(page.icon, page.name))
-            .toList(),
-        style: const FluBottomNavBarStyle(),
+        bottomNavigationBar: FluBottomNavBar(
+          index: _currentPage,
+          onItemTap: (index) => _navigateTo(context, index),
+          items: widget.pages
+              .map((page) => FluBottomNavBarItem(page.icon, page.name))
+              .toList(),
+          style: widget.bottomNavBarStyle,
+        ),
       ),
     );
   }
