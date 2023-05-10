@@ -185,7 +185,7 @@ class RectangularIndicatorPainter extends BoxPainter {
     final Paint paint = Paint();
     paint.color = color;
     paint.style = paintingStyle;
-    paint.strokeWidth = 3;
+    paint.strokeWidth = strokeWidth;
     canvas.drawRRect(
         RRect.fromRectAndCorners(
           rect,

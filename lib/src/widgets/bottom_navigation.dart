@@ -71,8 +71,8 @@ class _FluBottomNavBarState extends State<FluBottomNavBar> {
 
   @override
   void didUpdateWidget(covariant FluBottomNavBar oldWidget) {
-    _currentIndex = widget.index;
     getItemWidth();
+    _currentIndex = widget.index;
     super.didUpdateWidget(oldWidget);
   }
 
