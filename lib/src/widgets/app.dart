@@ -15,8 +15,7 @@ class FluMaterialApp extends StatefulWidget {
     this.onGenerateRoute,
     this.onGenerateInitialRoutes,
     this.onUnknownRoute,
-    List<NavigatorObserver> this.navigatorObservers =
-        const <NavigatorObserver>[],
+    this.navigatorObservers = const <NavigatorObserver>[],
     this.builder,
     this.title = '',
     this.onGenerateTitle,
@@ -537,7 +536,6 @@ class _FluMaterialAppState extends State<FluMaterialApp> {
       debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
       shortcuts: widget.shortcuts,
       scrollBehavior: widget.scrollBehavior,
-      useInheritedMediaQuery: widget.useInheritedMediaQuery,
     );
   }
 }

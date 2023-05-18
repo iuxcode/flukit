@@ -1,9 +1,6 @@
 import 'package:flukit/flukit.dart';
-import 'package:flukit_icons/icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import '../widgets/bottom_navigation.dart';
 
 class FluNavScreen extends StatefulWidget {
   const FluNavScreen({
