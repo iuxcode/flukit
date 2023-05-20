@@ -9,6 +9,14 @@ extension NumUtils on num {
 
   bool isEqual(num b) => FluUtils.isEqual(this, b);
 
+  num toPositive() {
+    if (isNegative) {
+      return -this;
+    }
+
+    return this;
+  }
+
   /// Utility to delay some callback (or code execution).
   /// TODO: Add a separated implementation of delay() with the ability
   /// to stop it.
