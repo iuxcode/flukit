@@ -6,13 +6,13 @@ class PageViewNotifier extends StatefulWidget {
   const PageViewNotifier({
     super.key,
     required this.notifier,
-    required this.builder,
-    this.controller,
+    required this.child,
+    required this.controller,
   });
 
   final ValueNotifier<double> notifier;
   final PageController? controller;
-  final PageView Function(BuildContext, PageController) builder;
+  final Widget child;
 
   @override
   State<PageViewNotifier> createState() => _PageViewNotifierState();
@@ -40,5 +40,11 @@ class _PageViewNotifierState extends State<PageViewNotifier> {
   }
 
   @override
-  Widget build(BuildContext context) => widget.builder(context, controller);
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
 }

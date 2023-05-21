@@ -196,6 +196,7 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
         onTap: widget.onTap,
         onFieldSubmitted: widget.onFieldSubmitted,
         obscureText: widget.obscureText,
+        onTapOutside: (_) => _focusNode.unfocus(),
       ),
     );
 
