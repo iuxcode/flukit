@@ -8,15 +8,15 @@ class FluCollapsible extends StatefulWidget {
   final Curve curve;
   final Widget child;
 
-  const FluCollapsible(
-      {Key? key,
-      required this.collapse,
-      required this.axis,
-      required this.child,
-      this.alignment = Alignment.center,
-      this.duration = const Duration(milliseconds: 300),
-      this.curve = Curves.linear})
-      : super(key: key);
+  const FluCollapsible({
+    Key? key,
+    required this.collapse,
+    required this.axis,
+    required this.child,
+    this.alignment = Alignment.center,
+    this.duration = const Duration(milliseconds: 300),
+    this.curve = Curves.linear,
+  }) : super(key: key);
 
   @override
   FluCollapsibleState createState() => FluCollapsibleState();

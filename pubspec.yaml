@@ -10,7 +10,6 @@ environment:
 
 dependencies:
   cached_network_image: ^3.2.3
-  connectivity_plus: ^4.0.0
   flukit_icons:
     git:
       url: https://github.com/charles9904/flukit_icons.git
@@ -22,7 +21,7 @@ dependencies:
   geolocator: ^9.0.2
   gradient_borders: ^1.0.0
   intl: ^0.18.1
-  phone_number: ^1.0.0
+  phone_number: ^2.0.0
   riverpod: ^2.3.2
   timeago: ^3.3.0
 

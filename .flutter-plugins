@@ -1,5 +1,4 @@
 # This is a generated file; do not edit or check into version control.
-connectivity_plus=C:\\Users\\Charlot\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\connectivity_plus-4.0.1\\
 geolocator=C:\\Users\\Charlot\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\geolocator-9.0.2\\
 geolocator_android=C:\\Users\\Charlot\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\geolocator_android-4.1.8\\
 geolocator_apple=C:\\Users\\Charlot\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\geolocator_apple-2.2.5\\
@@ -8,7 +7,7 @@ geolocator_windows=C:\\Users\\Charlot\\AppData\\Local\\Pub\\Cache\\hosted\\pub.d
 path_provider=C:\\Users\\Charlot\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider-2.0.15\\
 path_provider_android=C:\\Users\\Charlot\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider_android-2.0.27\\
 path_provider_foundation=C:\\Users\\Charlot\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider_foundation-2.2.3\\
-path_provider_linux=C:\\Users\\Charlot\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider_linux-2.1.10\\
+path_provider_linux=C:\\Users\\Charlot\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider_linux-2.1.11\\
 path_provider_windows=C:\\Users\\Charlot\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider_windows-2.1.6\\
-phone_number=C:\\Users\\Charlot\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\phone_number-1.0.0\\
+phone_number=C:\\Users\\Charlot\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\phone_number-2.0.0\\
 sqflite=C:\\Users\\Charlot\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\sqflite-2.2.8+4\\

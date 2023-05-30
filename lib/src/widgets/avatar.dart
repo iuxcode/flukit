@@ -6,6 +6,7 @@ class FluAvatar extends StatefulWidget {
     super.key,
     this.image,
     this.label,
+    this.labelStyle,
     this.icon,
     this.imageSource = ImageSources.network,
     this.defaultAvatarType = FluAvatarTypes.material3D,
@@ -79,6 +80,8 @@ class FluAvatar extends StatefulWidget {
 
   final double overlayOpacity;
 
+  final TextStyle? labelStyle;
+
   @override
   State<FluAvatar> createState() => _FluAvatarState();
 }
@@ -119,7 +122,7 @@ class _FluAvatarState extends State<FluAvatar> {
         clipBehavior: Clip.hardEdge,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: widget.fillColor ?? context.colorScheme.primary,
+          color: widget.fillColor ?? context.colorScheme.primaryContainer,
           shape: _shape,
           borderRadius: _borderRadius,
         ),
@@ -127,8 +130,9 @@ class _FluAvatarState extends State<FluAvatar> {
             ? Text(
                 Flu.textToAvatarFormat(widget.label ?? 'Flukit').toUpperCase(),
                 style: TextStyle(
-                    color: context.colorScheme.onPrimaryContainer,
-                    fontWeight: FontWeight.bold),
+                        color: context.colorScheme.onPrimaryContainer,
+                        fontWeight: FontWeight.bold)
+                    .merge(widget.labelStyle),
               )
             : FluIcon(
                 widget.icon!,

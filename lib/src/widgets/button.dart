@@ -167,7 +167,7 @@ class FluButton extends StatelessWidget {
             )
           : null,
       alignment: alignment,
-      splashFactory: splashFactory,
+      splashFactory: splashFactory ?? InkRipple.splashFactory,
     );
     final Color defaultForegroundColor = _getButtonForegroundColor(
         context.colorScheme,
