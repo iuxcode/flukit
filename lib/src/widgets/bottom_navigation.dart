@@ -26,6 +26,7 @@ class FluBottomNavBarStyle {
     this.padding,
     this.type = FluBottomNavBarTypes.flat,
     this.unSelectedForegroundColor,
+    this.border,
   });
 
   final Color? backgroundColor;
@@ -37,6 +38,7 @@ class FluBottomNavBarStyle {
   final EdgeInsets? padding;
   final FluBottomNavBarTypes type;
   final Color? unSelectedForegroundColor;
+  final BoxBorder? border;
 }
 
 /// Creates a bottom navigation bar which is typically used as a [Scaffold]'s [Scaffold.bottomNavigationBar] argument.
@@ -98,7 +100,10 @@ class _FluBottomNavBarState extends State<FluBottomNavBar> {
       height: height,
       width: double.infinity,
       padding: widget.style.padding,
-      decoration: BoxDecoration(color: widget.style.backgroundColor),
+      decoration: BoxDecoration(
+        color: widget.style.backgroundColor,
+        border: widget.style.border,
+      ),
       child: Row(
         children: widget.items.map((item) {
           final index = widget.items.indexOf(item);

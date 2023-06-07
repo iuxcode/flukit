@@ -101,7 +101,9 @@ class _FluAvatarState extends State<FluAvatar> {
 
   /// Define if the [FluAvatar] shape must be a circle.
   bool get _isCircle =>
-      widget.circle || widget.defaultAvatarType == FluAvatarTypes.material3D;
+      widget.circle ||
+      widget.defaultAvatarType == FluAvatarTypes.material3D &&
+          widget.image == null;
 
   /// For [FluAvatarTypes.material3D] for example, the avatar need to be a circle.
   BoxShape get _shape => _isCircle ? BoxShape.circle : BoxShape.rectangle;

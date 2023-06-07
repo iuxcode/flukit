@@ -10,11 +10,11 @@ class FluNavScreen extends StatefulWidget {
     this.navigatorKey,
     this.onNav,
     this.canPop = false,
-    this.bottomNavBarStyle = const FluBottomNavBarStyle(),
+    this.bottomNavBarStyle,
     this.appBar,
     this.overlayStyle,
     this.floatingActionButton,
-    this.extendBody = false,
+    this.extendBody,
     this.background,
     this.floatingActionButtonLocation =
         FloatingActionButtonLocation.centerDocked,
@@ -29,12 +29,12 @@ class FluNavScreen extends StatefulWidget {
   final int initialPage;
   final GlobalKey<NavigatorState>? navigatorKey;
   final bool canPop;
-  final FluBottomNavBarStyle bottomNavBarStyle;
+  final FluBottomNavBarStyle Function(int currentPage)? bottomNavBarStyle;
   final PreferredSizeWidget? appBar;
   final Widget? floatingActionButton;
   final Color? background, drawerScrimColor;
   final Widget? drawer, endDrawer;
-  final bool extendBody;
+  final bool? extendBody;
   final FloatingActionButtonLocation floatingActionButtonLocation;
   final SystemUiOverlayStyle? overlayStyle;
   final GlobalKey<ScaffoldState>? scaffoldKey;
@@ -46,11 +46,13 @@ class FluNavScreen extends StatefulWidget {
 class _FluNavScreenState extends State<FluNavScreen> {
   late final GlobalKey<NavigatorState> _navigatorKey;
   late int _currentPage;
+  late bool _mustExtendBody;
 
   @override
   void initState() {
     _navigatorKey = widget.navigatorKey ?? GlobalKey<NavigatorState>();
     _currentPage = widget.initialPage;
+    _mustExtendBody = widget.pages[_currentPage].extendBody;
     super.initState();
   }
 
@@ -79,7 +81,10 @@ class _FluNavScreenState extends State<FluNavScreen> {
     if (index != _currentPage && page.content != null) {
       _navigatorKey.currentState?.pushNamed(page.path);
     }
-    setState(() => _currentPage = index);
+    setState(() {
+      _currentPage = index;
+      _mustExtendBody = widget.pages[index].extendBody;
+    });
     widget.onNav?.call(index);
   }
 
@@ -106,7 +111,7 @@ class _FluNavScreenState extends State<FluNavScreen> {
             .copyWith(statusBarColor: Colors.transparent),
         key: widget.scaffoldKey,
         background: widget.background,
-        extendBody: widget.extendBody,
+        extendBody: widget.extendBody ?? _mustExtendBody,
         appBar: widget.appBar,
         floatingActionButtonLocation: widget.floatingActionButtonLocation,
         floatingActionButton: widget.floatingActionButton,
@@ -126,7 +131,8 @@ class _FluNavScreenState extends State<FluNavScreen> {
           items: widget.pages
               .map((page) => FluBottomNavBarItem(page.icon, page.name))
               .toList(),
-          style: widget.bottomNavBarStyle,
+          style: widget.bottomNavBarStyle?.call(_currentPage) ??
+              const FluBottomNavBarStyle(),
         ),
       ),
     );
@@ -134,11 +140,12 @@ class _FluNavScreenState extends State<FluNavScreen> {
 }
 
 class FluNavPage {
-  FluNavPage(this.name, this.icon, this.content);
+  FluNavPage(this.name, this.icon, this.content, {this.extendBody = false});
 
   final Widget? content;
   final FluIcons icon;
   final String name;
+  final bool extendBody;
 
   String get path => '/$name';
 }
