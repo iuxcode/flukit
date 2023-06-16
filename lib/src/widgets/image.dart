@@ -28,12 +28,14 @@ class FluImage extends StatelessWidget {
     super.key,
   });
 
-  const factory FluImage.svg(String svg,
-      {Color? color,
-      ImageSources source,
-      BoxFit fit,
-      double? height,
-      double? width}) = _FluSvgImage;
+  const factory FluImage.svg(
+    String svg, {
+    Color? color,
+    ImageSources source,
+    BoxFit fit,
+    double? height,
+    double? width,
+  }) = _FluSvgImage;
 
   /// If non-null, the corners of this box are rounded by this [BorderRadius].
   final BorderRadius? borderRadius;
@@ -158,7 +160,10 @@ class FluImage extends StatelessWidget {
     }
 
     /// Add cornerRadius or borderRadius
-    if (cornerRadius > 0 || borderRadius != null || margin != EdgeInsets.zero) {
+    if (circle ||
+        cornerRadius > 0 ||
+        borderRadius != null ||
+        margin != EdgeInsets.zero) {
       child = Container(
         margin: margin,
         decoration: BoxDecoration(
@@ -198,7 +203,7 @@ class _FluSvgImage extends FluImage {
           width: width,
           fit: fit,
           // headers: httpHeaders,
-          // color: color,
+          color: color,
         );
       case ImageSources.asset:
       case ImageSources.system:
@@ -208,7 +213,7 @@ class _FluSvgImage extends FluImage {
           width: width,
           fit: fit,
           package: package,
-          // color: color,
+          color: color,
         );
     }
   }

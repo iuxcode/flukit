@@ -122,7 +122,7 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
                   : EdgeInsets.zero)
               .copyWith(left: 15, right: 15));
 
-  TextStyle get _defaultTextStyle => context.textTheme.bodySmall!
+  TextStyle get _defaultTextStyle => context.textTheme.bodyMedium!
       .copyWith(color: widget.color ?? context.colorScheme.onSurfaceVariant)
       .merge(widget.textStyle);
 
