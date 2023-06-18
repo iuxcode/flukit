@@ -11,6 +11,7 @@ export 'screens.dart';
 export 'services.dart';
 export 'utils.dart';
 export 'widgets.dart';
+export 'src/models/chip.model.dart';
 
 typedef LogWriterCallback = void Function(String text, {bool isError});
 
