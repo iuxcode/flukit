@@ -10,12 +10,11 @@ extension T on FluInterface {
   /// Get only the time from a datetime.
   String timeFromDateTime(DateTime date,
           {bool withSeconds = false, String? locale}) =>
-      formatDate(date,
-          pattern: 'HH:mm${withSeconds ? ':ss' : ''}', locale: locale);
+      formatDate(date, 'HH:mm${withSeconds ? ':ss' : ''}', locale);
 
   /// Creates a new DateFormat, using the format specified by [pattern].
   String formatDate(DateTime date,
-          {String pattern = 'EEEE, MMM dd', String? locale}) =>
+          [String pattern = 'EEEE, MMM dd', String? locale]) =>
       DateFormat(pattern, locale).format(date);
 
   /// Formats provided [date] to a fuzzy time like 'a moment ago'

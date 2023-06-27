@@ -31,6 +31,7 @@ class FluButton extends StatelessWidget {
     this.splashColor,
     this.border,
     this.splashFactory,
+    this.clipBehavior = Clip.none,
     super.key,
   });
 
@@ -133,6 +134,7 @@ class FluButton extends StatelessWidget {
   final Color? splashColor;
   final BorderSide? border;
   final InteractiveInkFeatureFactory? splashFactory;
+  final Clip clipBehavior;
 
   Widget _getChild(BuildContext context) {
     return child;
@@ -203,19 +205,25 @@ class FluButton extends StatelessWidget {
 
     if (elevation > 0 && !flat && !filled) {
       button = ElevatedButton(
-          onPressed: onPressed, style: buttonStyle, child: child);
+        onPressed: onPressed,
+        clipBehavior: clipBehavior,
+        style: buttonStyle,
+        child: child,
+      );
     } else if (flat) {
       button =
           TextButton(onPressed: onPressed, style: buttonStyle, child: child);
     } else if (filled) {
       button = FilledButton(
         onPressed: onPressed,
+        clipBehavior: clipBehavior,
         style: buttonStyle,
         child: child,
       );
     } else {
       button = FilledButton.tonal(
         onPressed: onPressed,
+        clipBehavior: clipBehavior,
         style: buttonStyle,
         child: child,
       );
