@@ -3,6 +3,8 @@ import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../widgets/country_selector.dart';
+
 extension U on FluInterface {
   /// Hide the keyboard
   void hideKeyboard() {
@@ -53,6 +55,35 @@ extension U on FluInterface {
           cornerRadius: cornerRadius,
           padding: padding,
           child: child,
+        ),
+      );
+
+  /// Show a [FluCountrySelector]
+  void showCountrySelector(
+    BuildContext context, {
+    List<Country>? countries,
+    List<Country> exclude = const [],
+    String? title,
+    String? description,
+    TextStyle? titleStyle,
+    TextStyle? descriptionStyle,
+    EdgeInsets padding =
+        const EdgeInsets.symmetric(horizontal: 25, vertical: 30),
+    void Function(Country)? onCountrySelected,
+    double? maxHeight,
+  }) =>
+      showFluModalBottomSheet(
+        context,
+        maxHeight: maxHeight,
+        child: FluCountrySelector(
+          title: title,
+          description: description,
+          titleStyle: titleStyle,
+          descriptionStyle: descriptionStyle,
+          padding: padding,
+          countries: countries ?? Countries,
+          exclude: exclude,
+          onCountrySelected: onCountrySelected,
         ),
       );
 }

@@ -45,8 +45,8 @@ class FluModalBottomSheet extends StatelessWidget {
             ),
             Flexible(
               child: Container(
-                constraints:
-                    BoxConstraints(maxHeight: maxHeight ?? double.infinity),
+                constraints: BoxConstraints(
+                    maxHeight: maxHeight ?? context.height * .85),
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(

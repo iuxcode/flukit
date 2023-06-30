@@ -17,3 +17,4 @@ export 'src/widgets/loader.dart';
 export 'src/widgets/outline.dart';
 export 'src/widgets/page_view.dart';
 export 'src/widgets/tabs.dart';
+export 'src/widgets/country_selector.dart';
