@@ -3,8 +3,6 @@ import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../widgets/country_selector.dart';
-
 extension U on FluInterface {
   /// Hide the keyboard
   void hideKeyboard() {

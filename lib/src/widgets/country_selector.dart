@@ -77,7 +77,7 @@ class FluCountrySelector extends StatelessWidget {
                     Expanded(
                       child: Text(
                         country.name,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: M3FontSizes.bodyLarge,
                           fontWeight: FontWeight.w600,
                         ),
