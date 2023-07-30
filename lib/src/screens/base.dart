@@ -20,6 +20,7 @@ class FluScreen extends StatelessWidget {
     this.endDrawer,
     this.scaffoldKey,
     this.drawerScrimColor,
+    this.resizeToAvoidBottomInset,
   }) : super(key: key);
 
   final PreferredSizeWidget? appBar;
@@ -31,6 +32,7 @@ class FluScreen extends StatelessWidget {
   final FloatingActionButtonLocation floatingActionButtonLocation;
   final SystemUiOverlayStyle? overlayStyle;
   final GlobalKey<ScaffoldState>? scaffoldKey;
+  final bool? resizeToAvoidBottomInset;
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +62,7 @@ class FluScreen extends StatelessWidget {
         drawer: drawer,
         endDrawer: endDrawer,
         drawerScrimColor: drawerScrimColor,
+        resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       ),
     );
   }
