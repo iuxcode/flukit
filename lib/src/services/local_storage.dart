@@ -19,4 +19,8 @@ class LocalStorageService {
   /// Saves a string [value] to persistent storage in the background.
   static void setString(String key, String value) async =>
       await prefs.setString(key, value);
+
+  /// Saves a integer [value] to persistent storage in the background.
+  static void setInt(String key, int value) async =>
+      await prefs.setInt(key, value);
 }
