@@ -11,6 +11,7 @@ class FluModalBottomSheet extends StatelessWidget {
     this.maxHeight,
     this.animationDuration = const Duration(milliseconds: 300),
     this.animationCurve = Curves.easeInOut,
+    this.scrollable = true,
   });
 
   final Curve animationCurve;
@@ -19,6 +20,7 @@ class FluModalBottomSheet extends StatelessWidget {
   final double? cornerRadius;
   final double? maxHeight;
   final EdgeInsets padding;
+  final bool scrollable;
 
   @override
   Widget build(BuildContext context) {
@@ -55,11 +57,13 @@ class FluModalBottomSheet extends StatelessWidget {
                   ),
                   color: context.colorScheme.background,
                 ),
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  padding: padding,
-                  child: child,
-                ),
+                child: scrollable
+                    ? SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        padding: padding,
+                        child: child,
+                      )
+                    : child,
               ),
             ),
           ],

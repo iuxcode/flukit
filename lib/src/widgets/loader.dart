@@ -80,7 +80,7 @@ class _FluLoaderState extends State<FluLoader>
   @override
   Widget build(BuildContext context) {
     final color = widget.color ?? context.colorScheme.primary;
-    const layerAngle = 80;
+    const layerAngle = 100;
     final layers = [
       FluArc(
         numberOfDashes: 4,

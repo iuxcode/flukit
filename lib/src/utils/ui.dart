@@ -34,12 +34,15 @@ extension U on FluInterface {
   }
 
   /// Show a [FluModalBottomSheet]
-  void showFluModalBottomSheet(BuildContext context,
-          {required Widget child,
-          EdgeInsets padding = EdgeInsets.zero,
-          double? cornerRadius,
-          double? maxHeight,
-          Color? barrierColor}) =>
+  void showFluModalBottomSheet(
+    BuildContext context, {
+    required Widget child,
+    EdgeInsets padding = EdgeInsets.zero,
+    double? cornerRadius,
+    double? maxHeight,
+    Color? barrierColor,
+    bool scrollable = true,
+  }) =>
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -49,6 +52,7 @@ extension U on FluInterface {
         barrierColor: barrierColor,
         backgroundColor: Colors.transparent,
         builder: (context) => FluModalBottomSheet(
+          scrollable: scrollable,
           maxHeight: maxHeight,
           cornerRadius: cornerRadius,
           padding: padding,

@@ -70,7 +70,7 @@ extension ContextExt on BuildContext {
 
   /// SystemUIOverlayStyle
   SystemUiOverlayStyle get systemUiOverlayStyle => SystemUiOverlayStyle(
-      statusBarColor: colorScheme.background,
+      statusBarColor: Colors.transparent,
       statusBarIconBrightness: colorScheme.brightness == Brightness.light
           ? Brightness.dark
           : Brightness.light,
