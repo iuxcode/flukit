@@ -1,10 +1,10 @@
 import 'package:flukit/src/utils/extensions/context.dart';
-import 'package:flukit/src/widgets/image.dart';
-import 'package:flukit/src/widgets/inputs.dart';
+import 'package:flukit/src/ui/widgets/image.dart';
+import 'package:flukit/src/ui/widgets/inputs.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/countries.dart';
-import '../utils/theme.dart';
+import '../../utils/countries.dart';
+import '../../utils/theme.dart';
 
 class FluCountrySelector extends StatelessWidget {
   const FluCountrySelector({

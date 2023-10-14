@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../flukit.dart';
+import '../../../flukit.dart';
 
 /// Create a button
 class FluButton extends StatelessWidget {

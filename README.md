@@ -1,22 +1,26 @@
 # Flukit
 
-Welcome to Flukit, a collection of beautiful and customizable UI widgets and helping tools for Flutter. Flukit is designed to make it easy for developers to create stunning user interfaces with minimal effort.
+A versatile and easy-to-use Flutter mini framework that simplifies app development.Offer widgets and Manage routing, theming, provide utilities, and offer shortcuts to streamline your Flutter projects.
 
-Whether you're building a simple app or a complex enterprise application, Flukit has a variety of widgets to help you create a polished and professional user interface. Our widgets are highly customizable, allowing you to easily tailor them to match your app's unique branding and style.
+## Introduction
 
-We understand that building great user interfaces can be a time-consuming and challenging task, which is why we created Flukit. Our goal is to help developers of all skill levels create beautiful apps that their users will love.
+Welcome to `Flukit`, a powerful toolkit designed to simplify the app development process for Flutter developers. Our goal is to provide an efficient and streamlined solution for common app development tasks, including routing, theming, utilities, and widgets.
 
-In the following sections, we'll guide you through the installation and usage of our library, as well as provide detailed documentation of all the widgets and features we offer. Let's get started!
+Developing apps can be complex and time-consuming, and our framework is here to make your life easier. This mini framework aim to empower developers by offering a set of tools that enhance productivity and provide a better development experience.
+
+Whether you're building a small project or a complex application, this Flutter Mini Framework is here to help you achieve your goals faster and with less effort.
 
 ## Features
 
-* Predesigned widgets, like buttons, images, etc.
-* Quick utilities like theme change, language management, etc.
-* Theme manager to easily switch between user-provided themes and auto-generate a dark theme.
+- **Pre-designed widgets** like buttons, avatars, screens, images, etc.
+- **Routing**: Just define a bunch of pages and you're good to go.
+- **Theming**: Customize your app's appearance effortlessly with a flexible theming system that allows you to create unique designs.
+- **Utilities**: Access a set of handy utility functions that streamline common development tasks.
+- **Shortcuts**: Save time and reduce boilerplate code with prebuilt shortcuts and code snippets for common tasks.
 
 ## Getting started
 
-To use Flukit in your Flutter project, add the following dependency to your pubspec.yaml:
+To use `flukit` in your Flutter project, add the following dependency to your pubspec.yaml:
 
 ```yaml
 dependencies:
@@ -25,11 +29,11 @@ dependencies:
       url: https://github.com/charles9904/flukit
 ```
 
-Then run flutter packages get in your terminal to install the package.
+Then run ```bash flutter packages get``` in your terminal to install the package.
 
 ## Usage
 
-To use Flukit in your project, import the package and use any of the provided widgets or utilities. For example, to use the FlukitButton widget:
+To use Flukit in your project, import the package and use any of the provided widgets or utilities. For example, to use the flukit Button widget:
 
 ```dart
 FluButton(
@@ -40,11 +44,18 @@ FluButton(
 ),
 ```
 
-For more information and examples, please see the documentation.
+For more information and examples, please see the documentation (Coming Soon).
 
 ## Contributing
 
-Contributions to Flukit are welcome and encouraged! To contribute, please fork the repository and submit a pull request.
+Contributions to Flukit are welcome and encouraged! To contribute, please fork the repository and submit a pull request. Please make sure to read the [Contributing Guide](https://github.com/charles9904/flukit/blob/main/CONTRIBUTING.md) before making a pull request.
+
+- What needs to be done:
+
+  - Write a documentation
+  - Write & setup tests
+  - Optimize the code
+  - Add more widget & utilities
 
 ## License
 

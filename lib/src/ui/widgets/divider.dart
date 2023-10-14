@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../utils.dart';
+import '../../../utils.dart';
 
 /// Todo add dashes and dots
 class FluLine extends StatelessWidget {

@@ -1,8 +1,33 @@
+import 'package:flukit/flukit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Manage local storage actions and provide a persistent store for simple data.
-/// Remember to call [initPrefs] in order to initialize [prefs].
-class LocalStorageService {
+/// {@template flu.local_storage}
+/// Manage local storage actions and provide a persistent store for simple data with `shared_preferences`.
+/// Remember to call [loadPrefs] in order to load and parse the [SharedPreferences] for this app from disk..
+///
+/// Example:
+///
+/// ```dart
+/// void main() async {
+///   WidgetsFlutterBinding.ensureInitialized();
+///   /// load and parse the [SharedPreferences] for this app from disk
+///   LocalStorageService.loadPrefs();
+/// }
+///
+/// LocalStorageService.setBool("something", true); // Saves a boolean [value] to persistent storage in the background.
+///
+/// /// Retreive value from prefs
+/// final something = LocalStorageService.prefs.getBool("something");
+/// ```
+/// {@endtemplate}
+
+extension FluLocalStorageUtils on FluInterface {
+  /// {@macro flu.local_storage}
+  FluLocalStorageService get localStorage => FluLocalStorageService();
+}
+
+/// {@macro flu.local_storage}
+class FluLocalStorageService {
   /// Current instance of [SharedPreferences]
   static late final SharedPreferences prefs;
 

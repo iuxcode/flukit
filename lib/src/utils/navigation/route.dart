@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flukit/nav.dart';
 
-import '../../screens/not_found.dart';
+import '../../ui/screens/not_found.dart';
 import 'transitions_builders/defaults.dart';
 
 const PageTransitions fluDefaultPageTransition = PageTransitions.noTransition;

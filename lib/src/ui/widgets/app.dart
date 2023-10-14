@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import '../../../flukit.dart';
 
-import '../../flukit.dart';
+final List<FluPage> _kDefaultPages = [
+  FluPage(
+    name: "404",
+    page: buildUnknownRoute(null, null).page,
+    initial: true,
+  )
+];
 
 class FluMaterialApp extends StatefulWidget {
   const FluMaterialApp({
@@ -9,11 +16,6 @@ class FluMaterialApp extends StatefulWidget {
     this.unknownRoute,
     super.key,
     this.scaffoldMessengerKey,
-    this.home,
-    Map<String, WidgetBuilder> this.routes = const <String, WidgetBuilder>{},
-    this.initialRoute,
-    this.onGenerateRoute,
-    this.onGenerateInitialRoutes,
     this.onUnknownRoute,
     this.navigatorObservers = const <NavigatorObserver>[],
     this.builder,
@@ -58,29 +60,6 @@ class FluMaterialApp extends StatefulWidget {
   /// [ScaffoldMessenger.of]: from the [scaffoldMessengerKey], use the
   /// [GlobalKey.currentState] getter.
   final GlobalKey<ScaffoldMessengerState>? scaffoldMessengerKey;
-
-  /// {@macro flutter.widgets.widgetsApp.home}
-  final Widget? home;
-
-  /// The application's top-level routing table.
-  ///
-  /// When a named route is pushed with [Navigator.pushNamed], the route name is
-  /// looked up in this map. If the name is present, the associated
-  /// [widgets.WidgetBuilder] is used to construct a [MaterialPageRoute] that
-  /// performs an appropriate transition, including [Hero] animations, to the
-  /// new route.
-  ///
-  /// {@macro flutter.widgets.widgetsApp.routes}
-  final Map<String, WidgetBuilder>? routes;
-
-  /// {@macro flutter.widgets.widgetsApp.initialRoute}
-  final String? initialRoute;
-
-  /// {@macro flutter.widgets.widgetsApp.onGenerateRoute}
-  final RouteFactory? onGenerateRoute;
-
-  /// {@macro flutter.widgets.widgetsApp.onGenerateInitialRoutes}
-  final InitialRouteListFactory? onGenerateInitialRoutes;
 
   /// {@macro flutter.widgets.widgetsApp.onUnknownRoute}
   final RouteFactory? onUnknownRoute;
@@ -477,13 +456,23 @@ class FluMaterialApp extends StatefulWidget {
 }
 
 class _FluMaterialAppState extends State<FluMaterialApp> {
-  late final GlobalKey<NavigatorState> _navigatorKey;
+  late final GlobalKey<NavigatorState> navigatorKey;
+  late final List<FluPage> pages;
 
   @override
   void initState() {
-    _navigatorKey =
+    navigatorKey =
         Flu.navigatorKey = widget.navigatorKey ?? GlobalKey<NavigatorState>();
+    pages = widget.pages ?? _kDefaultPages;
     super.initState();
+  }
+
+  String get _initialRoute {
+    try {
+      return pages.singleWhere((page) => page.initial).name!;
+    } catch (e) {
+      throw "One of provided pages must be marked as initial! Set the `initial` property of one of your pages to `true` in order to get it as initial route.";
+    }
   }
 
   FluPageRoute _findPageAndReturnRoute(
@@ -499,21 +488,15 @@ class _FluMaterialAppState extends State<FluMaterialApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       key: widget.key,
-      navigatorKey: _navigatorKey,
+      navigatorKey: navigatorKey,
       scaffoldMessengerKey: widget.scaffoldMessengerKey,
-      home: widget.home,
-      routes: widget.routes ?? const <String, WidgetBuilder>{},
-      initialRoute: widget.initialRoute,
-      onGenerateRoute: (widget.pages == null)
-          ? widget.onGenerateRoute
-          : (RouteSettings settings) => _findPageAndReturnRoute(
-              settings, widget.pages!, widget.unknownRoute),
-      onGenerateInitialRoutes: (widget.pages == null || widget.home != null)
-          ? widget.onGenerateInitialRoutes
-          : (String route) => [
-                _findPageAndReturnRoute(RouteSettings(name: route),
-                    widget.pages!, widget.unknownRoute)
-              ],
+      initialRoute: _initialRoute,
+      onGenerateRoute: (RouteSettings settings) =>
+          _findPageAndReturnRoute(settings, pages, widget.unknownRoute),
+      onGenerateInitialRoutes: (String route) => [
+        _findPageAndReturnRoute(
+            RouteSettings(name: route), pages, widget.unknownRoute)
+      ],
       onUnknownRoute: widget.onUnknownRoute,
       navigatorObservers: [FluNavObserver(), ...widget.navigatorObservers],
       builder: widget.builder,

@@ -63,7 +63,7 @@ class _FluNavScreenState extends State<FluNavScreen> {
 
     if (index > -1) {
       return FluPage(
-        name: name,
+        name: name!,
         arguments: settings.arguments,
         page: () => widget.pages[index].content!,
         transition: index > _currentPage

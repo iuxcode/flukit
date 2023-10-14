@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/image.dart';
+import '../../ui/widgets/image.dart';
 
 class FluChipModel {
   FluChipModel({

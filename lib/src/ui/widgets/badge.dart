@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../utils.dart';
+import '../../../utils.dart';
 
 /// Add badge to a widget
 class FluBadge extends StatelessWidget {

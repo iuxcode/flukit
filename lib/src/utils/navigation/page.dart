@@ -4,9 +4,10 @@ import 'package:flutter/cupertino.dart';
 
 class FluPage<T> extends Page<T> {
   FluPage({
-    required super.name,
+    required String name,
     required this.page,
     this.participatesInRootNavigator,
+    this.initial = false,
     this.maintainState = true,
     this.transitionCurve = fluDefaultTransitionCurve,
     this.alignment,
@@ -15,9 +16,7 @@ class FluPage<T> extends Page<T> {
     this.transition = fluDefaultPageTransition,
     this.fullscreenDialog = false,
     super.arguments,
-  })  : assert(name!.startsWith('/'),
-            'It is necessary to start route name [$name] with a slash: /$name'),
-        super(key: ValueKey(name));
+  }) : super(key: ValueKey(name), name: Flu.cleanRouteName(name));
 
   final Alignment? alignment;
   final bool fullscreenDialog;
@@ -28,6 +27,7 @@ class FluPage<T> extends Page<T> {
   final PageTransitions transition;
   final Duration transitionDuration;
   final Curve transitionCurve;
+  final bool initial;
 
   @override
   Route<T> createRoute(BuildContext context) => toRoute();
@@ -64,7 +64,7 @@ class FluPage<T> extends Page<T> {
     return FluPage(
       participatesInRootNavigator:
           participatesInRootNavigator ?? this.participatesInRootNavigator,
-      name: name ?? this.name,
+      name: name ?? this.name!,
       page: page ?? this.page,
       transition: transition ?? this.transition,
       transitionCurve: transitionCurve ?? this.transitionCurve,

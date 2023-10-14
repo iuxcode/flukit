@@ -48,7 +48,7 @@ extension NavExt on FluInterface {
           opaque: opaque ?? true,
           page: page,
           settings: RouteSettings(
-            name: _cleanRouteName(routeName),
+            name: cleanRouteName(routeName),
             arguments: arguments,
           ),
           transition: transition ?? fluDefaultPageTransition,
@@ -76,7 +76,7 @@ extension NavExt on FluInterface {
   Future<T?>? toNamed<T>(String page, {dynamic arguments}) {
     if (_keyIsMounted()) {
       return navigatorKey.currentState?.pushNamed<T>(
-        page,
+        cleanRouteName(page),
         arguments: arguments,
       );
     } else {
@@ -100,7 +100,7 @@ extension NavExt on FluInterface {
   }) {
     if (_keyIsMounted()) {
       return navigatorKey.currentState?.pushReplacementNamed(
-        page,
+        cleanRouteName(page),
         arguments: arguments,
       );
     } else {
@@ -161,7 +161,7 @@ extension NavExt on FluInterface {
   }) {
     if (_keyIsMounted()) {
       return navigatorKey.currentState?.pushNamedAndRemoveUntil<T>(
-        page,
+        cleanRouteName(page),
         predicate,
         arguments: arguments,
       );
@@ -188,7 +188,7 @@ extension NavExt on FluInterface {
   }) {
     if (_keyIsMounted()) {
       return navigatorKey.currentState?.popAndPushNamed(
-        page,
+        cleanRouteName(page),
         arguments: arguments,
         result: result,
       );
@@ -226,7 +226,7 @@ extension NavExt on FluInterface {
       {RoutePredicate? predicate, dynamic arguments}) {
     if (_keyIsMounted()) {
       return navigatorKey.currentState?.pushNamedAndRemoveUntil<T>(
-        newRouteName,
+        cleanRouteName(newRouteName),
         predicate ?? (_) => false,
         arguments: arguments,
       );
@@ -307,7 +307,7 @@ extension NavExt on FluInterface {
           page: page,
           settings: RouteSettings(
             arguments: arguments,
-            name: _cleanRouteName(routeName),
+            name: cleanRouteName(routeName),
           ),
           fullscreenDialog: fullscreenDialog,
           transition: transition ?? fluDefaultPageTransition,
@@ -354,7 +354,7 @@ extension NavExt on FluInterface {
             opaque: opaque,
             page: page,
             settings: RouteSettings(
-              name: _cleanRouteName(routeName),
+              name: cleanRouteName(routeName),
               arguments: arguments,
             ),
             fullscreenDialog: fullscreenDialog,
@@ -374,7 +374,7 @@ extension NavExt on FluInterface {
   /// accommodates the format.
   /// TODO: check for a more "appealing" URL naming convention.
   /// `() => MyHomeScreenView` becomes `/my-home-screen-view`.
-  String _cleanRouteName(String name) {
+  String cleanRouteName(String name) {
     name = name.replaceAll('() => ', '');
 
     /// uncommonest for URL styling.

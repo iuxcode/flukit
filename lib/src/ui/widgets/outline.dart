@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/gradient_borders.dart';
-import '../../utils.dart';
+import '../../../utils.dart';
 
 /// Create a border around the `child`.
 class FluOutline extends StatelessWidget {

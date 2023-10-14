@@ -1,9 +1,9 @@
 import 'package:flukit/flukit.dart';
 import 'package:geolocator/geolocator.dart';
 
+/// Todo: Write documentation.
 extension FluLocationUtils on FluInterface {
-  // ignore: library_private_types_in_public_api
-  FluLocationService get locationService => FluLocationService();
+  FluLocationService get location => FluLocationService();
 }
 
 class FluLocationService {

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../utils.dart';
+import '../../../utils.dart';
 
+/// Todo: Write documentation.
 /// Create a layout with styled system overlay
 class FluScreen extends StatelessWidget {
   const FluScreen({
-    Key? key,
+    super.key,
     required this.body,
     this.appBar,
     this.overlayStyle,
@@ -21,7 +22,7 @@ class FluScreen extends StatelessWidget {
     this.scaffoldKey,
     this.drawerScrimColor,
     this.resizeToAvoidBottomInset,
-  }) : super(key: key);
+  });
 
   final PreferredSizeWidget? appBar;
   final Widget body;
