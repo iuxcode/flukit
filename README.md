@@ -65,7 +65,6 @@ For more information and examples, please see the documentation (Coming Soon).
 - [Image](https://github.com/iuxcode/flukit/blob/main/lib/src/ui/widgets/image.dart)
 - [Text input](https://github.com/iuxcode/flukit/blob/main/lib/src/ui/widgets/inputs.dart)
 - [Loader](https://github.com/iuxcode/flukit/blob/main/lib/src/ui/widgets/loader.dart)
-- [Loader](https://github.com/iuxcode/flukit/blob/main/lib/src/ui/widgets/loader.dart)
 - [Outline](https://github.com/iuxcode/flukit/blob/main/lib/src/ui/widgets/outline.dart)
 - [Page view notifier](https://github.com/iuxcode/flukit/blob/main/lib/src/ui/widgets/page_view.dart)
 - [Tabs indicators](https://github.com/iuxcode/flukit/blob/main/lib/src/ui/widgets/tabs.dart)
