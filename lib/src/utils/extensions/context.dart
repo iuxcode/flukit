@@ -56,13 +56,13 @@ extension ContextExt on BuildContext {
         widthTransformer(dividedBy: dividedBy, reducedBy: reducedByW);
   }
 
-  /// similar to [MediaQuery.of(context).padding]
+  /// similar to [MediaQuery.of(context).theme]
   ThemeData get theme => Theme.of(this);
 
-  /// similar to [MediaQuery.of(context).padding]
+  /// similar to [MediaQuery.of(context).theme.colorScheme]
   ColorScheme get colorScheme => theme.colorScheme;
 
-  /// Check if dark mode theme is enable
+  /// Check if dark mode theme is enabled
   bool get isDarkMode => (theme.brightness == Brightness.dark);
 
   /// give access to Theme.of(context).iconTheme.color

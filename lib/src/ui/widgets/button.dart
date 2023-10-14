@@ -144,7 +144,7 @@ class FluButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final VoidCallback? onPressed = this.onPressed != null
         ? () {
-            Flu.lightImpactHaptic();
+            Flu.triggerLightImpactHaptic();
             this.onPressed?.call();
           }
         : this.onPressed;
