@@ -1,12 +1,12 @@
-# Flukit
+# Flukit (pre-alpha)
 
-Flukit is a versatile and easy-to-use Flutter mini framework inpired by [Get](https://pub.dev/packages/get) that simplifies app development. With Flukit, you can easily manage routing, theming, and utilities, as well as take advantage of pre-designed widgets and shortcuts to streamline your Flutter projects.
+Flukit is a versatile and easy-to-use Flutter mini framework inspired by [Get](https://pub.dev/packages/get) that simplifies app development. With Flukit, you can easily manage routing, theming, and utilities, as well as take advantage of pre-designed widgets and shortcuts to streamline your Flutter projects.
 
 ## :rocket: Introduction
 
-Welcome to `Flukit`, a powerful toolkit designed to simplify the app development process for Flutter developers. Our goal is to provide an efficient and streamlined solution for common app development tasks, including routing, theming, utilities, and widgets.
+Welcome to `Flukit`, a powerful toolkit designed to simplify the app development process for Flutter developers. We aim to provide an efficient and streamlined solution for common app development tasks, including routing, theming, utilities, and widgets.
 
-Developing apps can be complex and time-consuming, and our framework is here to make your life easier. This mini framework aim to empower developers by offering a set of tools that enhance productivity and provide a better development experience.
+Developing apps can be complex and time-consuming, and our framework is here to make your life easier. This mini framework aims to empower developers by offering a set of tools that enhance productivity and provide a better development experience.
 
 Whether you're building a small project or a complex application, this Flutter Mini Framework is here to help you achieve your goals faster and with less effort.
 
@@ -44,7 +44,7 @@ FluButton(
 ),
 ```
 
-For more information and examples, please see the documentation (Coming Soon).
+Please see the documentation (Coming Soon) for more information and examples.
 
 ## :link: Widgets
 
