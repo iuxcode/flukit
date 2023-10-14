@@ -1,8 +1,8 @@
 # Flukit
 
-A versatile and easy-to-use Flutter mini framework that simplifies app development.Offer widgets and Manage routing, theming, provide utilities, and offer shortcuts to streamline your Flutter projects.
+Flukit is a versatile and easy-to-use Flutter mini framework that simplifies app development. With Flukit, you can easily manage routing, theming, and utilities, as well as take advantage of pre-designed widgets and shortcuts to streamline your Flutter projects.
 
-## Introduction
+## :rocket: Introduction
 
 Welcome to `Flukit`, a powerful toolkit designed to simplify the app development process for Flutter developers. Our goal is to provide an efficient and streamlined solution for common app development tasks, including routing, theming, utilities, and widgets.
 
@@ -10,7 +10,7 @@ Developing apps can be complex and time-consuming, and our framework is here to 
 
 Whether you're building a small project or a complex application, this Flutter Mini Framework is here to help you achieve your goals faster and with less effort.
 
-## Features
+## :sparkles: Features
 
 - **Pre-designed widgets** like buttons, avatars, screens, images, etc.
 - **Routing**: Just define a bunch of pages and you're good to go.
@@ -18,7 +18,7 @@ Whether you're building a small project or a complex application, this Flutter M
 - **Utilities**: Access a set of handy utility functions that streamline common development tasks.
 - **Shortcuts**: Save time and reduce boilerplate code with prebuilt shortcuts and code snippets for common tasks.
 
-## Getting started
+## :construction: Getting started
 
 To use `flukit` in your Flutter project, add the following dependency to your pubspec.yaml:
 
@@ -31,7 +31,7 @@ dependencies:
 
 Then run ```bash flutter packages get``` in your terminal to install the package.
 
-## Usage
+## :fire: Usage
 
 To use Flukit in your project, import the package and use any of the provided widgets or utilities. For example, to use the flukit Button widget:
 
@@ -46,7 +46,7 @@ FluButton(
 
 For more information and examples, please see the documentation (Coming Soon).
 
-## Contributing
+## :v: Contributing
 
 Contributions to Flukit are welcome and encouraged! To contribute, please fork the repository and submit a pull request. Please make sure to read the [Contributing Guide](https://github.com/charles9904/flukit/blob/main/CONTRIBUTING.md) before making a pull request.
 
@@ -57,6 +57,6 @@ Contributions to Flukit are welcome and encouraged! To contribute, please fork t
   - Optimize the code
   - Add more widget & utilities
 
-## License
+## :page_with_curl: License
 
 Flukit is licensed under the MIT License.
