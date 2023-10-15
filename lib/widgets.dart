@@ -18,3 +18,4 @@ export 'src/ui/widgets/outline.dart';
 export 'src/ui/widgets/page_view.dart';
 export 'src/ui/widgets/tabs.dart';
 export 'src/ui/widgets/country_selector.dart';
+export 'src/ui/widgets/shimmer.dart';

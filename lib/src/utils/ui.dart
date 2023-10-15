@@ -83,7 +83,7 @@ extension U on FluInterface {
           titleStyle: titleStyle,
           descriptionStyle: descriptionStyle,
           padding: padding,
-          countries: countries ?? Countries,
+          countries: countries ?? Flu.countries,
           exclude: exclude,
           onCountrySelected: onCountrySelected,
         ),

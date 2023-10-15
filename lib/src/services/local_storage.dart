@@ -1,7 +1,5 @@
-import 'package:flukit/flukit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// {@template flu.local_storage}
 /// Manage local storage actions and provide a persistent store for simple data with `shared_preferences`.
 /// Remember to call [loadPrefs] in order to load and parse the [SharedPreferences] for this app from disk..
 ///
@@ -19,15 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// /// Retreive value from prefs
 /// final something = LocalStorageService.prefs.getBool("something");
 /// ```
-/// {@endtemplate}
-
-extension FluLocalStorageUtils on FluInterface {
-  /// {@macro flu.local_storage}
-  FluLocalStorageService get localStorage => FluLocalStorageService();
-}
-
-/// {@macro flu.local_storage}
-class FluLocalStorageService {
+class FluStorage {
   /// Current instance of [SharedPreferences]
   static late final SharedPreferences prefs;
 

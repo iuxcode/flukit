@@ -1,5 +1,11 @@
+import 'package:flukit/flukit.dart';
+
+extension FluCountries on FluInterface {
+  List<Country> get countries => Country.all;
+}
+
 class Country {
-  Country({
+  const Country({
     required this.isoCode,
     required this.iso3Code,
     required this.phoneCode,
@@ -18,17 +24,23 @@ class Country {
   final String name;
   final String phoneCode;
 
-  set name(String newName) => name = newName;
+  /// Search a country by providing the `name`, `iso3Code`, `isoCode` or `phoneCode`
+  static Future<Country> find(String id) async {
+    try {
+      return _countries.firstWhere(((country) =>
+          country.name == id ||
+          country.iso3Code == id ||
+          country.isoCode == id ||
+          country.phoneCode == id));
+    } catch (e) {
+      return Future.error("Country with the provided id wasn't found!! $e");
+    }
+  }
 
-  set isoCode(String newIsoCode) => isoCode = newIsoCode;
-
-  set iso3Code(String newIso3Code) => iso3Code = newIso3Code;
-
-  set phoneCode(String newPhoneCode) => phoneCode = newPhoneCode;
+  static List<Country> get all => _countries;
 }
 
-// ignore: non_constant_identifier_names
-final List<Country> Countries = [
+const List<Country> _countries = [
   Country(
     isoCode: "AF",
     phoneCode: "93",
