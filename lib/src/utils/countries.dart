@@ -25,15 +25,17 @@ class Country {
   final String phoneCode;
 
   /// Search a country by providing the `name`, `iso3Code`, `isoCode` or `phoneCode`
-  static Future<Country> find(String id) async {
+  static Country find(String id) {
     try {
-      return _countries.firstWhere(((country) =>
-          country.name == id ||
-          country.iso3Code == id ||
-          country.isoCode == id ||
-          country.phoneCode == id));
+      return _countries.firstWhere(
+        (country) =>
+            country.name.toLowerCase() == id.toLowerCase() ||
+            country.iso3Code.toLowerCase() == id.toLowerCase() ||
+            country.isoCode.toLowerCase() == id.toLowerCase() ||
+            country.phoneCode.toLowerCase() == id.toLowerCase(),
+      );
     } catch (e) {
-      return Future.error("Country with the provided id wasn't found!! $e");
+      throw "Country with the provided id wasn't found!! $e";
     }
   }
 

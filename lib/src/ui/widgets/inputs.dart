@@ -50,6 +50,9 @@ class FluTextField extends StatefulWidget {
     this.prefix,
     this.suffix,
     this.onFieldSubmitted,
+    this.autofocus = false,
+    this.maxLength,
+    this.maxLengthEnforcement,
   });
 
   final String? Function(String?)? validator;
@@ -92,6 +95,9 @@ class FluTextField extends StatefulWidget {
   final Widget? suffix;
   final Widget? prefix;
   final void Function(String)? onFieldSubmitted;
+  final bool autofocus;
+  final int? maxLength;
+  final MaxLengthEnforcement? maxLengthEnforcement;
 
   @override
   State<FluTextField> createState() => _FluTextFieldState();
@@ -176,6 +182,9 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
             ),
       ),
       child: TextFormField(
+        maxLength: widget.maxLength,
+        maxLengthEnforcement: widget.maxLengthEnforcement,
+        autofocus: widget.autofocus,
         controller: widget.inputController,
         focusNode: _focusNode,
         expands: height != null,
