@@ -19,7 +19,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// final something = LocalStorageService.prefs.getBool("something");
 /// ```
 class FluStorage {
-  final _secureStorage = const FlutterSecureStorage(
+  static const _secureStorage = FlutterSecureStorage(
       aOptions: AndroidOptions(
     encryptedSharedPreferences: true,
   ));
@@ -46,21 +46,22 @@ class FluStorage {
       await prefs.setInt(key, value);
 
   // Read a secure storage value
-  Future<String?> readFromSecureStorage(String key) =>
+  static Future<String?> readFromSecureStorage(String key) =>
       _secureStorage.read(key: key);
 
-// Read all secure storage values
-  Future<Map<String, String>> readAllFromSecureStorage() =>
+  /// Read all secure storage values
+  static Future<Map<String, String>> readAllFromSecureStorage() =>
       _secureStorage.readAll();
 
-// Delete a secure storage value
-  Future<void> removeFromSecureStorage(String key) =>
+  /// Delete a secure storage value
+  static Future<void> removeFromSecureStorage(String key) =>
       _secureStorage.delete(key: key);
 
-// Delete all secure storage values
-  Future<void> removeAllFromSecureStorage() => _secureStorage.deleteAll();
+  /// Delete all secure storage values
+  static Future<void> removeAllFromSecureStorage() =>
+      _secureStorage.deleteAll();
 
-// Write a value to secure storage
-  Future<void> writeToSecureStorage(String key, String value) =>
+  /// Write a value to secure storage
+  static Future<void> writeToSecureStorage(String key, String value) =>
       _secureStorage.write(key: key, value: value);
 }
