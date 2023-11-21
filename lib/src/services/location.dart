@@ -55,8 +55,7 @@ class FluGeoService {
         await getPlacemarksFromCoordinates(position);
 
     /// Find the country
-    final Country country =
-        await Country.find(placemarks.first.isoCountryCode!);
+    final Country country = Country.find(placemarks.first.isoCountryCode!);
 
     return FluPosition(
       position: position,
