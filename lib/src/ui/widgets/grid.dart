@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -36,6 +37,50 @@ class FluGrid extends StatelessWidget {
   /// Grid type. Define a layout for the grid.
   /// It can be `normal`, `masonry` or `Staggered`
   final FluGridType type;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(
+        ObjectFlagProperty<Widget Function(BuildContext p1, int p2)?>.has(
+          'itemBuilder',
+          itemBuilder,
+        ),
+      )
+      ..add(IntProperty('crossAxisCount', crossAxisCount))
+      ..add(DoubleProperty('crossAxisSpacing', crossAxisSpacing))
+      ..add(IntProperty('itemCount', itemCount))
+      ..add(DoubleProperty('mainAxisSpacing', mainAxisSpacing))
+      ..add(DiagnosticsProperty<ScrollPhysics>('physics', physics))
+      ..add(DiagnosticsProperty<bool>('reverse', reverse))
+      ..add(DiagnosticsProperty<bool>('shrinkWrap', shrinkWrap))
+      ..add(EnumProperty<FluGridType>('type', type))
+      ..add(IntProperty('crossAxisCount', crossAxisCount))
+      ..add(DoubleProperty('crossAxisSpacing', crossAxisSpacing))
+      ..add(IntProperty('itemCount', itemCount))
+      ..add(DoubleProperty('mainAxisSpacing', mainAxisSpacing))
+      ..add(DiagnosticsProperty<ScrollPhysics>('physics', physics))
+      ..add(DiagnosticsProperty<bool>('reverse', reverse))
+      ..add(DiagnosticsProperty<bool>('shrinkWrap', shrinkWrap))
+      ..add(EnumProperty<FluGridType>('type', type))
+      ..add(IntProperty('crossAxisCount', crossAxisCount))
+      ..add(DoubleProperty('crossAxisSpacing', crossAxisSpacing))
+      ..add(IntProperty('itemCount', itemCount))
+      ..add(DoubleProperty('mainAxisSpacing', mainAxisSpacing))
+      ..add(DiagnosticsProperty<ScrollPhysics>('physics', physics))
+      ..add(DiagnosticsProperty<bool>('reverse', reverse))
+      ..add(DiagnosticsProperty<bool>('shrinkWrap', shrinkWrap))
+      ..add(EnumProperty<FluGridType>('type', type))
+      ..add(IntProperty('crossAxisCount', crossAxisCount))
+      ..add(DoubleProperty('crossAxisSpacing', crossAxisSpacing))
+      ..add(IntProperty('itemCount', itemCount))
+      ..add(DoubleProperty('mainAxisSpacing', mainAxisSpacing))
+      ..add(DiagnosticsProperty<ScrollPhysics>('physics', physics))
+      ..add(DiagnosticsProperty<bool>('reverse', reverse))
+      ..add(DiagnosticsProperty<bool>('shrinkWrap', shrinkWrap))
+      ..add(EnumProperty<FluGridType>('type', type));
+  }
 
   @override
   Widget build(BuildContext context) {

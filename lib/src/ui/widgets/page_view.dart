@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// A scrollable list that works page by page.
@@ -10,25 +11,45 @@ class PageViewNotifier extends StatefulWidget {
     super.key,
   });
 
-  final ValueNotifier<double> notifier;
-  final PageController? controller;
   final Widget child;
+  final PageController? controller;
+  final ValueNotifier<double> notifier;
 
   @override
   State<PageViewNotifier> createState() => _PageViewNotifierState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty<ValueNotifier<double>>('notifier', notifier))
+      ..add(DiagnosticsProperty<PageController?>('controller', controller))
+      ..add(DiagnosticsProperty<PageController?>('controller', controller))
+      ..add(DiagnosticsProperty<PageController?>('controller', controller))
+      ..add(DiagnosticsProperty<PageController?>('controller', controller));
+  }
 }
 
 class _PageViewNotifierState extends State<PageViewNotifier> {
   late final PageController controller;
+
   late int previousPage;
 
-  void _onScroll() {
-    if (controller.page != null) {
-      if (controller.page!.toInt() == controller.page) {
-        previousPage = controller.page!.toInt();
-      }
-      widget.notifier.value = controller.page! - previousPage;
-    }
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty<PageController>('controller', controller))
+      ..add(IntProperty('previousPage', previousPage))
+      ..add(IntProperty('previousPage', previousPage))
+      ..add(IntProperty('previousPage', previousPage))
+      ..add(IntProperty('previousPage', previousPage));
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -39,10 +60,13 @@ class _PageViewNotifierState extends State<PageViewNotifier> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
+  void _onScroll() {
+    if (controller.page != null) {
+      if (controller.page!.toInt() == controller.page) {
+        previousPage = controller.page!.toInt();
+      }
+      widget.notifier.value = controller.page! - previousPage;
+    }
   }
 
   @override

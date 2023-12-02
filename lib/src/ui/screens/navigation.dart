@@ -1,4 +1,5 @@
 import 'package:flukit/flukit.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -25,26 +26,178 @@ class FluNavScreen extends StatefulWidget {
   });
 
   final void Function(int)? onNav;
-  final List<FluNavPage> pages;
-  final int initialPage;
-  final GlobalKey<NavigatorState>? navigatorKey;
-  final bool canPop;
   final FluBottomNavBarStyle Function(int currentPage)? bottomNavBarStyle;
   final PreferredSizeWidget? appBar;
-  final Widget? floatingActionButton;
+  final bool canPop;
   final Color? background, drawerScrimColor;
   final Widget? drawer, endDrawer;
   final bool? extendBody;
+  final Widget? floatingActionButton;
   final FloatingActionButtonLocation floatingActionButtonLocation;
+  final int initialPage;
+  final GlobalKey<NavigatorState>? navigatorKey;
   final SystemUiOverlayStyle? overlayStyle;
+  final List<FluNavPage> pages;
   final GlobalKey<ScaffoldState>? scaffoldKey;
 
   @override
   State<FluNavScreen> createState() => _FluNavScreenState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(ObjectFlagProperty<void Function(int p1)?>.has('onNav', onNav))
+      ..add(IterableProperty<FluNavPage>('pages', pages))
+      ..add(IntProperty('initialPage', initialPage))
+      ..add(
+        DiagnosticsProperty<GlobalKey<NavigatorState>?>(
+          'navigatorKey',
+          navigatorKey,
+        ),
+      )
+      ..add(DiagnosticsProperty<bool>('canPop', canPop))
+      ..add(
+        ObjectFlagProperty<
+            FluBottomNavBarStyle Function(
+              int currentPage,
+            )?>.has('bottomNavBarStyle', bottomNavBarStyle),
+      )
+      ..add(ColorProperty('background', background))
+      ..add(ColorProperty('drawerScrimColor', drawerScrimColor))
+      ..add(DiagnosticsProperty<bool?>('extendBody', extendBody))
+      ..add(
+        DiagnosticsProperty<FloatingActionButtonLocation>(
+          'floatingActionButtonLocation',
+          floatingActionButtonLocation,
+        ),
+      )
+      ..add(
+        DiagnosticsProperty<SystemUiOverlayStyle?>(
+          'overlayStyle',
+          overlayStyle,
+        ),
+      )
+      ..add(
+        DiagnosticsProperty<GlobalKey<ScaffoldState>?>(
+          'scaffoldKey',
+          scaffoldKey,
+        ),
+      )
+      ..add(IterableProperty<FluNavPage>('pages', pages))
+      ..add(IntProperty('initialPage', initialPage))
+      ..add(
+        DiagnosticsProperty<GlobalKey<NavigatorState>?>(
+          'navigatorKey',
+          navigatorKey,
+        ),
+      )
+      ..add(DiagnosticsProperty<bool>('canPop', canPop))
+      ..add(
+        ObjectFlagProperty<
+            FluBottomNavBarStyle Function(
+              int currentPage,
+            )?>.has('bottomNavBarStyle', bottomNavBarStyle),
+      )
+      ..add(ColorProperty('background', background))
+      ..add(ColorProperty('drawerScrimColor', drawerScrimColor))
+      ..add(DiagnosticsProperty<bool?>('extendBody', extendBody))
+      ..add(
+        DiagnosticsProperty<FloatingActionButtonLocation>(
+          'floatingActionButtonLocation',
+          floatingActionButtonLocation,
+        ),
+      )
+      ..add(
+        DiagnosticsProperty<SystemUiOverlayStyle?>(
+          'overlayStyle',
+          overlayStyle,
+        ),
+      )
+      ..add(
+        DiagnosticsProperty<GlobalKey<ScaffoldState>?>(
+          'scaffoldKey',
+          scaffoldKey,
+        ),
+      )
+      ..add(IterableProperty<FluNavPage>('pages', pages))
+      ..add(IntProperty('initialPage', initialPage))
+      ..add(
+        DiagnosticsProperty<GlobalKey<NavigatorState>?>(
+          'navigatorKey',
+          navigatorKey,
+        ),
+      )
+      ..add(DiagnosticsProperty<bool>('canPop', canPop))
+      ..add(
+        ObjectFlagProperty<
+            FluBottomNavBarStyle Function(
+              int currentPage,
+            )?>.has('bottomNavBarStyle', bottomNavBarStyle),
+      )
+      ..add(ColorProperty('background', background))
+      ..add(ColorProperty('drawerScrimColor', drawerScrimColor))
+      ..add(DiagnosticsProperty<bool?>('extendBody', extendBody))
+      ..add(
+        DiagnosticsProperty<FloatingActionButtonLocation>(
+          'floatingActionButtonLocation',
+          floatingActionButtonLocation,
+        ),
+      )
+      ..add(
+        DiagnosticsProperty<SystemUiOverlayStyle?>(
+          'overlayStyle',
+          overlayStyle,
+        ),
+      )
+      ..add(
+        DiagnosticsProperty<GlobalKey<ScaffoldState>?>(
+          'scaffoldKey',
+          scaffoldKey,
+        ),
+      )
+      ..add(IterableProperty<FluNavPage>('pages', pages))
+      ..add(IntProperty('initialPage', initialPage))
+      ..add(
+        DiagnosticsProperty<GlobalKey<NavigatorState>?>(
+          'navigatorKey',
+          navigatorKey,
+        ),
+      )
+      ..add(DiagnosticsProperty<bool>('canPop', canPop))
+      ..add(
+        ObjectFlagProperty<
+            FluBottomNavBarStyle Function(
+              int currentPage,
+            )?>.has('bottomNavBarStyle', bottomNavBarStyle),
+      )
+      ..add(ColorProperty('background', background))
+      ..add(ColorProperty('drawerScrimColor', drawerScrimColor))
+      ..add(DiagnosticsProperty<bool?>('extendBody', extendBody))
+      ..add(
+        DiagnosticsProperty<FloatingActionButtonLocation>(
+          'floatingActionButtonLocation',
+          floatingActionButtonLocation,
+        ),
+      )
+      ..add(
+        DiagnosticsProperty<SystemUiOverlayStyle?>(
+          'overlayStyle',
+          overlayStyle,
+        ),
+      )
+      ..add(
+        DiagnosticsProperty<GlobalKey<ScaffoldState>?>(
+          'scaffoldKey',
+          scaffoldKey,
+        ),
+      );
+  }
 }
 
 class _FluNavScreenState extends State<FluNavScreen> {
   late final GlobalKey<NavigatorState> _navigatorKey;
+
   late int _currentPage;
   late bool _mustExtendBody;
 
@@ -56,13 +209,24 @@ class _FluNavScreenState extends State<FluNavScreen> {
     super.initState();
   }
 
+  Future<void> onPopInvoked(bool didPop) async {
+    if (!didPop && !widget.canPop && _currentPage != 0) {
+      for (var i = _currentPage - 1; i >= 0; i--) {
+        if (widget.pages[i].content != null) {
+          await _navigateTo(context, i);
+          break;
+        }
+      }
+    }
+  }
+
   Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
     final name = settings.name;
     final index = widget.pages
         .indexWhere((page) => page.path == name && page.content != null);
 
     if (index > -1) {
-      return FluPage(
+      return FluPage<dynamic>(
         name: name!,
         arguments: settings.arguments,
         page: widget.pages[index].content!,
@@ -86,17 +250,6 @@ class _FluNavScreenState extends State<FluNavScreen> {
       _mustExtendBody = widget.pages[index].extendBody;
     });
     widget.onNav?.call(index);
-  }
-
-  Future<void> onPopInvoked(bool didPop) async {
-    if (!didPop && !widget.canPop && _currentPage != 0) {
-      for (var i = _currentPage - 1; i >= 0; i--) {
-        if (widget.pages[i].content != null) {
-          await _navigateTo(context, i);
-          break;
-        }
-      }
-    }
   }
 
   @override
@@ -135,13 +288,30 @@ class _FluNavScreenState extends State<FluNavScreen> {
       );
 }
 
+/// Define a [FluNavScreen] page.
+/// The `name` represent the page name, `icon`, the corresponding icon in the
+/// [FluBottomNavBar], `content`, the page body content, and `extendBody` must
+/// be marked to true if you want the [content] to extends
+/// to the bottom of the Scaffold, instead of only extending to the top of
+/// the `bottomNavigationBar` or the `persistentFooterButtons`.
 class FluNavPage {
+  // ignore: public_member_api_docs
   FluNavPage(this.name, this.icon, this.content, {this.extendBody = false});
 
+  /// page body content
   final Widget? content;
-  final FluIcons icon;
-  final String name;
+
+  /// if marked to `true`, the [content] will extends
+  /// to the bottom of the Scaffold, instead of only extending to the top of
+  /// the `bottomNavigationBar` or the `persistentFooterButtons`.
   final bool extendBody;
 
+  /// corresponding icon in the [FluBottomNavBar]
+  final FluIcons icon;
+
+  /// Page name
+  final String name;
+
+  /// Routing path of this page.
   String get path => '/$name';
 }

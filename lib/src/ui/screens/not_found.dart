@@ -1,10 +1,17 @@
 import 'package:flukit/flukit.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Flu404 extends StatelessWidget {
   const Flu404(this.exceptedRouteName, {super.key});
 
   final String exceptedRouteName;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('exceptedRouteName', exceptedRouteName));
+  }
 
   @override
   Widget build(BuildContext context) => FluScreen(

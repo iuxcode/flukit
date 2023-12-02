@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flukit/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 /// Draw an arc
 class FluArc extends StatelessWidget {
@@ -80,6 +81,49 @@ class FluArc extends StatelessWidget {
               height: size,
             ),
       );
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(IntProperty('angle', angle))
+      ..add(ColorProperty('color', color))
+      ..add(IntProperty('disableDashStart', disableDashStart))
+      ..add(ColorProperty('disabledDashColor', disabledDashColor))
+      ..add(IntProperty('gapSize', gapSize))
+      ..add(IntProperty('numberOfDashes', numberOfDashes))
+      ..add(DoubleProperty('size', size))
+      ..add(DoubleProperty('startOfArc', startOfArc))
+      ..add(EnumProperty<StrokeCap>('strokeCap', strokeCap))
+      ..add(DoubleProperty('strokeWidth', strokeWidth))
+      ..add(ColorProperty('color', color))
+      ..add(IntProperty('disableDashStart', disableDashStart))
+      ..add(ColorProperty('disabledDashColor', disabledDashColor))
+      ..add(IntProperty('gapSize', gapSize))
+      ..add(IntProperty('numberOfDashes', numberOfDashes))
+      ..add(DoubleProperty('size', size))
+      ..add(DoubleProperty('startOfArc', startOfArc))
+      ..add(EnumProperty<StrokeCap>('strokeCap', strokeCap))
+      ..add(DoubleProperty('strokeWidth', strokeWidth))
+      ..add(ColorProperty('color', color))
+      ..add(IntProperty('disableDashStart', disableDashStart))
+      ..add(ColorProperty('disabledDashColor', disabledDashColor))
+      ..add(IntProperty('gapSize', gapSize))
+      ..add(IntProperty('numberOfDashes', numberOfDashes))
+      ..add(DoubleProperty('size', size))
+      ..add(DoubleProperty('startOfArc', startOfArc))
+      ..add(EnumProperty<StrokeCap>('strokeCap', strokeCap))
+      ..add(DoubleProperty('strokeWidth', strokeWidth))
+      ..add(ColorProperty('color', color))
+      ..add(IntProperty('disableDashStart', disableDashStart))
+      ..add(ColorProperty('disabledDashColor', disabledDashColor))
+      ..add(IntProperty('gapSize', gapSize))
+      ..add(IntProperty('numberOfDashes', numberOfDashes))
+      ..add(DoubleProperty('size', size))
+      ..add(DoubleProperty('startOfArc', startOfArc))
+      ..add(EnumProperty<StrokeCap>('strokeCap', strokeCap))
+      ..add(DoubleProperty('strokeWidth', strokeWidth));
+  }
 }
 
 class _ArcPainter extends CustomPainter {

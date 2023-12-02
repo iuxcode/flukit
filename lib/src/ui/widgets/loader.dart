@@ -1,5 +1,6 @@
 import 'package:flukit/src/ui/widgets/dashed_circle.dart';
 import 'package:flukit/utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// Creates a circular progress indicator.
@@ -44,11 +45,59 @@ class FluLoader extends StatefulWidget {
 
   @override
   State<FluLoader> createState() => _FluLoaderState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('gap', gap))
+      ..add(StringProperty('label', label))
+      ..add(DiagnosticsProperty<TextStyle?>('labelStyle', labelStyle))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DoubleProperty('size', size))
+      ..add(DoubleProperty('strokeWidth', strokeWidth))
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('gap', gap))
+      ..add(StringProperty('label', label))
+      ..add(DiagnosticsProperty<TextStyle?>('labelStyle', labelStyle))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DoubleProperty('size', size))
+      ..add(DoubleProperty('strokeWidth', strokeWidth))
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('gap', gap))
+      ..add(StringProperty('label', label))
+      ..add(DiagnosticsProperty<TextStyle?>('labelStyle', labelStyle))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DoubleProperty('size', size))
+      ..add(DoubleProperty('strokeWidth', strokeWidth))
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('gap', gap))
+      ..add(StringProperty('label', label))
+      ..add(DiagnosticsProperty<TextStyle?>('labelStyle', labelStyle))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DoubleProperty('size', size))
+      ..add(DoubleProperty('strokeWidth', strokeWidth));
+  }
 }
 
 class _FluLoaderState extends State<FluLoader>
     with SingleTickerProviderStateMixin {
   late final AnimationController animationController;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty<AnimationController>(
+        'animationController',
+        animationController,
+      ),
+    );
+  }
 
   @override
   void dispose() {

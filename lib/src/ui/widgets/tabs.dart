@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_asserts_with_message
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class RectangularIndicator extends Decoration {
@@ -62,6 +63,49 @@ class RectangularIndicator extends Decoration {
         paintingStyle: paintingStyle,
         strokeWidth: strokeWidth,
       );
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DoubleProperty('bottomLeftCornerRadius', bottomLeftCornerRadius))
+      ..add(DoubleProperty('bottomRightCornerRadius', bottomRightCornerRadius))
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DoubleProperty('horizontalPadding', horizontalPadding))
+      ..add(EnumProperty<PaintingStyle>('paintingStyle', paintingStyle))
+      ..add(DoubleProperty('strokeWidth', strokeWidth))
+      ..add(DoubleProperty('topLeftCornerRadius', topLeftCornerRadius))
+      ..add(DoubleProperty('topRightCornerRadius', topRightCornerRadius))
+      ..add(DoubleProperty('verticalPadding', verticalPadding))
+      ..add(DoubleProperty('bottomRightCornerRadius', bottomRightCornerRadius))
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DoubleProperty('horizontalPadding', horizontalPadding))
+      ..add(EnumProperty<PaintingStyle>('paintingStyle', paintingStyle))
+      ..add(DoubleProperty('strokeWidth', strokeWidth))
+      ..add(DoubleProperty('topLeftCornerRadius', topLeftCornerRadius))
+      ..add(DoubleProperty('topRightCornerRadius', topRightCornerRadius))
+      ..add(DoubleProperty('verticalPadding', verticalPadding))
+      ..add(DoubleProperty('bottomRightCornerRadius', bottomRightCornerRadius))
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DoubleProperty('horizontalPadding', horizontalPadding))
+      ..add(EnumProperty<PaintingStyle>('paintingStyle', paintingStyle))
+      ..add(DoubleProperty('strokeWidth', strokeWidth))
+      ..add(DoubleProperty('topLeftCornerRadius', topLeftCornerRadius))
+      ..add(DoubleProperty('topRightCornerRadius', topRightCornerRadius))
+      ..add(DoubleProperty('verticalPadding', verticalPadding))
+      ..add(DoubleProperty('bottomRightCornerRadius', bottomRightCornerRadius))
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DoubleProperty('horizontalPadding', horizontalPadding))
+      ..add(EnumProperty<PaintingStyle>('paintingStyle', paintingStyle))
+      ..add(DoubleProperty('strokeWidth', strokeWidth))
+      ..add(DoubleProperty('topLeftCornerRadius', topLeftCornerRadius))
+      ..add(DoubleProperty('topRightCornerRadius', topRightCornerRadius))
+      ..add(DoubleProperty('verticalPadding', verticalPadding));
+  }
 }
 
 class DotTabIndicator extends Decoration {
@@ -137,6 +181,49 @@ class MaterialIndicator extends Decoration {
         paintingStyle: paintingStyle,
         strokeWidth: strokeWidth,
       );
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DoubleProperty('bottomLeftRadius', bottomLeftRadius))
+      ..add(DoubleProperty('bottomRightRadius', bottomRightRadius))
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('height', height))
+      ..add(DoubleProperty('horizontalPadding', horizontalPadding))
+      ..add(EnumProperty<PaintingStyle>('paintingStyle', paintingStyle))
+      ..add(DoubleProperty('strokeWidth', strokeWidth))
+      ..add(EnumProperty<TabPosition>('tabPosition', tabPosition))
+      ..add(DoubleProperty('topLeftRadius', topLeftRadius))
+      ..add(DoubleProperty('topRightRadius', topRightRadius))
+      ..add(DoubleProperty('bottomRightRadius', bottomRightRadius))
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('height', height))
+      ..add(DoubleProperty('horizontalPadding', horizontalPadding))
+      ..add(EnumProperty<PaintingStyle>('paintingStyle', paintingStyle))
+      ..add(DoubleProperty('strokeWidth', strokeWidth))
+      ..add(EnumProperty<TabPosition>('tabPosition', tabPosition))
+      ..add(DoubleProperty('topLeftRadius', topLeftRadius))
+      ..add(DoubleProperty('topRightRadius', topRightRadius))
+      ..add(DoubleProperty('bottomRightRadius', bottomRightRadius))
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('height', height))
+      ..add(DoubleProperty('horizontalPadding', horizontalPadding))
+      ..add(EnumProperty<PaintingStyle>('paintingStyle', paintingStyle))
+      ..add(DoubleProperty('strokeWidth', strokeWidth))
+      ..add(EnumProperty<TabPosition>('tabPosition', tabPosition))
+      ..add(DoubleProperty('topLeftRadius', topLeftRadius))
+      ..add(DoubleProperty('topRightRadius', topRightRadius))
+      ..add(DoubleProperty('bottomRightRadius', bottomRightRadius))
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('height', height))
+      ..add(DoubleProperty('horizontalPadding', horizontalPadding))
+      ..add(EnumProperty<PaintingStyle>('paintingStyle', paintingStyle))
+      ..add(DoubleProperty('strokeWidth', strokeWidth))
+      ..add(EnumProperty<TabPosition>('tabPosition', tabPosition))
+      ..add(DoubleProperty('topLeftRadius', topLeftRadius))
+      ..add(DoubleProperty('topRightRadius', topRightRadius));
+  }
 }
 
 class RectangularIndicatorPainter extends BoxPainter {

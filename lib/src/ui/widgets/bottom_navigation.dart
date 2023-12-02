@@ -30,6 +30,7 @@ class FluBottomNavBarStyle {
   });
 
   final Color? backgroundColor;
+  final BoxBorder? border;
   final Color? foregroundColor;
   final double? height;
   final double iconSize;
@@ -38,7 +39,6 @@ class FluBottomNavBarStyle {
   final EdgeInsets? padding;
   final FluBottomNavBarTypes type;
   final Color? unSelectedForegroundColor;
-  final BoxBorder? border;
 }
 
 /// Creates a bottom navigation bar which is typically
@@ -59,12 +59,49 @@ class FluBottomNavBar extends StatefulWidget {
   final void Function(int)? onItemTap;
   final Curve animationCurve;
   final Duration animationDuration;
-  final List<FluBottomNavBarItem> items;
   final int index;
+  final List<FluBottomNavBarItem> items;
   final FluBottomNavBarStyle style;
 
   @override
   State<FluBottomNavBar> createState() => _FluBottomNavBarState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(
+        ObjectFlagProperty<void Function(int p1)?>.has('onItemTap', onItemTap),
+      )
+      ..add(DiagnosticsProperty<Curve>('animationCurve', animationCurve))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(IterableProperty<FluBottomNavBarItem>('items', items))
+      ..add(IntProperty('index', index))
+      ..add(DiagnosticsProperty<FluBottomNavBarStyle>('style', style))
+      ..add(DiagnosticsProperty<Curve>('animationCurve', animationCurve))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(IterableProperty<FluBottomNavBarItem>('items', items))
+      ..add(IntProperty('index', index))
+      ..add(DiagnosticsProperty<FluBottomNavBarStyle>('style', style))
+      ..add(DiagnosticsProperty<Curve>('animationCurve', animationCurve))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(IterableProperty<FluBottomNavBarItem>('items', items))
+      ..add(IntProperty('index', index))
+      ..add(DiagnosticsProperty<FluBottomNavBarStyle>('style', style))
+      ..add(DiagnosticsProperty<Curve>('animationCurve', animationCurve))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(IterableProperty<FluBottomNavBarItem>('items', items))
+      ..add(IntProperty('index', index))
+      ..add(DiagnosticsProperty<FluBottomNavBarStyle>('style', style));
+  }
 }
 
 class _FluBottomNavBarState extends State<FluBottomNavBar> {
@@ -172,6 +209,25 @@ class CurvedBottomNav extends StatelessWidget {
   final NotchSmoothness notchSmoothness;
 
   @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty<BorderRadius>('borderRadius', borderRadius))
+      ..add(EnumProperty<GapLocation>('gapLocation', gapLocation))
+      ..add(DoubleProperty('notchMargin', notchMargin))
+      ..add(EnumProperty<NotchSmoothness>('notchSmoothness', notchSmoothness))
+      ..add(EnumProperty<GapLocation>('gapLocation', gapLocation))
+      ..add(DoubleProperty('notchMargin', notchMargin))
+      ..add(EnumProperty<NotchSmoothness>('notchSmoothness', notchSmoothness))
+      ..add(EnumProperty<GapLocation>('gapLocation', gapLocation))
+      ..add(DoubleProperty('notchMargin', notchMargin))
+      ..add(EnumProperty<NotchSmoothness>('notchSmoothness', notchSmoothness))
+      ..add(EnumProperty<GapLocation>('gapLocation', gapLocation))
+      ..add(DoubleProperty('notchMargin', notchMargin))
+      ..add(EnumProperty<NotchSmoothness>('notchSmoothness', notchSmoothness));
+  }
+
+  @override
   Widget build(BuildContext context) => PhysicalShape(
         clipBehavior: Clip.antiAlias,
         color: Colors.transparent,
@@ -206,6 +262,29 @@ class _NavItem extends StatelessWidget {
   final VoidCallback onTap;
 
   @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('iconSize', iconSize))
+      ..add(DoubleProperty('iconStrokeWidth', iconStrokeWidth))
+      ..add(DiagnosticsProperty<FluBottomNavBarItem>('item', item))
+      ..add(ObjectFlagProperty<VoidCallback>.has('onTap', onTap))
+      ..add(DoubleProperty('iconSize', iconSize))
+      ..add(DoubleProperty('iconStrokeWidth', iconStrokeWidth))
+      ..add(DiagnosticsProperty<FluBottomNavBarItem>('item', item))
+      ..add(ObjectFlagProperty<VoidCallback>.has('onTap', onTap))
+      ..add(DoubleProperty('iconSize', iconSize))
+      ..add(DoubleProperty('iconStrokeWidth', iconStrokeWidth))
+      ..add(DiagnosticsProperty<FluBottomNavBarItem>('item', item))
+      ..add(ObjectFlagProperty<VoidCallback>.has('onTap', onTap))
+      ..add(DoubleProperty('iconSize', iconSize))
+      ..add(DoubleProperty('iconStrokeWidth', iconStrokeWidth))
+      ..add(DiagnosticsProperty<FluBottomNavBarItem>('item', item))
+      ..add(ObjectFlagProperty<VoidCallback>.has('onTap', onTap));
+  }
+
+  @override
   Widget build(BuildContext context) => Expanded(
         child: FluButton.icon(
           item.icon,
@@ -237,6 +316,41 @@ class NavIndicator extends StatelessWidget {
   final double itemWidth;
   final double position;
   final double size;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty<Curve>('animationCurve', animationCurve))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('itemWidth', itemWidth))
+      ..add(DoubleProperty('position', position))
+      ..add(DoubleProperty('size', size))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('itemWidth', itemWidth))
+      ..add(DoubleProperty('position', position))
+      ..add(DoubleProperty('size', size))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('itemWidth', itemWidth))
+      ..add(DoubleProperty('position', position))
+      ..add(DoubleProperty('size', size))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('itemWidth', itemWidth))
+      ..add(DoubleProperty('position', position))
+      ..add(DoubleProperty('size', size));
+  }
 
   @override
   Widget build(BuildContext context) => AnimatedPositioned(

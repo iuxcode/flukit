@@ -1,4 +1,5 @@
 import 'package:flukit/flukit.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -57,6 +58,8 @@ class FluTextField extends StatefulWidget {
 
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
+  final void Function(String)? onFieldSubmitted;
+  final bool autofocus;
   final Color? borderColor;
   final BorderRadius? borderRadius;
   final double? borderWidth;
@@ -71,6 +74,8 @@ class FluTextField extends StatefulWidget {
   final FocusNode? focusNode;
   final double? height;
   final String hint;
+  final Color? hintColor;
+  final TextStyle? hintStyle;
   final Color? iconColor;
   final double iconSize;
   final double iconStrokeWidth;
@@ -79,32 +84,350 @@ class FluTextField extends StatefulWidget {
   final TextEditingController? inputController;
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
-  final Color? hintColor;
-  final TextStyle? hintStyle;
   final EdgeInsets margin;
   final double? maxHeight;
+  final int? maxLength;
+  final MaxLengthEnforcement? maxLengthEnforcement;
   final int? maxlines;
   final bool obscureText;
   final VoidCallback? onTap;
   final EdgeInsets? padding;
+  final Widget? prefix;
   final TextSelectionControls? selectionControls;
+  final Widget? suffix;
   final FluIcons? prefixIcon, suffixIcon;
   final TextAlign textAlign;
   final TextAlignVertical textAlignVertical;
   final TextStyle? textStyle;
-  final Widget? suffix;
-  final Widget? prefix;
-  final void Function(String)? onFieldSubmitted;
-  final bool autofocus;
-  final int? maxLength;
-  final MaxLengthEnforcement? maxLengthEnforcement;
 
   @override
   State<FluTextField> createState() => _FluTextFieldState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(
+        ObjectFlagProperty<String? Function(String? p1)?>.has(
+          'validator',
+          validator,
+        ),
+      )
+      ..add(
+        ObjectFlagProperty<void Function(String p1)?>.has(
+          'onChanged',
+          onChanged,
+        ),
+      )
+      ..add(ColorProperty('borderColor', borderColor))
+      ..add(DiagnosticsProperty<BorderRadius?>('borderRadius', borderRadius))
+      ..add(DoubleProperty('borderWidth', borderWidth))
+      ..add(IterableProperty<BoxShadow>('boxShadow', boxShadow))
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(ColorProperty('cursorColor', cursorColor))
+      ..add(DoubleProperty('cursorHeight', cursorHeight))
+      ..add(DoubleProperty('cursorWidth', cursorWidth))
+      ..add(DiagnosticsProperty<bool>('expand', expand))
+      ..add(ColorProperty('fillColor', fillColor))
+      ..add(DiagnosticsProperty<FocusNode?>('focusNode', focusNode))
+      ..add(DoubleProperty('height', height))
+      ..add(StringProperty('hint', hint))
+      ..add(ColorProperty('iconColor', iconColor))
+      ..add(DoubleProperty('iconSize', iconSize))
+      ..add(DoubleProperty('iconStrokeWidth', iconStrokeWidth))
+      ..add(EnumProperty<FluIconStyles>('iconStyle', iconStyle))
+      ..add(EnumProperty<TextInputAction>('inputAction', inputAction))
+      ..add(
+        DiagnosticsProperty<TextEditingController?>(
+          'inputController',
+          inputController,
+        ),
+      )
+      ..add(
+        IterableProperty<TextInputFormatter>(
+          'inputFormatters',
+          inputFormatters,
+        ),
+      )
+      ..add(DiagnosticsProperty<TextInputType?>('keyboardType', keyboardType))
+      ..add(ColorProperty('hintColor', hintColor))
+      ..add(DiagnosticsProperty<TextStyle?>('hintStyle', hintStyle))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DoubleProperty('maxHeight', maxHeight))
+      ..add(IntProperty('maxlines', maxlines))
+      ..add(DiagnosticsProperty<bool>('obscureText', obscureText))
+      ..add(ObjectFlagProperty<VoidCallback?>.has('onTap', onTap))
+      ..add(DiagnosticsProperty<EdgeInsets?>('padding', padding))
+      ..add(
+        DiagnosticsProperty<TextSelectionControls?>(
+          'selectionControls',
+          selectionControls,
+        ),
+      )
+      ..add(EnumProperty<FluIcons?>('prefixIcon', prefixIcon))
+      ..add(EnumProperty<FluIcons?>('suffixIcon', suffixIcon))
+      ..add(EnumProperty<TextAlign>('textAlign', textAlign))
+      ..add(
+        DiagnosticsProperty<TextAlignVertical>(
+          'textAlignVertical',
+          textAlignVertical,
+        ),
+      )
+      ..add(DiagnosticsProperty<TextStyle?>('textStyle', textStyle))
+      ..add(
+        ObjectFlagProperty<void Function(String p1)?>.has(
+          'onFieldSubmitted',
+          onFieldSubmitted,
+        ),
+      )
+      ..add(DiagnosticsProperty<bool>('autofocus', autofocus))
+      ..add(IntProperty('maxLength', maxLength))
+      ..add(
+        EnumProperty<MaxLengthEnforcement?>(
+          'maxLengthEnforcement',
+          maxLengthEnforcement,
+        ),
+      )
+      ..add(
+        ObjectFlagProperty<void Function(String p1)?>.has(
+          'onChanged',
+          onChanged,
+        ),
+      )
+      ..add(ColorProperty('borderColor', borderColor))
+      ..add(DiagnosticsProperty<BorderRadius?>('borderRadius', borderRadius))
+      ..add(DoubleProperty('borderWidth', borderWidth))
+      ..add(IterableProperty<BoxShadow>('boxShadow', boxShadow))
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(ColorProperty('cursorColor', cursorColor))
+      ..add(DoubleProperty('cursorHeight', cursorHeight))
+      ..add(DoubleProperty('cursorWidth', cursorWidth))
+      ..add(DiagnosticsProperty<bool>('expand', expand))
+      ..add(ColorProperty('fillColor', fillColor))
+      ..add(DiagnosticsProperty<FocusNode?>('focusNode', focusNode))
+      ..add(DoubleProperty('height', height))
+      ..add(StringProperty('hint', hint))
+      ..add(ColorProperty('iconColor', iconColor))
+      ..add(DoubleProperty('iconSize', iconSize))
+      ..add(DoubleProperty('iconStrokeWidth', iconStrokeWidth))
+      ..add(EnumProperty<FluIconStyles>('iconStyle', iconStyle))
+      ..add(EnumProperty<TextInputAction>('inputAction', inputAction))
+      ..add(
+        DiagnosticsProperty<TextEditingController?>(
+          'inputController',
+          inputController,
+        ),
+      )
+      ..add(
+        IterableProperty<TextInputFormatter>(
+          'inputFormatters',
+          inputFormatters,
+        ),
+      )
+      ..add(DiagnosticsProperty<TextInputType?>('keyboardType', keyboardType))
+      ..add(ColorProperty('hintColor', hintColor))
+      ..add(DiagnosticsProperty<TextStyle?>('hintStyle', hintStyle))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DoubleProperty('maxHeight', maxHeight))
+      ..add(IntProperty('maxlines', maxlines))
+      ..add(DiagnosticsProperty<bool>('obscureText', obscureText))
+      ..add(ObjectFlagProperty<VoidCallback?>.has('onTap', onTap))
+      ..add(DiagnosticsProperty<EdgeInsets?>('padding', padding))
+      ..add(
+        DiagnosticsProperty<TextSelectionControls?>(
+          'selectionControls',
+          selectionControls,
+        ),
+      )
+      ..add(EnumProperty<FluIcons?>('prefixIcon', prefixIcon))
+      ..add(EnumProperty<FluIcons?>('suffixIcon', suffixIcon))
+      ..add(EnumProperty<TextAlign>('textAlign', textAlign))
+      ..add(
+        DiagnosticsProperty<TextAlignVertical>(
+          'textAlignVertical',
+          textAlignVertical,
+        ),
+      )
+      ..add(DiagnosticsProperty<TextStyle?>('textStyle', textStyle))
+      ..add(
+        ObjectFlagProperty<void Function(String p1)?>.has(
+          'onFieldSubmitted',
+          onFieldSubmitted,
+        ),
+      )
+      ..add(DiagnosticsProperty<bool>('autofocus', autofocus))
+      ..add(IntProperty('maxLength', maxLength))
+      ..add(
+        EnumProperty<MaxLengthEnforcement?>(
+          'maxLengthEnforcement',
+          maxLengthEnforcement,
+        ),
+      )
+      ..add(
+        ObjectFlagProperty<void Function(String p1)?>.has(
+          'onChanged',
+          onChanged,
+        ),
+      )
+      ..add(ColorProperty('borderColor', borderColor))
+      ..add(DiagnosticsProperty<BorderRadius?>('borderRadius', borderRadius))
+      ..add(DoubleProperty('borderWidth', borderWidth))
+      ..add(IterableProperty<BoxShadow>('boxShadow', boxShadow))
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(ColorProperty('cursorColor', cursorColor))
+      ..add(DoubleProperty('cursorHeight', cursorHeight))
+      ..add(DoubleProperty('cursorWidth', cursorWidth))
+      ..add(DiagnosticsProperty<bool>('expand', expand))
+      ..add(ColorProperty('fillColor', fillColor))
+      ..add(DiagnosticsProperty<FocusNode?>('focusNode', focusNode))
+      ..add(DoubleProperty('height', height))
+      ..add(StringProperty('hint', hint))
+      ..add(ColorProperty('iconColor', iconColor))
+      ..add(DoubleProperty('iconSize', iconSize))
+      ..add(DoubleProperty('iconStrokeWidth', iconStrokeWidth))
+      ..add(EnumProperty<FluIconStyles>('iconStyle', iconStyle))
+      ..add(EnumProperty<TextInputAction>('inputAction', inputAction))
+      ..add(
+        DiagnosticsProperty<TextEditingController?>(
+          'inputController',
+          inputController,
+        ),
+      )
+      ..add(
+        IterableProperty<TextInputFormatter>(
+          'inputFormatters',
+          inputFormatters,
+        ),
+      )
+      ..add(DiagnosticsProperty<TextInputType?>('keyboardType', keyboardType))
+      ..add(ColorProperty('hintColor', hintColor))
+      ..add(DiagnosticsProperty<TextStyle?>('hintStyle', hintStyle))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DoubleProperty('maxHeight', maxHeight))
+      ..add(IntProperty('maxlines', maxlines))
+      ..add(DiagnosticsProperty<bool>('obscureText', obscureText))
+      ..add(ObjectFlagProperty<VoidCallback?>.has('onTap', onTap))
+      ..add(DiagnosticsProperty<EdgeInsets?>('padding', padding))
+      ..add(
+        DiagnosticsProperty<TextSelectionControls?>(
+          'selectionControls',
+          selectionControls,
+        ),
+      )
+      ..add(EnumProperty<FluIcons?>('prefixIcon', prefixIcon))
+      ..add(EnumProperty<FluIcons?>('suffixIcon', suffixIcon))
+      ..add(EnumProperty<TextAlign>('textAlign', textAlign))
+      ..add(
+        DiagnosticsProperty<TextAlignVertical>(
+          'textAlignVertical',
+          textAlignVertical,
+        ),
+      )
+      ..add(DiagnosticsProperty<TextStyle?>('textStyle', textStyle))
+      ..add(
+        ObjectFlagProperty<void Function(String p1)?>.has(
+          'onFieldSubmitted',
+          onFieldSubmitted,
+        ),
+      )
+      ..add(DiagnosticsProperty<bool>('autofocus', autofocus))
+      ..add(IntProperty('maxLength', maxLength))
+      ..add(
+        EnumProperty<MaxLengthEnforcement?>(
+          'maxLengthEnforcement',
+          maxLengthEnforcement,
+        ),
+      )
+      ..add(
+        ObjectFlagProperty<void Function(String p1)?>.has(
+          'onChanged',
+          onChanged,
+        ),
+      )
+      ..add(ColorProperty('borderColor', borderColor))
+      ..add(DiagnosticsProperty<BorderRadius?>('borderRadius', borderRadius))
+      ..add(DoubleProperty('borderWidth', borderWidth))
+      ..add(IterableProperty<BoxShadow>('boxShadow', boxShadow))
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(ColorProperty('cursorColor', cursorColor))
+      ..add(DoubleProperty('cursorHeight', cursorHeight))
+      ..add(DoubleProperty('cursorWidth', cursorWidth))
+      ..add(DiagnosticsProperty<bool>('expand', expand))
+      ..add(ColorProperty('fillColor', fillColor))
+      ..add(DiagnosticsProperty<FocusNode?>('focusNode', focusNode))
+      ..add(DoubleProperty('height', height))
+      ..add(StringProperty('hint', hint))
+      ..add(ColorProperty('iconColor', iconColor))
+      ..add(DoubleProperty('iconSize', iconSize))
+      ..add(DoubleProperty('iconStrokeWidth', iconStrokeWidth))
+      ..add(EnumProperty<FluIconStyles>('iconStyle', iconStyle))
+      ..add(EnumProperty<TextInputAction>('inputAction', inputAction))
+      ..add(
+        DiagnosticsProperty<TextEditingController?>(
+          'inputController',
+          inputController,
+        ),
+      )
+      ..add(
+        IterableProperty<TextInputFormatter>(
+          'inputFormatters',
+          inputFormatters,
+        ),
+      )
+      ..add(DiagnosticsProperty<TextInputType?>('keyboardType', keyboardType))
+      ..add(ColorProperty('hintColor', hintColor))
+      ..add(DiagnosticsProperty<TextStyle?>('hintStyle', hintStyle))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DoubleProperty('maxHeight', maxHeight))
+      ..add(IntProperty('maxlines', maxlines))
+      ..add(DiagnosticsProperty<bool>('obscureText', obscureText))
+      ..add(ObjectFlagProperty<VoidCallback?>.has('onTap', onTap))
+      ..add(DiagnosticsProperty<EdgeInsets?>('padding', padding))
+      ..add(
+        DiagnosticsProperty<TextSelectionControls?>(
+          'selectionControls',
+          selectionControls,
+        ),
+      )
+      ..add(EnumProperty<FluIcons?>('prefixIcon', prefixIcon))
+      ..add(EnumProperty<FluIcons?>('suffixIcon', suffixIcon))
+      ..add(EnumProperty<TextAlign>('textAlign', textAlign))
+      ..add(
+        DiagnosticsProperty<TextAlignVertical>(
+          'textAlignVertical',
+          textAlignVertical,
+        ),
+      )
+      ..add(DiagnosticsProperty<TextStyle?>('textStyle', textStyle))
+      ..add(
+        ObjectFlagProperty<void Function(String p1)?>.has(
+          'onFieldSubmitted',
+          onFieldSubmitted,
+        ),
+      )
+      ..add(DiagnosticsProperty<bool>('autofocus', autofocus))
+      ..add(IntProperty('maxLength', maxLength))
+      ..add(
+        EnumProperty<MaxLengthEnforcement?>(
+          'maxLengthEnforcement',
+          maxLengthEnforcement,
+        ),
+      );
+  }
 }
 
 class _FluTextFieldState<T extends FluTextField> extends State<T> {
   late FocusNode _focusNode;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DoubleProperty('height', height));
+  }
 
   @override
   void initState() {

@@ -1,6 +1,7 @@
 import 'package:flukit/src/data/models/chip.model.dart';
 import 'package:flukit/src/ui/widgets/image.dart';
 import 'package:flukit/utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 const double _defaultChipHeight = 62;
@@ -57,10 +58,160 @@ class FluChips extends StatefulWidget {
 
   @override
   State<FluChips> createState() => _FluChipsState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty<Curve>('animationCurve', animationCurve))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(EnumProperty<Clip>('chipClipBehavior', chipClipBehavior))
+      ..add(DoubleProperty('chipHeight', chipHeight))
+      ..add(DiagnosticsProperty<EdgeInsets>('chipPadding', chipPadding))
+      ..add(DiagnosticsProperty<TextStyle?>('chipTextStyle', chipTextStyle))
+      ..add(
+        EnumProperty<WrapCrossAlignment>(
+          'crossAxisAlignment',
+          crossAxisAlignment,
+        ),
+      )
+      ..add(DoubleProperty('initialScrollOffset', initialScrollOffset))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(DoubleProperty('spacing', spacing))
+      ..add(DoubleProperty('runSpacing', runSpacing))
+      ..add(
+        DiagnosticsProperty<ScrollController?>(
+          'scrollController',
+          scrollController,
+        ),
+      )
+      ..add(DiagnosticsProperty<bool>('shuffle', shuffle))
+      ..add(
+        EnumProperty<VerticalDirection>(
+          'verticalDirection',
+          verticalDirection,
+        ),
+      )
+      ..add(IterableProperty<FluChipModel>('chips', chips))
+      ..add(DiagnosticsProperty<bool>('isScrollable', isScrollable))
+      ..add(IntProperty('rows', rows))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(EnumProperty<Clip>('chipClipBehavior', chipClipBehavior))
+      ..add(DoubleProperty('chipHeight', chipHeight))
+      ..add(DiagnosticsProperty<EdgeInsets>('chipPadding', chipPadding))
+      ..add(DiagnosticsProperty<TextStyle?>('chipTextStyle', chipTextStyle))
+      ..add(
+        EnumProperty<WrapCrossAlignment>(
+          'crossAxisAlignment',
+          crossAxisAlignment,
+        ),
+      )
+      ..add(DoubleProperty('initialScrollOffset', initialScrollOffset))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(DoubleProperty('spacing', spacing))
+      ..add(DoubleProperty('runSpacing', runSpacing))
+      ..add(
+        DiagnosticsProperty<ScrollController?>(
+          'scrollController',
+          scrollController,
+        ),
+      )
+      ..add(DiagnosticsProperty<bool>('shuffle', shuffle))
+      ..add(
+        EnumProperty<VerticalDirection>(
+          'verticalDirection',
+          verticalDirection,
+        ),
+      )
+      ..add(IterableProperty<FluChipModel>('chips', chips))
+      ..add(DiagnosticsProperty<bool>('isScrollable', isScrollable))
+      ..add(IntProperty('rows', rows))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(EnumProperty<Clip>('chipClipBehavior', chipClipBehavior))
+      ..add(DoubleProperty('chipHeight', chipHeight))
+      ..add(DiagnosticsProperty<EdgeInsets>('chipPadding', chipPadding))
+      ..add(DiagnosticsProperty<TextStyle?>('chipTextStyle', chipTextStyle))
+      ..add(
+        EnumProperty<WrapCrossAlignment>(
+          'crossAxisAlignment',
+          crossAxisAlignment,
+        ),
+      )
+      ..add(DoubleProperty('initialScrollOffset', initialScrollOffset))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(DoubleProperty('spacing', spacing))
+      ..add(DoubleProperty('runSpacing', runSpacing))
+      ..add(
+        DiagnosticsProperty<ScrollController?>(
+          'scrollController',
+          scrollController,
+        ),
+      )
+      ..add(DiagnosticsProperty<bool>('shuffle', shuffle))
+      ..add(
+        EnumProperty<VerticalDirection>(
+          'verticalDirection',
+          verticalDirection,
+        ),
+      )
+      ..add(IterableProperty<FluChipModel>('chips', chips))
+      ..add(DiagnosticsProperty<bool>('isScrollable', isScrollable))
+      ..add(IntProperty('rows', rows))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(EnumProperty<Clip>('chipClipBehavior', chipClipBehavior))
+      ..add(DoubleProperty('chipHeight', chipHeight))
+      ..add(DiagnosticsProperty<EdgeInsets>('chipPadding', chipPadding))
+      ..add(DiagnosticsProperty<TextStyle?>('chipTextStyle', chipTextStyle))
+      ..add(
+        EnumProperty<WrapCrossAlignment>(
+          'crossAxisAlignment',
+          crossAxisAlignment,
+        ),
+      )
+      ..add(DoubleProperty('initialScrollOffset', initialScrollOffset))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(DoubleProperty('spacing', spacing))
+      ..add(DoubleProperty('runSpacing', runSpacing))
+      ..add(
+        DiagnosticsProperty<ScrollController?>(
+          'scrollController',
+          scrollController,
+        ),
+      )
+      ..add(DiagnosticsProperty<bool>('shuffle', shuffle))
+      ..add(
+        EnumProperty<VerticalDirection>(
+          'verticalDirection',
+          verticalDirection,
+        ),
+      )
+      ..add(IterableProperty<FluChipModel>('chips', chips))
+      ..add(DiagnosticsProperty<bool>('isScrollable', isScrollable))
+      ..add(IntProperty('rows', rows));
+  }
 }
 
 class _FluChipsState extends State<FluChips> {
   late ScrollController scrollController;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty<ScrollController>(
+        'scrollController',
+        scrollController,
+      ),
+    );
+  }
 
   @override
   Future<void> didUpdateWidget(covariant FluChips oldWidget) async {
@@ -187,6 +338,33 @@ class FluChip extends StatelessWidget {
   final double height;
   final EdgeInsets padding, margin;
   final TextStyle? textStyle;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty<FluChipModel>('chip', chip))
+      ..add(EnumProperty<Clip>('clipBehavior', clipBehavior))
+      ..add(DoubleProperty('height', height))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DiagnosticsProperty<TextStyle?>('textStyle', textStyle))
+      ..add(EnumProperty<Clip>('clipBehavior', clipBehavior))
+      ..add(DoubleProperty('height', height))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DiagnosticsProperty<TextStyle?>('textStyle', textStyle))
+      ..add(EnumProperty<Clip>('clipBehavior', clipBehavior))
+      ..add(DoubleProperty('height', height))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DiagnosticsProperty<TextStyle?>('textStyle', textStyle))
+      ..add(EnumProperty<Clip>('clipBehavior', clipBehavior))
+      ..add(DoubleProperty('height', height))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DiagnosticsProperty<TextStyle?>('textStyle', textStyle));
+  }
 
   @override
   Widget build(BuildContext context) {

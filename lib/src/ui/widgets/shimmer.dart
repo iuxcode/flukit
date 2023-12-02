@@ -1,4 +1,5 @@
 import 'package:flukit/flukit.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -42,6 +43,53 @@ class Skeleton extends StatelessWidget {
   final EdgeInsets margin;
   final bool rounded, shimmer;
   final ShimmerDirection shimmerDirection;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('height', height))
+      ..add(DoubleProperty('width', width))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DiagnosticsProperty<LinearGradient>('gradient', gradient))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DiagnosticsProperty<bool>('rounded', rounded))
+      ..add(DiagnosticsProperty<bool>('shimmer', shimmer))
+      ..add(
+        EnumProperty<ShimmerDirection>('shimmerDirection', shimmerDirection),
+      )
+      ..add(DoubleProperty('height', height))
+      ..add(DoubleProperty('width', width))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DiagnosticsProperty<LinearGradient>('gradient', gradient))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DiagnosticsProperty<bool>('rounded', rounded))
+      ..add(DiagnosticsProperty<bool>('shimmer', shimmer))
+      ..add(
+        EnumProperty<ShimmerDirection>('shimmerDirection', shimmerDirection),
+      )
+      ..add(DoubleProperty('height', height))
+      ..add(DoubleProperty('width', width))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DiagnosticsProperty<LinearGradient>('gradient', gradient))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DiagnosticsProperty<bool>('rounded', rounded))
+      ..add(DiagnosticsProperty<bool>('shimmer', shimmer))
+      ..add(
+        EnumProperty<ShimmerDirection>('shimmerDirection', shimmerDirection),
+      )
+      ..add(DoubleProperty('height', height))
+      ..add(DoubleProperty('width', width))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DiagnosticsProperty<LinearGradient>('gradient', gradient))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DiagnosticsProperty<bool>('rounded', rounded))
+      ..add(DiagnosticsProperty<bool>('shimmer', shimmer))
+      ..add(
+        EnumProperty<ShimmerDirection>('shimmerDirection', shimmerDirection),
+      );
+  }
 
   @override
   Widget build(BuildContext context) {

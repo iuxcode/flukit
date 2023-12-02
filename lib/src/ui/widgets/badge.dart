@@ -1,4 +1,5 @@
 import 'package:flukit/utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// Add badge to a widget
@@ -31,6 +32,53 @@ class FluBadge extends StatelessWidget {
   final bool outlined;
   final BadgePosition position;
   final double size;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(IterableProperty<BoxShadow>('boxShadow', boxShadow))
+      ..add(ColorProperty('color', color))
+      ..add(IntProperty('count', count))
+      ..add(IntProperty('countLimit', countLimit))
+      ..add(ColorProperty('foregroundColor', foregroundColor))
+      ..add(DiagnosticsProperty<Offset>('offset', offset))
+      ..add(ColorProperty('outlineColor', outlineColor))
+      ..add(DoubleProperty('outlineThickness', outlineThickness))
+      ..add(DiagnosticsProperty<bool>('outlined', outlined))
+      ..add(EnumProperty<BadgePosition>('position', position))
+      ..add(DoubleProperty('size', size))
+      ..add(ColorProperty('color', color))
+      ..add(IntProperty('count', count))
+      ..add(IntProperty('countLimit', countLimit))
+      ..add(ColorProperty('foregroundColor', foregroundColor))
+      ..add(DiagnosticsProperty<Offset>('offset', offset))
+      ..add(ColorProperty('outlineColor', outlineColor))
+      ..add(DoubleProperty('outlineThickness', outlineThickness))
+      ..add(DiagnosticsProperty<bool>('outlined', outlined))
+      ..add(EnumProperty<BadgePosition>('position', position))
+      ..add(DoubleProperty('size', size))
+      ..add(ColorProperty('color', color))
+      ..add(IntProperty('count', count))
+      ..add(IntProperty('countLimit', countLimit))
+      ..add(ColorProperty('foregroundColor', foregroundColor))
+      ..add(DiagnosticsProperty<Offset>('offset', offset))
+      ..add(ColorProperty('outlineColor', outlineColor))
+      ..add(DoubleProperty('outlineThickness', outlineThickness))
+      ..add(DiagnosticsProperty<bool>('outlined', outlined))
+      ..add(EnumProperty<BadgePosition>('position', position))
+      ..add(DoubleProperty('size', size))
+      ..add(ColorProperty('color', color))
+      ..add(IntProperty('count', count))
+      ..add(IntProperty('countLimit', countLimit))
+      ..add(ColorProperty('foregroundColor', foregroundColor))
+      ..add(DiagnosticsProperty<Offset>('offset', offset))
+      ..add(ColorProperty('outlineColor', outlineColor))
+      ..add(DoubleProperty('outlineThickness', outlineThickness))
+      ..add(DiagnosticsProperty<bool>('outlined', outlined))
+      ..add(EnumProperty<BadgePosition>('position', position))
+      ..add(DoubleProperty('size', size));
+  }
 
   @override
   Widget build(BuildContext context) {

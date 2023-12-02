@@ -1,4 +1,5 @@
 import 'package:flukit/flukit.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class FluAvatar extends StatefulWidget {
@@ -25,6 +26,9 @@ class FluAvatar extends StatefulWidget {
     this.overlayOpacity = 0,
   });
 
+  final TextStyle? labelStyle;
+  final double overlayOpacity;
+
   /// Set to true, if you want the avatar to be a circle
   final bool circle;
 
@@ -33,6 +37,15 @@ class FluAvatar extends StatefulWidget {
 
   /// Default avatars types
   final FluAvatarTypes defaultAvatarType;
+
+  /// BackgroundColor
+  final Color? fillColor;
+
+  /// The offset at which stop 0.0 of the `outline` gradient is placed
+  final Alignment gradientBegin;
+
+  /// The offset at which stop 1.0 of the `outline` gradient is placed.
+  final Alignment gradientEnd;
 
   /// Display icon instead of label or image.
   final FluIcons? icon;
@@ -53,20 +66,14 @@ class FluAvatar extends StatefulWidget {
   /// Outline color
   final List<Color>? outlineColor;
 
+  /// Space between outline and the avatar
+  final double outlineGap;
+
   /// Outline thickness
   final double outlineThickness;
 
   /// set to true to enable outline
   final bool outlined;
-
-  /// Space between outline and the avatar
-  final double outlineGap;
-
-  /// The offset at which stop 0.0 of the `outline` gradient is placed
-  final Alignment gradientBegin;
-
-  /// The offset at which stop 1.0 of the `outline` gradient is placed.
-  final Alignment gradientEnd;
 
   /// The package argument must be non-null when
   /// displaying an image from a package and null otherwise.
@@ -76,19 +83,110 @@ class FluAvatar extends StatefulWidget {
   /// Avatar size.
   final double size;
 
-  /// BackgroundColor
-  final Color? fillColor;
-
-  final double overlayOpacity;
-
-  final TextStyle? labelStyle;
-
   @override
   State<FluAvatar> createState() => _FluAvatarState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty<bool>('circle', circle))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(
+        EnumProperty<FluAvatarTypes>('defaultAvatarType', defaultAvatarType),
+      )
+      ..add(EnumProperty<FluIcons?>('icon', icon))
+      ..add(StringProperty('image', image))
+      ..add(EnumProperty<ImageSources>('imageSource', imageSource))
+      ..add(StringProperty('label', label))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(IterableProperty<Color>('outlineColor', outlineColor))
+      ..add(DoubleProperty('outlineThickness', outlineThickness))
+      ..add(DiagnosticsProperty<bool>('outlined', outlined))
+      ..add(DoubleProperty('outlineGap', outlineGap))
+      ..add(DiagnosticsProperty<Alignment>('gradientBegin', gradientBegin))
+      ..add(DiagnosticsProperty<Alignment>('gradientEnd', gradientEnd))
+      ..add(StringProperty('package', package))
+      ..add(DoubleProperty('size', size))
+      ..add(ColorProperty('fillColor', fillColor))
+      ..add(DoubleProperty('overlayOpacity', overlayOpacity))
+      ..add(DiagnosticsProperty<TextStyle?>('labelStyle', labelStyle))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(
+        EnumProperty<FluAvatarTypes>('defaultAvatarType', defaultAvatarType),
+      )
+      ..add(EnumProperty<FluIcons?>('icon', icon))
+      ..add(StringProperty('image', image))
+      ..add(EnumProperty<ImageSources>('imageSource', imageSource))
+      ..add(StringProperty('label', label))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(IterableProperty<Color>('outlineColor', outlineColor))
+      ..add(DoubleProperty('outlineThickness', outlineThickness))
+      ..add(DiagnosticsProperty<bool>('outlined', outlined))
+      ..add(DoubleProperty('outlineGap', outlineGap))
+      ..add(DiagnosticsProperty<Alignment>('gradientBegin', gradientBegin))
+      ..add(DiagnosticsProperty<Alignment>('gradientEnd', gradientEnd))
+      ..add(StringProperty('package', package))
+      ..add(DoubleProperty('size', size))
+      ..add(ColorProperty('fillColor', fillColor))
+      ..add(DoubleProperty('overlayOpacity', overlayOpacity))
+      ..add(DiagnosticsProperty<TextStyle?>('labelStyle', labelStyle))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(
+        EnumProperty<FluAvatarTypes>('defaultAvatarType', defaultAvatarType),
+      )
+      ..add(EnumProperty<FluIcons?>('icon', icon))
+      ..add(StringProperty('image', image))
+      ..add(EnumProperty<ImageSources>('imageSource', imageSource))
+      ..add(StringProperty('label', label))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(IterableProperty<Color>('outlineColor', outlineColor))
+      ..add(DoubleProperty('outlineThickness', outlineThickness))
+      ..add(DiagnosticsProperty<bool>('outlined', outlined))
+      ..add(DoubleProperty('outlineGap', outlineGap))
+      ..add(DiagnosticsProperty<Alignment>('gradientBegin', gradientBegin))
+      ..add(DiagnosticsProperty<Alignment>('gradientEnd', gradientEnd))
+      ..add(StringProperty('package', package))
+      ..add(DoubleProperty('size', size))
+      ..add(ColorProperty('fillColor', fillColor))
+      ..add(DoubleProperty('overlayOpacity', overlayOpacity))
+      ..add(DiagnosticsProperty<TextStyle?>('labelStyle', labelStyle))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(
+        EnumProperty<FluAvatarTypes>('defaultAvatarType', defaultAvatarType),
+      )
+      ..add(EnumProperty<FluIcons?>('icon', icon))
+      ..add(StringProperty('image', image))
+      ..add(EnumProperty<ImageSources>('imageSource', imageSource))
+      ..add(StringProperty('label', label))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(IterableProperty<Color>('outlineColor', outlineColor))
+      ..add(DoubleProperty('outlineThickness', outlineThickness))
+      ..add(DiagnosticsProperty<bool>('outlined', outlined))
+      ..add(DoubleProperty('outlineGap', outlineGap))
+      ..add(DiagnosticsProperty<Alignment>('gradientBegin', gradientBegin))
+      ..add(DiagnosticsProperty<Alignment>('gradientEnd', gradientEnd))
+      ..add(StringProperty('package', package))
+      ..add(DoubleProperty('size', size))
+      ..add(ColorProperty('fillColor', fillColor))
+      ..add(DoubleProperty('overlayOpacity', overlayOpacity))
+      ..add(DiagnosticsProperty<TextStyle?>('labelStyle', labelStyle));
+  }
 }
 
 class _FluAvatarState extends State<FluAvatar> {
   late String defaultAvatar;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(StringProperty('defaultAvatar', defaultAvatar))
+      ..add(StringProperty('image', image))
+      ..add(StringProperty('image', image))
+      ..add(StringProperty('image', image))
+      ..add(StringProperty('image', image));
+  }
 
   @override
   void initState() {

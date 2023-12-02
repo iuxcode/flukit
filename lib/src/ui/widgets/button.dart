@@ -1,8 +1,10 @@
 import 'package:flukit/flukit.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// Create a button
 class FluButton extends StatelessWidget {
+  // ignore: public_member_api_docs
   const FluButton({
     required this.child,
     this.onPressed,
@@ -114,9 +116,11 @@ class FluButton extends StatelessWidget {
   final AlignmentGeometry? alignment;
   final Color? backgroundColor;
   final bool block;
+  final BorderSide? border;
   final BorderRadius? borderRadius;
   final List<BoxShadow>? boxShadow;
   final Widget child;
+  final Clip clipBehavior;
   final double? cornerRadius;
   final double elevation;
   final bool expand;
@@ -133,11 +137,152 @@ class FluButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final EdgeInsets padding;
   final bool replaceContentOnLoading;
-  final double? width;
   final Color? splashColor;
-  final BorderSide? border;
   final InteractiveInkFeatureFactory? splashFactory;
-  final Clip clipBehavior;
+  final double? width;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty<AlignmentGeometry?>('alignment', alignment))
+      ..add(ColorProperty('backgroundColor', backgroundColor))
+      ..add(DiagnosticsProperty<bool>('block', block))
+      ..add(DiagnosticsProperty<BorderRadius?>('borderRadius', borderRadius))
+      ..add(IterableProperty<BoxShadow>('boxShadow', boxShadow))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DoubleProperty('elevation', elevation))
+      ..add(DiagnosticsProperty<bool>('expand', expand))
+      ..add(DiagnosticsProperty<bool>('filled', filled))
+      ..add(DiagnosticsProperty<bool>('flat', flat))
+      ..add(ColorProperty('foregroundColor', foregroundColor))
+      ..add(DoubleProperty('height', height))
+      ..add(ColorProperty('loaderColor', loaderColor))
+      ..add(ColorProperty('loaderOverlayColor', loaderOverlayColor))
+      ..add(DiagnosticsProperty<bool>('loading', loading))
+      ..add(StringProperty('loadingText', loadingText))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(ObjectFlagProperty<VoidCallback?>.has('onPressed', onPressed))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(
+        DiagnosticsProperty<bool>(
+          'replaceContentOnLoading',
+          replaceContentOnLoading,
+        ),
+      )
+      ..add(DoubleProperty('width', width))
+      ..add(ColorProperty('splashColor', splashColor))
+      ..add(DiagnosticsProperty<BorderSide?>('border', border))
+      ..add(
+        DiagnosticsProperty<InteractiveInkFeatureFactory?>(
+          'splashFactory',
+          splashFactory,
+        ),
+      )
+      ..add(EnumProperty<Clip>('clipBehavior', clipBehavior))
+      ..add(ColorProperty('backgroundColor', backgroundColor))
+      ..add(DiagnosticsProperty<bool>('block', block))
+      ..add(DiagnosticsProperty<BorderRadius?>('borderRadius', borderRadius))
+      ..add(IterableProperty<BoxShadow>('boxShadow', boxShadow))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DoubleProperty('elevation', elevation))
+      ..add(DiagnosticsProperty<bool>('expand', expand))
+      ..add(DiagnosticsProperty<bool>('filled', filled))
+      ..add(DiagnosticsProperty<bool>('flat', flat))
+      ..add(ColorProperty('foregroundColor', foregroundColor))
+      ..add(DoubleProperty('height', height))
+      ..add(ColorProperty('loaderColor', loaderColor))
+      ..add(ColorProperty('loaderOverlayColor', loaderOverlayColor))
+      ..add(DiagnosticsProperty<bool>('loading', loading))
+      ..add(StringProperty('loadingText', loadingText))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(ObjectFlagProperty<VoidCallback?>.has('onPressed', onPressed))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(
+        DiagnosticsProperty<bool>(
+          'replaceContentOnLoading',
+          replaceContentOnLoading,
+        ),
+      )
+      ..add(DoubleProperty('width', width))
+      ..add(ColorProperty('splashColor', splashColor))
+      ..add(DiagnosticsProperty<BorderSide?>('border', border))
+      ..add(
+        DiagnosticsProperty<InteractiveInkFeatureFactory?>(
+          'splashFactory',
+          splashFactory,
+        ),
+      )
+      ..add(EnumProperty<Clip>('clipBehavior', clipBehavior))
+      ..add(ColorProperty('backgroundColor', backgroundColor))
+      ..add(DiagnosticsProperty<bool>('block', block))
+      ..add(DiagnosticsProperty<BorderRadius?>('borderRadius', borderRadius))
+      ..add(IterableProperty<BoxShadow>('boxShadow', boxShadow))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DoubleProperty('elevation', elevation))
+      ..add(DiagnosticsProperty<bool>('expand', expand))
+      ..add(DiagnosticsProperty<bool>('filled', filled))
+      ..add(DiagnosticsProperty<bool>('flat', flat))
+      ..add(ColorProperty('foregroundColor', foregroundColor))
+      ..add(DoubleProperty('height', height))
+      ..add(ColorProperty('loaderColor', loaderColor))
+      ..add(ColorProperty('loaderOverlayColor', loaderOverlayColor))
+      ..add(DiagnosticsProperty<bool>('loading', loading))
+      ..add(StringProperty('loadingText', loadingText))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(ObjectFlagProperty<VoidCallback?>.has('onPressed', onPressed))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(
+        DiagnosticsProperty<bool>(
+          'replaceContentOnLoading',
+          replaceContentOnLoading,
+        ),
+      )
+      ..add(DoubleProperty('width', width))
+      ..add(ColorProperty('splashColor', splashColor))
+      ..add(DiagnosticsProperty<BorderSide?>('border', border))
+      ..add(
+        DiagnosticsProperty<InteractiveInkFeatureFactory?>(
+          'splashFactory',
+          splashFactory,
+        ),
+      )
+      ..add(EnumProperty<Clip>('clipBehavior', clipBehavior))
+      ..add(ColorProperty('backgroundColor', backgroundColor))
+      ..add(DiagnosticsProperty<bool>('block', block))
+      ..add(DiagnosticsProperty<BorderRadius?>('borderRadius', borderRadius))
+      ..add(IterableProperty<BoxShadow>('boxShadow', boxShadow))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DoubleProperty('elevation', elevation))
+      ..add(DiagnosticsProperty<bool>('expand', expand))
+      ..add(DiagnosticsProperty<bool>('filled', filled))
+      ..add(DiagnosticsProperty<bool>('flat', flat))
+      ..add(ColorProperty('foregroundColor', foregroundColor))
+      ..add(DoubleProperty('height', height))
+      ..add(ColorProperty('loaderColor', loaderColor))
+      ..add(ColorProperty('loaderOverlayColor', loaderOverlayColor))
+      ..add(DiagnosticsProperty<bool>('loading', loading))
+      ..add(StringProperty('loadingText', loadingText))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(ObjectFlagProperty<VoidCallback?>.has('onPressed', onPressed))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(
+        DiagnosticsProperty<bool>(
+          'replaceContentOnLoading',
+          replaceContentOnLoading,
+        ),
+      )
+      ..add(DoubleProperty('width', width))
+      ..add(ColorProperty('splashColor', splashColor))
+      ..add(DiagnosticsProperty<BorderSide?>('border', border))
+      ..add(
+        DiagnosticsProperty<InteractiveInkFeatureFactory?>(
+          'splashFactory',
+          splashFactory,
+        ),
+      )
+      ..add(EnumProperty<Clip>('clipBehavior', clipBehavior));
+  }
 
   Widget _getChild(BuildContext context) => child;
 
@@ -329,6 +474,29 @@ class _FluIconButton extends FluButton {
               disabled: onPressed == null,
             ),
       );
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(EnumProperty<FluIcons>('icon', icon))
+      ..add(DoubleProperty('iconSize', iconSize))
+      ..add(DoubleProperty('iconStrokeWidth', iconStrokeWidth))
+      ..add(EnumProperty<FluIconStyles>('iconStyle', iconStyle))
+      ..add(DoubleProperty('size', size))
+      ..add(DoubleProperty('iconSize', iconSize))
+      ..add(DoubleProperty('iconStrokeWidth', iconStrokeWidth))
+      ..add(EnumProperty<FluIconStyles>('iconStyle', iconStyle))
+      ..add(DoubleProperty('size', size))
+      ..add(DoubleProperty('iconSize', iconSize))
+      ..add(DoubleProperty('iconStrokeWidth', iconStrokeWidth))
+      ..add(EnumProperty<FluIconStyles>('iconStyle', iconStyle))
+      ..add(DoubleProperty('size', size))
+      ..add(DoubleProperty('iconSize', iconSize))
+      ..add(DoubleProperty('iconStrokeWidth', iconStrokeWidth))
+      ..add(EnumProperty<FluIconStyles>('iconStyle', iconStyle))
+      ..add(DoubleProperty('size', size));
+  }
 }
 
 class _FluTextButton extends FluButton {
@@ -373,17 +541,17 @@ class _FluTextButton extends FluButton {
   }) : super(child: const SizedBox());
 
   final double gap;
+  final Color? iconColor;
   final double iconSize;
   final double iconStrokeWidth;
   final FluIconStyles iconStyle;
   final FluIcons? prefixIcon;
   final double? prefixIconSize;
+  final bool spaceBetweenChildren;
   final FluIcons? suffixIcon;
   final double? suffixIconSize;
   final String text;
   final TextStyle? textStyle;
-  final Color? iconColor;
-  final bool spaceBetweenChildren;
 
   @override
   Widget _getChild(BuildContext context) {
@@ -436,6 +604,77 @@ class _FluTextButton extends FluButton {
     }
 
     return textWidget;
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DoubleProperty('gap', gap))
+      ..add(DoubleProperty('iconSize', iconSize))
+      ..add(DoubleProperty('iconStrokeWidth', iconStrokeWidth))
+      ..add(EnumProperty<FluIconStyles>('iconStyle', iconStyle))
+      ..add(EnumProperty<FluIcons?>('prefixIcon', prefixIcon))
+      ..add(DoubleProperty('prefixIconSize', prefixIconSize))
+      ..add(EnumProperty<FluIcons?>('suffixIcon', suffixIcon))
+      ..add(DoubleProperty('suffixIconSize', suffixIconSize))
+      ..add(StringProperty('text', text))
+      ..add(DiagnosticsProperty<TextStyle?>('textStyle', textStyle))
+      ..add(ColorProperty('iconColor', iconColor))
+      ..add(
+        DiagnosticsProperty<bool>(
+          'spaceBetweenChildren',
+          spaceBetweenChildren,
+        ),
+      )
+      ..add(DoubleProperty('iconSize', iconSize))
+      ..add(DoubleProperty('iconStrokeWidth', iconStrokeWidth))
+      ..add(EnumProperty<FluIconStyles>('iconStyle', iconStyle))
+      ..add(EnumProperty<FluIcons?>('prefixIcon', prefixIcon))
+      ..add(DoubleProperty('prefixIconSize', prefixIconSize))
+      ..add(EnumProperty<FluIcons?>('suffixIcon', suffixIcon))
+      ..add(DoubleProperty('suffixIconSize', suffixIconSize))
+      ..add(StringProperty('text', text))
+      ..add(DiagnosticsProperty<TextStyle?>('textStyle', textStyle))
+      ..add(ColorProperty('iconColor', iconColor))
+      ..add(
+        DiagnosticsProperty<bool>(
+          'spaceBetweenChildren',
+          spaceBetweenChildren,
+        ),
+      )
+      ..add(DoubleProperty('iconSize', iconSize))
+      ..add(DoubleProperty('iconStrokeWidth', iconStrokeWidth))
+      ..add(EnumProperty<FluIconStyles>('iconStyle', iconStyle))
+      ..add(EnumProperty<FluIcons?>('prefixIcon', prefixIcon))
+      ..add(DoubleProperty('prefixIconSize', prefixIconSize))
+      ..add(EnumProperty<FluIcons?>('suffixIcon', suffixIcon))
+      ..add(DoubleProperty('suffixIconSize', suffixIconSize))
+      ..add(StringProperty('text', text))
+      ..add(DiagnosticsProperty<TextStyle?>('textStyle', textStyle))
+      ..add(ColorProperty('iconColor', iconColor))
+      ..add(
+        DiagnosticsProperty<bool>(
+          'spaceBetweenChildren',
+          spaceBetweenChildren,
+        ),
+      )
+      ..add(DoubleProperty('iconSize', iconSize))
+      ..add(DoubleProperty('iconStrokeWidth', iconStrokeWidth))
+      ..add(EnumProperty<FluIconStyles>('iconStyle', iconStyle))
+      ..add(EnumProperty<FluIcons?>('prefixIcon', prefixIcon))
+      ..add(DoubleProperty('prefixIconSize', prefixIconSize))
+      ..add(EnumProperty<FluIcons?>('suffixIcon', suffixIcon))
+      ..add(DoubleProperty('suffixIconSize', suffixIconSize))
+      ..add(StringProperty('text', text))
+      ..add(DiagnosticsProperty<TextStyle?>('textStyle', textStyle))
+      ..add(ColorProperty('iconColor', iconColor))
+      ..add(
+        DiagnosticsProperty<bool>(
+          'spaceBetweenChildren',
+          spaceBetweenChildren,
+        ),
+      );
   }
 
   Widget _buildIcon(FluIcons icon, Color color, double? size) => FluIcon(

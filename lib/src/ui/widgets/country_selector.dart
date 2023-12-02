@@ -3,6 +3,7 @@ import 'package:flukit/src/ui/widgets/inputs.dart';
 import 'package:flukit/src/utils/countries.dart';
 import 'package:flukit/src/utils/extensions/context.dart';
 import 'package:flukit/src/utils/theme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class FluCountrySelector extends StatelessWidget {
@@ -20,13 +21,84 @@ class FluCountrySelector extends StatelessWidget {
     this.flagCornerRadius = 25,
   });
 
-  final String? title;
+  final void Function(Country)? onCountrySelected;
   final String? description;
   final TextStyle? titleStyle, descriptionStyle;
+  final List<Country> countries, exclude;
   final double flagSize, flagCornerRadius;
   final EdgeInsets padding;
-  final List<Country> countries, exclude;
-  final void Function(Country)? onCountrySelected;
+  final String? title;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(StringProperty('title', title))
+      ..add(StringProperty('description', description))
+      ..add(DiagnosticsProperty<TextStyle?>('titleStyle', titleStyle))
+      ..add(
+        DiagnosticsProperty<TextStyle?>('descriptionStyle', descriptionStyle),
+      )
+      ..add(DoubleProperty('flagSize', flagSize))
+      ..add(DoubleProperty('flagCornerRadius', flagCornerRadius))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(IterableProperty<Country>('countries', countries))
+      ..add(IterableProperty<Country>('exclude', exclude))
+      ..add(
+        ObjectFlagProperty<void Function(Country p1)?>.has(
+          'onCountrySelected',
+          onCountrySelected,
+        ),
+      )
+      ..add(StringProperty('description', description))
+      ..add(DiagnosticsProperty<TextStyle?>('titleStyle', titleStyle))
+      ..add(
+        DiagnosticsProperty<TextStyle?>('descriptionStyle', descriptionStyle),
+      )
+      ..add(DoubleProperty('flagSize', flagSize))
+      ..add(DoubleProperty('flagCornerRadius', flagCornerRadius))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(IterableProperty<Country>('countries', countries))
+      ..add(IterableProperty<Country>('exclude', exclude))
+      ..add(
+        ObjectFlagProperty<void Function(Country p1)?>.has(
+          'onCountrySelected',
+          onCountrySelected,
+        ),
+      )
+      ..add(StringProperty('description', description))
+      ..add(DiagnosticsProperty<TextStyle?>('titleStyle', titleStyle))
+      ..add(
+        DiagnosticsProperty<TextStyle?>('descriptionStyle', descriptionStyle),
+      )
+      ..add(DoubleProperty('flagSize', flagSize))
+      ..add(DoubleProperty('flagCornerRadius', flagCornerRadius))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(IterableProperty<Country>('countries', countries))
+      ..add(IterableProperty<Country>('exclude', exclude))
+      ..add(
+        ObjectFlagProperty<void Function(Country p1)?>.has(
+          'onCountrySelected',
+          onCountrySelected,
+        ),
+      )
+      ..add(StringProperty('description', description))
+      ..add(DiagnosticsProperty<TextStyle?>('titleStyle', titleStyle))
+      ..add(
+        DiagnosticsProperty<TextStyle?>('descriptionStyle', descriptionStyle),
+      )
+      ..add(DoubleProperty('flagSize', flagSize))
+      ..add(DoubleProperty('flagCornerRadius', flagCornerRadius))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(IterableProperty<Country>('countries', countries))
+      ..add(IterableProperty<Country>('exclude', exclude))
+      ..add(
+        ObjectFlagProperty<void Function(Country p1)?>.has(
+          'onCountrySelected',
+          onCountrySelected,
+        ),
+      );
+  }
 
   @override
   Widget build(BuildContext context) => SingleChildScrollView(

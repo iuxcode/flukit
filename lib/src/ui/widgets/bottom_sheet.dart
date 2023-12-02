@@ -1,4 +1,5 @@
 import 'package:flukit/flukit.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -21,6 +22,41 @@ class FluModalBottomSheet extends StatelessWidget {
   final double? maxHeight;
   final EdgeInsets padding;
   final bool scrollable;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty<Curve>('animationCurve', animationCurve))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DoubleProperty('maxHeight', maxHeight))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(DiagnosticsProperty<bool>('scrollable', scrollable))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DoubleProperty('maxHeight', maxHeight))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(DiagnosticsProperty<bool>('scrollable', scrollable))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DoubleProperty('maxHeight', maxHeight))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(DiagnosticsProperty<bool>('scrollable', scrollable))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DoubleProperty('maxHeight', maxHeight))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(DiagnosticsProperty<bool>('scrollable', scrollable));
+  }
 
   @override
   Widget build(BuildContext context) {

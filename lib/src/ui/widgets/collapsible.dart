@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class FluCollapsible extends StatefulWidget {
@@ -20,12 +21,46 @@ class FluCollapsible extends StatefulWidget {
 
   @override
   FluCollapsibleState createState() => FluCollapsibleState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty<Alignment>('alignment', alignment))
+      ..add(EnumProperty<Axis>('axis', axis))
+      ..add(DiagnosticsProperty<bool>('collapse', collapse))
+      ..add(DiagnosticsProperty<Curve>('curve', curve))
+      ..add(DiagnosticsProperty<Duration>('duration', duration))
+      ..add(EnumProperty<Axis>('axis', axis))
+      ..add(DiagnosticsProperty<bool>('collapse', collapse))
+      ..add(DiagnosticsProperty<Curve>('curve', curve))
+      ..add(DiagnosticsProperty<Duration>('duration', duration))
+      ..add(EnumProperty<Axis>('axis', axis))
+      ..add(DiagnosticsProperty<bool>('collapse', collapse))
+      ..add(DiagnosticsProperty<Curve>('curve', curve))
+      ..add(DiagnosticsProperty<Duration>('duration', duration))
+      ..add(EnumProperty<Axis>('axis', axis))
+      ..add(DiagnosticsProperty<bool>('collapse', collapse))
+      ..add(DiagnosticsProperty<Curve>('curve', curve))
+      ..add(DiagnosticsProperty<Duration>('duration', duration));
+  }
 }
 
 class FluCollapsibleState extends State<FluCollapsible>
     with SingleTickerProviderStateMixin {
   late final Animation<double> animation;
   late final AnimationController controller;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty<Animation<double>>('animation', animation))
+      ..add(DiagnosticsProperty<AnimationController>('controller', controller))
+      ..add(DiagnosticsProperty<AnimationController>('controller', controller))
+      ..add(DiagnosticsProperty<AnimationController>('controller', controller))
+      ..add(DiagnosticsProperty<AnimationController>('controller', controller));
+  }
 
   @override
   void didUpdateWidget(FluCollapsible oldWidget) {

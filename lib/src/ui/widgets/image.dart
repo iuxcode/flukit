@@ -1,6 +1,7 @@
 import 'dart:io' as io;
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -95,6 +96,117 @@ class FluImage extends StatelessWidget {
 
   /// Image width
   final double? width;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty<BorderRadius?>('borderRadius', borderRadius))
+      ..add(DiagnosticsProperty<bool>('circle', circle))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DiagnosticsProperty<bool>('expand', expand))
+      ..add(EnumProperty<BoxFit>('fit', fit))
+      ..add(DiagnosticsProperty<bool>('gradientOverlay', gradientOverlay))
+      ..add(
+        DiagnosticsProperty<Alignment>(
+          'gradientOverlayBegin',
+          gradientOverlayBegin,
+        ),
+      )
+      ..add(
+        DiagnosticsProperty<Alignment>(
+          'gradientOverlayEnd',
+          gradientOverlayEnd,
+        ),
+      )
+      ..add(DoubleProperty('height', height))
+      ..add(StringProperty('image', image))
+      ..add(EnumProperty<ImageSources>('imageSource', imageSource))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(ColorProperty('overlayColor', overlayColor))
+      ..add(DoubleProperty('overlayOpacity', overlayOpacity))
+      ..add(StringProperty('package', package))
+      ..add(DiagnosticsProperty<bool>('square', square))
+      ..add(DoubleProperty('width', width))
+      ..add(DiagnosticsProperty<bool>('circle', circle))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DiagnosticsProperty<bool>('expand', expand))
+      ..add(EnumProperty<BoxFit>('fit', fit))
+      ..add(DiagnosticsProperty<bool>('gradientOverlay', gradientOverlay))
+      ..add(
+        DiagnosticsProperty<Alignment>(
+          'gradientOverlayBegin',
+          gradientOverlayBegin,
+        ),
+      )
+      ..add(
+        DiagnosticsProperty<Alignment>(
+          'gradientOverlayEnd',
+          gradientOverlayEnd,
+        ),
+      )
+      ..add(DoubleProperty('height', height))
+      ..add(StringProperty('image', image))
+      ..add(EnumProperty<ImageSources>('imageSource', imageSource))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(ColorProperty('overlayColor', overlayColor))
+      ..add(DoubleProperty('overlayOpacity', overlayOpacity))
+      ..add(StringProperty('package', package))
+      ..add(DiagnosticsProperty<bool>('square', square))
+      ..add(DoubleProperty('width', width))
+      ..add(DiagnosticsProperty<bool>('circle', circle))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DiagnosticsProperty<bool>('expand', expand))
+      ..add(EnumProperty<BoxFit>('fit', fit))
+      ..add(DiagnosticsProperty<bool>('gradientOverlay', gradientOverlay))
+      ..add(
+        DiagnosticsProperty<Alignment>(
+          'gradientOverlayBegin',
+          gradientOverlayBegin,
+        ),
+      )
+      ..add(
+        DiagnosticsProperty<Alignment>(
+          'gradientOverlayEnd',
+          gradientOverlayEnd,
+        ),
+      )
+      ..add(DoubleProperty('height', height))
+      ..add(StringProperty('image', image))
+      ..add(EnumProperty<ImageSources>('imageSource', imageSource))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(ColorProperty('overlayColor', overlayColor))
+      ..add(DoubleProperty('overlayOpacity', overlayOpacity))
+      ..add(StringProperty('package', package))
+      ..add(DiagnosticsProperty<bool>('square', square))
+      ..add(DoubleProperty('width', width))
+      ..add(DiagnosticsProperty<bool>('circle', circle))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DiagnosticsProperty<bool>('expand', expand))
+      ..add(EnumProperty<BoxFit>('fit', fit))
+      ..add(DiagnosticsProperty<bool>('gradientOverlay', gradientOverlay))
+      ..add(
+        DiagnosticsProperty<Alignment>(
+          'gradientOverlayBegin',
+          gradientOverlayBegin,
+        ),
+      )
+      ..add(
+        DiagnosticsProperty<Alignment>(
+          'gradientOverlayEnd',
+          gradientOverlayEnd,
+        ),
+      )
+      ..add(DoubleProperty('height', height))
+      ..add(StringProperty('image', image))
+      ..add(EnumProperty<ImageSources>('imageSource', imageSource))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(ColorProperty('overlayColor', overlayColor))
+      ..add(DoubleProperty('overlayOpacity', overlayOpacity))
+      ..add(StringProperty('package', package))
+      ..add(DiagnosticsProperty<bool>('square', square))
+      ..add(DoubleProperty('width', width));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -203,6 +315,12 @@ class _FluSvgImage extends FluImage {
   }) : super(imageSource: source);
 
   final Color? color;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(ColorProperty('color', color));
+  }
 
   @override
   Widget build(BuildContext context) {

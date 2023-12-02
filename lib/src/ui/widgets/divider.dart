@@ -1,5 +1,6 @@
 import 'package:flukit/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 /// Todo add dashes and dots
 class FluLine extends StatelessWidget {
@@ -21,6 +22,49 @@ class FluLine extends StatelessWidget {
   final Color? color;
   final EdgeInsets? margin;
   final double height, width, radius;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty<Curve>('animationCurve', animationCurve))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(DiagnosticsProperty<BoxShadow?>('boxShadow', boxShadow))
+      ..add(ColorProperty('color', color))
+      ..add(DiagnosticsProperty<EdgeInsets?>('margin', margin))
+      ..add(DoubleProperty('height', height))
+      ..add(DoubleProperty('width', width))
+      ..add(DoubleProperty('radius', radius))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(DiagnosticsProperty<BoxShadow?>('boxShadow', boxShadow))
+      ..add(ColorProperty('color', color))
+      ..add(DiagnosticsProperty<EdgeInsets?>('margin', margin))
+      ..add(DoubleProperty('height', height))
+      ..add(DoubleProperty('width', width))
+      ..add(DoubleProperty('radius', radius))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(DiagnosticsProperty<BoxShadow?>('boxShadow', boxShadow))
+      ..add(ColorProperty('color', color))
+      ..add(DiagnosticsProperty<EdgeInsets?>('margin', margin))
+      ..add(DoubleProperty('height', height))
+      ..add(DoubleProperty('width', width))
+      ..add(DoubleProperty('radius', radius))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(DiagnosticsProperty<BoxShadow?>('boxShadow', boxShadow))
+      ..add(ColorProperty('color', color))
+      ..add(DiagnosticsProperty<EdgeInsets?>('margin', margin))
+      ..add(DoubleProperty('height', height))
+      ..add(DoubleProperty('width', width))
+      ..add(DoubleProperty('radius', radius));
+  }
 
   @override
   Widget build(BuildContext context) => AnimatedContainer(
