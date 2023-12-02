@@ -1,6 +1,5 @@
+import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart';
-
-import '../../../flukit.dart';
 
 /// Create a button
 class FluButton extends StatelessWidget {
@@ -66,10 +65,12 @@ class FluButton extends StatelessWidget {
   }) = _FluIconButton;
 
   /// Create a button with text content
-  /// You can also add an icon before or after the text using [prefixIcon] and [suffixIcon].
-  /// Control icons sizes with [iconSize], [prefixIconSize] and [suffixIconSize].
-  /// use [iconStyle] to choose your icon style. refer to [https://github.com/charles9904/flukit_icons] to learn more.
-  /// [spacing] determine the space available between text and icon.
+  /// You can also add an icon before or after
+  /// the text using `prefixIcon` and `suffixIcon`.
+  /// Control icons sizes with `iconSize`,
+  /// `prefixIconSize` and `suffixIconSize`.
+  /// use `iconStyle` to choose your icon style. refer to [https://github.com/charles9904/flukit_icons] to learn more.
+  /// `spacing` determine the space available between text and icon.
   const factory FluButton.text(
     String text, {
     FluIcons? prefixIcon,
@@ -83,6 +84,7 @@ class FluButton extends StatelessWidget {
     VoidCallback? onPressed,
     Color? backgroundColor,
     Color? foregroundColor,
+    Color? iconColor,
     EdgeInsets padding,
     EdgeInsets margin,
     double elevation,
@@ -106,6 +108,7 @@ class FluButton extends StatelessWidget {
     Color? splashColor,
     BorderSide? border,
     InteractiveInkFeatureFactory? splashFactory,
+    bool spaceBetweenChildren,
   }) = _FluTextButton;
 
   final AlignmentGeometry? alignment;
@@ -136,24 +139,22 @@ class FluButton extends StatelessWidget {
   final InteractiveInkFeatureFactory? splashFactory;
   final Clip clipBehavior;
 
-  Widget _getChild(BuildContext context) {
-    return child;
-  }
+  Widget _getChild(BuildContext context) => child;
 
   @override
   Widget build(BuildContext context) {
-    final VoidCallback? onPressed = this.onPressed != null
-        ? () {
-            Flu.triggerLightImpactHaptic();
+    final onPressed = this.onPressed != null
+        ? () async {
+            await Flu.triggerLightImpactHaptic();
             this.onPressed?.call();
           }
         : this.onPressed;
-    final bool hasCustomSize =
-        expand || block || height != null || width != null;
+    final hasCustomSize = expand || block || height != null || width != null;
 
-    final ButtonStyle buttonStyle = ButtonStyle(
+    final buttonStyle = ButtonStyle(
       fixedSize: MaterialStatePropertyAll(
-          hasCustomSize ? const Size(double.infinity, double.infinity) : null),
+        hasCustomSize ? Size.infinite : null,
+      ),
       backgroundColor: MaterialStatePropertyAll(backgroundColor),
       foregroundColor: MaterialStatePropertyAll(foregroundColor),
       overlayColor: MaterialStatePropertyAll(splashColor),
@@ -171,18 +172,20 @@ class FluButton extends StatelessWidget {
       alignment: alignment,
       splashFactory: splashFactory ?? InkRipple.splashFactory,
     );
-    final Color defaultForegroundColor = _getButtonForegroundColor(
-        context.colorScheme,
-        disabled: onPressed == null,
-        flat: flat,
-        filled: filled);
-    final Color defaultOverlayColor = _getButtonOverlayColor(
-        context.colorScheme,
-        disabled: onPressed == null,
-        flat: flat,
-        filled: filled);
+    final defaultForegroundColor = _getButtonForegroundColor(
+      context.colorScheme,
+      disabled: onPressed == null,
+      flat: flat,
+      filled: filled,
+    );
+    final defaultOverlayColor = _getButtonOverlayColor(
+      context.colorScheme,
+      disabled: onPressed == null,
+      flat: flat,
+      filled: filled,
+    );
 
-    Widget loader = this.loader ??
+    final loader = this.loader ??
         FluLoader(
           size: loadingText != null ? 14 : 18,
           strokeWidth: loadingText != null ? 1.5 : 2,
@@ -230,22 +233,25 @@ class FluButton extends StatelessWidget {
     }
 
     if (loading && !replaceContentOnLoading) {
-      button = Stack(alignment: AlignmentDirectional.center, children: [
-        button,
-        Positioned.fill(
-          // Todo: Fix sizing issue
-          child: FluGlass(
-            borderRadius: borderRadius,
-            cornerRadius: cornerRadius ?? 99,
-            intensity: 1,
-            child: Container(
-              color: loaderOverlayColor ??
-                  defaultOverlayColor.withOpacity(filled ? .15 : .55),
-              child: loader,
+      button = Stack(
+        alignment: AlignmentDirectional.center,
+        children: [
+          button,
+          Positioned.fill(
+            // Todo: Fix sizing issue
+            child: FluGlass(
+              borderRadius: borderRadius,
+              cornerRadius: cornerRadius ?? 99,
+              intensity: 1,
+              child: ColoredBox(
+                color: loaderOverlayColor ??
+                    defaultOverlayColor.withOpacity(filled ? .15 : .55),
+                child: loader,
+              ),
             ),
           ),
-        ),
-      ]);
+        ],
+      );
     }
 
     if (margin != EdgeInsets.zero || hasCustomSize || boxShadow != null) {
@@ -310,17 +316,19 @@ class _FluIconButton extends FluButton {
   final double? size;
 
   @override
-  Widget _getChild(BuildContext context) {
-    return FluIcon(
-      icon,
-      size: iconSize,
-      style: iconStyle,
-      strokeWidth: iconStrokeWidth,
-      color: foregroundColor ??
-          _getButtonForegroundColor(context.colorScheme,
-              flat: flat, filled: filled, disabled: onPressed == null),
-    );
-  }
+  Widget _getChild(BuildContext context) => FluIcon(
+        icon,
+        size: iconSize,
+        style: iconStyle,
+        strokeWidth: iconStrokeWidth,
+        color: foregroundColor ??
+            _getButtonForegroundColor(
+              context.colorScheme,
+              flat: flat,
+              filled: filled,
+              disabled: onPressed == null,
+            ),
+      );
 }
 
 class _FluTextButton extends FluButton {
@@ -360,6 +368,8 @@ class _FluTextButton extends FluButton {
     this.suffixIconSize,
     this.iconStrokeWidth = 1.5,
     super.splashFactory,
+    this.iconColor,
+    this.spaceBetweenChildren = false,
   }) : super(child: const SizedBox());
 
   final double gap;
@@ -372,14 +382,20 @@ class _FluTextButton extends FluButton {
   final double? suffixIconSize;
   final String text;
   final TextStyle? textStyle;
+  final Color? iconColor;
+  final bool spaceBetweenChildren;
 
   @override
   Widget _getChild(BuildContext context) {
-    Color foregroundColor = this.foregroundColor ??
-        _getButtonForegroundColor(context.colorScheme,
-            flat: flat, filled: filled, disabled: onPressed == null);
+    final foregroundColor = this.foregroundColor ??
+        _getButtonForegroundColor(
+          context.colorScheme,
+          flat: flat,
+          filled: filled,
+          disabled: onPressed == null,
+        );
 
-    Widget textWidget = Text(
+    final Widget textWidget = Text(
       text,
       overflow: TextOverflow.ellipsis,
       maxLines: 1,
@@ -389,14 +405,32 @@ class _FluTextButton extends FluButton {
     );
 
     if (prefixIcon != null || suffixIcon != null) {
+      /// Todo: Optimize rendering conditions
       return Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           if (prefixIcon != null)
-            _buildIcon(prefixIcon!, foregroundColor, prefixIconSize),
-          Flexible(child: textWidget),
+            _buildIcon(
+              prefixIcon!,
+              iconColor ?? foregroundColor,
+              prefixIconSize,
+            ),
+          if (spaceBetweenChildren && prefixIcon != null && suffixIcon != null)
+            const Spacer(),
+          if (spaceBetweenChildren &&
+              (prefixIcon != null && suffixIcon == null ||
+                  prefixIcon == null && suffixIcon != null))
+            Expanded(child: textWidget)
+          else
+            Flexible(child: textWidget),
+          if (spaceBetweenChildren && suffixIcon != null && prefixIcon != null)
+            const Spacer(),
           if (suffixIcon != null)
-            _buildIcon(suffixIcon!, foregroundColor, suffixIconSize),
+            _buildIcon(
+              suffixIcon!,
+              iconColor ?? foregroundColor,
+              suffixIconSize,
+            ),
         ],
       );
     }
@@ -411,18 +445,21 @@ class _FluTextButton extends FluButton {
         strokeWidth: iconStrokeWidth,
         color: color,
         margin: EdgeInsets.only(
-            right: prefixIcon != null ? gap : 0,
-            left: suffixIcon != null ? gap : 0),
+          right: prefixIcon != null && !spaceBetweenChildren ? gap : 0,
+          left: suffixIcon != null && !spaceBetweenChildren ? gap : 0,
+        ),
       );
 }
 
 /// Return background color according to M3 button specs
 /// https://m3.material.io/components/buttons/specs
-Color _getButtonOverlayColor(ColorScheme colorScheme,
-    {required bool flat,
-    required bool filled,
-    required bool disabled,
-    double elevation = 0.0}) {
+Color _getButtonOverlayColor(
+  ColorScheme colorScheme, {
+  required bool flat,
+  required bool filled,
+  required bool disabled,
+  double elevation = 0.0,
+}) {
   if (disabled) {
     return colorScheme.surface;
   } else if (elevation > 0 && !flat && !filled) {
@@ -438,11 +475,13 @@ Color _getButtonOverlayColor(ColorScheme colorScheme,
 
 /// Return foreground color according to M3 button specs
 /// https://m3.material.io/components/buttons/specs
-Color _getButtonForegroundColor(ColorScheme colorScheme,
-    {required bool flat,
-    required bool filled,
-    required bool disabled,
-    double elevation = 0.0}) {
+Color _getButtonForegroundColor(
+  ColorScheme colorScheme, {
+  required bool flat,
+  required bool filled,
+  required bool disabled,
+  double elevation = 0.0,
+}) {
   if (disabled) {
     return colorScheme.onSurface;
   } else if (elevation > 0 && !flat && !filled) {

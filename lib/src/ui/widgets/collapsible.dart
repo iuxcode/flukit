@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 
 class FluCollapsible extends StatefulWidget {
-  final bool collapse;
-  final Axis axis;
-  final Alignment alignment;
-  final Duration duration;
-  final Curve curve;
-  final Widget child;
-
   const FluCollapsible({
-    Key? key,
     required this.collapse,
     required this.axis,
     required this.child,
+    super.key,
     this.alignment = Alignment.center,
     this.duration = const Duration(milliseconds: 300),
     this.curve = Curves.linear,
-  }) : super(key: key);
+  });
+
+  final Alignment alignment;
+  final Axis axis;
+  final Widget child;
+  final bool collapse;
+  final Curve curve;
+  final Duration duration;
 
   @override
   FluCollapsibleState createState() => FluCollapsibleState();
@@ -24,8 +24,20 @@ class FluCollapsible extends StatefulWidget {
 
 class FluCollapsibleState extends State<FluCollapsible>
     with SingleTickerProviderStateMixin {
-  late final AnimationController controller;
   late final Animation<double> animation;
+  late final AnimationController controller;
+
+  @override
+  void didUpdateWidget(FluCollapsible oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _runExpandCheck();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -44,21 +56,10 @@ class FluCollapsibleState extends State<FluCollapsible>
   }
 
   @override
-  void didUpdateWidget(FluCollapsible oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _runExpandCheck();
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) => SizeTransition(
-      axis: widget.axis,
-      axisAlignment: widget.axis == Axis.horizontal ? -1.0 : 1.0,
-      sizeFactor: animation,
-      child: Align(alignment: widget.alignment, child: widget.child));
+        axis: widget.axis,
+        axisAlignment: widget.axis == Axis.horizontal ? -1.0 : 1.0,
+        sizeFactor: animation,
+        child: Align(alignment: widget.alignment, child: widget.child),
+      );
 }

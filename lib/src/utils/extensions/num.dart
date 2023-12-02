@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import '../../../utils.dart';
+import 'package:flukit/utils.dart';
 
 extension NumUtils on num {
   bool isLowerThan(num b) => FluUtils.isLowerThan(this, b);
@@ -32,7 +32,8 @@ extension NumUtils on num {
   ///   print('currently running callback 1.2sec');
   /// }
   ///```
-  Future delay([FutureOr Function()? callback]) async => Future.delayed(
+  Future<dynamic> delay([FutureOr<dynamic> Function()? callback]) async =>
+      Future.delayed(
         Duration(milliseconds: (this * 1000).round()),
         callback,
       );

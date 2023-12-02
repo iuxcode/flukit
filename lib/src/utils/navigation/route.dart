@@ -1,19 +1,24 @@
+import 'package:flukit/nav.dart';
+import 'package:flukit/src/ui/screens/not_found.dart';
+import 'package:flukit/src/utils/navigation/transitions_builders/defaults.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flukit/nav.dart';
-
-import '../../ui/screens/not_found.dart';
-import 'transitions_builders/defaults.dart';
-
+/// Default navigation page transition
 const PageTransitions fluDefaultPageTransition = PageTransitions.noTransition;
+
+/// Default navigation page transition curve
 const Curve fluDefaultTransitionCurve = Curves.easeOutQuad;
+
+/// Default navigation page transition duration
 const Duration fluDefaultTransitionDuration = Duration(milliseconds: 300);
 
+/// A modal route that replaces the entire screen.
 class FluPageRoute<T> extends PageRoute<T> {
+  // ignore: public_member_api_docs
   FluPageRoute({
-    super.settings,
     required this.page,
+    super.settings,
     this.transitionDuration = fluDefaultTransitionDuration,
     this.transitionCurve = fluDefaultTransitionCurve,
     this.transition = fluDefaultPageTransition,
@@ -27,9 +32,17 @@ class FluPageRoute<T> extends PageRoute<T> {
     this.alignment,
   });
 
+  /// An parametric animation easing curve,
+  /// i.e. a mapping of the unit interval to the unit interval.
   final Curve transitionCurve;
-  final Widget Function() page;
+
+  /// The [Widget] to navigate to.
+  final Widget page;
+
+  /// navigation transition
   final PageTransitions transition;
+
+  ///
   final Alignment? alignment;
 
   @override
@@ -51,26 +64,39 @@ class FluPageRoute<T> extends PageRoute<T> {
   final Duration transitionDuration;
 
   @override
-  Widget buildPage(BuildContext context, Animation<double> animation,
-      Animation<double> secondaryAnimation) {
+  Widget buildPage(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+  ) {
     final Widget result = Semantics(
       scopesRoute: true,
       explicitChildNodes: true,
-      child: page(),
+      child: page,
     );
 
     return result;
   }
 
   @override
-  Widget buildTransitions(BuildContext context, Animation<double> animation,
-          Animation<double> secondaryAnimation, Widget child) =>
+  Widget buildTransitions(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) =>
       buildPageTransitions<T>(
-          this, context, animation, secondaryAnimation, child);
+        this,
+        context,
+        animation,
+        secondaryAnimation,
+        child,
+      );
 
   @override
   String get debugLabel => '${super.debugLabel}(${settings.name})';
 
+  ///
   static Widget buildPageTransitions<T>(
     PageRoute<T> rawRoute,
     BuildContext context,
@@ -82,6 +108,7 @@ class FluPageRoute<T> extends PageRoute<T> {
 
     /// Apply the curve by default...
     final iosAnimation = animation;
+    // ignore: parameter_assignments
     animation =
         CurvedAnimation(parent: animation, curve: route.transitionCurve);
 
@@ -223,8 +250,7 @@ class FluPageRoute<T> extends PageRoute<T> {
           secondaryAnimation,
           child,
         );
-
-      default:
+      case PageTransitions.cupertinoDialog:
         return const PageTransitionsTheme().buildTransitions(
           route,
           context,
@@ -236,8 +262,13 @@ class FluPageRoute<T> extends PageRoute<T> {
   }
 }
 
-FluPageRoute buildUnknownRoute(FluPage? route, String? exceptedRouteName) {
-  return route?.toRoute() ??
-      FluPage(name: '/404', page: () => Flu404(exceptedRouteName ?? "Unknown."))
-          .toRoute();
-}
+/// Builds the default `404` route.
+FluPageRoute<dynamic> buildUnknownRoute(
+  FluPage<dynamic>? route,
+  String? exceptedRouteName,
+) =>
+    route?.toRoute() ??
+    FluPage<dynamic>(
+      name: '/404',
+      page: Flu404(exceptedRouteName ?? 'Unknown.'),
+    ).toRoute();

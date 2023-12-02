@@ -2,12 +2,13 @@ import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-/// A [Flukit] styled [TextField].
+/// A `Flukit` styled [TextField].
 ///
 /// This is a convenience widget that wraps a [TextField] widget in a
 /// [Container] for more styling options.
 class FluTextField extends StatefulWidget {
   const FluTextField({
+    required this.hint,
     super.key,
     this.inputController,
     this.focusNode,
@@ -37,7 +38,6 @@ class FluTextField extends StatefulWidget {
     this.cursorColor,
     this.cursorHeight,
     this.cursorWidth = 2.0,
-    required this.hint,
     this.hintStyle,
     this.borderColor,
     this.borderRadius,
@@ -113,20 +113,22 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
   }
 
   InputDecoration get _decoration => InputDecoration(
-      border: InputBorder.none,
-      hintText: widget.hint,
-      hintStyle: _defaultTextStyle
-          .copyWith(
-              color: widget.hintColor ?? context.colorScheme.onSurfaceVariant)
-          .merge(widget.hintStyle),
-      errorStyle: const TextStyle(height: 0, color: Colors.transparent),
-      prefixIcon: widget.prefix ?? _icon(widget.prefixIcon),
-      suffixIcon: widget.suffix ?? _icon(widget.suffixIcon),
-      contentPadding: widget.padding ??
-          (height == null
-                  ? const EdgeInsets.symmetric(vertical: 20)
-                  : EdgeInsets.zero)
-              .copyWith(left: 15, right: 15));
+        border: InputBorder.none,
+        hintText: widget.hint,
+        hintStyle: _defaultTextStyle
+            .copyWith(
+              color: widget.hintColor ?? context.colorScheme.onSurfaceVariant,
+            )
+            .merge(widget.hintStyle),
+        errorStyle: const TextStyle(height: 0, color: Colors.transparent),
+        prefixIcon: widget.prefix ?? _icon(widget.prefixIcon),
+        suffixIcon: widget.suffix ?? _icon(widget.suffixIcon),
+        contentPadding: widget.padding ??
+            (height == null
+                    ? const EdgeInsets.symmetric(vertical: 20)
+                    : EdgeInsets.zero)
+                .copyWith(left: 15, right: 15),
+      );
 
   TextStyle get _defaultTextStyle => context.textTheme.bodyMedium!
       .copyWith(color: widget.color ?? context.colorScheme.onSurfaceVariant)
@@ -161,7 +163,7 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
 
   @override
   Widget build(BuildContext context) {
-    Widget field = Container(
+    final Widget field = Container(
       height: height,
       margin: widget.margin,
       clipBehavior: Clip.hardEdge,
@@ -211,13 +213,15 @@ class _FluTextFieldState<T extends FluTextField> extends State<T> {
 
     if (widget.maxHeight != null) {
       return Container(
-          color: _fillColor,
-          constraints: BoxConstraints(maxHeight: widget.maxHeight!),
-          child: Scrollbar(
-              child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  physics: const BouncingScrollPhysics(),
-                  child: field)));
+        color: _fillColor,
+        constraints: BoxConstraints(maxHeight: widget.maxHeight!),
+        child: Scrollbar(
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: field,
+          ),
+        ),
+      );
     }
 
     return field;

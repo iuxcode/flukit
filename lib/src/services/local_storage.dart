@@ -1,8 +1,15 @@
+import 'package:flukit/flukit.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Manage local storage actions and provide a persistent store for simple data with `shared_preferences`.
-/// Remember to call [loadPrefs] in order to load and parse the [SharedPreferences] for this app from disk..
+extension FluStorage on FluInterface {
+  FluStorageService get storage => FluStorageService();
+}
+
+/// Manage local storage actions and provide a
+/// persistent store for simple data with `shared_preferences`.
+/// Remember to call [loadPrefs] in order to load and
+/// parse the [SharedPreferences] for this app from disk..
 ///
 /// Example:
 ///
@@ -13,55 +20,53 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///   LocalStorageService.loadPrefs();
 /// }
 ///
-/// LocalStorageService.setBool("something", true); // Saves a boolean [value] to persistent storage in the background.
+/// LocalStorageService.setBool("something", true); // Saves a boolean [value]
+/// to persistent storage in the background.
 ///
 /// /// Retrieve value from prefs
 /// final something = LocalStorageService.prefs.getBool("something");
 /// ```
-class FluStorage {
-  static const _secureStorage = FlutterSecureStorage(
-      aOptions: AndroidOptions(
-    encryptedSharedPreferences: true,
-  ));
+class FluStorageService {
+  final _secureStorage = const FlutterSecureStorage(
+    aOptions: AndroidOptions(
+      encryptedSharedPreferences: true,
+    ),
+  );
 
   /// Current instance of [SharedPreferences]
-  static late final SharedPreferences prefs;
+  late final SharedPreferences prefs;
 
   /// Loads and parses the [SharedPreferences] for this app from disk.
-  static Future<SharedPreferences> loadPrefs() async {
-    prefs = await SharedPreferences.getInstance();
-    return prefs;
-  }
+  Future<SharedPreferences> loadPrefs() async =>
+      prefs = await SharedPreferences.getInstance();
 
   /// Saves a boolean [value] to persistent storage in the background.
-  static void setBool(String key, bool value) async =>
-      await prefs.setBool(key, value);
+  Future<void> setBool(String key, bool value) async =>
+      prefs.setBool(key, value);
 
   /// Saves a string [value] to persistent storage in the background.
-  static void setString(String key, String value) async =>
-      await prefs.setString(key, value);
+  Future<void> setString(String key, String value) async =>
+      prefs.setString(key, value);
 
   /// Saves a integer [value] to persistent storage in the background.
-  static void setInt(String key, int value) async =>
-      await prefs.setInt(key, value);
+  Future<void> setInt(String key, int value) async => prefs.setInt(key, value);
 
   // Read a secure storage value
-  static Future<String?> readFromSecureStorage(String key) =>
+  Future<String?> readFromSecureStorage(String key) =>
       _secureStorage.read(key: key);
 
   /// Read all secure storage values
-  static Future<Map<String, String>> readAllFromSecureStorage() =>
+  Future<Map<String, String>> readAllFromSecureStorage() =>
       _secureStorage.readAll();
 
   /// Delete a secure storage value
-  static Future<void> removeFromSecureStorage(String key) =>
+  Future<void> removeFromSecureStorage(String key) =>
       _secureStorage.delete(key: key);
 
   /// Delete all secure storage values
-  static Future<void> removeAllFromSecureStorage() =>
-      _secureStorage.deleteAll();
+  Future<void> removeAllFromSecureStorage() => _secureStorage.deleteAll();
 
   /// Write a value to secure storage
-  static Future<void> writeToSecureStorage(String key, String value) =>
+  Future<void> writeToSecureStorage(String key, String value) =>
       _secureStorage.write(key: key, value: value);
 }

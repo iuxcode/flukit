@@ -1,6 +1,6 @@
 import 'package:flukit/flukit.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class FluPage<T> extends Page<T> {
   FluPage({
@@ -22,7 +22,7 @@ class FluPage<T> extends Page<T> {
   final bool fullscreenDialog;
   final bool maintainState;
   final bool opaque;
-  final Widget Function() page;
+  final Widget page;
   final bool? participatesInRootNavigator;
   final PageTransitions transition;
   final Duration transitionDuration;
@@ -49,7 +49,7 @@ class FluPage<T> extends Page<T> {
 
   FluPage<T> copyWith({
     String? name,
-    Widget Function()? page,
+    Widget? page,
     PageTransitions? transition,
     Curve? transitionCurve,
     Alignment? alignment,
@@ -60,20 +60,19 @@ class FluPage<T> extends Page<T> {
     RouteSettings? settings,
     bool? participatesInRootNavigator,
     Object? arguments,
-  }) {
-    return FluPage(
-      participatesInRootNavigator:
-          participatesInRootNavigator ?? this.participatesInRootNavigator,
-      name: name ?? this.name!,
-      page: page ?? this.page,
-      transition: transition ?? this.transition,
-      transitionCurve: transitionCurve ?? this.transitionCurve,
-      alignment: alignment ?? this.alignment,
-      maintainState: maintainState ?? this.maintainState,
-      opaque: opaque ?? this.opaque,
-      transitionDuration: transitionDuration ?? this.transitionDuration,
-      fullscreenDialog: fullscreenDialog ?? this.fullscreenDialog,
-      arguments: arguments ?? this.arguments,
-    );
-  }
+  }) =>
+      FluPage(
+        participatesInRootNavigator:
+            participatesInRootNavigator ?? this.participatesInRootNavigator,
+        name: name ?? this.name!,
+        page: page ?? this.page,
+        transition: transition ?? this.transition,
+        transitionCurve: transitionCurve ?? this.transitionCurve,
+        alignment: alignment ?? this.alignment,
+        maintainState: maintainState ?? this.maintainState,
+        opaque: opaque ?? this.opaque,
+        transitionDuration: transitionDuration ?? this.transitionDuration,
+        fullscreenDialog: fullscreenDialog ?? this.fullscreenDialog,
+        arguments: arguments ?? this.arguments,
+      );
 }

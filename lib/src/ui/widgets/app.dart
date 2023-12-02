@@ -1,12 +1,12 @@
+import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart';
-import '../../../flukit.dart';
 
-final List<FluPage> _kDefaultPages = [
+final List<FluPage<dynamic>> _kDefaultPages = [
   FluPage(
-    name: "404",
+    name: '404',
     page: buildUnknownRoute(null, null).page,
     initial: true,
-  )
+  ),
 ];
 
 class FluMaterialApp extends StatefulWidget {
@@ -47,8 +47,8 @@ class FluMaterialApp extends StatefulWidget {
     this.useInheritedMediaQuery = false,
   });
 
-  final List<FluPage>? pages;
-  final FluPage? unknownRoute;
+  final List<FluPage<dynamic>>? pages;
+  final FluPage<dynamic>? unknownRoute;
 
   /// {@macro flutter.widgets.widgetsApp.navigatorKey}
   final GlobalKey<NavigatorState>? navigatorKey;
@@ -69,8 +69,10 @@ class FluMaterialApp extends StatefulWidget {
 
   /// {@macro flutter.widgets.widgetsApp.builder}
   ///
-  /// Material specific features such as [showDialog] and [showMenu], and widgets
-  /// such as [Tooltip], [PopupMenuButton], also require a [Navigator] to properly
+  /// Material specific features such
+  /// as [showDialog] and [showMenu], and widgets
+  /// such as [Tooltip], [PopupMenuButton],
+  /// also require a [Navigator] to properly
   /// function.
   final TransitionBuilder? builder;
 
@@ -158,7 +160,8 @@ class FluMaterialApp extends StatefulWidget {
   /// and [darkTheme] are provided.
   ///
   /// If set to [ThemeMode.system], the choice of which theme to use will
-  /// be based on the user's system preferences. If the [MediaQuery.platformBrightnessOf]
+  /// be based on the user's system preferences.
+  /// If the [MediaQuery.platformBrightnessOf]
   /// is [Brightness.light], [theme] will be used. If it is [Brightness.dark],
   /// [darkTheme] will be used (unless it is null, in which case [theme]
   /// will be used.
@@ -213,7 +216,7 @@ class FluMaterialApp extends StatefulWidget {
   /// {@macro flutter.widgets.widgetsApp.localizationsDelegates}
   ///
   /// Internationalized apps that require translations for one of the locales
-  /// listed in [GlobalMaterialLocalizations] should specify this parameter
+  /// listed in GlobalMaterialLocalizations should specify this parameter
   /// and list the [supportedLocales] that the application can handle.
   ///
   /// ```dart
@@ -240,7 +243,7 @@ class FluMaterialApp extends StatefulWidget {
   ///
   /// The information that follows applies to the unusual case of an app
   /// adding translations for a language not already supported by
-  /// [GlobalMaterialLocalizations].
+  /// GlobalMaterialLocalizations.
   ///
   /// Delegates that produce [WidgetsLocalizations] and [MaterialLocalizations]
   /// are included automatically. Apps can provide their own versions of these
@@ -267,12 +270,13 @@ class FluMaterialApp extends StatefulWidget {
   /// One must then create a [LocalizationsDelegate] subclass that can provide
   /// an instance of the [MaterialLocalizations] subclass. In this case, this is
   /// essentially just a method that constructs a `FooLocalizations` object. A
-  /// [SynchronousFuture] is used here because no asynchronous work takes place
+  /// SynchronousFuture is used here because no asynchronous work takes place
   /// upon "loading" the localizations object.
   ///
   /// ```dart
   /// // continuing from previous example...
-  /// class FooLocalizationsDelegate extends LocalizationsDelegate<MaterialLocalizations> {
+  /// class FooLocalizationsDelegate extends
+  /// LocalizationsDelegate<MaterialLocalizations> {
   ///   const FooLocalizationsDelegate();
   ///   @override
   ///   bool isSupported(Locale locale) {
@@ -307,7 +311,7 @@ class FluMaterialApp extends StatefulWidget {
   ///
   ///  * [supportedLocales], which must be specified along with
   ///    [localizationsDelegates].
-  ///  * [GlobalMaterialLocalizations], a [localizationsDelegates] value
+  ///  * GlobalMaterialLocalizations, a [localizationsDelegates] value
   ///    which provides material localizations for many languages.
   ///  * The Flutter Internationalization Tutorial,
   ///    <https://flutter.dev/tutorials/internationalization/>.
@@ -331,7 +335,7 @@ class FluMaterialApp extends StatefulWidget {
   ///
   ///  * [localizationsDelegates], which must be specified for localized
   ///    applications.
-  ///  * [GlobalMaterialLocalizations], a [localizationsDelegates] value
+  ///  * GlobalMaterialLocalizations, a [localizationsDelegates] value
   ///    which provides material localizations for many languages.
   ///  * The Flutter Internationalization Tutorial,
   ///    <https://flutter.dev/tutorials/internationalization/>.
@@ -360,7 +364,7 @@ class FluMaterialApp extends StatefulWidget {
   /// {@macro flutter.widgets.widgetsApp.shortcuts}
   /// {@tool snippet}
   /// This example shows how to add a single shortcut for
-  /// [LogicalKeyboardKey.select] to the default shortcuts without needing to
+  /// LogicalKeyboardKey.select to the default shortcuts without needing to
   /// add your own [Shortcuts] widget.
   ///
   /// Alternatively, you could insert a [Shortcuts] widget with just the mapping
@@ -372,7 +376,8 @@ class FluMaterialApp extends StatefulWidget {
   ///   return WidgetsApp(
   ///     shortcuts: <ShortcutActivator, Intent>{
   ///       ... WidgetsApp.defaultShortcuts,
-  ///       const SingleActivator(LogicalKeyboardKey.select): const ActivateIntent(),
+  ///       const SingleActivator(LogicalKeyboardKey.select):
+  ///         const ActivateIntent(),
   ///     },
   ///     color: const Color(0xFFFF0000),
   ///     builder: (BuildContext context, Widget? child) {
@@ -457,7 +462,7 @@ class FluMaterialApp extends StatefulWidget {
 
 class _FluMaterialAppState extends State<FluMaterialApp> {
   late final GlobalKey<NavigatorState> navigatorKey;
-  late final List<FluPage> pages;
+  late final List<FluPage<dynamic>> pages;
 
   @override
   void initState() {
@@ -470,13 +475,19 @@ class _FluMaterialAppState extends State<FluMaterialApp> {
   String get _initialRoute {
     try {
       return pages.singleWhere((page) => page.initial).name!;
-    } catch (e) {
-      throw "One of provided pages must be marked as initial! Set the `initial` property of one of your pages to `true` in order to get it as initial route.";
+    } on Exception catch (e) {
+      throw Exception(
+        // ignore: lines_longer_than_80_chars
+        'One of provided pages must be marked as initial! Set the `initial` property of one of your pages to `true` in order to get it as initial route.',
+      );
     }
   }
 
-  FluPageRoute _findPageAndReturnRoute(
-      RouteSettings settings, List<FluPage> pages, FluPage? unknownRoute) {
+  FluPageRoute<dynamic> _findPageAndReturnRoute(
+    RouteSettings settings,
+    List<FluPage<dynamic>> pages,
+    FluPage<dynamic>? unknownRoute,
+  ) {
     final index = pages.indexWhere((page) => page.name == settings.name);
 
     return index > -1
@@ -485,40 +496,41 @@ class _FluMaterialAppState extends State<FluMaterialApp> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      key: widget.key,
-      navigatorKey: navigatorKey,
-      scaffoldMessengerKey: widget.scaffoldMessengerKey,
-      initialRoute: _initialRoute,
-      onGenerateRoute: (RouteSettings settings) =>
-          _findPageAndReturnRoute(settings, pages, widget.unknownRoute),
-      onGenerateInitialRoutes: (String route) => [
-        _findPageAndReturnRoute(
-            RouteSettings(name: route), pages, widget.unknownRoute)
-      ],
-      onUnknownRoute: widget.onUnknownRoute,
-      navigatorObservers: [FluNavObserver(), ...widget.navigatorObservers],
-      builder: widget.builder,
-      title: widget.title,
-      onGenerateTitle: widget.onGenerateTitle,
-      color: widget.color,
-      theme: widget.theme,
-      darkTheme: widget.darkTheme,
-      themeMode: widget.themeMode,
-      locale: widget.locale,
-      localizationsDelegates: widget.localizationsDelegates,
-      localeListResolutionCallback: widget.localeListResolutionCallback,
-      localeResolutionCallback: widget.localeResolutionCallback,
-      supportedLocales: widget.supportedLocales,
-      debugShowMaterialGrid: widget.debugShowMaterialGrid,
-      showPerformanceOverlay: widget.showPerformanceOverlay,
-      checkerboardRasterCacheImages: widget.checkerboardRasterCacheImages,
-      checkerboardOffscreenLayers: widget.checkerboardOffscreenLayers,
-      showSemanticsDebugger: widget.showSemanticsDebugger,
-      debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
-      shortcuts: widget.shortcuts,
-      scrollBehavior: widget.scrollBehavior,
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        key: widget.key,
+        navigatorKey: navigatorKey,
+        scaffoldMessengerKey: widget.scaffoldMessengerKey,
+        initialRoute: _initialRoute,
+        onGenerateRoute: (settings) =>
+            _findPageAndReturnRoute(settings, pages, widget.unknownRoute),
+        onGenerateInitialRoutes: (route) => [
+          _findPageAndReturnRoute(
+            RouteSettings(name: route),
+            pages,
+            widget.unknownRoute,
+          ),
+        ],
+        onUnknownRoute: widget.onUnknownRoute,
+        navigatorObservers: [FluNavObserver(), ...widget.navigatorObservers],
+        builder: widget.builder,
+        title: widget.title,
+        onGenerateTitle: widget.onGenerateTitle,
+        color: widget.color,
+        theme: widget.theme,
+        darkTheme: widget.darkTheme,
+        themeMode: widget.themeMode,
+        locale: widget.locale,
+        localizationsDelegates: widget.localizationsDelegates,
+        localeListResolutionCallback: widget.localeListResolutionCallback,
+        localeResolutionCallback: widget.localeResolutionCallback,
+        supportedLocales: widget.supportedLocales,
+        debugShowMaterialGrid: widget.debugShowMaterialGrid,
+        showPerformanceOverlay: widget.showPerformanceOverlay,
+        checkerboardRasterCacheImages: widget.checkerboardRasterCacheImages,
+        checkerboardOffscreenLayers: widget.checkerboardOffscreenLayers,
+        showSemanticsDebugger: widget.showSemanticsDebugger,
+        debugShowCheckedModeBanner: widget.debugShowCheckedModeBanner,
+        shortcuts: widget.shortcuts,
+        scrollBehavior: widget.scrollBehavior,
+      );
 }

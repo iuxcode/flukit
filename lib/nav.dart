@@ -1,20 +1,19 @@
+import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart';
 
-import '../flukit.dart';
-
-export 'src/utils/navigation/route.dart';
-export 'src/utils/navigation/page.dart';
 export 'src/utils/navigation/observers.dart';
+export 'src/utils/navigation/page.dart';
+export 'src/utils/navigation/route.dart';
 export 'src/utils/navigation/transitions.dart';
 
 extension NavExt on FluInterface {
-  String get _unmountedKeyException =>
-      "The [navigatorKey] has not been mounted. Use `FluMaterialApp` or set the key manually with `Flu.navigatorKey = yourKey`";
+  Exception get _unmountedKeyException => Exception(
+        // ignore: lines_longer_than_80_chars, lines_longer_than_80_chars
+        "'The [navigatorKey] has not been mounted. Use `FluMaterialApp` or set the key manually with `Flu.navigatorKey = yourKey`'",
+      );
 
-  bool _keyIsMounted() {
-    return navigatorKey.currentState != null &&
-        navigatorKey.currentState!.mounted;
-  }
+  bool _keyIsMounted() =>
+      navigatorKey.currentState != null && navigatorKey.currentState!.mounted;
 
   /// **Navigator.push()** shortcut.<br>
   ///
@@ -30,18 +29,19 @@ extension NavExt on FluInterface {
   /// Just like native routing in Flutter, you can push a route
   /// as a [fullscreenDialog]
   Future<T?>? to<T>(
-    Widget Function() page, {
+    Widget page, {
     bool? opaque,
     PageTransitions? transition,
     Curve? transitionCurve,
     Duration? transitionDuration,
     String? routeName,
     bool fullscreenDialog = false,
-    dynamic arguments,
+    // ignore: inference_failure_on_untyped_parameter, type_annotate_public_apis
+    arguments,
   }) {
     if (_keyIsMounted()) {
       // var routeName = "/${page.runtimeType}";
-      routeName ??= "/${page.runtimeType}";
+      routeName ??= '/${page.runtimeType}';
 
       return navigatorKey.currentState?.push<T>(
         FluPageRoute<T>(
@@ -73,7 +73,11 @@ extension NavExt on FluInterface {
   /// You can send any type of value to the other route in the [arguments].
   ///
   /// Note: Always put a slash on the route ('/page1'), to avoid unexpected errors
-  Future<T?>? toNamed<T>(String page, {dynamic arguments}) {
+  Future<T?>? toNamed<T>(
+    String page, {
+    // ignore: inference_failure_on_untyped_parameter, type_annotate_public_apis
+    arguments,
+  }) {
     if (_keyIsMounted()) {
       return navigatorKey.currentState?.pushNamed<T>(
         cleanRouteName(page),
@@ -96,7 +100,8 @@ extension NavExt on FluInterface {
   /// Note: Always put a slash on the route ('/page1'), to avoid unexpected errors
   Future<T?>? offNamed<T>(
     String page, {
-    dynamic arguments,
+    // ignore: inference_failure_on_untyped_parameter, type_annotate_public_apis
+    arguments,
   }) {
     if (_keyIsMounted()) {
       return navigatorKey.currentState?.pushReplacementNamed(
@@ -157,7 +162,8 @@ extension NavExt on FluInterface {
   Future<T?>? offNamedUntil<T>(
     String page,
     RoutePredicate predicate, {
-    dynamic arguments,
+    // ignore: inference_failure_on_untyped_parameter, type_annotate_public_apis
+    arguments,
   }) {
     if (_keyIsMounted()) {
       return navigatorKey.currentState?.pushNamedAndRemoveUntil<T>(
@@ -183,8 +189,10 @@ extension NavExt on FluInterface {
   /// The route transition animation is different.
   Future<T?>? offAndToNamed<T>(
     String page, {
-    dynamic arguments,
-    dynamic result,
+    // ignore: inference_failure_on_untyped_parameter, type_annotate_public_apis
+    arguments,
+    // ignore: inference_failure_on_untyped_parameter, type_annotate_public_apis
+    result,
   }) {
     if (_keyIsMounted()) {
       return navigatorKey.currentState?.popAndPushNamed(
@@ -222,8 +230,12 @@ extension NavExt on FluInterface {
   /// `Flu.until((route) => Flu.currentRoute == '/home')`so when you get to home page
   ///
   /// Note: Always put a slash on the route ('/page1'), to avoid unexpected errors
-  Future<T?>? offAllNamed<T>(String newRouteName,
-      {RoutePredicate? predicate, dynamic arguments}) {
+  Future<T?>? offAllNamed<T>(
+    String newRouteName, {
+    RoutePredicate? predicate,
+    // ignore: inference_failure_on_untyped_parameter, type_annotate_public_apis
+    arguments,
+  }) {
     if (_keyIsMounted()) {
       return navigatorKey.currentState?.pushNamedAndRemoveUntil<T>(
         cleanRouteName(newRouteName),
@@ -247,7 +259,8 @@ extension NavExt on FluInterface {
   }) {
     if (_keyIsMounted()) {
       if (canPop) {
-        if (navigatorKey.currentState?.canPop() == true) {
+        if (navigatorKey.currentState != null &&
+            navigatorKey.currentState!.canPop()) {
           navigatorKey.currentState?.pop<T>(result);
         }
       } else {
@@ -264,10 +277,11 @@ extension NavExt on FluInterface {
   void close(int times, [int? id]) {
     if (_keyIsMounted()) {
       if (times < 1) {
+        // ignore: parameter_assignments
         times = 1;
       }
       var count = 0;
-      var back =
+      final back =
           navigatorKey.currentState?.popUntil((route) => count++ == times);
 
       return back;
@@ -290,16 +304,19 @@ extension NavExt on FluInterface {
   ///
   /// Just like native routing in Flutter, you can push a route
   /// as a [fullscreenDialog]
-  Future<T?>? off<T>(Widget Function() page,
-      {bool opaque = false,
-      PageTransitions? transition,
-      Curve? transitionCurve,
-      String? routeName,
-      dynamic arguments,
-      bool fullscreenDialog = false,
-      Duration? transitionDuration}) {
+  Future<T?>? off<T>(
+    Widget page, {
+    bool opaque = false,
+    PageTransitions? transition,
+    Curve? transitionCurve,
+    String? routeName,
+    // ignore: inference_failure_on_untyped_parameter, type_annotate_public_apis
+    arguments,
+    bool fullscreenDialog = false,
+    Duration? transitionDuration,
+  }) {
     if (_keyIsMounted()) {
-      routeName ??= "/${page.runtimeType.toString()}";
+      routeName ??= '/${page.runtimeType}';
 
       return navigatorKey.currentState?.pushReplacement(
         FluPageRoute(
@@ -328,7 +345,8 @@ extension NavExt on FluInterface {
   /// It has the advantage of not needing context,
   /// so you can call from your business logic
   ///
-  /// You can set a custom [PageTransitions], a [transitionCurve] and a [transitionDuration].
+  /// You can set a custom [PageTransitions],
+  /// a [transitionCurve] and a [transitionDuration].
   ///
   /// You can send any type of value to the other route in the [arguments].
   ///
@@ -337,33 +355,37 @@ extension NavExt on FluInterface {
   ///
   /// [predicate] can be used like this:
   /// `Flu.until((route) => Flu.currentRoute == '/home')`so when you get to home page.
-  Future<T?>? offAll<T>(dynamic page,
-      {RoutePredicate? predicate,
-      bool opaque = false,
-      String? routeName,
-      dynamic arguments,
-      bool fullscreenDialog = false,
-      PageTransitions? transition,
-      Curve? transitionCurve,
-      Duration? transitionDuration}) {
+  Future<T?>? offAll<T>(
+    Widget page, {
+    RoutePredicate? predicate,
+    bool opaque = false,
+    String? routeName,
+    // ignore: inference_failure_on_untyped_parameter, type_annotate_public_apis
+    arguments,
+    bool fullscreenDialog = false,
+    PageTransitions? transition,
+    Curve? transitionCurve,
+    Duration? transitionDuration,
+  }) {
     if (_keyIsMounted()) {
-      routeName ??= "/${page.runtimeType.toString()}";
+      routeName ??= '/${page.runtimeType}';
 
       return navigatorKey.currentState?.pushAndRemoveUntil<T>(
-          FluPageRoute<T>(
-            opaque: opaque,
-            page: page,
-            settings: RouteSettings(
-              name: cleanRouteName(routeName),
-              arguments: arguments,
-            ),
-            fullscreenDialog: fullscreenDialog,
-            transition: transition ?? fluDefaultPageTransition,
-            transitionCurve: transitionCurve ?? fluDefaultTransitionCurve,
-            transitionDuration:
-                transitionDuration ?? fluDefaultTransitionDuration,
+        FluPageRoute<T>(
+          opaque: opaque,
+          page: page,
+          settings: RouteSettings(
+            name: cleanRouteName(routeName),
+            arguments: arguments,
           ),
-          predicate ?? (route) => false);
+          fullscreenDialog: fullscreenDialog,
+          transition: transition ?? fluDefaultPageTransition,
+          transitionCurve: transitionCurve ?? fluDefaultTransitionCurve,
+          transitionDuration:
+              transitionDuration ?? fluDefaultTransitionDuration,
+        ),
+        predicate ?? (route) => false,
+      );
     } else {
       throw _unmountedKeyException;
     }
@@ -375,11 +397,13 @@ extension NavExt on FluInterface {
   /// TODO: check for a more "appealing" URL naming convention.
   /// `() => MyHomeScreenView` becomes `/my-home-screen-view`.
   String cleanRouteName(String name) {
+    // ignore: parameter_assignments
     name = name.replaceAll('() => ', '');
 
     /// uncommonest for URL styling.
     // name = name.paramCase!;
     if (!name.startsWith('/')) {
+      // ignore: parameter_assignments
       name = '/$name';
     }
     return Uri.tryParse(name)?.toString() ?? name;

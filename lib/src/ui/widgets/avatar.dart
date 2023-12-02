@@ -47,7 +47,7 @@ class FluAvatar extends StatefulWidget {
   /// Text to display when there is not an image.
   final String? label;
 
-  /// Empty space to surround the avatar and [child].
+  /// Empty space to surround the avatar and child.
   final EdgeInsets margin;
 
   /// Outline color
@@ -62,13 +62,14 @@ class FluAvatar extends StatefulWidget {
   /// Space between outline and the avatar
   final double outlineGap;
 
-  /// The offset at which stop 0.0 of the [outline] gradient is placed
+  /// The offset at which stop 0.0 of the `outline` gradient is placed
   final Alignment gradientBegin;
 
-  /// The offset at which stop 1.0 of the [outline] gradient is placed.
+  /// The offset at which stop 1.0 of the `outline` gradient is placed.
   final Alignment gradientEnd;
 
-  /// The package argument must be non-null when displaying an image from a package and null otherwise.
+  /// The package argument must be non-null when
+  /// displaying an image from a package and null otherwise.
   /// See the Assets in packages section for details.
   final String? package;
 
@@ -105,7 +106,7 @@ class _FluAvatarState extends State<FluAvatar> {
       widget.defaultAvatarType == FluAvatarTypes.material3D &&
           widget.image == null;
 
-  /// For [FluAvatarTypes.material3D] for example, the avatar need to be a circle.
+  /// For FluAvatarTypes.material3D for example, the avatar need to be a circle.
   BoxShape get _shape => _isCircle ? BoxShape.circle : BoxShape.rectangle;
 
   /// If an image is not provided, default avatar is displayed.
@@ -115,7 +116,8 @@ class _FluAvatarState extends State<FluAvatar> {
   Widget build(BuildContext context) {
     Widget child;
 
-    /// An image is not provided, so we only display the [label] or [icon] if they are provided,
+    /// An image is not provided, so we only display the
+    /// [label] or [icon] if they are provided,
     /// or display provided image or default one.
     if ((widget.label != null || widget.icon != null) && widget.image == null) {
       child = Container(
@@ -130,11 +132,11 @@ class _FluAvatarState extends State<FluAvatar> {
         ),
         child: widget.label != null
             ? Text(
-                Flu.textToAvatarFormat(widget.label ?? 'Flukit').toUpperCase(),
+                Flu.textToAvatarLabel(widget.label ?? 'Flukit').toUpperCase(),
                 style: TextStyle(
-                        color: context.colorScheme.onPrimaryContainer,
-                        fontWeight: FontWeight.bold)
-                    .merge(widget.labelStyle),
+                  color: context.colorScheme.onPrimaryContainer,
+                  fontWeight: FontWeight.bold,
+                ).merge(widget.labelStyle),
               )
             : FluIcon(
                 widget.icon!,

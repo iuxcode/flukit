@@ -6,7 +6,7 @@ enum FluGridType {
   masonry,
 }
 
-/// Use [flutter_staggered_grid_view] to create scrollable,
+/// Use `flutter_staggered_grid_view` to create scrollable,
 /// 2D array of widgets with a fixed number of tiles in the cross axis.
 class FluGrid extends StatelessWidget {
   const FluGrid({
@@ -34,7 +34,7 @@ class FluGrid extends StatelessWidget {
   final bool shrinkWrap;
 
   /// Grid type. Define a layout for the grid.
-  /// It can be [normal], [masonry] or [Staggered]
+  /// It can be `normal`, `masonry` or `Staggered`
   final FluGridType type;
 
   @override
@@ -48,8 +48,11 @@ class FluGrid extends StatelessWidget {
           children: children,
         );
       case FluGridType.masonry:
-        assert(itemCount != null && itemBuilder != null,
-            'itemCount and itemBuilder can\'t be null when you are building a masonry grid.');
+        assert(
+          itemCount != null && itemBuilder != null,
+          // ignore: lines_longer_than_80_chars
+          "itemCount and itemBuilder can't be null when you are building a masonry grid.",
+        );
 
         return MasonryGridView.count(
           shrinkWrap: shrinkWrap,

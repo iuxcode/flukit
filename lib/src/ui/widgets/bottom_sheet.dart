@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 
 class FluModalBottomSheet extends StatelessWidget {
   const FluModalBottomSheet({
-    super.key,
     required this.child,
+    super.key,
     this.padding = EdgeInsets.zero,
     this.cornerRadius,
     this.maxHeight,
@@ -24,7 +24,7 @@ class FluModalBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Radius defaultCornerRadius =
+    final defaultCornerRadius =
         Radius.circular(cornerRadius ?? context.width * .05);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -48,7 +48,8 @@ class FluModalBottomSheet extends StatelessWidget {
             Flexible(
               child: Container(
                 constraints: BoxConstraints(
-                    maxHeight: maxHeight ?? context.height * .85),
+                  maxHeight: maxHeight ?? context.height * .85,
+                ),
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(

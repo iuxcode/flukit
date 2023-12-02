@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 /// Create glass effect
 class FluGlass extends StatelessWidget {
   const FluGlass({
-    Key? key,
+    required this.child,
+    super.key,
     this.borderRadius,
     this.margin = EdgeInsets.zero,
-    required this.child,
     this.intensity = 5.0,
     this.cornerRadius = 0,
-  }) : super(key: key);
+  });
 
   final BorderRadius? borderRadius;
   final Widget child;

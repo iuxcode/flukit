@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_asserts_with_message
+
 import 'package:flutter/material.dart';
 
 class RectangularIndicator extends Decoration {
@@ -29,7 +31,8 @@ class RectangularIndicator extends Decoration {
   /// Horizontal padding of the indicator, default set to 0
   final double horizontalPadding;
 
-  /// [PagingStyle] determines if the indicator should be fill or stroke, default to fill
+  /// `PagingStyle` determines if the indicator should be fill or
+  /// stroke, default to fill
   final PaintingStyle paintingStyle;
 
   /// StrokeWidth, used for [PaintingStyle.stroke], default set to 0
@@ -45,21 +48,20 @@ class RectangularIndicator extends Decoration {
   final double verticalPadding;
 
   @override
-  RectangularIndicatorPainter createBoxPainter([VoidCallback? onChanged]) {
-    return RectangularIndicatorPainter(
-      this,
-      onChanged,
-      topLeftRadius: topLeftCornerRadius ?? cornerRadius,
-      topRightRadius: topRightCornerRadius ?? cornerRadius,
-      bottomLeftRadius: bottomLeftCornerRadius ?? cornerRadius,
-      bottomRightRadius: bottomRightCornerRadius ?? cornerRadius,
-      color: color,
-      horizontalPadding: horizontalPadding,
-      verticalPadding: verticalPadding,
-      paintingStyle: paintingStyle,
-      strokeWidth: strokeWidth,
-    );
-  }
+  RectangularIndicatorPainter createBoxPainter([VoidCallback? onChanged]) =>
+      RectangularIndicatorPainter(
+        this,
+        onChanged,
+        topLeftRadius: topLeftCornerRadius ?? cornerRadius,
+        topRightRadius: topRightCornerRadius ?? cornerRadius,
+        bottomLeftRadius: bottomLeftCornerRadius ?? cornerRadius,
+        bottomRightRadius: bottomRightCornerRadius ?? cornerRadius,
+        color: color,
+        horizontalPadding: horizontalPadding,
+        verticalPadding: verticalPadding,
+        paintingStyle: paintingStyle,
+        strokeWidth: strokeWidth,
+      );
 }
 
 class DotTabIndicator extends Decoration {
@@ -103,7 +105,8 @@ class MaterialIndicator extends Decoration {
   /// Horizontal padding of the indicator, default set 0
   final double horizontalPadding;
 
-  /// [PagingStyle] determines if the indicator should be fill or stroke, default to fill
+  /// `PagingStyle` determines if the indicator should be fill
+  /// or stroke, default to fill
   final PaintingStyle paintingStyle;
 
   /// StrokeWidth, used for [PaintingStyle.stroke], default set to 2
@@ -119,22 +122,21 @@ class MaterialIndicator extends Decoration {
   final double topRightRadius;
 
   @override
-  MaterialIndicatorPainter createBoxPainter([VoidCallback? onChanged]) {
-    return MaterialIndicatorPainter(
-      this,
-      onChanged,
-      color: color ?? Colors.blue,
-      height: height,
-      horizontalPadding: horizontalPadding,
-      tabPosition: tabPosition,
-      bottomLeftRadius: bottomLeftRadius,
-      bottomRightRadius: bottomRightRadius,
-      topLeftRadius: topLeftRadius,
-      topRightRadius: topRightRadius,
-      paintingStyle: paintingStyle,
-      strokeWidth: strokeWidth,
-    );
-  }
+  MaterialIndicatorPainter createBoxPainter([VoidCallback? onChanged]) =>
+      MaterialIndicatorPainter(
+        this,
+        onChanged,
+        color: color ?? Colors.blue,
+        height: height,
+        horizontalPadding: horizontalPadding,
+        tabPosition: tabPosition,
+        bottomLeftRadius: bottomLeftRadius,
+        bottomRightRadius: bottomRightRadius,
+        topLeftRadius: topLeftRadius,
+        topRightRadius: topRightRadius,
+        paintingStyle: paintingStyle,
+        strokeWidth: strokeWidth,
+      );
 }
 
 class RectangularIndicatorPainter extends BoxPainter {
@@ -166,35 +168,43 @@ class RectangularIndicatorPainter extends BoxPainter {
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
     assert(horizontalPadding >= 0);
-    assert(horizontalPadding < configuration.size!.width / 2,
-        "Padding must be less than half of the size of the tab");
-    assert(verticalPadding < configuration.size!.height / 2 &&
-        verticalPadding >= 0);
-    assert(strokeWidth >= 0 &&
-        strokeWidth < configuration.size!.width / 2 &&
-        strokeWidth < configuration.size!.height / 2);
+    assert(
+      horizontalPadding < configuration.size!.width / 2,
+      'Padding must be less than half of the size of the tab',
+    );
+    assert(
+      verticalPadding < configuration.size!.height / 2 && verticalPadding >= 0,
+    );
+    assert(
+      strokeWidth >= 0 &&
+          strokeWidth < configuration.size!.width / 2 &&
+          strokeWidth < configuration.size!.height / 2,
+    );
 
     //offset is the position from where the decoration should be drawn.
     //configuration.size tells us about the height and width of the tab.
-    Size rectSize = Size(configuration.size!.width - (horizontalPadding * 2),
-        configuration.size!.height - (2 * verticalPadding));
-    Offset rectOffset =
-        Offset(offset.dx + (horizontalPadding), offset.dy + verticalPadding);
+    final rectSize = Size(
+      configuration.size!.width - (horizontalPadding * 2),
+      configuration.size!.height - (2 * verticalPadding),
+    );
+    final rectOffset =
+        Offset(offset.dx + horizontalPadding, offset.dy + verticalPadding);
 
-    final Rect rect = rectOffset & rectSize;
-    final Paint paint = Paint();
-    paint.color = color;
-    paint.style = paintingStyle;
-    paint.strokeWidth = strokeWidth;
+    final rect = rectOffset & rectSize;
+    final paint = Paint()
+      ..color = color
+      ..style = paintingStyle
+      ..strokeWidth = strokeWidth;
     canvas.drawRRect(
-        RRect.fromRectAndCorners(
-          rect,
-          bottomRight: Radius.circular(bottomRightRadius),
-          bottomLeft: Radius.circular(bottomLeftRadius),
-          topLeft: Radius.circular(topLeftRadius),
-          topRight: Radius.circular(topRightRadius),
-        ),
-        paint);
+      RRect.fromRectAndCorners(
+        rect,
+        bottomRight: Radius.circular(bottomRightRadius),
+        bottomLeft: Radius.circular(bottomLeftRadius),
+        topLeft: Radius.circular(topLeftRadius),
+        topRight: Radius.circular(topRightRadius),
+      ),
+      paint,
+    );
   }
 }
 
@@ -210,9 +220,11 @@ class CirclePainter extends BoxPainter {
 
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-    final Offset circleOffset = offset +
+    final circleOffset = offset +
         Offset(
-            configuration.size!.width / 2, configuration.size!.height - radius);
+          configuration.size!.width / 2,
+          configuration.size!.height - radius,
+        );
     canvas.drawCircle(circleOffset, radius, _paint);
   }
 }
@@ -248,40 +260,45 @@ class MaterialIndicatorPainter extends BoxPainter {
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
     assert(horizontalPadding >= 0);
-    assert(horizontalPadding < configuration.size!.width / 2,
-        "Padding must be less than half of the size of the tab");
+    assert(
+      horizontalPadding < configuration.size!.width / 2,
+      'Padding must be less than half of the size of the tab',
+    );
     assert(height > 0);
-    assert(strokeWidth >= 0 &&
-        strokeWidth < configuration.size!.width / 2 &&
-        strokeWidth < configuration.size!.height / 2);
+    assert(
+      strokeWidth >= 0 &&
+          strokeWidth < configuration.size!.width / 2 &&
+          strokeWidth < configuration.size!.height / 2,
+    );
 
     //offset is the position from where the decoration should be drawn.
     //configuration.size tells us about the height and width of the tab.
-    Size rectSize =
+    final rectSize =
         Size(configuration.size!.width - (horizontalPadding * 2), height);
 
-    Offset rectOffset = Offset(
-      offset.dx + (horizontalPadding),
+    final rectOffset = Offset(
+      offset.dx + horizontalPadding,
       offset.dy +
           (tabPosition == TabPosition.bottom
               ? configuration.size!.height - height
               : 0),
     );
 
-    final Rect rect = rectOffset & rectSize;
-    final Paint paint = Paint();
-    paint.color = color;
-    paint.style = paintingStyle;
-    paint.strokeWidth = strokeWidth;
+    final rect = rectOffset & rectSize;
+    final paint = Paint()
+      ..color = color
+      ..style = paintingStyle
+      ..strokeWidth = strokeWidth;
     canvas.drawRRect(
-        RRect.fromRectAndCorners(
-          rect,
-          bottomRight: Radius.circular(bottomRightRadius),
-          bottomLeft: Radius.circular(bottomLeftRadius),
-          topLeft: Radius.circular(topLeftRadius),
-          topRight: Radius.circular(topRightRadius),
-        ),
-        paint);
+      RRect.fromRectAndCorners(
+        rect,
+        bottomRight: Radius.circular(bottomRightRadius),
+        bottomLeft: Radius.circular(bottomLeftRadius),
+        topLeft: Radius.circular(topLeftRadius),
+        topRight: Radius.circular(topRightRadius),
+      ),
+      paint,
+    );
   }
 }
 

@@ -1,10 +1,10 @@
 import 'dart:math' as math;
+
+import 'package:flukit/src/ui/widgets/button.dart';
+import 'package:flukit/utils.dart';
 import 'package:flukit_icons/flukit_icons.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import '../../../utils.dart';
-import 'button.dart';
 
 /// Creates an item that is used with [FluBottomNavBar.items].
 class FluBottomNavBarItem {
@@ -41,12 +41,14 @@ class FluBottomNavBarStyle {
   final BoxBorder? border;
 }
 
-/// Creates a bottom navigation bar which is typically used as a [Scaffold]'s [Scaffold.bottomNavigationBar] argument.
-/// The length of [items] must be at least two and each item's icon and label must not be null.
+/// Creates a bottom navigation bar which is typically
+/// used as a [Scaffold]'s Scaffold.bottomNavigationBar argument.
+/// The length of [items] must be at least two and each
+/// item's icon and label must not be null.
 class FluBottomNavBar extends StatefulWidget {
   const FluBottomNavBar({
-    super.key,
     required this.items,
+    super.key,
     this.onItemTap,
     this.style = const FluBottomNavBarStyle(),
     this.animationDuration = const Duration(milliseconds: 400),
@@ -69,7 +71,7 @@ class _FluBottomNavBarState extends State<FluBottomNavBar> {
   final GlobalKey _itemKey = GlobalKey();
 
   late int _currentIndex;
-  double _itemWidth = 0.0;
+  double _itemWidth = 0;
 
   @override
   void didUpdateWidget(covariant FluBottomNavBar oldWidget) {
@@ -85,16 +87,20 @@ class _FluBottomNavBarState extends State<FluBottomNavBar> {
     WidgetsBinding.instance.addPostFrameCallback((_) => getItemWidth());
   }
 
-  void getItemWidth() => setState(() => _itemWidth =
-      (_itemKey.currentContext?.findRenderObject() as RenderBox).size.width);
+  void getItemWidth() => setState(
+        () => _itemWidth =
+            (_itemKey.currentContext!.findRenderObject()! as RenderBox)
+                .size
+                .width,
+      );
 
   @override
   Widget build(BuildContext context) {
-    final Color foregroundColor =
+    final foregroundColor =
             widget.style.foregroundColor ?? context.colorScheme.primary,
         unSelectedForegroundColor = widget.style.unSelectedForegroundColor ??
             context.colorScheme.onBackground;
-    final double height = widget.style.height ?? context.height * .1;
+    final height = widget.style.height ?? context.height * .1;
 
     Widget bottomNav = Container(
       height: height,
@@ -107,7 +113,7 @@ class _FluBottomNavBarState extends State<FluBottomNavBar> {
       child: Row(
         children: widget.items.map((item) {
           final index = widget.items.indexOf(item);
-          final bool isSelected = index == _currentIndex;
+          final isSelected = index == _currentIndex;
 
           return _NavItem(
             key: widget.items.indexOf(item) == 0 ? _itemKey : null,
@@ -142,7 +148,7 @@ class _FluBottomNavBarState extends State<FluBottomNavBar> {
     switch (widget.style.type) {
       case FluBottomNavBarTypes.curved:
         return CurvedBottomNav(child: bottomNav);
-      default:
+      case FluBottomNavBarTypes.flat:
         return bottomNav;
     }
   }
@@ -151,12 +157,12 @@ class _FluBottomNavBarState extends State<FluBottomNavBar> {
 /// Create a Bottom navigation bar with a notch
 class CurvedBottomNav extends StatelessWidget {
   const CurvedBottomNav({
+    required this.child,
     super.key,
     this.notchMargin = 8.0,
     this.gapLocation = GapLocation.center,
     this.notchSmoothness = NotchSmoothness.softEdge,
     this.borderRadius = BorderRadius.zero,
-    required this.child,
   });
 
   final BorderRadius borderRadius;
@@ -166,23 +172,20 @@ class CurvedBottomNav extends StatelessWidget {
   final NotchSmoothness notchSmoothness;
 
   @override
-  Widget build(BuildContext context) {
-    return PhysicalShape(
-      clipBehavior: Clip.antiAlias,
-      color: Colors.transparent,
-      clipper: _CircularNotchedAndCorneredRectangleClipper(
-        notchMargin: notchMargin,
-        geometry: Scaffold.geometryOf(context),
-        shape: _CircularNotchedAndCorneredRectangle(
-          gapLocation: gapLocation,
-          notchSmoothness: notchSmoothness,
-          borderRadius: BorderRadius.zero,
-          margin: 0,
+  Widget build(BuildContext context) => PhysicalShape(
+        clipBehavior: Clip.antiAlias,
+        color: Colors.transparent,
+        clipper: _CircularNotchedAndCorneredRectangleClipper(
+          notchMargin: notchMargin,
+          geometry: Scaffold.geometryOf(context),
+          shape: _CircularNotchedAndCorneredRectangle(
+            gapLocation: gapLocation,
+            notchSmoothness: notchSmoothness,
+            borderRadius: BorderRadius.zero,
+          ),
         ),
-      ),
-      child: child,
-    );
-  }
+        child: child,
+      );
 }
 
 /// [FluBottomNavBar] item.
@@ -190,10 +193,10 @@ class _NavItem extends StatelessWidget {
   const _NavItem(
     this.item, {
     required this.onTap,
-    super.key,
     required this.color,
     required this.iconSize,
     required this.iconStrokeWidth,
+    super.key,
   });
 
   final Color color;
@@ -203,30 +206,29 @@ class _NavItem extends StatelessWidget {
   final VoidCallback onTap;
 
   @override
-  Widget build(BuildContext context) {
-    return Expanded(
+  Widget build(BuildContext context) => Expanded(
         child: FluButton.icon(
-      item.icon,
-      onPressed: onTap,
-      iconSize: iconSize,
-      iconStrokeWidth: iconStrokeWidth,
-      backgroundColor: Colors.transparent,
-      foregroundColor: color,
-      size: double.infinity,
-    ));
-  }
+          item.icon,
+          onPressed: onTap,
+          iconSize: iconSize,
+          iconStrokeWidth: iconStrokeWidth,
+          backgroundColor: Colors.transparent,
+          foregroundColor: color,
+          size: double.infinity,
+        ),
+      );
 }
 
 /// [FluBottomNavBar] indicator.
 class NavIndicator extends StatelessWidget {
   const NavIndicator({
-    super.key,
     required this.size,
     required this.itemWidth,
     required this.position,
     required this.animationDuration,
     required this.animationCurve,
     required this.color,
+    super.key,
   });
 
   final Curve animationCurve;
@@ -237,29 +239,28 @@ class NavIndicator extends StatelessWidget {
   final double size;
 
   @override
-  Widget build(BuildContext context) {
-    return AnimatedPositioned(
-      left: position,
-      bottom: 0,
-      duration: animationDuration,
-      curve: animationCurve,
-      child: Container(
-        height: size,
-        width: itemWidth,
-        alignment: Alignment.center,
+  Widget build(BuildContext context) => AnimatedPositioned(
+        left: position,
+        bottom: 0,
+        duration: animationDuration,
+        curve: animationCurve,
         child: Container(
           height: size,
-          width: size * 3,
-          decoration: BoxDecoration(
+          width: itemWidth,
+          alignment: Alignment.center,
+          child: Container(
+            height: size,
+            width: size * 3,
+            decoration: BoxDecoration(
               color: color,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(size),
                 topRight: Radius.circular(size),
-              )),
+              ),
+            ),
+          ),
         ),
-      ),
-    );
-  }
+      );
 }
 
 /// [FluBottomNavBarTypes.curved] clipper
@@ -276,18 +277,17 @@ class _CircularNotchedAndCorneredRectangleClipper extends CustomClipper<Path> {
 
   @override
   Path getClip(Size size) {
-    final Rect? button = geometry.value.floatingActionButtonArea
-        ?.translate(0.0, geometry.value.bottomNavigationBarTop! * -1.0);
+    final button = geometry.value.floatingActionButtonArea
+        ?.translate(0, geometry.value.bottomNavigationBarTop! * -1.0);
 
     return shape.getOuterPath(Offset.zero & size, button?.inflate(notchMargin));
   }
 
   @override
-  bool shouldReclip(_CircularNotchedAndCorneredRectangleClipper oldClipper) {
-    return oldClipper.geometry != geometry ||
-        oldClipper.shape != shape ||
-        oldClipper.notchMargin != notchMargin;
-  }
+  bool shouldReclip(_CircularNotchedAndCorneredRectangleClipper oldClipper) =>
+      oldClipper.geometry != geometry ||
+      oldClipper.shape != shape ||
+      oldClipper.notchMargin != notchMargin;
 }
 
 /// A rectangle with a smooth circular notch and rounded corners.
@@ -296,6 +296,7 @@ class _CircularNotchedAndCorneredRectangle extends NotchedShape {
     required this.notchSmoothness,
     required this.gapLocation,
     required this.borderRadius,
+    // ignore: unused_element
     this.margin = 0,
   });
 
@@ -308,27 +309,27 @@ class _CircularNotchedAndCorneredRectangle extends NotchedShape {
   Path getOuterPath(Rect host, Rect? guest) {
     if (guest == null || !host.overlaps(guest)) return Path()..addRect(host);
 
-    double notchRadius = guest.width / 2;
+    final notchRadius = guest.width / 2;
 
-    final double s1 = notchSmoothness.s1;
-    final double s2 = notchSmoothness.s2;
+    final s1 = notchSmoothness.s1;
+    final s2 = notchSmoothness.s2;
 
-    double r = notchRadius;
-    double a = -1.0 * r - s2;
-    double b = host.top - guest.center.dy;
+    final r = notchRadius;
+    final a = -1.0 * r - s2;
+    final b = host.top - guest.center.dy;
 
-    double n2 = math.sqrt(b * b * r * r * (a * a + b * b - r * r));
-    double p2xA = ((a * r * r) - n2) / (a * a + b * b);
-    double p2xB = ((a * r * r) + n2) / (a * a + b * b);
-    double p2yA = math.sqrt(r * r - p2xA * p2xA);
-    double p2yB = math.sqrt(r * r - p2xB * p2xB);
+    final n2 = math.sqrt(b * b * r * r * (a * a + b * b - r * r));
+    final p2xA = ((a * r * r) - n2) / (a * a + b * b);
+    final p2xB = ((a * r * r) + n2) / (a * a + b * b);
+    final p2yA = math.sqrt(r * r - p2xA * p2xA);
+    final p2yB = math.sqrt(r * r - p2xB * p2xB);
 
-    List<Offset> p = List.filled(6, Offset.zero, growable: true);
+    final p = List<Offset>.filled(6, Offset.zero, growable: true);
 
     // p0, p1, and p2 are the control points for segment A.
     p[0] = Offset(a - s1, b);
     p[1] = Offset(a, b);
-    double cmp = b < 0 ? -1.0 : 1.0;
+    final cmp = b < 0 ? -1.0 : 1.0;
     p[2] = cmp * p2yA > cmp * p2yB ? Offset(p2xA, p2yA) : Offset(p2xB, p2yB);
 
     // p3, p4, and p5 are the control points for segment B, which is a mirror
@@ -338,7 +339,7 @@ class _CircularNotchedAndCorneredRectangle extends NotchedShape {
     p[5] = Offset(-1.0 * p[0].dx, p[0].dy);
 
     // translate all points back to the absolute coordinate system.
-    for (int i = 0; i < p.length; i += 1) {
+    for (var i = 0; i < p.length; i += 1) {
       p[i] += margin > 0
           ? Offset(guest.center.dx - margin, guest.center.dy)
           : guest.center;
@@ -350,7 +351,6 @@ class _CircularNotchedAndCorneredRectangle extends NotchedShape {
       ..arcToPoint(
         Offset(host.left, host.top),
         radius: borderRadius.topLeft,
-        clockwise: true,
       )
       ..lineTo(p[0].dx, p[0].dy)
       ..quadraticBezierTo(p[1].dx, p[1].dy, p[2].dx, p[2].dy)
@@ -364,19 +364,16 @@ class _CircularNotchedAndCorneredRectangle extends NotchedShape {
       ..arcToPoint(
         Offset(host.right, host.top),
         radius: borderRadius.topRight,
-        clockwise: true,
       )
       // ..lineTo(host.right, host.bottom)
       ..arcToPoint(
         Offset(host.right, host.bottom),
         radius: borderRadius.bottomRight,
-        clockwise: true,
       )
       // ..lineTo(host.left, host.bottom)
       ..arcToPoint(
         Offset(host.left, host.bottom),
         radius: borderRadius.bottomLeft,
-        clockwise: true,
       )
       ..close();
   }

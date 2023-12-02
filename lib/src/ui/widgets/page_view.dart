@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 /// Todo: Complete documentation
 class PageViewNotifier extends StatefulWidget {
   const PageViewNotifier({
-    super.key,
     required this.notifier,
     required this.child,
     required this.controller,
+    super.key,
   });
 
   final ValueNotifier<double> notifier;

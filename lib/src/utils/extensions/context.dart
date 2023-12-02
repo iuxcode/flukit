@@ -1,5 +1,3 @@
-/// From https://github.com/jonataslaw/getx
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -26,11 +24,9 @@ extension ContextExt on BuildContext {
   ///
   /// [reducedBy] is a percentage value of how much of the height you want
   /// if you for example want 46% of the height, then you reduce it by 56%.
-  double heightTransformer({double dividedBy = 1, double reducedBy = 0.0}) {
-    return (mediaQuerySize.height -
-            ((mediaQuerySize.height / 100) * reducedBy)) /
-        dividedBy;
-  }
+  double heightTransformer({double dividedBy = 1, double reducedBy = 0.0}) =>
+      (mediaQuerySize.height - ((mediaQuerySize.height / 100) * reducedBy)) /
+      dividedBy;
 
   /// Gives you the power to get a portion of the width.
   /// Useful for responsive applications.
@@ -41,20 +37,18 @@ extension ContextExt on BuildContext {
   ///
   /// [reducedBy] is a percentage value of how much of the width you want
   /// if you for example want 46% of the width, then you reduce it by 56%.
-  double widthTransformer({double dividedBy = 1, double reducedBy = 0.0}) {
-    return (mediaQuerySize.width - ((mediaQuerySize.width / 100) * reducedBy)) /
-        dividedBy;
-  }
+  double widthTransformer({double dividedBy = 1, double reducedBy = 0.0}) =>
+      (mediaQuerySize.width - ((mediaQuerySize.width / 100) * reducedBy)) /
+      dividedBy;
 
   /// Divide the height proportionally by the given value
   double ratio({
     double dividedBy = 1,
     double reducedByW = 0.0,
     double reducedByH = 0.0,
-  }) {
-    return heightTransformer(dividedBy: dividedBy, reducedBy: reducedByH) /
-        widthTransformer(dividedBy: dividedBy, reducedBy: reducedByW);
-  }
+  }) =>
+      heightTransformer(dividedBy: dividedBy, reducedBy: reducedByH) /
+      widthTransformer(dividedBy: dividedBy, reducedBy: reducedByW);
 
   /// similar to [MediaQuery.of(context).theme]
   ThemeData get theme => Theme.of(this);
@@ -63,19 +57,20 @@ extension ContextExt on BuildContext {
   ColorScheme get colorScheme => theme.colorScheme;
 
   /// Check if dark mode theme is enabled
-  bool get isDarkMode => (theme.brightness == Brightness.dark);
+  bool get isDarkMode => theme.brightness == Brightness.dark;
 
   /// give access to Theme.of(context).iconTheme.color
   Color? get iconColor => theme.iconTheme.color;
 
   /// SystemUIOverlayStyle
   SystemUiOverlayStyle get systemUiOverlayStyle => SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: colorScheme.brightness == Brightness.light
-          ? Brightness.dark
-          : Brightness.light,
-      systemNavigationBarColor: colorScheme.background,
-      systemNavigationBarIconBrightness: colorScheme.brightness);
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: colorScheme.brightness == Brightness.light
+            ? Brightness.dark
+            : Brightness.light,
+        systemNavigationBarColor: colorScheme.background,
+        systemNavigationBarIconBrightness: colorScheme.brightness,
+      );
 
   /// similar to [MediaQuery.of(context).padding]
   TextTheme get textTheme => Theme.of(this).textTheme;
@@ -115,13 +110,13 @@ extension ContextExt on BuildContext {
   double get devicePixelRatio => MediaQuery.of(this).devicePixelRatio;
 
   /// similar to [MediaQuery.of(this).textScaleFactor]
-  double get textScaleFactor => MediaQuery.of(this).textScaleFactor;
+  TextScaler get textScaler => MediaQuery.of(this).textScaler;
 
   /// get the shortestSide from screen
   double get mediaQueryShortestSide => mediaQuerySize.shortestSide;
 
   /// True if width be larger than 800
-  bool get showNavbar => (width > 800);
+  bool get showNavbar => width > 800;
 
   /// True if the width is smaller than 600p
   bool get isPhoneOrLess => width <= 600;
@@ -130,7 +125,7 @@ extension ContextExt on BuildContext {
   bool get isPhoneOrWider => width >= 600;
 
   /// True if the shortestSide is smaller than 600p
-  bool get isPhone => (mediaQueryShortestSide < 600);
+  bool get isPhone => mediaQueryShortestSide < 600;
 
   /// True if the width is smaller than 600p
   bool get isSmallTabletOrLess => width <= 600;
@@ -139,10 +134,10 @@ extension ContextExt on BuildContext {
   bool get isSmallTabletOrWider => width >= 600;
 
   /// True if the shortestSide is largest than 600p
-  bool get isSmallTablet => (mediaQueryShortestSide >= 600);
+  bool get isSmallTablet => mediaQueryShortestSide >= 600;
 
   /// True if the shortestSide is largest than 720p
-  bool get isLargeTablet => (mediaQueryShortestSide >= 720);
+  bool get isLargeTablet => mediaQueryShortestSide >= 720;
 
   /// True if the width is smaller than 720p
   bool get isLargeTabletOrLess => width <= 720;

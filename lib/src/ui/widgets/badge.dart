@@ -1,23 +1,23 @@
+import 'package:flukit/utils.dart';
 import 'package:flutter/material.dart';
-
-import '../../../utils.dart';
 
 /// Add badge to a widget
 class FluBadge extends StatelessWidget {
-  const FluBadge(
-      {super.key,
-      required this.child,
-      this.color,
-      this.foregroundColor,
-      this.offset = const Offset(2, 2),
-      this.position = BadgePosition.topLeft,
-      this.size = 8,
-      this.count,
-      this.countLimit = 99,
-      this.outlined = false,
-      this.outlineThickness = 1.25,
-      this.outlineColor,
-      this.boxShadow});
+  const FluBadge({
+    required this.child,
+    super.key,
+    this.color,
+    this.foregroundColor,
+    this.offset = const Offset(2, 2),
+    this.position = BadgePosition.topLeft,
+    this.size = 8,
+    this.count,
+    this.countLimit = 99,
+    this.outlined = false,
+    this.outlineThickness = 1.25,
+    this.outlineColor,
+    this.boxShadow,
+  });
 
   final List<BoxShadow>? boxShadow;
   final Widget child;
@@ -70,8 +70,9 @@ class FluBadge extends StatelessWidget {
             height: isLargeBadge ? null : size,
             width: isLargeBadge ? null : size,
             padding: EdgeInsets.symmetric(
-                vertical: isLargeBadge ? 4 : 0,
-                horizontal: isLargeBadge ? 8 : 0),
+              vertical: isLargeBadge ? 4 : 0,
+              horizontal: isLargeBadge ? 8 : 0,
+            ),
             decoration: BoxDecoration(
               color: color ?? context.colorScheme.primary,
               shape: isLargeBadge ? BoxShape.rectangle : BoxShape.circle,
@@ -79,7 +80,8 @@ class FluBadge extends StatelessWidget {
               border: outlined
                   ? Border.all(
                       width: outlineThickness,
-                      color: outlineColor ?? context.colorScheme.background)
+                      color: outlineColor ?? context.colorScheme.background,
+                    )
                   : null,
               boxShadow: boxShadow,
             ),
@@ -95,7 +97,7 @@ class FluBadge extends StatelessWidget {
                   )
                 : null,
           ),
-        )
+        ),
       ],
     );
   }

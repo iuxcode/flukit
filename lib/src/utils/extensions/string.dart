@@ -1,4 +1,4 @@
-import '../../../utils.dart';
+import 'package:flukit/utils.dart';
 
 extension StringUtils on String {
   /// Discover if the String is a valid number
@@ -120,7 +120,7 @@ extension StringUtils on String {
   String? get paramCase => FluUtils.paramCase(this);
 
   /// add segments to the String
-  String createPath([Iterable? segments]) {
+  String createPath([Iterable<dynamic>? segments]) {
     final path = startsWith('/') ? this : '/$this';
     return FluUtils.createPath(path, segments);
   }

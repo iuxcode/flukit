@@ -1,15 +1,11 @@
-import 'dart:math' show sqrt, max;
+import 'dart:math' show max, sqrt;
 import 'dart:ui' show lerpDouble;
 
 import 'package:flutter/material.dart';
 
+/// providing circular reveal clip for route transition.
 class CircularRevealClipper extends CustomClipper<Path> {
-  final double fraction;
-  final Alignment? centerAlignment;
-  final Offset? centerOffset;
-  final double? minRadius;
-  final double? maxRadius;
-
+  // ignore: public_member_api_docs
   CircularRevealClipper({
     required this.fraction,
     this.centerAlignment,
@@ -17,6 +13,12 @@ class CircularRevealClipper extends CustomClipper<Path> {
     this.minRadius,
     this.maxRadius,
   });
+
+  final Alignment? centerAlignment;
+  final Offset? centerOffset;
+  final double fraction;
+  final double? maxRadius;
+  final double? minRadius;
 
   @override
   Path getClip(Size size) {

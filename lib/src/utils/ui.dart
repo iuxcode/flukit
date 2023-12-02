@@ -5,26 +5,26 @@ import 'package:flutter/services.dart';
 
 extension U on FluInterface {
   /// Hide the keyboard
-  void hideKeyboard() {
-    SystemChannels.textInput.invokeMethod('TextInput.hide');
+  Future<void> hideKeyboard() async {
+    await SystemChannels.textInput.invokeMethod('TextInput.hide');
   }
 
   /// Show the keyboard
-  void showKeyboard() {
-    SystemChannels.textInput.invokeMethod('TextInput.show');
+  Future<void> showKeyboard() async {
+    await SystemChannels.textInput.invokeMethod('TextInput.show');
   }
 
   /// Get available avatars
   String getAvatar({FluAvatarTypes type = FluAvatarTypes.material3D, int? id}) {
-    final bool getMaterial3DAvatars = type == FluAvatarTypes.material3D;
+    final getMaterial3DAvatars = type == FluAvatarTypes.material3D;
     int number;
 
     if (id != null) {
       number = id;
     } else {
-      number = math.Random().nextInt(getMaterial3DAvatars
-          ? 29
-          : 35); // 29 and 35 are the numbers of available avatars
+      number = math.Random().nextInt(
+        getMaterial3DAvatars ? 29 : 35,
+      ); // 29 and 35 are the numbers of available avatars
     }
 
     if (getMaterial3DAvatars) {
@@ -34,7 +34,7 @@ extension U on FluInterface {
   }
 
   /// Show a [FluModalBottomSheet]
-  void showFluModalBottomSheet(
+  Future<void> showFluModalBottomSheet(
     BuildContext context, {
     required Widget child,
     EdgeInsets padding = EdgeInsets.zero,
@@ -42,7 +42,7 @@ extension U on FluInterface {
     double? maxHeight,
     Color? barrierColor,
     bool scrollable = true,
-  }) =>
+  }) async =>
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -61,7 +61,7 @@ extension U on FluInterface {
       );
 
   /// Show a [FluCountrySelector]
-  void showCountrySelector(
+  Future<void> showCountrySelector(
     BuildContext context, {
     List<Country>? countries,
     List<Country> exclude = const [],
@@ -73,7 +73,7 @@ extension U on FluInterface {
         const EdgeInsets.symmetric(horizontal: 25, vertical: 30),
     void Function(Country)? onCountrySelected,
     double? maxHeight,
-  }) =>
+  }) async =>
       showFluModalBottomSheet(
         context,
         maxHeight: maxHeight,
@@ -90,4 +90,7 @@ extension U on FluInterface {
       );
 }
 
-enum FluAvatarTypes { material3D, memojis }
+enum FluAvatarTypes {
+  material3D,
+  memojis,
+}

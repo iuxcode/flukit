@@ -1,6 +1,6 @@
+import 'package:flukit/src/ui/widgets/dashed_circle.dart';
+import 'package:flukit/utils.dart';
 import 'package:flutter/material.dart';
-import '../../../utils.dart';
-import 'dashed_circle.dart';
 
 /// Creates a circular progress indicator.
 /// Inspired by https://vuesax.com/docs/components/Loading.html#type
@@ -33,7 +33,7 @@ class FluLoader extends StatefulWidget {
   /// label style
   final TextStyle? labelStyle;
 
-  /// Empty space to surround the avatar and [child].
+  /// Empty space to surround the avatar and child.
   final EdgeInsets margin;
 
   /// loader size
@@ -72,8 +72,9 @@ class _FluLoaderState extends State<FluLoader>
   }
 
   Widget _animatedArc(Widget child, Curve curve) => RotationTransition(
-        turns: Tween(begin: 0.0, end: 1.0).animate(
-            CurvedAnimation(parent: animationController, curve: curve)),
+        turns: Tween<double>(begin: 0, end: 1).animate(
+          CurvedAnimation(parent: animationController, curve: curve),
+        ),
         child: child,
       );
 
@@ -101,8 +102,12 @@ class _FluLoaderState extends State<FluLoader>
     Widget loader = Stack(
       alignment: Alignment.center,
       children: layers
-          .map((layer) => _animatedArc(
-              layer, layers.indexOf(layer) == 1 ? Curves.ease : Curves.linear))
+          .map(
+            (layer) => _animatedArc(
+              layer,
+              layers.indexOf(layer) == 1 ? Curves.ease : Curves.linear,
+            ),
+          )
           .toList(),
     );
 

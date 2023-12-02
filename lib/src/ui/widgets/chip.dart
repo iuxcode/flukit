@@ -1,7 +1,7 @@
+import 'package:flukit/src/data/models/chip.model.dart';
+import 'package:flukit/src/ui/widgets/image.dart';
+import 'package:flukit/utils.dart';
 import 'package:flutter/material.dart';
-import '../../data/models/chip.model.dart';
-import '../../../utils.dart';
-import 'image.dart';
 
 const double _defaultChipHeight = 62;
 const Clip _defaultChipClipBehavior = Clip.hardEdge;
@@ -9,8 +9,8 @@ const EdgeInsets _defaultChipPadding = EdgeInsets.symmetric(horizontal: 20);
 
 class FluChips extends StatefulWidget {
   FluChips({
-    super.key,
     required this.chips,
+    super.key,
     this.rows = 3,
     this.isScrollable = true,
     this.chipHeight = _defaultChipHeight,
@@ -63,8 +63,8 @@ class _FluChipsState extends State<FluChips> {
   late ScrollController scrollController;
 
   @override
-  void didUpdateWidget(covariant FluChips oldWidget) {
-    initScroll();
+  Future<void> didUpdateWidget(covariant FluChips oldWidget) async {
+    await initScroll();
     super.didUpdateWidget(oldWidget);
   }
 
@@ -72,11 +72,14 @@ class _FluChipsState extends State<FluChips> {
   void initState() {
     scrollController = widget.scrollController ?? ScrollController();
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => initScroll());
+    WidgetsBinding.instance.addPostFrameCallback((_) async => initScroll());
   }
 
-  void initScroll() => scrollController.animateTo(widget.initialScrollOffset,
-      duration: widget.animationDuration, curve: widget.animationCurve);
+  Future<void> initScroll() async => scrollController.animateTo(
+        widget.initialScrollOffset,
+        duration: widget.animationDuration,
+        curve: widget.animationCurve,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -102,23 +105,22 @@ class _FluChipsState extends State<FluChips> {
         ),
       );
     } else {
-      final int chipsPerRow = (widget.chips.length / widget.rows).round();
-      List<List<FluChipModel>> chipsRows = [];
+      final chipsPerRow = (widget.chips.length / widget.rows).round();
+      final chipsRows = <List<FluChipModel>>[];
 
-      int chipsRest = widget.chips.length;
+      var chipsRest = widget.chips.length;
 
       for (var i = 0; i < widget.rows; i++) {
         if (widget.chips.length > chipsPerRow) {
-          List<FluChipModel> row = [];
-          int rangeStart = i * chipsPerRow, rangeLimit = (i + 1) * chipsPerRow;
+          final row = <FluChipModel>[];
+          var rangeStart = i * chipsPerRow, rangeLimit = (i + 1) * chipsPerRow;
 
-          bool mustTakeTheRest = (chipsRest - chipsPerRow) <= 1;
+          final mustTakeTheRest = (chipsRest - chipsPerRow) <= 1;
           rangeLimit = mustTakeTheRest || (rangeLimit > widget.chips.length)
               ? widget.chips.length
               : rangeLimit;
 
-          List<FluChipModel> range =
-              widget.chips.getRange(rangeStart, rangeLimit).toList();
+          final range = widget.chips.getRange(rangeStart, rangeLimit).toList();
 
           for (var j = 0; j < range.length; j++) {
             row.add(range[j]);
@@ -139,27 +141,29 @@ class _FluChipsState extends State<FluChips> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: chipsRows
-              .map((row) => Padding(
-                    padding: EdgeInsets.only(
-                        top: chipsRows.indexOf(row) == 0
-                            ? 0
-                            : widget.runSpacing),
-                    child: Row(
-                      children: row
-                          .map((chip) => FluChip(
-                                chip: chip,
-                                padding: widget.chipPadding,
-                                clipBehavior: widget.chipClipBehavior,
-                                textStyle: widget.chipTextStyle,
-                                height: widget.chipHeight,
-                                margin: EdgeInsets.only(
-                                    left: row.indexOf(chip) == 0
-                                        ? 0
-                                        : widget.spacing),
-                              ))
-                          .toList(),
-                    ),
-                  ))
+              .map(
+                (row) => Padding(
+                  padding: EdgeInsets.only(
+                    top: chipsRows.indexOf(row) == 0 ? 0 : widget.runSpacing,
+                  ),
+                  child: Row(
+                    children: row
+                        .map(
+                          (chip) => FluChip(
+                            chip: chip,
+                            padding: widget.chipPadding,
+                            clipBehavior: widget.chipClipBehavior,
+                            textStyle: widget.chipTextStyle,
+                            height: widget.chipHeight,
+                            margin: EdgeInsets.only(
+                              left: row.indexOf(chip) == 0 ? 0 : widget.spacing,
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ),
+              )
               .toList(),
         ),
       );
@@ -186,8 +190,7 @@ class FluChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double? width =
-        (chip.image != null && chip.text == null) ? height * 2 : null;
+    final width = (chip.image != null && chip.text == null) ? height * 2 : null;
     late final Widget child;
 
     child = chip.image != null
