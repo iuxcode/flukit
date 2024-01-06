@@ -243,12 +243,14 @@ class _FluNavScreenState extends State<FluNavScreen> {
     final page = widget.pages[index];
 
     if (index != _currentPage && page.content != null) {
-      await _navigatorKey.currentState?.pushNamed(page.path);
+      _navigatorKey.currentState?.pushNamed(page.path);
     }
+
     setState(() {
       _currentPage = index;
       _mustExtendBody = widget.pages[index].extendBody;
     });
+
     widget.onNav?.call(index);
   }
 
@@ -277,7 +279,9 @@ class _FluNavScreenState extends State<FluNavScreen> {
           ),
           bottomNavigationBar: FluBottomNavBar(
             index: _currentPage,
-            onItemTap: (index) async => _navigateTo(context, index),
+            onItemTap: (index) async {
+              _navigateTo(context, index);
+            },
             items: widget.pages
                 .map((page) => FluBottomNavBarItem(page.icon, page.name))
                 .toList(),

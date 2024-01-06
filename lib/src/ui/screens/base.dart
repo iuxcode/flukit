@@ -23,6 +23,7 @@ class FluScreen extends StatelessWidget {
     this.scaffoldKey,
     this.drawerScrimColor,
     this.resizeToAvoidBottomInset,
+    this.syncSystemOverlayWithBackground = false,
   });
 
   /// A button displayed floating above [body], in the bottom right corner.
@@ -68,6 +69,9 @@ class FluScreen extends StatelessWidget {
 
   /// The primary content of the scaffold.
   final Widget body;
+
+  /// Use background color for system styling
+  final bool syncSystemOverlayWithBackground;
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -181,34 +185,42 @@ class FluScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => AnnotatedRegion<SystemUiOverlayStyle>(
-        value: context.systemUiOverlayStyle.copyWith(
-          statusBarColor: overlayStyle?.statusBarColor,
-          statusBarIconBrightness: overlayStyle?.statusBarIconBrightness,
-          statusBarBrightness: overlayStyle?.statusBarBrightness,
-          systemNavigationBarColor: overlayStyle?.systemNavigationBarColor,
-          systemNavigationBarDividerColor:
-              overlayStyle?.systemNavigationBarDividerColor,
-          systemNavigationBarIconBrightness:
-              overlayStyle?.systemNavigationBarIconBrightness,
-          systemStatusBarContrastEnforced:
-              overlayStyle?.systemStatusBarContrastEnforced,
-          systemNavigationBarContrastEnforced:
-              overlayStyle?.systemNavigationBarContrastEnforced,
-        ),
-        child: Scaffold(
-          key: scaffoldKey,
-          backgroundColor: background ?? context.colorScheme.background,
-          extendBody: extendBody,
-          appBar: appBar,
-          body: body,
-          bottomNavigationBar: bottomNavigationBar,
-          floatingActionButtonLocation: floatingActionButtonLocation,
-          floatingActionButton: floatingActionButton,
-          drawer: drawer,
-          endDrawer: endDrawer,
-          drawerScrimColor: drawerScrimColor,
-          resizeToAvoidBottomInset: resizeToAvoidBottomInset,
-        ),
-      );
+  Widget build(BuildContext context) {
+    final backgroundColor = background ?? context.colorScheme.background;
+
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: context.systemUiOverlayStyle.copyWith(
+        statusBarColor: syncSystemOverlayWithBackground
+            ? backgroundColor
+            : overlayStyle?.statusBarColor,
+        statusBarIconBrightness: overlayStyle?.statusBarIconBrightness,
+        statusBarBrightness: overlayStyle?.statusBarBrightness,
+        systemNavigationBarColor: syncSystemOverlayWithBackground
+            ? backgroundColor
+            : overlayStyle?.systemNavigationBarColor,
+        systemNavigationBarDividerColor:
+            overlayStyle?.systemNavigationBarDividerColor,
+        systemNavigationBarIconBrightness:
+            overlayStyle?.systemNavigationBarIconBrightness,
+        systemStatusBarContrastEnforced:
+            overlayStyle?.systemStatusBarContrastEnforced,
+        systemNavigationBarContrastEnforced:
+            overlayStyle?.systemNavigationBarContrastEnforced,
+      ),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: background ?? context.colorScheme.background,
+        extendBody: extendBody,
+        appBar: appBar,
+        body: body,
+        bottomNavigationBar: bottomNavigationBar,
+        floatingActionButtonLocation: floatingActionButtonLocation,
+        floatingActionButton: floatingActionButton,
+        drawer: drawer,
+        endDrawer: endDrawer,
+        drawerScrimColor: drawerScrimColor,
+        resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+      ),
+    );
+  }
 }

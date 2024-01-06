@@ -1,10 +1,15 @@
 import 'package:flukit/flukit.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+export 'package:shared_preferences/shared_preferences.dart'
+    show SharedPreferences;
 
 extension FluStorage on FluInterface {
-  FluStorageService get storage => FluStorageService();
+  FluStorageService get storage => _storage;
 }
+
+/// Single instance of [FluStorageService]
+final _storage = FluStorageService();
 
 /// Manage local storage actions and provide a
 /// persistent store for simple data with `shared_preferences`.
@@ -27,18 +32,19 @@ extension FluStorage on FluInterface {
 /// final something = LocalStorageService.prefs.getBool("something");
 /// ```
 class FluStorageService {
+  /// Current instance of [SharedPreferences]
+  late SharedPreferences prefs;
+
   final _secureStorage = const FlutterSecureStorage(
     aOptions: AndroidOptions(
       encryptedSharedPreferences: true,
     ),
   );
 
-  /// Current instance of [SharedPreferences]
-  late final SharedPreferences prefs;
-
   /// Loads and parses the [SharedPreferences] for this app from disk.
-  Future<SharedPreferences> loadPrefs() async =>
-      prefs = await SharedPreferences.getInstance();
+  Future<void> loadPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+  }
 
   /// Saves a boolean [value] to persistent storage in the background.
   Future<void> setBool(String key, bool value) async =>
@@ -51,7 +57,7 @@ class FluStorageService {
   /// Saves a integer [value] to persistent storage in the background.
   Future<void> setInt(String key, int value) async => prefs.setInt(key, value);
 
-  // Read a secure storage value
+  /// Read a secure storage value
   Future<String?> readFromSecureStorage(String key) =>
       _secureStorage.read(key: key);
 

@@ -6,9 +6,10 @@ export 'src/utils/navigation/page.dart';
 export 'src/utils/navigation/route.dart';
 export 'src/utils/navigation/transitions.dart';
 
-extension NavExt on FluInterface {
+/// Provide navigation utilities to [FluInterface]
+extension FluNavExt on FluInterface {
   Exception get _unmountedKeyException => Exception(
-        // ignore: lines_longer_than_80_chars, lines_longer_than_80_chars
+        // ignore: lines_longer_than_80_chars,
         "'The [navigatorKey] has not been mounted. Use `FluMaterialApp` or set the key manually with `Flu.navigatorKey = yourKey`'",
       );
 
