@@ -1,11 +1,12 @@
 import 'package:flukit/flukit.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class FluModalBottomSheet extends StatelessWidget {
   const FluModalBottomSheet({
-    super.key,
     required this.child,
+    super.key,
     this.padding = EdgeInsets.zero,
     this.cornerRadius,
     this.maxHeight,
@@ -23,8 +24,43 @@ class FluModalBottomSheet extends StatelessWidget {
   final bool scrollable;
 
   @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty<Curve>('animationCurve', animationCurve))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DoubleProperty('maxHeight', maxHeight))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(DiagnosticsProperty<bool>('scrollable', scrollable))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DoubleProperty('maxHeight', maxHeight))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(DiagnosticsProperty<bool>('scrollable', scrollable))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DoubleProperty('maxHeight', maxHeight))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(DiagnosticsProperty<bool>('scrollable', scrollable))
+      ..add(
+        DiagnosticsProperty<Duration>('animationDuration', animationDuration),
+      )
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DoubleProperty('maxHeight', maxHeight))
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding))
+      ..add(DiagnosticsProperty<bool>('scrollable', scrollable));
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final Radius defaultCornerRadius =
+    final defaultCornerRadius =
         Radius.circular(cornerRadius ?? context.width * .05);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -48,7 +84,8 @@ class FluModalBottomSheet extends StatelessWidget {
             Flexible(
               child: Container(
                 constraints: BoxConstraints(
-                    maxHeight: maxHeight ?? context.height * .85),
+                  maxHeight: maxHeight ?? context.height * .85,
+                ),
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(

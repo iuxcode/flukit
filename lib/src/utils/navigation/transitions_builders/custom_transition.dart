@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 
-abstract class CustomTransition {
+ class CustomTransition {
   Widget buildTransition(
     BuildContext context,
     Curve? curve,
@@ -9,4 +9,4 @@ abstract class CustomTransition {
     Animation<double> secondaryAnimation,
     Widget child,
   );
-}
+} */

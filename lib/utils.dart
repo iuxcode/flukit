@@ -12,13 +12,16 @@ export 'src/utils/ui.dart';
 /// standard dart types that contains it.
 ///
 /// This is here to for the 'DRY'
-bool? _isEmpty(dynamic value) {
+bool? _isEmpty(value) {
   if (value is String) {
-    return value.toString().trim().isEmpty;
+    return value.trim().isEmpty;
   }
+
   if (value is Iterable || value is Map) {
+    // ignore: avoid_dynamic_calls
     return value.isEmpty as bool?;
   }
+
   return false;
 }
 
@@ -27,9 +30,7 @@ bool? _isEmpty(dynamic value) {
 /// standard dart types that contains it.
 ///
 /// This is here to for the 'DRY'
-bool _hasLength(dynamic value) {
-  return value is Iterable || value is String || value is Map;
-}
+bool _hasLength(value) => value is Iterable || value is String || value is Map;
 
 /// Obtains a length of a dynamic value
 /// by previously validating it's type
@@ -41,13 +42,14 @@ bool _hasLength(dynamic value) {
 /// Note 2: **this may return null!**
 ///
 /// Note 3: null [value] returns null.
-int? _obtainDynamicLength(dynamic value) {
+int? _obtainDynamicLength(value) {
   if (value == null) {
     // ignore: avoid_returning_null
     return null;
   }
 
   if (_hasLength(value)) {
+    // ignore: avoid_dynamic_calls
     return value.length as int?;
   }
 
@@ -67,10 +69,12 @@ class FluUtils {
   FluUtils._();
 
   /// Checks if data is null.
-  static bool isNull(dynamic value) => value == null;
+  // ignore: inference_failure_on_untyped_parameter, type_annotate_public_apis
+  static bool isNull(value) => value == null;
 
   /// Checks if data is null or blank (empty or only contains whitespace).
-  static bool? isNullOrBlank(dynamic value) {
+  // ignore: inference_failure_on_untyped_parameter, type_annotate_public_apis
+  static bool? isNullOrBlank(value) {
     if (isNull(value)) {
       return true;
     }
@@ -81,9 +85,8 @@ class FluUtils {
   }
 
   /// Checks if data is null or blank (empty or only contains whitespace).
-  static bool? isBlank(dynamic value) {
-    return _isEmpty(value);
-  }
+  // ignore: inference_failure_on_untyped_parameter, type_annotate_public_apis
+  static bool? isBlank(value) => _isEmpty(value);
 
   /// Checks if string is int or double.
   static bool isNum(String value) {
@@ -102,7 +105,7 @@ class FluUtils {
   static bool isAlphabetOnly(String s) => hasMatch(s, r'^[a-zA-Z]+$');
 
   /// Checks if string contains at least one Capital Letter
-  static bool hasCapitalletter(String s) => hasMatch(s, r'[A-Z]');
+  static bool hasCapitalLetter(String s) => hasMatch(s, '[A-Z]');
 
   /// Checks if string is boolean.
   static bool isBool(String value) {
@@ -110,106 +113,100 @@ class FluUtils {
       return false;
     }
 
-    return (value == 'true' || value == 'false');
+    return value == 'true' || value == 'false';
   }
 
   /// Checks if string is an video file.
   static bool isVideo(String filePath) {
-    var ext = filePath.toLowerCase();
+    final ext = filePath.toLowerCase();
 
-    return ext.endsWith(".mp4") ||
-        ext.endsWith(".avi") ||
-        ext.endsWith(".wmv") ||
-        ext.endsWith(".rmvb") ||
-        ext.endsWith(".mpg") ||
-        ext.endsWith(".mpeg") ||
-        ext.endsWith(".3gp");
+    return ext.endsWith('.mp4') ||
+        ext.endsWith('.avi') ||
+        ext.endsWith('.wmv') ||
+        ext.endsWith('.rmvb') ||
+        ext.endsWith('.mpg') ||
+        ext.endsWith('.mpeg') ||
+        ext.endsWith('.3gp');
   }
 
   /// Checks if string is an image file.
   static bool isImage(String filePath) {
     final ext = filePath.toLowerCase();
 
-    return ext.endsWith(".jpg") ||
-        ext.endsWith(".jpeg") ||
-        ext.endsWith(".png") ||
-        ext.endsWith(".gif") ||
-        ext.endsWith(".bmp");
+    return ext.endsWith('.jpg') ||
+        ext.endsWith('.jpeg') ||
+        ext.endsWith('.png') ||
+        ext.endsWith('.gif') ||
+        ext.endsWith('.bmp');
   }
 
   /// Checks if string is an audio file.
   static bool isAudio(String filePath) {
     final ext = filePath.toLowerCase();
 
-    return ext.endsWith(".mp3") ||
-        ext.endsWith(".wav") ||
-        ext.endsWith(".wma") ||
-        ext.endsWith(".amr") ||
-        ext.endsWith(".ogg");
+    return ext.endsWith('.mp3') ||
+        ext.endsWith('.wav') ||
+        ext.endsWith('.wma') ||
+        ext.endsWith('.amr') ||
+        ext.endsWith('.ogg');
   }
 
   /// Checks if string is an powerpoint file.
   static bool isPPT(String filePath) {
     final ext = filePath.toLowerCase();
 
-    return ext.endsWith(".ppt") || ext.endsWith(".pptx");
+    return ext.endsWith('.ppt') || ext.endsWith('.pptx');
   }
 
   /// Checks if string is an word file.
   static bool isWord(String filePath) {
     final ext = filePath.toLowerCase();
 
-    return ext.endsWith(".doc") || ext.endsWith(".docx");
+    return ext.endsWith('.doc') || ext.endsWith('.docx');
   }
 
   /// Checks if string is an excel file.
   static bool isExcel(String filePath) {
     final ext = filePath.toLowerCase();
 
-    return ext.endsWith(".xls") || ext.endsWith(".xlsx");
+    return ext.endsWith('.xls') || ext.endsWith('.xlsx');
   }
 
   /// Checks if string is an apk file.
-  static bool isAPK(String filePath) {
-    return filePath.toLowerCase().endsWith(".apk");
-  }
+  static bool isAPK(String filePath) => filePath.toLowerCase().endsWith('.apk');
 
   /// Checks if string is an pdf file.
-  static bool isPDF(String filePath) {
-    return filePath.toLowerCase().endsWith(".pdf");
-  }
+  static bool isPDF(String filePath) => filePath.toLowerCase().endsWith('.pdf');
 
   /// Checks if string is an txt file.
-  static bool isTxt(String filePath) {
-    return filePath.toLowerCase().endsWith(".txt");
-  }
+  static bool isTxt(String filePath) => filePath.toLowerCase().endsWith('.txt');
 
   /// Checks if string is an chm file.
-  static bool isChm(String filePath) {
-    return filePath.toLowerCase().endsWith(".chm");
-  }
+  static bool isChm(String filePath) => filePath.toLowerCase().endsWith('.chm');
 
   /// Checks if string is a vector file.
-  static bool isVector(String filePath) {
-    return filePath.toLowerCase().endsWith(".svg");
-  }
+  static bool isVector(String filePath) =>
+      filePath.toLowerCase().endsWith('.svg');
 
   /// Checks if string is an html file.
-  static bool isHTML(String filePath) {
-    return filePath.toLowerCase().endsWith(".html");
-  }
+  static bool isHTML(String filePath) =>
+      filePath.toLowerCase().endsWith('.html');
 
   /// Checks if string is a valid username.
   static bool isUsername(String s) =>
       hasMatch(s, r'^[a-zA-Z0-9][a-zA-Z0-9_.]+[a-zA-Z0-9]$');
 
   /// Checks if string is URL.
-  static bool isURL(String s) => hasMatch(s,
-      r"^((((H|h)(T|t)|(F|f))(T|t)(P|p)((S|s)?))\://)?(www.|[a-zA-Z0-9].)[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,7}(\:[0-9]{1,5})*(/($|[a-zA-Z0-9\.\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*$");
+  static bool isURL(String s) => hasMatch(
+        s,
+        r"^((((H|h)(T|t)|(F|f))(T|t)(P|p)((S|s)?))\://)?(www.|[a-zA-Z0-9].)[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,7}(\:[0-9]{1,5})*(/($|[a-zA-Z0-9\.\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*$",
+      );
 
   /// Checks if string is email.
-  static bool isEmail(String s) => hasMatch(s,
-      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
+  static bool isEmail(String s) => hasMatch(
+        s,
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$',
+      );
 
   /// Checks if string is phone number.
   static bool isPhoneNumber(String s) {
@@ -233,8 +230,11 @@ class FluUtils {
       hasMatch(s, r'([A-Fa-f0-9]{2}\:){31}[A-Fa-f0-9]{2}|[A-Fa-f0-9]{64}');
 
   /// Checks if string is SSN (Social Security Number).
-  static bool isSSN(String s) => hasMatch(s,
-      r'^(?!0{3}|6{3}|9[0-9]{2})[0-9]{3}-?(?!0{2})[0-9]{2}-?(?!0{4})[0-9]{4}$');
+  static bool isSSN(String s) => hasMatch(
+        s,
+        // ignore: lines_longer_than_80_chars
+        r'^(?!0{3}|6{3}|9[0-9]{2})[0-9]{3}-?(?!0{2})[0-9]{2}-?(?!0{4})[0-9]{4}$',
+      );
 
   /// Checks if string is binary.
   static bool isBinary(String s) => hasMatch(s, r'^[0-1]+$');
@@ -244,8 +244,10 @@ class FluUtils {
       hasMatch(s, r'^(?:(?:^|\.)(?:2(?:5[0-5]|[0-4]\d)|1?\d?\d)){4}$');
 
   /// Checks if string is IPv6.
-  static bool isIPv6(String s) => hasMatch(s,
-      r'^((([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}:[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){5}:([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){4}:([0-9A-Fa-f]{1,4}:){0,2}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){3}:([0-9A-Fa-f]{1,4}:){0,3}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){2}:([0-9A-Fa-f]{1,4}:){0,4}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(([0-9A-Fa-f]{1,4}:){0,5}:((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(::([0-9A-Fa-f]{1,4}:){0,5}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|([0-9A-Fa-f]{1,4}::([0-9A-Fa-f]{1,4}:){0,5}[0-9A-Fa-f]{1,4})|(::([0-9A-Fa-f]{1,4}:){0,6}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,7}:))$');
+  static bool isIPv6(String s) => hasMatch(
+        s,
+        r'^((([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}:[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){5}:([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){4}:([0-9A-Fa-f]{1,4}:){0,2}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){3}:([0-9A-Fa-f]{1,4}:){0,3}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){2}:([0-9A-Fa-f]{1,4}:){0,4}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(([0-9A-Fa-f]{1,4}:){0,5}:((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(::([0-9A-Fa-f]{1,4}:){0,5}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|([0-9A-Fa-f]{1,4}::([0-9A-Fa-f]{1,4}:){0,5}[0-9A-Fa-f]{1,4})|(::([0-9A-Fa-f]{1,4}:){0,6}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,7}:))$',
+      );
 
   /// Checks if string is hexadecimal.
   /// Example: HexColor => #12F
@@ -256,8 +258,8 @@ class FluUtils {
   static bool isPalindrom(String string) {
     final cleanString = string
         .toLowerCase()
-        .replaceAll(RegExp(r"\s+"), '')
-        .replaceAll(RegExp(r"[^0-9a-zA-Z]+"), "");
+        .replaceAll(RegExp(r'\s+'), '')
+        .replaceAll(RegExp('[^0-9a-zA-Z]+'), '');
 
     for (var i = 0; i < cleanString.length; i++) {
       if (cleanString[i] != cleanString[cleanString.length - i - 1]) {
@@ -270,10 +272,10 @@ class FluUtils {
 
   /// Checks if all data have same value.
   /// Example: 111111 -> true, wwwww -> true, 1,1,1,1 -> true
-  static bool isOneAKind(dynamic value) {
-    if ((value is String || value is List) && !isNullOrBlank(value)!) {
+  static bool isOneAKind(List<dynamic> value) {
+    if (!isNullOrBlank(value)!) {
       final first = value[0];
-      final len = value.length as num;
+      final len = value.length;
 
       for (var i = 0; i < len; i++) {
         if (value[i] != first) {
@@ -305,11 +307,14 @@ class FluUtils {
       hasMatch(s, r'^(?!^0+$)[a-zA-Z0-9]{6,9}$');
 
   /// Checks if string is Currency.
-  static bool isCurrency(String s) => hasMatch(s,
-      r'^(S?\$|\₩|Rp|\¥|\€|\₹|\₽|fr|R\$|R)?[ ]?[-]?([0-9]{1,3}[,.]([0-9]{3}[,.])*[0-9]{3}|[0-9]+)([,.][0-9]{1,2})?( ?(USD?|AUD|NZD|CAD|CHF|GBP|CNY|EUR|JPY|IDR|MXN|NOK|KRW|TRY|INR|RUB|BRL|ZAR|SGD|MYR))?$');
+  static bool isCurrency(String s) => hasMatch(
+        s,
+        r'^(S?\$|\₩|Rp|\¥|\€|\₹|\₽|fr|R\$|R)?[ ]?[-]?([0-9]{1,3}[,.]([0-9]{3}[,.])*[0-9]{3}|[0-9]+)([,.][0-9]{1,2})?( ?(USD?|AUD|NZD|CAD|CHF|GBP|CNY|EUR|JPY|IDR|MXN|NOK|KRW|TRY|INR|RUB|BRL|ZAR|SGD|MYR))?$',
+      );
 
   /// Checks if length of data is GREATER than maxLength.
-  static bool isLengthGreaterThan(dynamic value, int maxLength) {
+  // ignore: type_annotate_public_apis
+  static bool isLengthGreaterThan(value, int maxLength) {
     final length = _obtainDynamicLength(value);
 
     if (length == null) {
@@ -320,7 +325,8 @@ class FluUtils {
   }
 
   /// Checks if length of data is GREATER OR EQUAL to maxLength.
-  static bool isLengthGreaterOrEqual(dynamic value, int maxLength) {
+  // ignore: type_annotate_public_apis, inference_failure_on_untyped_parameter
+  static bool isLengthGreaterOrEqual(value, int maxLength) {
     final length = _obtainDynamicLength(value);
 
     if (length == null) {
@@ -331,7 +337,8 @@ class FluUtils {
   }
 
   /// Checks if length of data is LESS than maxLength.
-  static bool isLengthLessThan(dynamic value, int maxLength) {
+  // ignore: inference_failure_on_untyped_parameter, type_annotate_public_apis
+  static bool isLengthLessThan(value, int maxLength) {
     final length = _obtainDynamicLength(value);
     if (length == null) {
       return false;
@@ -341,7 +348,8 @@ class FluUtils {
   }
 
   /// Checks if length of data is LESS OR EQUAL to maxLength.
-  static bool isLengthLessOrEqual(dynamic value, int maxLength) {
+  // ignore: inference_failure_on_untyped_parameter, type_annotate_public_apis
+  static bool isLengthLessOrEqual(value, int maxLength) {
     final length = _obtainDynamicLength(value);
 
     if (length == null) {
@@ -352,7 +360,8 @@ class FluUtils {
   }
 
   /// Checks if length of data is EQUAL to maxLength.
-  static bool isLengthEqualTo(dynamic value, int otherLength) {
+  // ignore: inference_failure_on_untyped_parameter, type_annotate_public_apis
+  static bool isLengthEqualTo(value, int otherLength) {
     final length = _obtainDynamicLength(value);
 
     if (length == null) {
@@ -363,7 +372,8 @@ class FluUtils {
   }
 
   /// Checks if length of data is BETWEEN minLength to maxLength.
-  static bool isLengthBetween(dynamic value, int minLength, int maxLength) {
+  // ignore: inference_failure_on_untyped_parameter, type_annotate_public_apis
+  static bool isLengthBetween(value, int minLength, int maxLength) {
     if (isNull(value)) {
       return false;
     }
@@ -374,9 +384,8 @@ class FluUtils {
 
   /// Checks if a contains b (Treating or interpreting upper- and lowercase
   /// letters as being the same).
-  static bool isCaseInsensitiveContains(String a, String b) {
-    return a.toLowerCase().contains(b.toLowerCase());
-  }
+  static bool isCaseInsensitiveContains(String a, String b) =>
+      a.toLowerCase().contains(b.toLowerCase());
 
   /// Checks if a contains b or b contains a (Treating or
   /// interpreting upper- and lowercase letters as being the same).
@@ -399,7 +408,7 @@ class FluUtils {
   //Check if num is a cnpj
   static bool isCnpj(String cnpj) {
     // Obter somente os números do CNPJ
-    final numbers = cnpj.replaceAll(RegExp(r'[^0-9]'), '');
+    final numbers = cnpj.replaceAll(RegExp('[^0-9]'), '');
 
     // Testar se o CNPJ possui 14 dígitos
     if (numbers.length != 14) {
@@ -417,7 +426,7 @@ class FluUtils {
     // Calcular o primeiro dígito verificador
     var calcDv1 = 0;
     var j = 0;
-    for (var i in Iterable<int>.generate(12, (i) => i < 4 ? 5 - i : 13 - i)) {
+    for (final i in Iterable<int>.generate(12, (i) => i < 4 ? 5 - i : 13 - i)) {
       calcDv1 += digits[j++] * i;
     }
     calcDv1 %= 11;
@@ -431,7 +440,7 @@ class FluUtils {
     // Calcular o segundo dígito verificador
     var calcDv2 = 0;
     j = 0;
-    for (var i in Iterable<int>.generate(13, (i) => i < 5 ? 6 - i : 14 - i)) {
+    for (final i in Iterable<int>.generate(13, (i) => i < 5 ? 6 - i : 14 - i)) {
       calcDv2 += digits[j++] * i;
     }
     calcDv2 %= 11;
@@ -452,7 +461,7 @@ class FluUtils {
     // }
 
     // get only the numbers
-    final numbers = cpf.replaceAll(RegExp(r'[^0-9]'), '');
+    final numbers = cpf.replaceAll(RegExp('[^0-9]'), '');
     // Test if the CPF has 11 digits
     if (numbers.length != 11) {
       return false;
@@ -467,7 +476,7 @@ class FluUtils {
 
     // Calculate the first verifier digit
     var calcDv1 = 0;
-    for (var i in Iterable<int>.generate(9, (i) => 10 - i)) {
+    for (final i in Iterable<int>.generate(9, (i) => 10 - i)) {
       calcDv1 += digits[10 - i] * i;
     }
     calcDv1 %= 11;
@@ -481,7 +490,7 @@ class FluUtils {
 
     // Calculate the second verifier digit
     var calcDv2 = 0;
-    for (var i in Iterable<int>.generate(10, (i) => 11 - i)) {
+    for (final i in Iterable<int>.generate(10, (i) => 11 - i)) {
       calcDv2 += digits[11 - i] * i;
     }
     calcDv2 %= 11;
@@ -514,9 +523,7 @@ class FluUtils {
 
   /// Remove all whitespace inside string
   /// Example: your name => yourname
-  static String removeAllWhitespace(String value) {
-    return value.replaceAll(' ', '');
-  }
+  static String removeAllWhitespace(String value) => value.replaceAll(' ', '');
 
   /// Camelcase string
   /// Example: your name => yourName
@@ -530,6 +537,7 @@ class FluUtils {
     var newString = '';
 
     for (final word in separatedWords) {
+      // ignore: use_string_buffers
       newString += word[0].toUpperCase() + word.substring(1).toLowerCase();
     }
 
@@ -537,21 +545,21 @@ class FluUtils {
   }
 
   /// credits to "ReCase" package.
-  static final RegExp _upperAlphaRegex = RegExp(r'[A-Z]');
-  static final _symbolSet = {' ', '.', '/', '_', '\\', '-'};
+  static final RegExp _upperAlphaRegex = RegExp('[A-Z]');
+  static final _symbolSet = {' ', '.', '/', '_', r'\', '-'};
   static List<String> _groupIntoWords(String text) {
-    var sb = StringBuffer();
-    var words = <String>[];
-    var isAllCaps = text.toUpperCase() == text;
+    final sb = StringBuffer();
+    final words = <String>[];
+    final isAllCaps = text.toUpperCase() == text;
 
     for (var i = 0; i < text.length; i++) {
-      var char = text[i];
-      var nextChar = i + 1 == text.length ? null : text[i + 1];
+      final char = text[i];
+      final nextChar = i + 1 == text.length ? null : text[i + 1];
       if (_symbolSet.contains(char)) {
         continue;
       }
       sb.write(char);
-      var isEndOfWord = nextChar == null ||
+      final isEndOfWord = nextChar == null ||
           (_upperAlphaRegex.hasMatch(nextChar) && !isAllCaps) ||
           _symbolSet.contains(nextChar);
       if (isEndOfWord) {
@@ -586,7 +594,7 @@ class FluUtils {
       if (isNumericOnly(s[i])) {
         numericOnlyStr += s[i];
       }
-      if (firstWordOnly && numericOnlyStr.isNotEmpty && s[i] == " ") {
+      if (firstWordOnly && numericOnlyStr.isNotEmpty && s[i] == ' ') {
         break;
       }
     }
@@ -598,26 +606,26 @@ class FluUtils {
   /// Example: flukit will make it easy  => Flukit Will Make It Easy
   /// Example 2 : this is an example text => This Is An Example Text
   static String capitalizeAllWordsFirstLetter(String s) {
-    String lowerCasedString = s.toLowerCase();
-    String stringWithoutExtraSpaces = lowerCasedString.trim();
+    final lowerCasedString = s.toLowerCase();
+    final stringWithoutExtraSpaces = lowerCasedString.trim();
 
     if (stringWithoutExtraSpaces.isEmpty) {
-      return "";
+      return '';
     }
     if (stringWithoutExtraSpaces.length == 1) {
       return stringWithoutExtraSpaces.toUpperCase();
     }
 
-    List<String> stringWordsList = stringWithoutExtraSpaces.split(" ");
-    List<String> capitalizedWordsFirstLetter = stringWordsList
+    final stringWordsList = stringWithoutExtraSpaces.split(' ');
+    final capitalizedWordsFirstLetter = stringWordsList
         .map(
           (word) {
-            if (word.trim().isEmpty) return "";
+            if (word.trim().isEmpty) return '';
             return word.trim();
           },
         )
         .where(
-          (word) => word != "",
+          (word) => word != '',
         )
         .map(
           (word) {
@@ -628,15 +636,14 @@ class FluUtils {
           },
         )
         .toList();
-    String finalResult = capitalizedWordsFirstLetter.join(" ");
+    final finalResult = capitalizedWordsFirstLetter.join(' ');
     return finalResult;
   }
 
-  static bool hasMatch(String? value, String pattern) {
-    return (value == null) ? false : RegExp(pattern).hasMatch(value);
-  }
+  static bool hasMatch(String value, String pattern) =>
+      RegExp(pattern).hasMatch(value);
 
-  static String createPath(String path, [Iterable? segments]) {
+  static String createPath(String path, [Iterable<dynamic>? segments]) {
     if (segments == null || segments.isEmpty) {
       return path;
     }

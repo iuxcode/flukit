@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phone_number/phone_number.dart';
 
+/// Add core utilities to [FluInterface]
 extension CoreExt on FluInterface {
   /// As a rule, Flutter knows which widget to update,
   /// so this command is rarely needed. We can mention situations
@@ -23,70 +24,65 @@ extension CoreExt on FluInterface {
   }
 
   ///The current [WidgetsBinding]
-  WidgetsBinding get engine {
-    return WidgetsFlutterBinding.ensureInitialized();
-  }
+  WidgetsBinding get engine => WidgetsFlutterBinding.ensureInitialized();
 
   /// Phone number validator plugin
   PhoneNumberUtil get phoneNumber => PhoneNumberUtil();
 
-  /// Provides a haptic feedback indication selection changing through discrete values.
-  /// On iOS versions 10 and above, this uses a UISelectionFeedbackGenerator. This call has no effects on iOS versions below 10.
+  /// Provides a haptic feedback indication selection
+  /// changing through discrete values.
+  /// On iOS versions 10 and above, this uses a UISelectionFeedbackGenerator.
+  /// This call has no effects on iOS versions below 10.
   /// On Android, this uses HapticFeedbackConstants.CLOCK_TICK.
-  void triggerSelectionClickHaptic() => HapticFeedback.selectionClick();
+  Future<void> triggerSelectionClickHaptic() async =>
+      HapticFeedback.selectionClick();
 
   /// Provides vibration haptic feedback to the user for a short duration.
-  /// On iOS devices that support haptic feedback, this uses the default system vibration value (kSystemSoundID_Vibrate).
-  /// On Android, this uses the platform haptic feedback API to simulate a response to a long press (HapticFeedbackConstants.LONG_PRESS).
-  void triggerVibrationHaptic() => HapticFeedback.vibrate();
+  /// On iOS devices that support haptic feedback, this uses the default system
+  /// vibration value (kSystemSoundID_Vibrate).
+  /// On Android, this uses the platform haptic feedback API to simulate
+  /// a response to a long press (HapticFeedbackConstants.LONG_PRESS).
+  Future<void> triggerVibrationHaptic() async => HapticFeedback.vibrate();
 
-  /// Provides a haptic feedback corresponding a collision impact with a light mass.
-  /// On iOS versions 10 and above, this uses a UIImpactFeedbackGenerator with UIImpactFeedbackStyleLight. This call has no effects on iOS versions below 10.
+  /// Provides a haptic feedback corresponding
+  /// a collision impact with a light mass.
+  /// On iOS versions 10 and above, this uses a UIImpactFeedbackGenerator with
+  /// UIImpactFeedbackStyleLight.
+  /// This call has no effects on iOS versions below 10.
   /// On Android, this uses HapticFeedbackConstants.VIRTUAL_KEY.
-  void triggerLightImpactHaptic() => HapticFeedback.lightImpact();
+  Future<void> triggerLightImpactHaptic() async => HapticFeedback.lightImpact();
 
-  /// Provides a haptic feedback corresponding a collision impact with a medium mass.
-  /// On iOS versions 10 and above, this uses a UIImpactFeedbackGenerator with UIImpactFeedbackStyleMedium. This call has no effects on iOS versions below 10.
+  /// Provides a haptic feedback corresponding a collision impact
+  /// with a medium mass.
+  /// On iOS versions 10 and above, this uses a UIImpactFeedbackGenerator with
+  /// UIImpactFeedbackStyleMedium.
+  /// This call has no effects on iOS versions below 10.
   /// On Android, this uses HapticFeedbackConstants.KEYBOARD_TAP.
-  void triggerMediumImpactHaptic() => HapticFeedback.mediumImpact();
+  Future<void> triggerMediumImpactHaptic() async =>
+      HapticFeedback.mediumImpact();
 
-  /// Provides a haptic feedback corresponding a collision impact with a heavy mass.
-  /// On iOS versions 10 and above, this uses a UIImpactFeedbackGenerator with UIImpactFeedbackStyleHeavy. This call has no effects on iOS versions below 10.
-  /// On Android, this uses HapticFeedbackConstants.CONTEXT_CLICK on API levels 23 and above. This call has no effects on Android API levels below 23.
-  void triggerHeavyImpactHaptic() => HapticFeedback.heavyImpact();
+  /// Provides a haptic feedback corresponding
+  /// a collision impact with a heavy mass.
+  /// On iOS versions 10 and above, this uses a
+  /// UIImpactFeedbackGenerator with UIImpactFeedbackStyleHeavy.
+  /// This call has no effects on iOS versions below 10.
+  /// On Android, this uses HapticFeedbackConstants.CONTEXT_CLICK
+  /// on API levels 23 and above.
+  /// This call has no effects on Android API levels below 23.
+  Future<void> triggerHeavyImpactHaptic() async => HapticFeedback.heavyImpact();
 
-  /// Provides a haptic feedback corresponding a collision impact with [PhysicFeedbackIntensity] mass.
-  /* void physicFeedback() {
-    if (Flu.appSettings.enablePhysicFeedback) {
-      switch (Flu.appSettings.physicFeedbackIntensity) {
-        case PhysicFeedbackIntensity.light:
-          lightImpactHaptic();
-          break;
-        case PhysicFeedbackIntensity.normal:
-          selectionClickHaptic();
-          break;
-        case PhysicFeedbackIntensity.medium:
-          mediumImpactHaptic();
-          break;
-        case PhysicFeedbackIntensity.heavy:
-          heavyImpactHaptic();
-          break;
-      }
-    }
-  } */
-
-  /// Verify if the [value] is a correct phone number based on the selected region.
-  Future<bool> validatePhoneNumber(String value, String countryCode) async {
-    return await phoneNumber.validate(value, regionCode: countryCode);
-    // .catchError((error, stackTrace) => Future.error('Invalid phone number'));
-  }
+  /// Verify if the [value] is a correct
+  /// phone number based on the selected region.
+  Future<bool> validatePhoneNumber(String value, String countryCode) async =>
+      phoneNumber
+          .validate(value, regionCode: countryCode)
+          .onError((error, stackTrace) => false);
 
   /// Verify if the [email] is correct.
   /// TODO validate email
-  Future<bool> validateEmail(String email) async {
-    return false;
-  }
+  Future<bool> validateEmail(String email) async => throw UnimplementedError();
 
+  /// Decodes base64 or base64url encoded bytes.
   Uint8List dataFromBase64String(String base64String) =>
       base64Decode(base64String);
 }

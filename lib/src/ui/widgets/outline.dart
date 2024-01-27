@@ -1,11 +1,13 @@
+import 'package:flukit/utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/gradient_borders.dart';
-import '../../../utils.dart';
 
 /// Create a border around the `child`.
 class FluOutline extends StatelessWidget {
   const FluOutline({
-    Key? key,
+    required this.child,
+    super.key,
     this.thickness = 1.5,
     this.cornerRadius = 18,
     this.gap = 2,
@@ -16,12 +18,12 @@ class FluOutline extends StatelessWidget {
     this.gradientBegin = Alignment.topLeft,
     this.gradientEnd = Alignment.bottomRight,
     this.circle = false,
-    required this.child,
-  }) : super(key: key);
+  });
 
   final BorderRadius? borderRadius;
   final List<BoxShadow>? boxShadow;
   final Widget child;
+  final bool circle;
   final List<Color> colors;
   final double cornerRadius;
   final double gap;
@@ -29,7 +31,49 @@ class FluOutline extends StatelessWidget {
   final Alignment gradientEnd;
   final EdgeInsets margin;
   final double thickness;
-  final bool circle;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty<BorderRadius?>('borderRadius', borderRadius))
+      ..add(IterableProperty<BoxShadow>('boxShadow', boxShadow))
+      ..add(IterableProperty<Color>('colors', colors))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DoubleProperty('gap', gap))
+      ..add(DiagnosticsProperty<Alignment>('gradientBegin', gradientBegin))
+      ..add(DiagnosticsProperty<Alignment>('gradientEnd', gradientEnd))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DoubleProperty('thickness', thickness))
+      ..add(DiagnosticsProperty<bool>('circle', circle))
+      ..add(IterableProperty<BoxShadow>('boxShadow', boxShadow))
+      ..add(IterableProperty<Color>('colors', colors))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DoubleProperty('gap', gap))
+      ..add(DiagnosticsProperty<Alignment>('gradientBegin', gradientBegin))
+      ..add(DiagnosticsProperty<Alignment>('gradientEnd', gradientEnd))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DoubleProperty('thickness', thickness))
+      ..add(DiagnosticsProperty<bool>('circle', circle))
+      ..add(IterableProperty<BoxShadow>('boxShadow', boxShadow))
+      ..add(IterableProperty<Color>('colors', colors))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DoubleProperty('gap', gap))
+      ..add(DiagnosticsProperty<Alignment>('gradientBegin', gradientBegin))
+      ..add(DiagnosticsProperty<Alignment>('gradientEnd', gradientEnd))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DoubleProperty('thickness', thickness))
+      ..add(DiagnosticsProperty<bool>('circle', circle))
+      ..add(IterableProperty<BoxShadow>('boxShadow', boxShadow))
+      ..add(IterableProperty<Color>('colors', colors))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DoubleProperty('gap', gap))
+      ..add(DiagnosticsProperty<Alignment>('gradientBegin', gradientBegin))
+      ..add(DiagnosticsProperty<Alignment>('gradientEnd', gradientEnd))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DoubleProperty('thickness', thickness))
+      ..add(DiagnosticsProperty<bool>('circle', circle));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +81,10 @@ class FluOutline extends StatelessWidget {
 
     if (colors.length <= 1) {
       border = Border.all(
-          color: colors.isEmpty
-              ? context.colorScheme.surfaceVariant
-              : colors.first,
-          width: thickness);
+        color:
+            colors.isEmpty ? context.colorScheme.surfaceVariant : colors.first,
+        width: thickness,
+      );
     } else {
       border = GradientBoxBorder(
         gradient: LinearGradient(

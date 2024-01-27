@@ -1,3 +1,6 @@
-include: package:flutter_lints/flutter.yaml
+# include: package:flutter_lints/flutter.yaml
+# Using austerity instead of flutter_lints to enforce linting rules.
+# https://pub.dev/packages/austerity
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
+include: package:austerity/analysis_options.yaml

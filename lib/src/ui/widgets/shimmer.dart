@@ -1,12 +1,13 @@
 import 'package:flukit/flukit.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class Skeleton extends StatelessWidget {
   const Skeleton({
-    super.key,
     required this.height,
     required this.width,
+    super.key,
     this.cornerRadius = 0,
     this.shimmer = false,
     this.rounded = false,
@@ -16,13 +17,6 @@ class Skeleton extends StatelessWidget {
     this.margin = EdgeInsets.zero,
   });
 
-  final double height, width, cornerRadius;
-  final Color? color;
-  final LinearGradient gradient;
-  final bool rounded, shimmer;
-  final ShimmerDirection shimmerDirection;
-  final EdgeInsets margin;
-
   factory Skeleton.square({
     required double size,
     double cornerRadius = 0,
@@ -30,7 +24,6 @@ class Skeleton extends StatelessWidget {
     LinearGradient gradient = _kDefaultShimmerGradient,
     bool shimmer = false,
     bool rounded = false,
-    ShimmerDirection shimmerDirection = ShimmerDirection.ltr,
     EdgeInsets margin = EdgeInsets.zero,
   }) =>
       Skeleton(
@@ -44,12 +37,65 @@ class Skeleton extends StatelessWidget {
         margin: margin,
       );
 
+  final Color? color;
+  final double height, width, cornerRadius;
+  final LinearGradient gradient;
+  final EdgeInsets margin;
+  final bool rounded, shimmer;
+  final ShimmerDirection shimmerDirection;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(ColorProperty('color', color))
+      ..add(DoubleProperty('height', height))
+      ..add(DoubleProperty('width', width))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DiagnosticsProperty<LinearGradient>('gradient', gradient))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DiagnosticsProperty<bool>('rounded', rounded))
+      ..add(DiagnosticsProperty<bool>('shimmer', shimmer))
+      ..add(
+        EnumProperty<ShimmerDirection>('shimmerDirection', shimmerDirection),
+      )
+      ..add(DoubleProperty('height', height))
+      ..add(DoubleProperty('width', width))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DiagnosticsProperty<LinearGradient>('gradient', gradient))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DiagnosticsProperty<bool>('rounded', rounded))
+      ..add(DiagnosticsProperty<bool>('shimmer', shimmer))
+      ..add(
+        EnumProperty<ShimmerDirection>('shimmerDirection', shimmerDirection),
+      )
+      ..add(DoubleProperty('height', height))
+      ..add(DoubleProperty('width', width))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DiagnosticsProperty<LinearGradient>('gradient', gradient))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DiagnosticsProperty<bool>('rounded', rounded))
+      ..add(DiagnosticsProperty<bool>('shimmer', shimmer))
+      ..add(
+        EnumProperty<ShimmerDirection>('shimmerDirection', shimmerDirection),
+      )
+      ..add(DoubleProperty('height', height))
+      ..add(DoubleProperty('width', width))
+      ..add(DoubleProperty('cornerRadius', cornerRadius))
+      ..add(DiagnosticsProperty<LinearGradient>('gradient', gradient))
+      ..add(DiagnosticsProperty<EdgeInsets>('margin', margin))
+      ..add(DiagnosticsProperty<bool>('rounded', rounded))
+      ..add(DiagnosticsProperty<bool>('shimmer', shimmer))
+      ..add(
+        EnumProperty<ShimmerDirection>('shimmerDirection', shimmerDirection),
+      );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final BorderRadius borderRadius =
-        BorderRadius.circular(rounded ? 50 : cornerRadius);
+    final borderRadius = BorderRadius.circular(rounded ? 50 : cornerRadius);
 
-    final Widget child = shimmer
+    final child = shimmer
         ? Shimmer(
             gradient: gradient,
             direction: shimmerDirection,
@@ -92,7 +138,6 @@ const _kDefaultShimmerGradient = LinearGradient(
     0.3,
     0.4,
   ],
-  begin: Alignment(-1.0, -0.3),
-  end: Alignment(1.0, 0.3),
-  tileMode: TileMode.clamp,
+  begin: Alignment(-1, -0.3),
+  end: Alignment(1, 0.3),
 );

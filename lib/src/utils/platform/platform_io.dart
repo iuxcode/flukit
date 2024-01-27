@@ -1,20 +1,29 @@
 import 'dart:io';
 
+/// Determine on Which OS the app is running
 class GeneralPlatform {
-  static bool get isWeb => false;
+  /// Whether the app is running in a web navigator
+  bool get isWeb => false;
 
-  static bool get isMacOS => Platform.isMacOS;
+  /// Whether the operating system is a version of macOS.
+  bool get isMacOS => Platform.isMacOS;
 
-  static bool get isWindows => Platform.isWindows;
+  /// Whether the operating system is a version of Windows.
+  bool get isWindows => Platform.isWindows;
 
-  static bool get isLinux => Platform.isLinux;
+  /// Whether the operating system is a version of Linux.
+  bool get isLinux => Platform.isLinux;
 
-  static bool get isAndroid => Platform.isAndroid;
+  /// Whether the operating system is a version of Android.
+  bool get isAndroid => Platform.isAndroid;
 
-  static bool get isIOS => Platform.isIOS;
+  /// Whether the operating system is a version of IOS.
+  bool get isIOS => Platform.isIOS;
 
-  static bool get isFuchsia => Platform.isFuchsia;
+  /// Whether the operating system is a version of Fuchsia.
+  bool get isFuchsia => Platform.isFuchsia;
 
-  static bool get isDesktop =>
+  /// Whether the operating system is a desktop OS.
+  bool get isDesktop =>
       Platform.isMacOS || Platform.isWindows || Platform.isLinux;
 }
