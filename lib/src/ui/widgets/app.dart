@@ -48,6 +48,7 @@ class FluMaterialApp extends StatefulWidget {
     this.restorationScopeId,
     this.scrollBehavior,
     this.useInheritedMediaQuery = false,
+    this.showNavigationLogs = false,
   });
 
   /// App pages. Routes will be created automatically.
@@ -462,6 +463,10 @@ class FluMaterialApp extends StatefulWidget {
 
   /// {@macro flutter.widgets.widgetsApp.useInheritedMediaQuery}
   final bool useInheritedMediaQuery;
+
+  /// Set to true to display logs about navigation
+  /// ie: [log] GOING TO ROUTE /otp with args: ...
+  final bool showNavigationLogs;
 
   @override
   State<FluMaterialApp> createState() => _FluMaterialAppState();
@@ -1094,7 +1099,10 @@ class _FluMaterialAppState extends State<FluMaterialApp> {
           ),
         ],
         onUnknownRoute: widget.onUnknownRoute,
-        navigatorObservers: [FluNavObserver(), ...widget.navigatorObservers],
+        navigatorObservers: [
+          if (widget.showNavigationLogs) FluNavObserver(),
+          ...widget.navigatorObservers
+        ],
         builder: widget.builder,
         title: widget.title,
         onGenerateTitle: widget.onGenerateTitle,
