@@ -12,6 +12,7 @@ export 'src/utils/ui.dart';
 /// standard dart types that contains it.
 ///
 /// This is here to for the 'DRY'
+// ignore: inference_failure_on_untyped_parameter
 bool? _isEmpty(value) {
   if (value is String) {
     return value.trim().isEmpty;
@@ -30,6 +31,7 @@ bool? _isEmpty(value) {
 /// standard dart types that contains it.
 ///
 /// This is here to for the 'DRY'
+// ignore: inference_failure_on_untyped_parameter
 bool _hasLength(value) => value is Iterable || value is String || value is Map;
 
 /// Obtains a length of a dynamic value
@@ -42,6 +44,7 @@ bool _hasLength(value) => value is Iterable || value is String || value is Map;
 /// Note 2: **this may return null!**
 ///
 /// Note 3: null [value] returns null.
+// ignore: inference_failure_on_untyped_parameter
 int? _obtainDynamicLength(value) {
   if (value == null) {
     // ignore: avoid_returning_null
@@ -65,6 +68,7 @@ int? _obtainDynamicLength(value) {
   return null;
 }
 
+/// Provide utilities functions
 class FluUtils {
   FluUtils._();
 
@@ -314,6 +318,7 @@ class FluUtils {
 
   /// Checks if length of data is GREATER than maxLength.
   // ignore: type_annotate_public_apis
+// ignore: inference_failure_on_untyped_parameter, type_annotate_public_apis
   static bool isLengthGreaterThan(value, int maxLength) {
     final length = _obtainDynamicLength(value);
 
@@ -405,7 +410,8 @@ class FluUtils {
   /// Checks if num a EQUAL than num b.
   static bool isEqual(num a, num b) => a == b;
 
-  //Check if num is a cnpj
+  /// Check if num is a cnpj
+// ignore: inference_failure_on_untyped_parameter
   static bool isCnpj(String cnpj) {
     // Obter somente os números do CNPJ
     final numbers = cnpj.replaceAll(RegExp('[^0-9]'), '');
@@ -640,9 +646,11 @@ class FluUtils {
     return finalResult;
   }
 
+  /// Checks whether this regular expression has a match in the [value]
   static bool hasMatch(String value, String pattern) =>
       RegExp(pattern).hasMatch(value);
 
+  /// Create navigation path
   static String createPath(String path, [Iterable<dynamic>? segments]) {
     if (segments == null || segments.isEmpty) {
       return path;

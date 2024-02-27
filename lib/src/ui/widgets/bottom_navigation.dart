@@ -27,6 +27,8 @@ class FluBottomNavBarStyle {
     this.type = FluBottomNavBarTypes.flat,
     this.unSelectedForegroundColor,
     this.border,
+    this.iconStyle = FluIconStyles.twotone,
+    this.selectedIconStyle,
   });
 
   final Color? backgroundColor;
@@ -39,6 +41,8 @@ class FluBottomNavBarStyle {
   final EdgeInsets? padding;
   final FluBottomNavBarTypes type;
   final Color? unSelectedForegroundColor;
+  final FluIconStyles? selectedIconStyle;
+  final FluIconStyles iconStyle;
 }
 
 /// Creates a bottom navigation bar which is typically
@@ -162,6 +166,9 @@ class _FluBottomNavBarState extends State<FluBottomNavBar> {
             color: isSelected ? foregroundColor : unSelectedForegroundColor,
             iconSize: widget.style.iconSize,
             iconStrokeWidth: widget.style.iconStrokeWidth,
+            iconStyle: isSelected && widget.style.selectedIconStyle != null
+                ? widget.style.selectedIconStyle!
+                : widget.style.iconStyle,
           );
         }).toList(),
       ),
@@ -251,12 +258,14 @@ class _NavItem extends StatelessWidget {
     required this.onTap,
     required this.color,
     required this.iconSize,
+    required this.iconStyle,
     required this.iconStrokeWidth,
     super.key,
   });
 
   final Color color;
   final double iconSize;
+  final FluIconStyles iconStyle;
   final double iconStrokeWidth;
   final FluBottomNavBarItem item;
   final VoidCallback onTap;
@@ -281,7 +290,8 @@ class _NavItem extends StatelessWidget {
       ..add(DoubleProperty('iconSize', iconSize))
       ..add(DoubleProperty('iconStrokeWidth', iconStrokeWidth))
       ..add(DiagnosticsProperty<FluBottomNavBarItem>('item', item))
-      ..add(ObjectFlagProperty<VoidCallback>.has('onTap', onTap));
+      ..add(ObjectFlagProperty<VoidCallback>.has('onTap', onTap))
+      ..add(EnumProperty<FluIconStyles>('iconStyle', iconStyle));
   }
 
   @override
@@ -290,6 +300,7 @@ class _NavItem extends StatelessWidget {
           item.icon,
           onPressed: onTap,
           iconSize: iconSize,
+          iconStyle: iconStyle,
           iconStrokeWidth: iconStrokeWidth,
           backgroundColor: Colors.transparent,
           foregroundColor: color,

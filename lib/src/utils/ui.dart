@@ -3,7 +3,8 @@ import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-extension U on FluInterface {
+/// Provide UI utilities
+extension UI on FluInterface {
   /// Hide the keyboard
   Future<void> hideKeyboard() async {
     await SystemChannels.textInput.invokeMethod('TextInput.hide');
@@ -90,7 +91,11 @@ extension U on FluInterface {
       );
 }
 
+/// Avatar assets types
 enum FluAvatarTypes {
+  /// Use material design 3D avatars
   material3D,
+
+  /// Use Memojis avatars
   memojis,
 }
