@@ -465,7 +465,7 @@ class FluMaterialApp extends StatefulWidget {
   final bool useInheritedMediaQuery;
 
   /// Set to true to display logs about navigation
-  /// ie: [log] GOING TO ROUTE /otp with args: ...
+  /// ie: GOING TO ROUTE /otp with args: ...
   final bool showNavigationLogs;
 
   @override
@@ -1101,7 +1101,7 @@ class _FluMaterialAppState extends State<FluMaterialApp> {
         onUnknownRoute: widget.onUnknownRoute,
         navigatorObservers: [
           if (widget.showNavigationLogs) FluNavObserver(),
-          ...widget.navigatorObservers
+          ...widget.navigatorObservers,
         ],
         builder: widget.builder,
         title: widget.title,
