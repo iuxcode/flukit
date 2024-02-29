@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 export 'package:flukit_icons/flukit_icons.dart';
-export 'package:geolocator/geolocator.dart' show LocationPermission, Position;
+// export 'package:geolocator/geolocator.dart' show LocationPermission, Position;
 
 export 'nav.dart';
 export 'screens.dart';
