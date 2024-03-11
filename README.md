@@ -1,4 +1,7 @@
-# Flukit (pre-alpha)
+# Flukit
+
+**⚠️⚠️⚠️ Archive Notice: Important Update**
+The main Flukit package is now archived. While you can still use it, it's no longer actively maintained. We recommend exploring alternative solutions for new projects or migrating existing ones to other Flukit packages like [flukit_core](https://github.com/iuxcode/flukit_core), [flukit_widgets](https://github.com/iuxcode/flukit_widgets), [flukit_navigation](https://github.com/iuxcode/flukit_navigation), and [flukit_utils](https://github.com/iuxcode/flukit_utils).
 
 Flukit is a versatile and easy-to-use Flutter mini framework inspired by [Get](https://pub.dev/packages/get) that simplifies app development. With Flukit, you can easily manage routing, theming, and utilities, as well as take advantage of pre-designed widgets and shortcuts to streamline your Flutter projects.
 
