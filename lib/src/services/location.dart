@@ -1,4 +1,4 @@
-import 'package:flukit/flukit.dart';
+/* import 'package:flukit/flukit.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -88,3 +88,4 @@ class FluPosition {
   final List<Placemark> placemarks;
   final Position position;
 }
+ */
